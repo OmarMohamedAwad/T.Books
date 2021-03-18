@@ -22,9 +22,4 @@ app.use((req,res,next)=>{
             }
         })
     }
-    else
-    {
-        console.log("second") 
-        next();
-    } 
 });
