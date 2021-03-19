@@ -6,6 +6,7 @@ const Admin = require("../../admin/models/Admin")
 async function adminLogin(request, response, next) {
     const accessRequest = request.body
     try {
+        
         const admin = await Admin.findOne({ adminName: accessRequest.adminName })
         if (!admin) {
             next("no such admin") 
