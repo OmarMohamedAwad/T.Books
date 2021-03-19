@@ -8,7 +8,7 @@ async function adminLogin(request, response, next) {
     try {
         const admin = await Admin.findOne({ adminName: accessRequest.adminName })
         if (!admin) {
-            next("no such admin")
+            next("no such admin") 
         }
         const match = await bcrypt.compare(accessRequest.password, admin.adminPassword);
     
