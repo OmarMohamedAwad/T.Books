@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
 const adminSchema = mongoose.Schema({
-    user_name: { type: String, unique: true, minLength: 4, required: true },
-    password: { type: String , minLength: 6, required: true},
+    adminName: { type: String, unique: true, minLength: 4, required: true },
+    adminPassword: { type: String , minLength: 6, required: true}
 })
 
 adminSchema.pre('save', async function(next){

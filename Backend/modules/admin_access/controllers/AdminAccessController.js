@@ -6,11 +6,11 @@ const Admin = require("../../admin/models/Admin")
 async function adminLogin(request, response, next) {
     const accessRequest = request.body
     try {
-        const admin = await Admin.findOne({ user_name: accessRequest.user_name })
+        const admin = await Admin.findOne({ adminName: accessRequest.adminName })
         if (!admin) {
             next("no such admin")
         }
-        const match = await bcrypt.compare(accessRequest.password, admin.password);
+        const match = await bcrypt.compare(accessRequest.password, admin.adminPassword);
     
         if(!match) {
             next("password is wrong");
