@@ -1,6 +1,6 @@
 const Author = require("../../author/models/Author")
 const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-massege")
+const ResponseMessage = require("../../../responses-message")
 
 async function index(request, response, next) {
     try {
