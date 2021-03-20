@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const authorShcema = new mongoose.Schema({
     autherFirstName: {type: String, minLength: 2, required: true, maxLength: 50},
     autherLastName: {type: String, minLength: 2, required: true, maxLength: 50},
-    autjorDob: {type: Date, required: true},
+    authorDob: {type: Date, required: true},
     authorImage: {type: String},
     authorBooks: [{type: mongoose.Schema.Types.ObjectId, ref: "Book"}],     
 });
