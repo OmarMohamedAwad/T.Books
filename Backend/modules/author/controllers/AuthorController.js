@@ -1,5 +1,6 @@
 const Author = require("../../author/models/Author")
 const ResponseCode = require("../../../responses-code")
+const ResponseMessage = require("../../../responses-massege")
 
 async function index(request, response, next) {
     try {
@@ -25,12 +26,13 @@ async function store(request, response, next) {
         response.json(savedAuthor)
     }catch (error){
         if (error.name === "ValidationError") {
-            let errors = {};
+            let errorsMessage = {};
       
             Object.keys(error.errors).forEach((key) => {
-              errors[key] = error.errors[key].message;
+                errorsMessage[key] = error.errors[key].message;
             });
-            return next(errors);
+
+            response.json(errorsMessage);
         }
         next(ResponseCode.SERVER_ERROR)
     }
@@ -46,8 +48,19 @@ async function show(request, response, next) {
     }
 }
 
+async function destroy(request, response, next) {
+    const { id } = request.params
+    try {
+        const author = await Author.deleteOne({_id: id})
+        response.json({message: ResponseMessage.DELETE_MESSAGE})
+    }catch(error) {
+        next(ResponseCode.SERVER_ERROR)
+    }
+}
+
 module.exports = {
     index,
     store,
-    show
+    show,
+    destroy
 }
