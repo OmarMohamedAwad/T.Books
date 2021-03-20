@@ -11,4 +11,8 @@ autherRouter.post("/", async (request, response, next)=> {
     AutherAccessController.store(request, response, next);
 })
 
+autherRouter.get("/:id",async (request, response, next)=> {
+    AutherAccessController.show(request, response, next);
+})
+
 module.exports = autherRouter;

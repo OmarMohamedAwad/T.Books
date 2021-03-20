@@ -3,8 +3,8 @@ const ResponseCode = require("../../../responses-code")
 
 async function index(request, response, next) {
     try {
-        const author = Author.find({});
-        response.json(Author)
+        const authors = await Author.find();
+        response.json(authors)
     } catch (error) {
         next(ResponseCode.SERVER_ERROR)
     }  
@@ -24,7 +24,6 @@ async function store(request, response, next) {
         const savedAuthor = await author.save()
         response.json(savedAuthor)
     }catch (error){
-        console.log(error);
         if (error.name === "ValidationError") {
             let errors = {};
       
@@ -37,7 +36,18 @@ async function store(request, response, next) {
     }
 }
 
+async function show(request, response, next) {
+    const { id } = request.params
+    try {
+        const author = await Author.findById(id);
+        response.json(author)
+    } catch (error) {
+        next(ResponseCode.SERVER_ERROR)
+    }
+}
+
 module.exports = {
     index,
-    store
+    store,
+    show
 }
