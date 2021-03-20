@@ -10,7 +10,7 @@ adminSchema.pre('save', async function(next){
     if (this.isNew) {
         try
         {
-            this.password = hashPassword(this.password);
+            this.adminPassword = hashPassword(this.adminPassword);
         }
         catch(error)
         {
