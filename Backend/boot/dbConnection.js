@@ -6,7 +6,8 @@ const MONGODB_URL = process.env.MONGODB_URL
 mongoose.connect(MONGODB_URL,{ 
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
     },(error)=>{
         if (error) console.log(error);
         else console.log("Connected to DB");  

@@ -33,8 +33,9 @@ async function store(request, response, next) {
             });
 
             response.json(errorsMessage);
+        }else {
+            next(ResponseCode.SERVER_ERROR)
         }
-        next(ResponseCode.SERVER_ERROR)
     }
 }
 
@@ -58,9 +59,38 @@ async function destroy(request, response, next) {
     }
 }
 
+async function update(request, response, next) {
+    const { id } = request.params;
+    const author = request.body
+    const updatedAuther = {
+        ...(author.first_name ? { autherFirstName: author.first_name } : {}),
+        ...(author.last_name ? { autherLastName: author.last_name } : {}),
+        ...(author.dob ? { dob: author.dob } : {}),
+        ...(author.image ? { authorImage: author.image } : {}),
+    }
+
+    try {
+        await Author.findByIdAndUpdate({ _id: id }, updatedAuther)
+        response.json({message: ResponseMessage.UPDATE_MESSAGE})
+    }catch(error){
+        if (error.name === "ValidationError") {
+            let errorsMessage = {};
+      
+            Object.keys(error.errors).forEach((key) => {
+                errorsMessage[key] = error.errors[key].message;
+            });
+
+            response.json(errorsMessage);
+        }else {
+            next(ResponseCode.SERVER_ERROR)
+        }
+    }
+}
+
 module.exports = {
     index,
     store,
     show,
-    destroy
+    destroy,
+    update
 }

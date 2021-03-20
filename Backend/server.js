@@ -49,7 +49,7 @@ app.use("/userlogin" , UserAccess);
 })*/
 
 //end point for author
-app.use("/user/author" , Author);
+app.use("/author" , Author);
 
 
 //end point for admin login
