@@ -1,9 +1,10 @@
-
 require("./boot/requires");
+require('./boot/dbConnection')
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const UserAccess = require("./modules/user_access/routes/UserAccessRoutes");
 const AdminAccess = require("./modules/admin_access/routes/AdminAccessRoute");
+const Admin = require("./modules/admin/routes/AdminRoute");
 
 const app = express();
 
@@ -22,8 +23,7 @@ app.listen(process.env.PORT , (err) => {
 app.use("/userlogin" , UserAccess);
 
 //check on token
-app.use(async (req , res , next) => {
-
+/*app.use(async (req , res , next) => {
     console.log("its the authentication check");
     const bearerHeader = req.headers.authorization; 
     console.log(bearerHeader)
@@ -39,12 +39,15 @@ app.use(async (req , res , next) => {
         {
             next("the user dosen't send right token");
         }
-
     }
     else{
         next("no token yet");
     }
-})
+})*/
+
+//end point for admin
+app.use("/admin" , Admin);
+
 
 //end point for admin login
 app.use("/admin-login" , AdminAccess);
