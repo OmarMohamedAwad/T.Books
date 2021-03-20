@@ -25,23 +25,6 @@ adminSchema.pre('save', async function(next){
     next();
 })
 
-// adminSchema.pre('updateOne', async function(next){
-//     const docToUpdate = await this.model.findOne(this.getQuery());
-//     console.log(this);
-//     console.log(docToUpdate.adminPassword);
-//     try
-//     {
-//         console.log(this.adminPassword);
-//         this.adminPassword = await hashPassword(this.adminPassword);
-//         console.log(this.adminPassword);
-//         console.log("second");
-//     }
-//     catch(error)
-//     {
-//         return next(error);
-//     }
-// })
-
 async function hashPassword(password)
 {
     console.log(password);

@@ -31,16 +31,17 @@ async function store(request, response, next) {
 async function update(request, response, next) {
     const { id } = request.params;
     const admin = request.body
-    const updatedAdmind = {
-        ...(admin.username ? { adminName: admin.username } : {})
-    }
+    const updatedAdmind = {...(admin.username ? { adminName: admin.username } : {})}
 
     try {
         let doc = await Admin.findById({ _id: id });
         await Admin.updateOne({ _id: id }, updatedAdmind)
-        admin.password ? doc.adminPassword =  admin.password  : {};
 
-        doc.save();
+        if(admin.password) {
+            doc.adminPassword =  admin.password;
+            doc.save();
+        }
+         
         response.json({message: ResponseMessage.UPDATE_MESSAGE})
     }catch(error){
         console.log(error);
