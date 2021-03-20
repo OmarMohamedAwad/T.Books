@@ -1,5 +1,6 @@
 
 require("./boot/requires");
+require("./boot/dbConnection");
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const UserAccess = require("./modules/user_access/routes/UserAccessRoutes");
