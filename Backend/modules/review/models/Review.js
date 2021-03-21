@@ -6,6 +6,6 @@ const reviewShcema = new mongoose.Schema({
     reviewBody: {type: String, trim: true, minlength: 4, maxlength: 300}
 });
 
-const reviewModel = mongoose.model("Rating",reviewShcema);
+const reviewModel = mongoose.model("Review",reviewShcema);
 
 module.exports = reviewModel;

@@ -8,17 +8,18 @@ const bookSchema = mongoos.Schema({
         type: String,
         unique: true,
         required: true,
-        minLength: 3,
-        maxLength: 32
+        minLength: [2,"Name must contain at least 2 character"],
+        maxLength: [50,"Name must contain at most 50 character"]
     },
     bookDescription:{
         type: String,
         required: true,
-        minLength:10,
-        maxLength: 150
+        minLength:[10,"Description must contain at least 10 characters"],
+        maxLength: [150,"Description must contain at least 10 characters"]
     },
     bookImage: {
         type: String,
+        required: [true, "Book image is required"]
     },
     bookCategory: {
         type: mongoos.Schema.Types.ObjectId,
@@ -26,18 +27,18 @@ const bookSchema = mongoos.Schema({
     },
     bookAuthor: {
         type: mongoos.Schema.Types.ObjectId,
-        ref: 'authors'
+        ref: 'Author'
     },
     bookReviews:[
         { 
         type: mongoos.Schema.Types.ObjectId,
-        ref: 'reviwes' 
+        ref: 'Review' 
         }
     ],
     bookRatings:[
         { 
         type: mongoos.Schema.Types.ObjectId,
-        ref: 'ratings' 
+        ref: 'Rating' 
         }
     ]
     
