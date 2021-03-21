@@ -14,17 +14,7 @@ async function store(request, response, next) {
         const savedAdmin = await admin.save()
         response.json(savedAdmin)
     }catch (error){
-        if (error.name === "ValidationError") {
-            let errorsMessage = {};
-      
-            Object.keys(error.errors).forEach((key) => {
-                errorsMessage[key] = error.errors[key].message;
-            });
-
-            response.json(errorsMessage);
-        }else {
-            next(ResponseCode.SERVER_ERROR)
-        }
+        next(error)
     }
 }
 
@@ -34,29 +24,21 @@ async function update(request, response, next) {
     const updatedAdmind = {...(admin.username ? { adminName: admin.username } : {})}
 
     try {
-        let doc = await Admin.findById({ _id: id });
+        let adminDoc = await Admin.findById({ _id: id });
         await Admin.updateOne({ _id: id }, updatedAdmind)
 
         if(admin.password) {
-            doc.adminPassword =  admin.password;
-            doc.save();
+            adminDoc.adminPassword =  admin.password;
+            adminDoc.save();
         }
          
-        response.json({message: ResponseMessage.UPDATE_MESSAGE})
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.UPDATE_MESSAGE
+        });
+        
     }catch(error){
-        console.log(error);
-
-        if (error.name === "ValidationError") {
-            let errorsMessage = {};
-      
-            Object.keys(error.errors).forEach((key) => {
-                errorsMessage[key] = error.errors[key].message;
-            });
-
-            response.json(errorsMessage);
-        }else {
-            next(ResponseCode.SERVER_ERROR)
-        }
+        next(error)
     }
 }
 

@@ -1,16 +1,20 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const ValidationMessage = require('../../../validation-messages');
 
 const adminSchema = mongoose.Schema({
     adminName: { 
         type: String,
-        unique: true,
-        minLength: [4,"The admin name must be at least 4 characters"],
-        required: [true,"The admin name is required"] },
+        unique: [true, ValidationMessage.USER_NAME_UNIQUE],
+        minLength: [4,ValidationMessage.USER_NAME_MIN_LENGTH],
+        required: [true, ValidationMessage.USER_NAME_REQUIRED],
+        maxLength: [50,ValidationMessage.USER_NAME_MAX_LENGTH],
+    },
     adminPassword: { 
         type: String,
-        minLength: [6,"The admin password must be at least 6 characters"],
-        required: [true,"The admin password is required"]}
+        minLength: [6, ValidationMessage.PASSWORD_MIN_LENGTH],
+        required: [true, ValidationMessage.PASSWORD_REQUIRED]
+    }
 })
 
 adminSchema.pre('save', async function(next){
