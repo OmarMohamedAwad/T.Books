@@ -25,17 +25,7 @@ async function store(request, response, next) {
         const savedAuthor = await author.save()
         response.json(savedAuthor)
     }catch (error){
-        if (error.name === "ValidationError") {
-            let errorsMessage = {};
-      
-            Object.keys(error.errors).forEach((key) => {
-                errorsMessage[key] = error.errors[key].message;
-            });
-
-            response.json(errorsMessage);
-        }else {
-            next(ResponseCode.SERVER_ERROR)
-        }
+        next(error)
     }
 }
 
@@ -53,7 +43,10 @@ async function destroy(request, response, next) {
     const { id } = request.params
     try {
         const author = await Author.deleteOne({_id: id})
-        response.json({message: ResponseMessage.DELETE_MESSAGE})
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.DELETE_MESSAGE
+        });
     }catch(error) {
         next(ResponseCode.SERVER_ERROR)
     }
@@ -71,19 +64,12 @@ async function update(request, response, next) {
 
     try {
         await Author.findByIdAndUpdate({ _id: id }, updatedAuther)
-        response.json({message: ResponseMessage.UPDATE_MESSAGE})
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.UPDATE_MESSAGE
+        });
     }catch(error){
-        if (error.name === "ValidationError") {
-            let errorsMessage = {};
-      
-            Object.keys(error.errors).forEach((key) => {
-                errorsMessage[key] = error.errors[key].message;
-            });
-
-            response.json(errorsMessage);
-        }else {
-            next(ResponseCode.SERVER_ERROR)
-        }
+        next(error)
     }
 }
 
