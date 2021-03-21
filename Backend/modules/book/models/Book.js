@@ -3,23 +3,27 @@ const mongoos = require('mongoose')
 const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
 
+const ValidationMessage = require("../../../validation-messages")
+
 const bookSchema = mongoos.Schema({
     bookName: {
         type: String,
-        unique: true,
-        required: true,
-        minLength: [2,"Name must contain at least 2 character"],
-        maxLength: [50,"Name must contain at most 50 character"]
+        unique: [true, ValidationMessage.BOOk_NAME_REQUIRED_ERROR_MESSAGE],
+        required: [true, ValidationMessage.BOOk_NAME_REQUIRED_ERROR_MESSAGE],
+        minLength: [2,ValidationMessage.BOOk_NAME_MIN_LENGTH_ERROR_MESSAGE],
+        maxLength: [50,ValidationMessage.BOOk_NAME_MAX_LENGTH_ERROR_MESSAGE]
     },
     bookDescription:{
         type: String,
-        required: true,
-        minLength:[10,"Description must contain at least 10 characters"],
-        maxLength: [150,"Description must contain at least 10 characters"]
+        unique: [true, ValidationMessage.BOOk_DESCRIPTION_REQUIRED_ERROR_MESSAGE],
+        required: [true, ValidationMessage.BOOk_DESCRIPTION_UNIQUE_ERROR_MESSAGE],
+        minLength:[10,ValidationMessage.BOOk_DESCRIPTION_MIN_LENGTH_ERROR_MESSAGE],
+        maxLength: [150,ValidationMessage.BOOk_DESCRIPTION_MAN_LENGTH_ERROR_MESSAGE]
     },
     bookImage: {
         type: String,
-        required: [true, "Book image is required"]
+        unique : [true, ValidationMessage.BOOk_IMAGE_UNIQUE_ERROR_MESSAGE],
+        required: [true, ValidationMessage.BOOk_IMAGE_REQUIRED_ERROR_MESSAGE]
     },
     bookCategory: {
         type: mongoos.Schema.Types.ObjectId,
