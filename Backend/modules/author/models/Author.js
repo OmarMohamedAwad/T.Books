@@ -1,27 +1,37 @@
 const mongoose = require('mongoose');
+const ValidationMessage = require('../../../validation-messages');
 
 const authorShcema = new mongoose.Schema({
     autherFirstName: {
         type: String,
-        minLength: [2, "First Name Must contain at least 2 character"],
-        required: [true, "First Name is requierd"],
-        maxLength: [50, "First Name Must contain at most 50 character"]
+        minLength: [2, ValidationMessage.FIRST_NAME_MIN_LENGTH],
+        required: [true, ValidationMessage.FIRST_NAME_REQUIRED],
+        maxLength: [50, ValidationMessage.FIRST_NAME_MAX_LENGTH]
     },
     autherLastName: {
         type: String,
-        minLength: [2, "Last Name Must contain at least 1 character"],
-        required: [true,"Last Name is requierd"],
-        maxLength:  [50, "Last Name Must contain at most 50 character"]
+        minLength: [2, ValidationMessage.LAST_NAME_MIN_LENGTH],
+        required: [true, ValidationMessage.FIRST_NAME_REQUIRED],
+        maxLength: [50, ValidationMessage.LAST_NAME_MAX_LENGTH]
     },
-    authorDob: { 
+    authorDob: {
         type: Date,
-        required: [true,"Date of Birth is requierd"] },
-    authorImage: { type: String },
-    authorBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
+        required: [true, ValidationMessage.DATE_OF_BIRTH_REQUIRED]
+    },
+    authorImage: {
+        type: String
+    },
+    authorBooks: [{
+        type: mongoose.Schema.Types.ObjectId, ref: "Book"
+    }],
 });
 
 //check that first-last name group are not repeated
-authorShcema.index({ autherFirstName: 1, autherLastName: 1 }, { unique: true });
+authorShcema.index({
+    autherFirstName: 1, autherLastName: 1
+},{ 
+    unique: [true, ValidationMessage.FIRST_LAST_NAME_UNIQUE] 
+});
 
 const Author = mongoose.model("Author", authorShcema);
 
