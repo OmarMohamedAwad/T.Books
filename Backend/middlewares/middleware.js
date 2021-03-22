@@ -1,39 +1,49 @@
+const ResponseCode = require("../responses-code")
 //check on token
-async function typeOfaccess(role){
-
-    console.log("its the authentication check");
+const typeOfaccess = async function (role){
     const bearerHeader = req.headers.authorization; 
-    console.log(bearerHeader)
     if(typeof bearerHeader !== "undefined")
     {
         const bearer = bearerHeader.split(' ')[1];
         req.token = bearer;
-        if(role == ADMIN)
+        switch(role)
         {
-            try{
-                res = await jwt.verify(req.token , ADMIN_ACCESS_TOKEN_SECRET);
-                this.typeOfAccess = admin;
-                next();
-            }
-            catch(error)
-            {
-                next("the admin didn't send right token");
-            }
-        }
-        else if(role == USER)
-        {
-            try{
-                res = await jwt.verify(req.token , USER_ACCESS_TOKEN_SECRET);
-                this.typeOfAccess = user;
-                next();
-            }
-            catch(error)
-            {
-                next("the user didn't send right token");
-            }
+            case ADMIN:
+                try{
+                    res = await jwt.verify(req.token , ADMIN_ACCESS_TOKEN_SECRET);
+                    next();
+                }catch(error){
+                    next(ResponseCode.AUTHENTICATION_ERROR);
+                }
+                break;
+            case USER:
+                try{
+                    res = await jwt.verify(req.token , USER_ACCESS_TOKEN_SECRET);
+                    next();
+                }catch(error){
+                    next(ResponseCode.AUTHENTICATION_ERROR);
+                }
+                break;
+            case ADMIN_USER:
+                try{
+                    res = await jwt.verify(req.token , USER_ACCESS_TOKEN_SECRET);
+                    next();
+                }catch(error){
+                    try{
+                        res = await jwt.verify(req.token , ADMIN_ACCESS_TOKEN_SECRET);
+                        next();
+                    }catch(error){
+                        next(ResponseCode.AUTHENTICATION_ERROR);
+                    }
+                }
+                break;
+            default:
+                //Do Nothing
         }
     }
     else{
         next("no token yet");
     }
 }
+
+module.exports = typeOfaccess;
