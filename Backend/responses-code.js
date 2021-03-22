@@ -1,0 +1,9 @@
+const SERVER_ERROR = 500;
+const VALIDATION_ERROR = 422;
+const SUCCESS = 200
+
+module.exports = {
+    SERVER_ERROR,
+    VALIDATION_ERROR,
+    SUCCESS
+}

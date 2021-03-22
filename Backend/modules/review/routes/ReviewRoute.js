@@ -1,22 +1,22 @@
 const express = require('express');
-const reviewRouter = express.Router();
-
 const ReviewController = require('../controllers/ReviewController')
 
-reviewRouter.get("/:id" , async (req , res , next) => {
-    await ReviewController.reviewGetController(req , res , next);
+const reviewRouter = express.Router();
+
+reviewRouter.get("/:id" , async (request, response, next) => {
+    await ReviewController.show(request, response, next);
 })
 
-reviewRouter.post("/" , async (req , res , next) => {
-    await ReviewController.reviewPostController(req , res , next);
+reviewRouter.post("/" , async (request, response, next) => {
+    await ReviewController.store(request, response, next);
 })
 
-reviewRouter.patch("/:id" , async (req , res , next) => {
-    await ReviewController.reviewPatchController(req , res , next);
+reviewRouter.patch("/:id" , async (request, response, next) => {
+    await ReviewController.update(request, response, next);
 })
 
-reviewRouter.delete("/:id" , async (req , res , next) => {
-    await ReviewController.reviewDeleteController(req , res , next);
+reviewRouter.delete("/:id" , async (request, response, next) => {
+    await ReviewController.destroy(request, response, next);
 })
 
 module.exports = reviewRouter;

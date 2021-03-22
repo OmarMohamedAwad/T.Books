@@ -1,80 +1,76 @@
-const reviewModel = require("../models/Review");
+const Review = require("../models/Review");
+const ResponseCode = require("../../../responses-code")
+const ResponseMessage = require("../../../responses-message")
 
-const reviewGetController = async function (req , res , next){
-    console.log(req.params);
-    console.log("list one user " + req.params.id);
+const show = async function (request, response, next){
+    const { id } = request.params
     try{
 
-        let review = await reviewModel.find({_id: req.params.id}).populate("reviwer").populate("reviewedBook");
-        res.json(review);
+        const review = await Review.findById(id).populate("reviwer").populate("reviewedBook");
+        response.json(review);
     }
-    catch(err)
+    catch(error)
     {
-        next(422)
+        next(ResponseCode.SERVER_ERROR)
     }
 }
 
-const reviewPostController = async function (req , res , next){
-    console.log("create new review");
-    const reviewInstance = new reviewModel({
-        reviwer: req.body.reviwer,
-        reviewedBook: req.body.reviewedBook,
-        reviewBody: req.body.reviewBody,
+const store = async function (request, response, next){
+    const reviewRequest = request.body
+    const review = new Review({
+        reviwer: reviewRequest.reviwer,
+        reviewedBook: reviewRequest.reviewedBook,
+        reviewBody: reviewRequest.reviewBody,
     }) 
 
-    console.log("the review instance is: " + reviewInstance)
-
     try{
-        let review = await reviewInstance.save();
-        console.log("saved instance: " + review);
-        res.json(review);
-    }
-    catch(err)
-    {
-        next(500)
+        const savedReview = await review.save();
+        response.json(savedReview);
+    }catch(error){
+        next(error)
     }
 }
 
-const reviewPatchController = async function (req , res , next){
-    console.log("create updated review id" + req.params.id);
-    const reviewInstance = new reviewModel({
-        ...(req.body.reviwer) ? {reviwer: req.body.reviwer} : {},
-        ...(req.body.reviewedBook) ? {reviewedBook: req.body.reviewedBook} : {},
-        ...(req.body.reviewBody) ? {reviewBody: req.body.reviewBody} : {},
+const update = async function (request, response, next){
+    const { id } = request.params;
+    const review = request.body
+    const updatedReview = new Review({
+        ...(review.reviwer) ? {reviwer: review.reviwer} : {},
+        ...(review.reviewedBook) ? {reviewedBook: review.reviewedBook} : {},
+        ...(review.reviewBody) ? {reviewBody: review.reviewBody} : {},
     }) 
-
-    console.log("the review instance is: " + reviewInstance)
     
     try{
-        let review = await reviewModel.updateOne( {_id: req.params.id} , reviewInstance )
-        console.log("saved instance: " + review);
-        res.json(review);
-    }
-    catch(err)
-    {
-        next("two reasons of errors")
+        const updatedState = await Review.updateOne({ _id: id } , updatedReview) //findByIdAndUpdate
+        console.log("saved instance: " + updatedState);
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.UPDATE_MESSAGE
+        });
+    }catch(errer){
+        next(error)
     }
 }
 
 
-const reviewDeleteController = async function (req , res , next){
-    console.log(req.params.id);
-    console.log("delete review " + req.params.id);
+const destroy = async function (request, response, next){
+    const { id } = request.params
     try{
-        let review = await reviewModel.deleteOne({_id: req.params.id} );
+        const review = await Review.deleteOne({ _id: id });
         console.log("delete status " + review);
-        res.json(review);
-    }
-    catch(err)
-    {
-        next(500)
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.DELETE_MESSAGE
+        });
+    }catch(error){
+        next(error) //next(ResponseCode.SERVER_ERROR)
     }
 }
 
 
 module.exports = {
-    reviewGetController,
-    reviewPostController,
-    reviewPatchController,
-    reviewDeleteController,
-}
+    show,
+    store,
+    destroy,
+    update
+};
