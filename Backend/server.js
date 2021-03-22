@@ -74,38 +74,38 @@ app.listen(process.env.PORT , (err) => {
 //end point for user login
 app.use("/access" , Access);
 
-//check on token
-app.use(async (req , res , next) => {
+// //check on token
+// app.use(async (req , res , next) => {
 
-    console.log("its the authentication check");
-    const bearerHeader = req.headers.authorization; 
-    console.log(bearerHeader)
-    if(typeof bearerHeader !== "undefined")
-    {
-        const bearer = bearerHeader.split(' ')[1];
-        req.token = bearer;
-        try{
-            res = await jwt.verify(req.token , USER_ACCESS_TOKEN_SECRET);
-            this.typeOfAccess = user;
-            next();
-        }
-        catch(err)
-        {
-            try{
-                res = await jwt.verify(req.token , ADMIN_ACCESS_TOKEN_SECRET);
-                this.typeOfAccess = admin;
-                next();
-            }
-            catch(err)
-            {
-                next("the user dosen't send right token");
-            }
-        }
+//     console.log("its the authentication check");
+//     const bearerHeader = req.headers.authorization; 
+//     console.log(bearerHeader)
+//     if(typeof bearerHeader !== "undefined")
+//     {
+//         const bearer = bearerHeader.split(' ')[1];
+//         req.token = bearer;
+//         try{
+//             res = await jwt.verify(req.token , USER_ACCESS_TOKEN_SECRET);
+//             this.typeOfAccess = user;
+//             next();
+//         }
+//         catch(err)
+//         {
+//             try{
+//                 res = await jwt.verify(req.token , ADMIN_ACCESS_TOKEN_SECRET);
+//                 this.typeOfAccess = admin;
+//                 next();
+//             }
+//             catch(err)
+//             {
+//                 next("the user dosen't send right token");
+//             }
+//         }
 
-    }
-    else{
-        next("no token yet");
-    }
-})
+//     }
+//     else{
+//         next("no token yet");
+//     }
+// })
 
 app.use("/review" , reviewRouter);

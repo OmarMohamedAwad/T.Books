@@ -1,6 +1,7 @@
 require('dotenv').config()
 const bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken');
+const ResponseCode = require("../../../responses-code")
 const Admin = require("../../admin/models/Admin")
 const User = require("../../user/models/User");
 
@@ -48,7 +49,7 @@ async function adminAccessController(request, response, next) {
     }
 }
 
-const userAccessController = async function (req , res , next){
+const userAccessController = async function (request, response, next){
     const userRequest = request.body
     try {
         

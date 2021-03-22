@@ -8,8 +8,8 @@ AccessRouter.post("/admin", async (request, response, next)=> {
 })
 
 
-AccessRouter.post("/user" , async (req , res , next) => {
-    await AccessController.userAccessController(req , res , next);
+AccessRouter.post("/user" , async (request, response, next) => {
+    await AccessController.userAccessController(request, response, next);
 })
 
 module.exports = AccessRouter;
