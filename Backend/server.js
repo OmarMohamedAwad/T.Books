@@ -1,13 +1,14 @@
-
 require("./boot/requires");
 require('./boot/dbConnection')
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const UserAccess = require("./modules/user_access/routes/UserAccessRoutes");
 const AdminAccess = require("./modules/admin_access/routes/AdminAccessRoute");
+const Admin = require("./modules/admin/routes/AdminRoute");
 const Author = require("./modules/author/routes/AuthorRoute");
 const ResponseCode = require("./responses-code")
 const ResponseMessage = require("./responses-message")
+
 const app = express();
 
 app.use(express.json());
@@ -26,7 +27,6 @@ app.use("/userlogin" , UserAccess);
 
 //check on token
 /*app.use(async (req , res , next) => {
-
     console.log("its the authentication check");
     const bearerHeader = req.headers.authorization; 
     console.log(bearerHeader)
@@ -42,16 +42,17 @@ app.use("/userlogin" , UserAccess);
         {
             next("the user dosen't send right token");
         }
-
     }
     else{
         next("no token yet");
     }
 })*/
 
+
+app.use("/admin" , Admin);
+
 //end point for author
 app.use("/author" , Author);
-
 
 //end point for admin login
 app.use("/admin-login" , AdminAccess);
@@ -74,8 +75,8 @@ app.use(async (request , response , next) => {
 
         }
     }
-})
 
+})
 
 app.use((error, request, response, next)=>{
     if (error.name === "ValidationError") {
