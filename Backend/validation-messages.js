@@ -28,6 +28,11 @@ const BOOk_DESCRIPTION_MAN_LENGTH_ERROR_MESSAGE = "Book name must contain at mos
 const BOOk_IMAGE_UNIQUE_ERROR_MESSAGE = "Book image must be unique";
 const BOOk_IMAGE_REQUIRED_ERROR_MESSAGE = "Book image is required";
 
+const REVIEW_BODY_MIN_LENGTH = "Review body must contain at least 2 character";
+const REVIEW_BODY_MAX_LENGTH = "Review body must contain at most 300 character";
+const REVIEWER_REQUIRED = "Reviewer id is requierd";
+const REVIEWED_BOOK_REQUIRED = "Reviewed book is requierd";
+
 module.exports = {
     FIRST_NAME_REQUIRED,
     FIRST_NAME_MIN_LENGTH,
@@ -52,5 +57,9 @@ module.exports = {
     BOOk_DESCRIPTION_MIN_LENGTH_ERROR_MESSAGE,
     BOOk_DESCRIPTION_MAN_LENGTH_ERROR_MESSAGE,
     BOOk_IMAGE_UNIQUE_ERROR_MESSAGE,
-    BOOk_IMAGE_REQUIRED_ERROR_MESSAGE 
+    BOOk_IMAGE_REQUIRED_ERROR_MESSAGE, 
+    REVIEWER_REQUIRED,
+    REVIEWED_BOOK_REQUIRED,
+    REVIEW_BODY_MIN_LENGTH,
+    REVIEW_BODY_MAX_LENGTH
 }
