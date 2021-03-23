@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const UserAccess = require("./modules/user_access/routes/UserAccessRoutes");
 const AdminAccess = require("./modules/admin_access/routes/AdminAccessRoute");
 const Admin = require("./modules/admin/routes/AdminRoute");
+const Author = require("./modules/author/routes/AuthorRoute");
+const ResponseCode = require("./responses-code")
+const ResponseMessage = require("./responses-message")
 
 const app = express();
 
@@ -45,9 +48,11 @@ app.use("/userlogin" , UserAccess);
     }
 })*/
 
-//end point for admin
+
 app.use("/admin" , Admin);
 
+//end point for author
+app.use("/author" , Author);
 
 //end point for admin login
 app.use("/admin-login" , AdminAccess);
@@ -69,5 +74,31 @@ app.use(async (request , response , next) => {
             next("the admin dosen't send right token");
 
         }
+    }
+
+})
+
+app.use((error, request, response, next)=>{
+    if (error.name === "ValidationError") {
+        let errorsMessage = {};
+  
+        Object.keys(error.errors).forEach((key) => {
+            errorsMessage[key] = error.errors[key].message;
+        });
+
+        response.json({
+            status: ResponseCode.VALIDATION_ERROR,
+            message: errorsMessage
+        });
+    }else {
+        switch (error) {
+            default:
+                response.json({
+                    status: ResponseCode.SERVER_ERROR,
+                    message: ResponseMessage.SERVER_ERROR_MESSAGE
+                });
+                break;
+        }
+        
     }
 })
