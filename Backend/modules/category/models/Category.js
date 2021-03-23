@@ -10,9 +10,7 @@ const categorySchema = mongoose.Schema({
         required: [true,ValidationMessage.CATEGORY_NAME_REQUIRED] 
     },
     categoryBooks: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'Book',
-        unique:[true,ValidationMessage.CATEGORY_BOOKS_UNIQUE] 
+        type:mongoose.Schema.Types.ObjectId, ref: 'Book'
     }],
     categoryImage:{
         type: String,

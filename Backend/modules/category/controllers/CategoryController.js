@@ -1,81 +1,84 @@
 const Category = require("../../category/models/Category")
-const ResponseCode = require("../../../response-codes")
-const ResponseMessage = require("../../../response-messages")
+const Response_Code = require("../../../response-codes")
+const Response_Msg = require("../../../response-messages")
 
-async function index(request, response, next) {
+async function index(req, res, next) {
     try {
-        const categories = await Category.find();
-        response.json(categories)
-    } catch (error) {
-        next(ResponseCode.SERVER_ERROR)
+        const foundCategories = await Category.find();
+        res.json(foundCategories)
+    } catch (err) {
+        next(Response_Code.SERVER_ERROR)
     }  
 }
 
-async function show(request, response, next) {
-    const {id} = request.params
+async function show(req, res, next) {
+    const {path} = req.params
     try {
-        const category = await Category.findById(id);
-        response.json(category)
-    } catch (error){
-        next(ResponseCode.SERVER_ERROR)
+        const foundCategory = await Category.findById(path);
+        res.json(foundCategory)
+    } catch (err){
+        next(Response_Code.SERVER_ERROR)
     }
 }
 
-async function search(request, response, next) {
-    const {name} = request.params
+async function search(req, res, next) {
+    const {path} = req.params
+    console.log(path)
     try {
-        const categories = await Category.find({name: new RegExp('^'+name+'$', "i")});
-        response.json(categories)
-    } catch (error){
-        next(ResponseCode.SERVER_ERROR)
+        const foundCategories = await Category.find({categoryName: new RegExp(path, "i")});
+        res.json(foundCategories)
+    } catch (err){
+        next(Response_Code.SERVER_ERROR)
     }
 }
 
-async function store(request, response, next) {
-    const categoryRequest = request.body
+async function store(req, res, next) {
+    const categorySavingRequest = req.body
+    //console.log(categorySavingRequest);
     const category = new Category ({
-        categoryName: categoryRequest.name,
-        categoryImage: categoryRequest.image
+        categoryName: categorySavingRequest.name,
+        categoryImage: categorySavingRequest.image
     })
+    /*error multi key*/
     try {
-        const savedCategory = await category.save()
-        response.json(savedCategory)
-    }catch (error){
-        next(error)
+        const newCategory = await category.save()
+        res.json(newCategory)
+    }catch (err){
+        next(err)
     }
 }
 
-async function update(request, response, next) {
-    const {id} = request.params;
-    const category = request.body
-    const updatedCategory = {
+async function update(req, res, next) {
+    const {id} = req.params;
+    const category = req.body
+    const newCategory = {
         ...(category.name ? { categoryName: category.name } : {}),
         ...(category.books ? { categoryBooks: category.books } : {}),
         ...(category.image ? { categoryImage: category.image } : {}),
     }
 
     try {
-        await Category.findByIdAndUpdate({ _id: id }, updatedCategory )
-        response.json({
-            status : ResponseCode.SUCCESS,
-            message: ResponseMessage.UPDATE_MESSAGE
+        await Category.findByIdAndUpdate({ _id: id }, newCategory )
+        res.json({
+            status : Response_Code.SUCCESS,
+            message: Response_Msg.UPDATE_MESSAGE
         });
-    }catch(error){
-        next(error)
+    }catch(err){
+        next(err)
     }
 }
 
 
-async function destroy(request, response, next) {
-    const {id} = request.params
+async function destroy(req, res, next) {
+    const {id} = req.params
     try {
         await Category.deleteOne({_id: id})
-        response.json({
-            status : ResponseCode.SUCCESS,
-            message: ResponseMessage.DELETE_MESSAGE
+        res.json({
+            status : Response_Code.SUCCESS,
+            message: Response_Msg.DELETE_MESSAGE
         });
-    }catch(error) {
-        next(ResponseCode.SERVER_ERROR)
+    }catch(err) {
+        next(Response_Code.SERVER_ERROR)
     }
 }
 
