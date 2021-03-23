@@ -1,6 +1,6 @@
 const ErrorResponse = require('../../../helpers/errorResponse');
 const User = require("../../user/models/User")
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const bookModel = require('../../book/models/Book');
 const reviewModel = require('../../review/models/Review');
 const ratingModel = require('../../rating/models/Rating');

@@ -3,7 +3,7 @@ const ValidationMessage = require('../../../validation-messages');
 const User = require("../../user/models/User");
 const Book = require("../../book/models/Book")
 
-const reviewModel = mongoose.model("Review",reviewShcema);
+const reviewShcema = mongoose.Schema({
     reviwer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

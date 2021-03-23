@@ -15,7 +15,8 @@ const Access = require("./modules/access/routes/AccessRoutes");
 const reviewRouter = require('./modules/review/routes/ReviewRoute');
 
 const UserRouter = require("./modules/user/routes/UserRoute");
-const userRouter = require("./modules/user/routes/UserRoute");
+
+const categoryRouter = require('./modules/category/routes/CategoryRoute')
 
 const app = express();
 
@@ -32,7 +33,7 @@ app.use("/admin" , Admin);
 app.use("/author" , Author);
 
 //end point for user
-app.use("/users" , userRouter);
+app.use("/users" , UserRouter);
 
 //end point for access
 app.use("/access" , Access);
@@ -40,39 +41,15 @@ app.use("/access" , Access);
 //end point for review
 app.use("/review" , reviewRouter);
 
+//end point for category
+app.use("/category" , categoryRouter);
+
 app.listen(process.env.PORT , (err) => {
     if(err)
         console.log("the port " + process.env.PORT  + " is busy");
     else
-        console.log("thse server started correcttly on port " + process.env.PORT );
+        console.log("the server started correcttly on port " + process.env.PORT );
 });
-
-
 
 // error handeler middleware
 app.use(errorHandler);
-
-app.use((error, request, response, next)=>{
-    if (error.name === "ValidationError") {
-        let errorsMessage = {};
-  
-        Object.keys(error.errors).forEach((key) => {
-            errorsMessage[key] = error.errors[key].message;
-        });
-
-        response.json({
-            status: ResponseCode.VALIDATION_ERROR,
-            message: errorsMessage
-        });
-    }else {
-        switch (error) {
-            default:
-                response.json({
-                    status: ResponseCode.SERVER_ERROR,
-                    message: ResponseMessage.SERVER_ERROR_MESSAGE
-                });
-                break;
-        }
-        
-    }
-})
