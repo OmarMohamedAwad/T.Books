@@ -1,70 +1,55 @@
-
 require("./boot/requires");
+require('./boot/dbConnection');
+
 const express = require('express');
+const errorHandler = require('./middlewares/error');
 const jwt = require('jsonwebtoken');
-const UserAccess = require("./modules/user_access/routes/UserAccessRoutes");
-const AdminAccess = require("./modules/admin_access/routes/AdminAccessRoute");
+
+const Admin = require("./modules/admin/routes/AdminRoute");
+const Author = require("./modules/author/routes/AuthorRoute");
+const ResponseCode = require("./responses-code")
+const ResponseMessage = require("./responses-message")
+
+const booksRouter = require('./modules/book/routes/BookRoutes')
+const Access = require("./modules/access/routes/AccessRoutes");
+const reviewRouter = require('./modules/review/routes/ReviewRoute');
+
+const UserRouter = require("./modules/user/routes/UserRoute");
+
+const categoryRouter = require('./modules/category/routes/CategoryRoute')
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded( { extended: true } ));
 
+//end point for book
+app.use("/BookRoutes", booksRouter);
+
+//end point for admin
+app.use("/admin" , Admin);
+
+//end point for author
+app.use("/author" , Author);
+
+//end point for user
+app.use("/users" , UserRouter);
+
+//end point for access
+app.use("/access" , Access);
+
+//end point for review
+app.use("/review" , reviewRouter);
+
+//end point for category
+app.use("/category" , categoryRouter);
+
 app.listen(process.env.PORT , (err) => {
     if(err)
         console.log("the port " + process.env.PORT  + " is busy");
     else
-        console.log("thse server started correcttly on port " + process.env.PORT );
+        console.log("the server started correcttly on port " + process.env.PORT );
 });
 
- 
-//end point for user login
-app.use("/userlogin" , UserAccess);
-
-//check on token
-app.use(async (req , res , next) => {
-
-    console.log("its the authentication check");
-    const bearerHeader = req.headers.authorization; 
-    console.log(bearerHeader)
-    if(typeof bearerHeader !== "undefined")
-    {
-        const bearer = bearerHeader.split(' ')[1];
-        req.token = bearer;
-        try{
-            res = await jwt.verify(req.token , USER_ACCESS_TOKEN_SECRET);
-            next();
-        }
-        catch(err)
-        {
-            next("the user dosen't send right token");
-        }
-
-    }
-    else{
-        next("no token yet");
-    }
-})
-
-//end point for admin login
-app.use("/admin-login" , AdminAccess);
-
-//check on token
-app.use(async (request , response , next) => {
-
-    const bearerHeader = request.headers.authorization; 
-
-    if(typeof bearerHeader !== "undefined")
-    {
-        const bearer = bearerHeader.split(' ')[1];
-        request.token = bearer;
-        try{
-            response = await jwt.verify(request.token , process.env.ADMIN_ACCESS_TOKEN_SECRET);
-        }
-        catch(err)
-        {
-            next("the admin dosen't send right token");
-
-        }
-    }
-})
+// error handeler middleware
+app.use(errorHandler);
