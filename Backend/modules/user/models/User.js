@@ -1,41 +1,81 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+var validator = require("email-validator");
+const {required,minLength,unique,maxLength} = require('../validation');
 
 const userSchema = mongoose.Schema({
-    userName: { type: String, unique: true, minLength: 4, required: true },
-    fName: { type: String, required: true, minLength: 4 },
-    lName: { type: String, required: true, minLength: 4 },
-    email: { type: String, unique: true, required: true },
-    userPassword: { type: String , required: true, minLength: 6 },
-    userImage: { type: String },
-    currentlyReadedBooks: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Book' }],
-    wantToReadedBooks: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Book' }],
-    readBooks: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Book' }],
-    userReviews: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Review' }],
-    userRatings: [{ type:mongoose.Schema.Types.ObjectId, ref: 'Rating' }]
+    userName: { 
+        type: String , 
+        unique: [true, unique("User Name")],
+        minLength:[5,minLength(5,"User Name")], 
+        required: [true, required("User Name")],
+        maxLength: [20,maxLength(20,"User Name")],
+    },
+    fName: { 
+        type: String,
+        minLength:[3,minLength(5,"First Name ")], 
+        required: [true, required("First Name")],
+        maxLength: [10,maxLength(10,"First Name ")],
+    },
+    lName: {
+        type: String,
+        minLength:[3,minLength(5,"First Name ")], 
+        required: [true, required("First Name")],
+        maxLength: [10,maxLength(10,"First Name ")],
+    },
+    email: { 
+        type: String,
+        unique: true, 
+        required: true 
+    },
+    userPassword: { 
+        type: String,
+        minLength: [6, minLength(6,"Password ")],
+        required: [true, required("Password")]
+    },
+    userImage: { 
+        type: String
+    },
+    currentlyReadedBooks: [{ 
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Book' 
+    }],
+    wantToReadedBooks: [{
+        type:mongoose.Schema.Types.ObjectId, 
+        ref: 'Book'
+    }],
+    readBooks: [{
+        type:mongoose.Schema.Types.ObjectId, 
+        ref: 'Book'
+    }],
+    userReviews: [{ 
+        type:mongoose.Schema.Types.ObjectId, 
+        ref: 'Review'
+    }],
+    userRatings: [{ 
+        type:mongoose.Schema.Types.ObjectId, 
+        ref: 'Rating'
+    }]
 })
-
-userSchema.pre('save' , async function (next) {
-    if(this.isNew)
+userSchema.pre('save', async function(next){
+    try
     {
-        try
-        {
-            this.password = passwordHash(this.password);
-            emailValidation(this.email);
-        }
-        catch(err)
-        {
-            return next(err);
-        }
+        this.userPassword = await hashPassword(this.userPassword);
+        validator.validate(this.email);
+    }
+    catch(error)
+    {
+        return next(error);
     }
     next();
 })
 
-async function passwordHash(passed)
+async function hashPassword(password)
 {
+    console.log(password);
     let hashedtext
     try{
-        hashedtext = await bcrypt.hash(passwd , 10) 
+        hashedtext = await bcrypt.hash(password , 10) 
     }
     catch(err){
         throw new Error("encription error");
@@ -43,13 +83,7 @@ async function passwordHash(passed)
     return hashedtext;
 }
 
-async function emailValidation(email)
-{
-    //emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4}){1}$/;
-    emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!emailRegex.test(email.text))
-        throw new Error("Invalid Email");
-}
+
 
 const User = mongoose.model("User" , userSchema);
 module.exports = User;
