@@ -1,27 +1,37 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const ValidationMessage = require('../../../validation-messages');
 
 const adminSchema = mongoose.Schema({
-    adminName: { type: String, unique: true, minLength: 4, required: true },
-    adminPassword: { type: String , minLength: 6, required: true}
+    adminName: { 
+        type: String,
+        unique: [true, ValidationMessage.USER_NAME_UNIQUE],
+        minLength: [4,ValidationMessage.USER_NAME_MIN_LENGTH],
+        required: [true, ValidationMessage.USER_NAME_REQUIRED],
+        maxLength: [50,ValidationMessage.USER_NAME_MAX_LENGTH],
+    },
+    adminPassword: { 
+        type: String,
+        minLength: [6, ValidationMessage.PASSWORD_MIN_LENGTH],
+        required: [true, ValidationMessage.PASSWORD_REQUIRED]
+    }
 })
 
 adminSchema.pre('save', async function(next){
-    if (this.isNew) {
-        try
-        {
-            this.adminPassword = hashPassword(this.adminPassword);
-        }
-        catch(error)
-        {
-            return next(error);
-        }
-        next();
+    try
+    {
+        this.adminPassword = await hashPassword(this.adminPassword);
     }
+    catch(error)
+    {
+        return next(error);
+    }
+    next();
 })
 
 async function hashPassword(password)
 {
+    console.log(password);
     let hashedtext
     try{
         hashedtext = await bcrypt.hash(password , 10) 
