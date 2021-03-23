@@ -1,19 +1,29 @@
 const mongoos = require('mongoose')
 
+const authorModel = require('../../author/models/Author')
+const categoryModel = require('../../category/models/Category')
+
+const ValidationMessage = require("../../../validation-messages")
+
 const bookSchema = mongoos.Schema({
     bookName: {
         type: String,
-        unique: true,
-        required: true,
-        minLength:3
+        unique: [true, ValidationMessage.BOOk_NAME_REQUIRED_ERROR_MESSAGE],
+        required: [true, ValidationMessage.BOOk_NAME_REQUIRED_ERROR_MESSAGE],
+        minLength: [2,ValidationMessage.BOOk_NAME_MIN_LENGTH_ERROR_MESSAGE],
+        maxLength: [50,ValidationMessage.BOOk_NAME_MAX_LENGTH_ERROR_MESSAGE]
     },
     bookDescription:{
         type: String,
-        required: true,
-        minLength:10
+        unique: [true, ValidationMessage.BOOk_DESCRIPTION_REQUIRED_ERROR_MESSAGE],
+        required: [true, ValidationMessage.BOOk_DESCRIPTION_UNIQUE_ERROR_MESSAGE],
+        minLength:[10,ValidationMessage.BOOk_DESCRIPTION_MIN_LENGTH_ERROR_MESSAGE],
+        maxLength: [150,ValidationMessage.BOOk_DESCRIPTION_MAN_LENGTH_ERROR_MESSAGE]
     },
     bookImage: {
         type: String,
+        unique : [true, ValidationMessage.BOOk_IMAGE_UNIQUE_ERROR_MESSAGE],
+        required: [true, ValidationMessage.BOOk_IMAGE_REQUIRED_ERROR_MESSAGE]
     },
     bookCategory: {
         type: mongoos.Schema.Types.ObjectId,
@@ -21,22 +31,47 @@ const bookSchema = mongoos.Schema({
     },
     bookAuthor: {
         type: mongoos.Schema.Types.ObjectId,
-        ref: 'authors'
+        ref: 'Author'
     },
     bookReviews:[
         { 
         type: mongoos.Schema.Types.ObjectId,
-        ref: 'reviwes' 
+        ref: 'Review' 
         }
     ],
     bookRatings:[
         { 
         type: mongoos.Schema.Types.ObjectId,
-        ref: 'ratings' 
+        ref: 'Rating' 
         }
     ]
     
    
+})
+
+// saving book in categories and authors
+bookSchema.post('save', async function(){
+    try
+    {
+        const updatingCategories = await categoryModel.findOneAndUpdate({_id: this.bookCategory}, 
+            { $push: { categoryBooks: this._id } })
+        console.log("New book has been added to categorh")
+    }
+    catch(e)
+    {
+        next(new Error("Adding new book to category has failed"))
+    }
+    try
+    {
+        const updatingAuthor = await authorModel.findOneAndUpdate({_id: this.bookAuthor}, 
+            { $push: { authorBooks: this._id } })
+        console.log("New book has been added to author")
+    }
+    catch(e)
+    {
+        next(new Error("Adding new book to author has failed"))
+    } 
+    
 })
 
 var BookModel = mongoos.model('Book', bookSchema);
