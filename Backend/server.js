@@ -1,9 +1,14 @@
-
+require('path');
 require("./boot/requires");
+require('./boot/dbConnection');
 const express = require('express');
+const errorHandler = require('./middlewares/error');
 const jwt = require('jsonwebtoken');
 const UserAccess = require("./modules/user_access/routes/UserAccessRoutes");
 const AdminAccess = require("./modules/admin_access/routes/AdminAccessRoute");
+
+const UserRouter = require("./modules/user/routes/UserRoute");
+const userRouter = require("./modules/user/routes/UserRoute");
 
 const app = express();
 
@@ -16,7 +21,7 @@ app.listen(process.env.PORT , (err) => {
     else
         console.log("thse server started correcttly on port " + process.env.PORT );
 });
-
+/*
  
 //end point for user login
 app.use("/userlogin" , UserAccess);
@@ -46,6 +51,12 @@ app.use(async (req , res , next) => {
     }
 })
 
+*/
+app.use("/users" , userRouter);
+app.use(errorHandler);
+
+
+/*
 //end point for admin login
 app.use("/admin-login" , AdminAccess);
 
@@ -68,3 +79,5 @@ app.use(async (request , response , next) => {
         }
     }
 })
+
+*/
