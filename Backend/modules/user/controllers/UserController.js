@@ -39,6 +39,22 @@ async function show(request, response, next) {
    
 }
 
+async function pagination(request, response, next){
+    try{
+        //page and limit are default value 
+        const { page=1,limit=2} = request.query;
+       
+        const users = await User.find()
+        .sort('userName')
+        .limit(limit *1)
+        .skip((page-1) * limit).exec();   
+        response.send(users);
+    }
+    catch(err){
+        next(err);
+    }
+}
+
 
 async function store(request, response, next) {
   
@@ -139,6 +155,7 @@ async function destroy(req, res,next){
 module.exports = {
     index,
     show,
+    pagination,
     store,
     update,
     destroy
