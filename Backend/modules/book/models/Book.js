@@ -27,7 +27,7 @@ const bookSchema = mongoos.Schema({
     },
     bookCategory: {
         type: mongoos.Schema.Types.ObjectId,
-        ref: 'categories'
+        ref: 'Category'
     },
     bookAuthor: {
         type: mongoos.Schema.Types.ObjectId,
@@ -51,8 +51,10 @@ const bookSchema = mongoos.Schema({
 
 // saving book in categories and authors
 bookSchema.post('save', async function(){
+    console.log("post hock");
     try
     {
+        console.log("post hock");
         const updatingCategories = await categoryModel.findOneAndUpdate({_id: this.bookCategory}, 
             { $push: { categoryBooks: this._id } })
         console.log("New book has been added to categorh")
@@ -73,6 +75,55 @@ bookSchema.post('save', async function(){
     } 
     
 })
+
+// removing book from categorie, author, rating and review 
+bookSchema.post('remove', async function(){
+    console.log("delete");
+    // delete book from author collection
+    try
+    {
+        await authorModel.findOneAndUpdate({}, { $pull: { authorBooks: this._id } })
+        console.log("Author updated successfully - book deleted")
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from category collection
+    try
+    {
+        await categoryModel.findOneAndUpdate({}, { $pull: { categoryBooks: this._id } })
+        console.log("Category updated successfully - book deleted")
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from review collection
+    try
+    {
+        await reviewModel.deleteOne({reviewedBook: this._id});
+        console.log("Reviews updated successfully - book deleted")
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from rating collection
+    try
+    {
+        await ratingModel.deleteOne({ratedBook: this._id});
+        console.log("Ratings updated successfully - book deleted")
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+});
 
 var BookModel = mongoos.model('Book', bookSchema);
 

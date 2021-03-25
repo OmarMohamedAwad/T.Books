@@ -7,8 +7,6 @@ const jwt = require('jsonwebtoken');
 
 const Admin = require("./modules/admin/routes/AdminRoute");
 const Author = require("./modules/author/routes/AuthorRoute");
-const ResponseCode = require("./response-codes")
-const ResponseMessage = require("./response-messages")
 
 const booksRouter = require('./modules/book/routes/BookRoutes')
 const Access = require("./modules/access/routes/AccessRoutes");
@@ -24,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //end point for book
-app.use("/BookRoutes", booksRouter);
+app.use("/book", booksRouter);
 
 //end point for admin
 app.use("/admin", Admin);

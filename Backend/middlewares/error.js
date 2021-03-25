@@ -26,10 +26,10 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // Mongoose duplicate key
-  if (err === ResponseCode.DUBLICATE_KEY) {
-    error = new ErrorResponse(ResponseCode.DUBLICATE_KEY, ResponseMessage.DUBLICATE_KEY_MESSAGE)
-    res.json(error);
-  }
+  // if (err.code === ResponseCode.DUBLICATE_KEY) {
+  //   error = new ErrorResponse(ResponseCode.DUBLICATE_KEY, ResponseMessage.DUBLICATE_KEY_MESSAGE)
+  //   res.json(error);
+  // }
 
   if (error == ResponseCode.SERVER_ERROR) {
     error = new ErrorResponse(ResponseCode.SERVER_ERROR, ResponseMessage.SERVER_ERROR_MESSAGE)
