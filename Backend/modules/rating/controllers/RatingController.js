@@ -1,6 +1,6 @@
 const Rating = require("../../rating/models/Rating")
-const Response_Code = require("../../../responses-code")
-const Response_Msg = require("../../../responses-message")
+const Response_Code = require("../../../response-codes")
+const Response_Msg = require("../../../response-messages")
 
 async function index(req, res, next) {
     try{

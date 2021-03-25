@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const User = require('../../user/models/User')
 const Book = require('../../book/models/Book')
 const ValidationMessage = require('../../../validation-messages');
-const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-message");
+const ResponseCode = require("../../../response-codes")
+const ResponseMessage = require("../../../response-messages");
 
 const ratingShcema = new mongoose.Schema({
     rate: {
@@ -40,6 +40,5 @@ ratingShcema.post('save' , async function (next) {
     }
 })
 
-module.exports = ratingModel;
 const ratingModel = mongoose.model("Rating",ratingShcema);
 module.exports = ratingModel;
