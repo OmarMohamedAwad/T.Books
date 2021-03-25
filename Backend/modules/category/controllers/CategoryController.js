@@ -1,6 +1,6 @@
 const Category = require("../../category/models/Category")
-const Response_Code = require("../../../response-codes")
-const Response_Msg = require("../../../response-messages")
+const Response_Code = require("../../../responses-code")
+const Response_Msg = require("../../../responses-message")
 
 async function index(req, res, next) {
     try {
@@ -14,7 +14,7 @@ async function index(req, res, next) {
 async function show(req, res, next) {
     const {path} = req.params
     try {
-        const foundCategory = await Category.findById(path);
+        const foundCategory = await Category.findById(path).populate("categoryBooks").exec();
         res.json(foundCategory)
     } catch (err){
         next(Response_Code.SERVER_ERROR)

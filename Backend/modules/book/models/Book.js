@@ -2,6 +2,8 @@ const mongoos = require('mongoose')
 
 const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
+const ratingModel = require('../../rating/models/Rating')
+const reviewModel = require('../../review/models/Review')
 
 const ValidationMessage = require("../../../validation-messages")
 
@@ -27,7 +29,7 @@ const bookSchema = mongoos.Schema({
     },
     bookCategory: {
         type: mongoos.Schema.Types.ObjectId,
-        ref: 'categories'
+        ref: 'Category'
     },
     bookAuthor: {
         type: mongoos.Schema.Types.ObjectId,
@@ -45,14 +47,14 @@ const bookSchema = mongoos.Schema({
         ref: 'Rating' 
         }
     ]
-    
-   
 })
 
 // saving book in categories and authors
 bookSchema.post('save', async function(){
+    console.log("post hock");
     try
     {
+        console.log("post hock");
         const updatingCategories = await categoryModel.findOneAndUpdate({_id: this.bookCategory}, 
             { $push: { categoryBooks: this._id } })
         console.log("New book has been added to categorh")
@@ -73,6 +75,54 @@ bookSchema.post('save', async function(){
     } 
     
 })
+
+// removing book from categorie, author, rating and review 
+bookSchema.pre('remove', async function(next){
+
+    // delete book from author collection
+    try
+    {
+        await authorModel.findOneAndUpdate({}, { $pull: { authorBooks: this._id } })
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from category collection
+    try
+    {
+        await categoryModel.findOneAndUpdate({}, { $pull: { categoryBooks: this._id } })
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from review collection
+    try
+    {
+        if(this.bookReviews.length > 0)
+            await reviewModel.deleteMany({reviewedBook: this._id});
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from rating collection
+    try
+    {
+        if(this.bookRatings.length > 0)
+            await ratingModel.deleteMany({ratedBook: this._id});
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // Delete Book From User 
+});
 
 var BookModel = mongoos.model('Book', bookSchema);
 

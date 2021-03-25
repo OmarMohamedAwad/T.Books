@@ -18,5 +18,24 @@ const categorySchema = mongoose.Schema({
     }
 })
 
+categorySchema.pre('deleteOne',async function(){
+    const BookModel = require('../../book/models/Book')
+    try
+    {
+        const deletedCategory = await Category.findById(this._conditions._id)
+        for (const index in deletedCategory.categoryBooks)
+        {
+            //console.log(deletedCategory.categoryBooks[index])
+            await BookModel.findOneAndDelete({_id: deletedCategory.categoryBooks[index]})
+        }
+        console.log("Books deleted successfully")
+    }
+    catch(e)
+    {
+        next(new Error("Deleting books failed"))
+    }
+})
+
+
 const Category = mongoose.model("Category" , categorySchema);
 module.exports = Category;
