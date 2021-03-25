@@ -17,14 +17,14 @@ const reviewRouter = require('./modules/review/routes/ReviewRoute');
 const UserRouter = require("./modules/user/routes/UserRoute");
 
 const categoryRouter = require('./modules/category/routes/CategoryRoute')
-
+const ratingRouter = require('./modules/rating/routes/RatingRoute');
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded( { extended: true } ));
 
 //end point for book
-app.use("/BookRoutes", booksRouter);
+app.use("/book", booksRouter);
 
 //end point for admin
 app.use("/admin" , Admin);
@@ -43,6 +43,9 @@ app.use("/review" , reviewRouter);
 
 //end point for category
 app.use("/category" , categoryRouter);
+
+//end point for rating
+app.use("/rating" , ratingRouter);
 
 app.listen(process.env.PORT , (err) => {
     if(err)
