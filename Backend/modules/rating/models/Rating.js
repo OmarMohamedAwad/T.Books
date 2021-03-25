@@ -1,4 +1,4 @@
-/*const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const ratingShcema = new mongoose.Schema({
     rate: {type: Number, required: true, min: 0, max: 5},
@@ -9,4 +9,4 @@ const ratingShcema = new mongoose.Schema({
 
 const ratingModel = mongoose.model("Rating",ratingShcema);
 
-module.exports = ratingModel;*/
+module.exports = ratingModel;

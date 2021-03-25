@@ -32,7 +32,7 @@ async function store(request, response, next) {
 async function show(request, response, next) {
     const { id } = request.params
     try {
-        const author = await Author.findById(id);
+        const author = await Author.findById(id).populate("authorBooks").exec();     
         response.json(author)
     } catch (error) {
         next(ResponseCode.SERVER_ERROR)

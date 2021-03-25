@@ -108,32 +108,7 @@ async function destroy(req, res,next){
       res.json("User deleted successfully!");
     } catch (err) {
         next(err);
-    }
-     try
-     {
-         const res = await bookModel.deleteOne({currentlyReadedBooks: req.params.userId});
-     } catch(e) {
-         next(err)
-     }
-     
-     try{
-         const res = await bookModel.deleteOne({wantToReadedBooks: req.params.userId});
-     } catch(e) {
-         next(err)
-     }
-
-      try
-      {
-          const res = await reviewModel.deleteOne({userReviews: req.params.userId});
-      }catch(e) {
-          next(err)
-      }
-      try
-      {
-          const res = await ratingModel.deleteOne({userRatings: req.params.bookId})     
-      }catch(e) {
-          next(err)
-      }        
+    }        
 }
 
 module.exports = {
