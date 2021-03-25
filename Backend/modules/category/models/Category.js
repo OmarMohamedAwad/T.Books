@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 const ValidationMessage = require('../../../validation-messages');
-
+/**
+ {
+   "name":"",
+   "image":"",
+}
+*/
 const categorySchema = mongoose.Schema({
     categoryName: { 
         type: String, 
