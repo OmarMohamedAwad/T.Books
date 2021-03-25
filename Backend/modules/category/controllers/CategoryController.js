@@ -1,6 +1,6 @@
 const Category = require("../../category/models/Category")
-const Response_Code = require("../../../response-codes")
-const Response_Msg = require("../../../response-messages")
+const Response_Code = require("../../../responses-code")
+const Response_Msg = require("../../../responses-message")
 
 async function index(req, res, next) {
     try {

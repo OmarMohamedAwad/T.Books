@@ -1,6 +1,6 @@
 const Review = require("../models/Review");
-const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-message")
+const ResponseCode = require("../../../response-codes")
+const ResponseMessage = require("../../../response-messages")
 
 const show = async function (request, response, next){
     const { id } = request.params
@@ -17,10 +17,11 @@ const show = async function (request, response, next){
 
 const store = async function (request, response, next){
     const reviewRequest = request.body
+    console.log(reviewRequest.book);
     const review = new Review({
         reviwer: reviewRequest.reviwer,
-        reviewedBook: reviewRequest.reviewedBook,
-        reviewBody: reviewRequest.reviewBody,
+        reviewedBook: reviewRequest.book,
+        reviewBody: reviewRequest.body,
     }) 
 
     try{
@@ -34,11 +35,9 @@ const store = async function (request, response, next){
 const update = async function (request, response, next){
     const { id } = request.params;
     const review = request.body
-    const updatedReview = new Review({
-        ...(review.reviwer) ? {reviwer: review.reviwer} : {},
-        ...(review.reviewedBook) ? {reviewedBook: review.reviewedBook} : {},
+    const updatedReview = {
         ...(review.reviewBody) ? {reviewBody: review.reviewBody} : {},
-    }) 
+    } 
     
     try{
         const updatedState = await Review.updateOne({ _id: id } , updatedReview) //findByIdAndUpdate

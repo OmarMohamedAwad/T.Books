@@ -1,7 +1,7 @@
 require('dotenv').config()
 const bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken');
-const ResponseCode = require("../../../responses-code")
+const ResponseCode = require("../../../response-codes")
 const Admin = require("../../admin/models/Admin")
 const User = require("../../user/models/User");
 
