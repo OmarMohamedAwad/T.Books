@@ -26,15 +26,16 @@ async function index(request, response, next)
 async function store(request, response, next) 
 {
     const bookInstance = new bookModel({
-        bookName: request.body.bookName,
-        bookDescription: request.body.bookDescription,
-        bookImage: request.body.bookImage,
-        bookCategory: request.body.bookCategory,
-        bookAuthor: request.body.bookAuthor,
+        bookName: request.body.name,
+        bookDescription: request.body.description,
+        bookImage: request.body.image,
+        bookCategory: request.body.category,
+        bookAuthor: request.body.author,
     })
-    console.log(bookInstance)
+
     try
     {
+        console.log(bookInstance);
         const bookPosted = await bookInstance.save()
         console.log()
         //console.log(bookPost)
@@ -42,85 +43,44 @@ async function store(request, response, next)
     }
     catch(e)
     {
-        next(ResponseCode.SERVER_ERROR)
-        //return next(new Error("Saving book failed"))
-
+        next(e)
     }
 }
 
 async function show(request, response, next) 
 {
+    const { id } = request.params
     try
     {
-        const bookGetOneResults = await bookModel.findById(requset.param.bookId)
+        const bookGetOneResults = await bookModel.findById(id)
                     .populate("bookCategory").populate("bookAuthor").exec();
-        //console.log(bookGetOneResults)
+        console.log(bookGetOneResults)
         response.json(bookGetOneResults);
     }
     catch(e)
     {
-        next(ResponseCode.SERVER_ERROR);
-        //next(new Error("Listing some books failed"))
+        next(e);
     }
 }
 
 async function destroy(request, response, next) 
 {
+    const { id } = request.params
     try
     {
-        const bookDeleteResult = await bookModel.deleteOne({_id: request.params.bookId})
-        console.log(bookDeleteResult)
-        response.json({message: ResponseMessage.DELETE_MESSAGE})
+        const bookDeleteResult = await bookModel.findById(id);
+        bookDeleteResult.remove()
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.DELETE_MESSAGE
+        });
     }
     catch(e)
     {
-        //next(new Error("Deleting book failed"))
+        console.log(e);
         next(ResponseCode.SERVER_ERROR)
     }
-    // delete book from author collection
-    try
-    {
-        await authorModel.findOneAndUpdate({}, { $pull: { authorBooks: req.params.bookId } })
-        console.log("Author updated successfully - book deleted")
-    }
-    catch(e)
-    {
-        //next(new Error("Updating author failed - book was not deleted"))
-        next(ResponseCode.SERVER_ERROR)
-    }
-    // delete book from category collection
-    try
-    {
-        await categoryModel.findOneAndUpdate({}, { $pull: { categoryBooks: req.params.bookId } })
-        console.log("Category updated successfully - book deleted")
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-        //next(new Error("Updating category failed - book was not deleted"))
-    }
-    // delete book from review collection
-    try
-    {
-        await reviewModel.deleteOne({reviewedBook: req.params.bookId});
-        console.log("Reviews updated successfully - book deleted")
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-        //next(new Error("Updating reviews failed - book was not deleted"))
-    }
-    // // delete book from rating collection
-    try
-    {
-        await ratingModel.deleteOne({ratedBook: req.params.bookId});
-        console.log("Ratings updated successfully - book deleted")
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-        //next(new Error("Updating ratings failed - book was not deleted"))
-    }
+    
 }
 
 /**

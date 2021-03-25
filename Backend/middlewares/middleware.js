@@ -45,7 +45,6 @@ function checkAuthor(role) {
             }
         } else {
             next(ResponseCode.AUTHENTICATION_ERROR);
-            res.send("Hi");
         }
     }
 }
