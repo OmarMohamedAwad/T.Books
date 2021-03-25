@@ -1,46 +1,41 @@
 const ErrorResponse = require('../helpers/errorResponse');
+const ResponseMessage = require('../response-messages');
+const ResponseCode = require('../response-codes');
+
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
 
   error.message = err.message;
 
-  // Log to console for dev
-  console.log(err);
-
   // Mongoose bad ObjectId
   if (err.name === 'CastError') {
-    const message = `Resource not found`;
-    error = new ErrorResponse(message, 404);
-  }
-
-  // Mongoose duplicate key
-  if (err.code === 11000) {
-    const message = 'Duplicate field value entered';
-    error = new ErrorResponse(message, 400);
+    error = new ErrorResponse(ResponseCode.NOT_FOUND, ResponseMessage.RESOURSE_NOT_FOUND_MESSAGE)
+    res.json(error);
   }
 
   // Mongoose validation error
   if (err.name === 'ValidationError') {
-    // const message = Object.values(err.errors).map(val => val.message);
-    // error = new ErrorResponse(message, 400);
-
     let errorsMessage = {};
 
     Object.keys(error.errors).forEach((key) => {
       errorsMessage[key] = error.errors[key].message;
     });
 
-    res.json({
-      status: ResponseCode.VALIDATION_ERROR,
-      message: errorsMessage
-    });
+    error = new ErrorResponse(ResponseCode.VALIDATION_ERROR, errorsMessage)
+    res.json(error);
   }
 
-  res.status(error.statusCode || err == 500).json({
-      status: ResponseCode.SERVER_ERROR,
-      message: ResponseMessage.SERVER_ERROR_MESSAGE
-  });
-  
+  // Mongoose duplicate key
+  if (err === ResponseCode.DUBLICATE_KEY) {
+    error = new ErrorResponse(ResponseCode.DUBLICATE_KEY, ResponseMessage.DUBLICATE_KEY_MESSAGE)
+    res.json(error);
+  }
+
+  if (error == ResponseCode.SERVER_ERROR) {
+    error = new ErrorResponse(ResponseCode.SERVER_ERROR, ResponseMessage.SERVER_ERROR_MESSAGE)
+    res.json(error);
+  }
+
 };
 
 module.exports = errorHandler;
