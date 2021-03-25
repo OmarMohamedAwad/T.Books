@@ -18,6 +18,8 @@ const UserRouter = require("./modules/user/routes/UserRoute");
 
 const categoryRouter = require('./modules/category/routes/CategoryRoute')
 
+const settingRouter = require('./modules/setting/routes/settingRoutes');
+
 const app = express();
 
 app.use(express.json());
@@ -25,6 +27,9 @@ app.use(express.urlencoded( { extended: true } ));
 
 //end point for book
 app.use("/BookRoutes", booksRouter);
+
+//end Point for seeting
+app.use("/settings", settingRouter);
 
 //end point for admin
 app.use("/admin" , Admin);

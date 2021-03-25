@@ -3,7 +3,7 @@ const {index,store,show,update,destroy,pagination} = require('../controllers/Use
 
 const User = require('../models/User');
 const Book = require('../../book/models/Book')
-const advancedResults = require('../../../middlewares/advancedQueries');
+//const advancedResults = require('../../../middlewares/advancedQueries');
 
 const userRouter = express.Router()
 
