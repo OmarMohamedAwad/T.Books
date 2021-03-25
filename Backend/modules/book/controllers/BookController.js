@@ -83,6 +83,17 @@ async function destroy(request, response, next)
     
 }
 
+/**
+ {
+   "bookName":"mybook",
+    "bookDescription":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "bookImage": "zzz.png",
+    "bookCategory": "605a2036f163d6047caacfc4",
+    "bookAuthor": "605cc012292ba3558c650ada"
+}
+ */
+
+
 async function update(request, response, next) 
 {
     

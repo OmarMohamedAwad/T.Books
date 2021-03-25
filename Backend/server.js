@@ -16,6 +16,8 @@ const UserRouter = require("./modules/user/routes/UserRoute");
 
 const categoryRouter = require('./modules/category/routes/CategoryRoute')
 
+const settingRouter = require('./modules/setting/routes/settingRoutes');
+const ratingRouter = require('./modules/rating/routes/RatingRoute');
 const app = express();
 
 app.use(express.json());
@@ -23,6 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //end point for book
 app.use("/book", booksRouter);
+
+//end Point for seeting
+app.use("/settings", settingRouter);
 
 //end point for admin
 app.use("/admin", Admin);
@@ -42,9 +47,12 @@ app.use("/review", reviewRouter);
 //end point for category
 app.use("/category", categoryRouter);
 
-app.listen(process.env.PORT, (err) => {
-    if (err)
-        console.log("the port " + process.env.PORT + " is busy");
+//end point for rating
+app.use("/rating" , ratingRouter);
+
+app.listen(process.env.PORT , (err) => {
+    if(err)
+        console.log("the port " + process.env.PORT  + " is busy");
     else
         console.log("the server started correcttly on port " + process.env.PORT);
 });
