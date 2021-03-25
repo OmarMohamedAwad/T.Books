@@ -40,5 +40,6 @@ ratingShcema.post('save' , async function (next) {
     }
 })
 
+module.exports = ratingModel;
 const ratingModel = mongoose.model("Rating",ratingShcema);
 module.exports = ratingModel;
