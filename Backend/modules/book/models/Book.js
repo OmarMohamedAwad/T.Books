@@ -45,8 +45,6 @@ const bookSchema = mongoos.Schema({
         ref: 'Rating' 
         }
     ]
-    
-   
 })
 
 // saving book in categories and authors
@@ -77,13 +75,12 @@ bookSchema.post('save', async function(){
 })
 
 // removing book from categorie, author, rating and review 
-bookSchema.post('remove', async function(){
+bookSchema.pre('remove', async function(next){
     console.log("delete");
     // delete book from author collection
     try
     {
         await authorModel.findOneAndUpdate({}, { $pull: { authorBooks: this._id } })
-        console.log("Author updated successfully - book deleted")
     }
     catch(e)
     {
@@ -94,7 +91,6 @@ bookSchema.post('remove', async function(){
     try
     {
         await categoryModel.findOneAndUpdate({}, { $pull: { categoryBooks: this._id } })
-        console.log("Category updated successfully - book deleted")
     }
     catch(e)
     {
@@ -104,8 +100,8 @@ bookSchema.post('remove', async function(){
     // delete book from review collection
     try
     {
-        await reviewModel.deleteOne({reviewedBook: this._id});
-        console.log("Reviews updated successfully - book deleted")
+        if(this.bookReviews.length > 0)
+            await reviewModel.deleteOne({reviewedBook: this._id});
     }
     catch(e)
     {
@@ -115,14 +111,13 @@ bookSchema.post('remove', async function(){
     // delete book from rating collection
     try
     {
-        await ratingModel.deleteOne({ratedBook: this._id});
-        console.log("Ratings updated successfully - book deleted")
+        if(this.bookRatings.length > 0)
+            await ratingModel.deleteOne({ratedBook: this._id});
     }
     catch(e)
     {
         next(ResponseCode.SERVER_ERROR)
     }
-
 });
 
 var BookModel = mongoos.model('Book', bookSchema);

@@ -65,15 +65,20 @@ async function show(request, response, next)
 
 async function destroy(request, response, next) 
 {
+    const { id } = request.params
     try
     {
-        const bookDeleteResult = await bookModel.findOne({ _id: request.params.bookId}).exec();
+        const bookDeleteResult = await bookModel.findById(id);
+        console.log(bookDeleteResult);
         bookDeleteResult.remove()
-        // console.log(bookDeleteResult)
-        // response.json({message: ResponseMessage.DELETE_MESSAGE})
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.DELETE_MESSAGE
+        });
     }
     catch(e)
     {
+        console.log(e);
         next(ResponseCode.SERVER_ERROR)
     }
     
