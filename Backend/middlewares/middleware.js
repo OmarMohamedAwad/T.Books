@@ -1,4 +1,4 @@
-const ResponseCode = require("../responses-code");
+const ResponseCode = require("../response-codes");
 const Role = require('../helpers/Role');
 const jwt = require("jsonwebtoken");
 

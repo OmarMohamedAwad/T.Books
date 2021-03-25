@@ -1,6 +1,6 @@
 const bookModel = require("../models/Book")
-const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-message")
+const ResponseCode = require("../../../response-codes")
+const ResponseMessage = require("../../../response-messages")
 
 const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')

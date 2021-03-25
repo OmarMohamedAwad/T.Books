@@ -1,6 +1,6 @@
 const Review = require("../models/Review");
-const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-message")
+const ResponseCode = require("../../../response-codes")
+const ResponseMessage = require("../../../response-messages")
 
 const show = async function (request, response, next){
     const { id } = request.params
