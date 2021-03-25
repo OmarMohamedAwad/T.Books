@@ -5,6 +5,7 @@ const express = require('express');
 const errorHandler = require('./middlewares/error');
 const jwt = require('jsonwebtoken');
 
+const Home = require("./modules/home/routes/HomeRoute")
 const Admin = require("./modules/admin/routes/AdminRoute");
 const Author = require("./modules/author/routes/AuthorRoute");
 const ResponseCode = require("./responses-code")
@@ -23,6 +24,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded( { extended: true } ));
 
+//end point for home
+app.use("/home" , Home);
+
 //end point for book
 app.use("/BookRoutes", booksRouter);
 
@@ -36,7 +40,7 @@ app.use("/author" , Author);
 app.use("/users" , UserRouter);
 
 //end point for access
-app.use("/access" , Access);
+//app.use("/access" , Access);
 
 //end point for review
 app.use("/review" , reviewRouter);

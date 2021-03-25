@@ -59,7 +59,7 @@ async function show(request, response, next)
     }
     catch(e)
     {
-        next(ResponseCode.SERVER_ERROR);
+        next(e);
         //next(new Error("Listing some books failed"))
     }
 }
