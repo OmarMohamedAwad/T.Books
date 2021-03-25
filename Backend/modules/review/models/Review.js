@@ -27,6 +27,8 @@ reviewShcema.post('save' , async function (next) {
     await Book.updateOne({ _id: this.reviewedBook } , { $push: { bookReviews: this._id } });
 })
 
+//OnDelete Cascade
+
 const Review = mongoose.model("Review", reviewShcema);
 
 module.exports = Review;

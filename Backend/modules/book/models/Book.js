@@ -2,6 +2,8 @@ const mongoos = require('mongoose')
 
 const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
+const ratingModel = require('../../rating/models/Rating')
+const reviewModel = require('../../review/models/Review')
 
 const ValidationMessage = require("../../../validation-messages")
 
@@ -76,7 +78,7 @@ bookSchema.post('save', async function(){
 
 // removing book from categorie, author, rating and review 
 bookSchema.pre('remove', async function(next){
-    console.log("delete");
+
     // delete book from author collection
     try
     {
@@ -101,7 +103,7 @@ bookSchema.pre('remove', async function(next){
     try
     {
         if(this.bookReviews.length > 0)
-            await reviewModel.deleteOne({reviewedBook: this._id});
+            await reviewModel.deleteMany({reviewedBook: this._id});
     }
     catch(e)
     {
@@ -112,12 +114,14 @@ bookSchema.pre('remove', async function(next){
     try
     {
         if(this.bookRatings.length > 0)
-            await ratingModel.deleteOne({ratedBook: this._id});
+            await ratingModel.deleteMany({ratedBook: this._id});
     }
     catch(e)
     {
         next(ResponseCode.SERVER_ERROR)
     }
+
+    // Delete Book From User 
 });
 
 var BookModel = mongoos.model('Book', bookSchema);

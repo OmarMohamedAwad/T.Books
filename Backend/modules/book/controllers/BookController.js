@@ -69,7 +69,6 @@ async function destroy(request, response, next)
     try
     {
         const bookDeleteResult = await bookModel.findById(id);
-        console.log(bookDeleteResult);
         bookDeleteResult.remove()
         response.json({
             status : ResponseCode.SUCCESS,
