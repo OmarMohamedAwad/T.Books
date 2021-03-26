@@ -12,7 +12,6 @@ categoryRouter.post("/", (request, response, next)=> {
     CategoryController.store(request, response, next);
 })
 
-
 categoryRouter.get("/:path", (request, response, next)=> {
     const { path } = request.params
     if (path.match(/^[0-9a-fA-F]{24}$/))

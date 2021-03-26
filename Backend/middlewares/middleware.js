@@ -1,4 +1,4 @@
-const ResponseCode = require("../responses-code");
+const ResponseCode = require("../response-codes");
 const Role = require('../helpers/Role');
 const jwt = require("jsonwebtoken");
 
@@ -45,7 +45,6 @@ function checkAuthor(role) {
             }
         } else {
             next(ResponseCode.AUTHENTICATION_ERROR);
-            res.send("Hi");
         }
     }
 }

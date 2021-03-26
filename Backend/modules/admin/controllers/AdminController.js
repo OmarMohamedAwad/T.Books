@@ -1,6 +1,6 @@
 const Admin = require("../../admin/models/Admin")
-const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-message")
+const ResponseCode = require("../../../response-codes")
+const ResponseMessage = require("../../../response-messages")
 
 async function store(request, response, next) {
     const adminRequest = request.body

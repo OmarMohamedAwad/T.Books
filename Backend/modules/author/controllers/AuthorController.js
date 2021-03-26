@@ -1,6 +1,6 @@
 const Author = require("../../author/models/Author")
-const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-message")
+const ResponseCode = require("../../../response-codes")
+const ResponseMessage = require("../../../response-messages")
 
 async function index(request, response, next) {
     try {
@@ -32,10 +32,10 @@ async function store(request, response, next) {
 async function show(request, response, next) {
     const { id } = request.params
     try {
-        const author = await Author.findById(id);
+        const author = await Author.findById(id).populate("authorBooks").exec();     
         response.json(author)
     } catch (error) {
-        next(ResponseCode.SERVER_ERROR)
+        next(error);
     }
 }
 

@@ -70,6 +70,32 @@ userSchema.pre('save', async function(next){
     next();
 })
 
+userSchema.pre('deleteOne',async function(){
+    const Review = require('../../review/models/Review')
+    const ratingModel = require('../../rating/models/Rating')
+    try
+    {
+        const deletedUser = await User.findById(this._conditions._id)
+        for (const index in deletedUser.userReviews)
+        {
+            //console.log(deletedUser.userReviews[index])
+            await Review.findOneAndDelete({_id: deletedUser.userReviews[index]})
+        }
+        console.log("Reviews deleted successfully")
+
+        for (const index in deletedUser.userRatings)
+        {
+            //console.log(deletedUser.userRatings[index])
+            await ratingModel.findOneAndDelete({_id: deletedUser.userRatings[index]})
+        }
+        console.log("Ratings deleted successfully")
+    }
+    catch(e)
+    {
+        next(new Error("Deleting user dependencies failed"))
+    }
+})
+
 async function hashPassword(password)
 {
     console.log(password);
