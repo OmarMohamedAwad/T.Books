@@ -17,7 +17,7 @@ booksRouter.post('/', (request, response, next)=>{
     bookController.store(request, response, next);
 })
 
-booksRouter.patch('/:bookId', (request,response,next)=>{
+booksRouter.patch('/:id', (request,response,next)=>{
     bookController.update(request, response, next); 
 })
 

@@ -41,7 +41,7 @@ authorShcema.pre('deleteOne',async function(){
         for (const index in deletedAuthor.authorBooks)
         {
             //console.log(deletedAuthor.authorBooks[index])
-            await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
+            //await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
         }
         console.log("Books deleted successfully")
     }
