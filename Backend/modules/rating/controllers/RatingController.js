@@ -16,12 +16,13 @@ async function store(req, res, next) {
     const rating = new Rating ({
         rate: ratingSavingRequest.rate,
         rater: ratingSavingRequest.rater,
-        ratedBook: ratingSavingRequest.book
+        ratedBook: ratingSavingRequest.ratedBook
     })
     try {
         const newRating = await rating.save()
         res.json(newRating)
     }catch (err){
+        console.log(err)
         next(err)
     }
 }

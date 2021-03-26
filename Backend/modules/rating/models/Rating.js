@@ -25,7 +25,7 @@ const ratingShcema = new mongoose.Schema({
 });
 
 //assign the new rating to its book
-ratingShcema.post('save' , async function (next) {
+ratingShcema.post('save' , async function (request , response , next) {
     try{
         await User.updateOne({ _id: this.rater } , { $push: { userRatings: this.rate } });
     }

@@ -7,6 +7,10 @@ const ResponseCode = require("../../../response-codes")
 const ResponseMessage = require("../../../response-messages")
 const { db } = require("../../category/models/Category")
 
+const NUMBER_OF_BOOK_ITEMS = 6;
+const NUMBER_OF_AUTHOR_ITEMS = 6;
+const NUMBER_OF_CATEGORY_ITEMS = 6;
+
 async function index(request, response, next) {
     try {
         //const category = await Category.find().sort({ 'categoryBooks.size': 1 }).limit(1);
@@ -15,14 +19,63 @@ async function index(request, response, next) {
         //const category = await Category.aggregate({ $unwind: "$categoryBooks" })//, { $group : {_id:'$_id', numberOfBooks:{$sum:1}}}, { $sort :{ numberOfBooks: 1}} , {$limit: 1});
         //const author = await Author.aggregate([{ $group : {_id:'$_id' }}, { $sort :{ authorDob: -1}} , {$limit: 2}]);
         
-        const categories = await Category.aggregate([{ $unwind: "$categoryBooks" } , { $group : {_id:'$_id', numberOfBooks:{$sum:1}}}, { $sort :{ numberOfBooks: -1}} , {$limit: 6}]);
-        const authors = await Author.find({} , {_id: true}).sort({'authorDob': 1}).limit(6)
-        let books = await Rating.aggregate([{ $group : {_id:'$ratedBook', avg:{$sum: {$toInt: '$rate'}}}}, {$sort: { avg: -1 }} , {$limit: 6}])
+        //const categories = await Category.aggregate([{ $unwind: "$categoryBooks" } , { $group : {_id:'$_id', numberOfBooks:{$sum:1}}}, { $sort :{ numberOfBooks: -1}} , {$limit: 6}]);
+        //const authors = await Author.find({} , {_id: true}).sort({'authorDob': 1}).limit(6)
+        //let books = await Rating.aggregate([{ $group : {_id:'$ratedBook', avg:{$sum: {$toInt: '$rate'}}}}, {$sort: { avg: -1 }} , {$limit: 6}])
         //console.log(books.length)
-        if(books.length < 6)
+        //const book = await Rating.aggregate([ { $addFields: { "userId": { $toObjectId: "$ratedBook" }}} , {$lookup: {from: "books" , localField: "userId" , foreignField: "_id" , as: "bookDetails"}}])
+        //,  bookName: {$last: '$bookName'}  , bookImage: {$last: "$bookImage"} , bookCategory: {$last: "$bookCategory"} , bookAuthor: {$last: "$bookAuthor"} 
+
+        //book data
+        // let books = await Rating.aggregate([
+        //      { $addFields: { "userId": { $toObjectId: "$ratedBook" }}}, 
+        //      { $lookup: {from: "books" , localField: "userId" , foreignField: "_id" , as: "bookDetails" }}, 
+        //      { $group : {_id: "$ratedBook", 
+        //                  avg: {$sum: {$toInt: '$rate'}}, 
+        //                  bookName: { $first:  {$last: '$bookDetails.bookName'} }, 
+        //                  bookImage: { $first:  {$last: "$bookDetails.bookImage"} }, 
+        //                  bookCategory: { $first: {$last: "$bookDetails.bookCategory"} }, 
+        //                  bookAuthor: { $first: {$last: "$bookDetails.bookAuthor" } } } }, 
+        //      { $sort: { avg: -1 } }, 
+        //      { $limit: NUMBER_OF_BOOK_ITEMS} ]);
+
+
+        // category data
+        const categories = await Category.aggregate([
+            { $unwind: "$categoryBooks" }, 
+            { $group : {_id:'$_id', 
+                        numberOfBooks:{$sum:1}, 
+                        categoryName: {$last: '$categoryName'}, 
+                        categoryImage: {$last: '$categoryImage' } }}, 
+            { $sort :{ numberOfBooks: -1}}, 
+            {$limit: NUMBER_OF_CATEGORY_ITEMS}]);
+
+        //author data
+        const authors = await Author.find({} , {authorBooks: false , __v: false , authorDob: false}).sort({'authorDob': 1}).limit(NUMBER_OF_AUTHOR_ITEMS)
+
+
+
+        let books = await Rating.aggregate([
+            { $addFields: { "bookId": { $toObjectId: "$ratedBook" }}}, 
+            { $lookup: {from: "books" , localField: "bookId" , foreignField: "_id" , as: "bookDetails" }}, 
+            { $group : {_id: "$ratedBook", 
+                        avg: {$avg: {$toInt: '$rate'}}, 
+                        details:{$first: {$last: "$bookDetails"} } } },
+            { $sort: { avg: -1 } }, 
+            { $limit: NUMBER_OF_BOOK_ITEMS} ]);
+
+            books.forEach((i)=> {
+                i.bookName = i.details.bookName;
+                i.bookCategory = i.details.bookCategory;
+                i.bookAuthor = i.details.bookAuthor;
+                i.bookImage = i.details.bookImage;
+                 delete i.details;
+            })
+        if(books.length < NUMBER_OF_BOOK_ITEMS)
         {
-            const moreBooks = await (await Book.find({bookRatings: {$size: 0}} , {_id: true})).concat(books)
-            books = moreBooks;
+            const moreBooks = await Book.find({ bookRatings: {$exists: false} }, {_id: true , bookName: true , bookCategory: true , bookAuthor: true , bookImage: true })
+            if(moreBooks.length > 0)
+                books = moreBooks.concat(books);
         }
 
         const homeJson = {
