@@ -65,14 +65,14 @@ async function userAccessController (request, response, next){
 async function adminLogout (request, responce, next)
 {
     if (request.body.refreshToken == null) return responce.sendStatus(401)
-    await Admin.findOneAndUpdate({adminName: request.body.adminName},{refreshToken: "loged out"}) 
+    await Admin.findOneAndUpdate({adminName: request.body.adminName},{refreshToken: null}) 
     responce.sendStatus(204)
 }
 
 async function userLogout (request, responce, next)
 {
     if (request.body.refreshToken == null) return responce.sendStatus(401)
-    await User.findOneAndUpdate({userName: request.body.userName},{refreshToken: "loged out"}) 
+    await User.findOneAndUpdate({userName: request.body.userName},{refreshToken: null}) 
     responce.sendStatus(204)
 }
 
