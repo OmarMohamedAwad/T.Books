@@ -9,6 +9,10 @@ booksRouter.get('/', (request, response, next)=>{
     bookController.index(request, response, next);
 })
 
+booksRouter.get("/pages", (request, response, next)=> {
+    pagination(request, response, next);   
+})
+
 booksRouter.get('/:id', (request,response, next)=>{
     bookController.show(request, response, next);
 })
