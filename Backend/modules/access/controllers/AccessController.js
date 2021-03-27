@@ -4,6 +4,8 @@ var jwt = require('jsonwebtoken');
 const ResponseCode = require("../../../response-codes")
 const Admin = require("../../admin/models/Admin")
 const User = require("../../user/models/User");
+const tokenGeneration = require("../../../helpers/tokenGeneration");
+const Role = require("../../../helpers/Role")
 
 // async function adminAccessController(request, response, next) {
 //     const accessRequest = request.body
@@ -41,9 +43,10 @@ async function adminAccessController(request, response, next) {
             return next("password is wrong");
         }
 
-        var token = jwt.sign({ admin }, process.env.ADMIN_ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+        var token = tokenGeneration({ admin }, Role.ADMIN);
         response.status(200).json({token});
-        next();
+        //hossam
+        //await Admin.findOneAndUpdate({adminName: admin.adminName}, {refreshToken: tokenGeneration.refreshToken})
     }catch (error){
         next("bcryption error")
     }
@@ -63,9 +66,10 @@ const userAccessController = async function (request, response, next){
             return next("password is wrong");
         }
 
-        var token = jwt.sign({ user }, process.env.USER_ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+        var token = tokenGeneration({ user }, Role.USER);
         response.status(200).json({token});
-        next();
+        //hossam
+        //await User.findOneAndUpdate({userName: user.userName}, {refreshToken: tokenGeneration.refreshToken})
     }catch (error){
         next("bcryption error")
     }
