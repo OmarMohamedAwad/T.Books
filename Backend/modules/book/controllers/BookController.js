@@ -8,7 +8,6 @@ const reviewModel = require('../../review/models/Review')
 const ratingModel = require('../../rating/models/Rating')
 const Author = require("../../author/models/Author")
 
-
 async function index(request, response, next) 
 {
     try
@@ -62,6 +61,25 @@ async function show(request, response, next)
     catch(e)
     {
         next(e);
+    }
+}
+
+async function pagination(request, response, next){
+    try{
+        //page and limit are default value 
+        const { page=1,limit=2} = request.query;
+       
+        const books = await bookModel.find()
+        const booksNumber = books.count();
+        const booksTosend = books.sort('bookName')
+        .limit(limit *1)
+        .skip((page-1) * limit).exec();          
+        const bookPages = booksNumber / limit;
+        booksTosend.unshift({bookPages: bookPages}) //to put the number of pages at first
+        response.send(booksTosend);
+    }
+    catch(err){
+        next(err);
     }
 }
 
@@ -137,5 +155,6 @@ module.exports = {
     store,
     show,
     destroy,
-    update
+    update,
+    pagination
 }
