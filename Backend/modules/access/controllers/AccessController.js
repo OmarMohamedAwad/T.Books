@@ -4,6 +4,8 @@ var jwt = require('jsonwebtoken');
 const ResponseCode = require("../../../response-codes")
 const Admin = require("../../admin/models/Admin")
 const User = require("../../user/models/User");
+const tokenGeneration = require("../../../helpers/tokenGeneration");
+const Role = require("../../../helpers/Role")
 
 async function adminAccessController(request, response, next) {
     const accessRequest = request.body
@@ -18,13 +20,11 @@ async function adminAccessController(request, response, next) {
         if(!match) {
             return next("password is wrong");
         }
-        const adminMessage = {name: admin.adminName}
-        var accessToken = jwt.sign(adminMessage, process.env.ADMIN_ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-        var refreshToken = jwt.sign(adminMessage, process.env.ADMIN_REFRESH_TOKEN_SECRET);
-        await Admin.findOneAndUpdate({adminName: admin.adminName}, 
-            {refreshToken: refreshToken})
-        response.status(200).json({accessToken,refreshToken});
-        next();
+
+        var token = tokenGeneration({ admin }, Role.ADMIN);
+        response.status(200).json({token});
+        //hossam
+        //await Admin.findOneAndUpdate({adminName: admin.adminName}, {refreshToken: tokenGeneration.refreshToken})
     }catch (error){
         next("bcryption error")
     }
@@ -44,6 +44,7 @@ async function userAccessController (request, response, next){
             return next("password is wrong");
         }
 
+
         const userMessage = 
         {
             name: user.userName,
@@ -52,11 +53,11 @@ async function userAccessController (request, response, next){
             wantToReadedBooks: user.wantToReadedBooks,
             readBooks: user.readBooks,
         }
-        var accessToken = jwt.sign(userMessage, process.env.USER_ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-        var refreshToken = jwt.sign(userMessage, process.env.USER_REFRESH_TOKEN_SECRET);
-        await User.findOneAndUpdate({userName: user.userName},{refreshToken: refreshToken})        
-        response.status(200).json({accessToken,refreshToken});
-        next();
+
+        var token = tokenGeneration({ userMessage }, Role.USER);
+        response.status(200).json({token});
+        //hossam
+        //await User.findOneAndUpdate({userName: user.userName}, {refreshToken: tokenGeneration.refreshToken})
     }catch (error){
         next("bcryption error")
     }

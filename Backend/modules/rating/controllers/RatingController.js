@@ -22,6 +22,7 @@ async function store(req, res, next) {
         const newRating = await rating.save()
         res.json(newRating)
     }catch (err){
+        console.log(err)
         next(err)
     }
 }
