@@ -13,7 +13,7 @@ async function index(req, res, next) {
 
 async function paginate(req, res, next) {
     try{
-        const { page=1,limit=2} = request.query;
+        const { page=1,limit=2} = req.query;
         const categories = await Category.find();
         const numOfCategories = categories.count();
         if (numOfCategories<=page*limit)
