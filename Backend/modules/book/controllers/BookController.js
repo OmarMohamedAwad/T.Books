@@ -113,12 +113,9 @@ async function update(request, response, next)
     const bookRequest = request.body
 
     const bookInstance = {
-        ...(request.body.bookName) ? {bookName: request.body.bookName} : {},
-        ...(request.body.bookDescription) ? {bookDescription: request.body.bookDescription} : {},
-        ...(request.body.bookImage) ? {bookImage: request.body.bpostookImage} : {},
-        // the fellowing two may never be used
-        ...(bookRequest.reviews) ? {bookReviews: bookRequest.reviews} : {},
-        ...(bookRequest.ratings) ? {bookRatings: bookRequest.ratings} : {},
+        ...(bookRequest.bookName) ? {bookName: bookRequest.bookName} : {},
+        ...(bookRequest.bookDescription) ? {bookDescription: bookRequest.bookDescription} : {},
+        ...(bookRequest.bookImage) ? {bookImage: bookRequest.bpostookImage} : {},
     }
 
     try

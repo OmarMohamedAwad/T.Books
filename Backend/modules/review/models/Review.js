@@ -27,22 +27,22 @@ reviewShcema.post('save' , async function (next) {
     await Book.updateOne({ _id: this.reviewedBook } , { $push: { bookReviews: this._id } });
 })
 
-reviewShcema.pre('remove',async function(){
+reviewShcema.pre('deleteOne',async function(){
     //review-book review-user
-    const BookModel = require('../../book/models/Book')
+    const Book = require('../../book/models/Book')
+    //review-book review-user
+    const user = require('../../user/models/User')
+    const deletedReview = await Review.findById(this._conditions._id)
     try
     {
-        const deletedAuthor = await Author.findById(this._conditions._id)
-        for (const index in deletedAuthor.authorBooks)
-        {
-            //console.log(deletedAuthor.authorBooks[index])
-            await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
-        }
-        console.log("Books deleted successfully")
+        await user.updateOne({_id: deletedReview.reviwer} , {$pull: {userReviews: this._conditions._id}})
+        console.log("removed the review from user correctly")
+        await Book.updateOne({_id: deletedReview.reviewedBook} , {$pull: {bookReviews: this._conditions._id}})
+        console.log("removed the review from book correctly")
     }
     catch(e)
     {
-        next(new Error("Deleting books failed"))
+        next(new Error("can't remove dependencies"))
     }
 })
 
