@@ -6,6 +6,7 @@ const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
 const reviewModel = require('../../review/models/Review')
 const ratingModel = require('../../rating/models/Rating')
+const Author = require("../../author/models/Author")
 
 
 async function index(request, response, next) 
@@ -25,19 +26,20 @@ async function index(request, response, next)
 
 async function store(request, response, next) 
 {
+    const bookRequest = request.body
     const bookInstance = new bookModel({
-        bookName: request.body.name,
-        bookDescription: request.body.description,
-        bookImage: request.body.image,
-        bookCategory: request.body.category,
-        bookAuthor: request.body.author,
+
+        bookName: bookRequest.name,
+        bookDescription: bookRequest.description,
+        bookImage: bookRequest.image,
+        bookCategory: bookRequest.category,
+        bookAuthor: bookRequest.author,
     })
 
     try
     {
         console.log(bookInstance);
         const bookPosted = await bookInstance.save()
-        console.log()
         //console.log(bookPost)
         response.json(bookPosted)
     }
@@ -81,42 +83,52 @@ async function destroy(request, response, next)
         next(ResponseCode.SERVER_ERROR)
     }
     
+
 }
 
-/**
- {
-   "bookName":"mybook",
-    "bookDescription":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "bookImage": "zzz.png",
-    "bookCategory": "605a2036f163d6047caacfc4",
-    "bookAuthor": "605cc012292ba3558c650ada"
-}
- */
+
 
 
 async function update(request, response, next) 
 {
-    
+    const { id } = request.params
+    const bookRequest = request.body
+
     const bookInstance = {
         ...(request.body.bookName) ? {bookName: request.body.bookName} : {},
         ...(request.body.bookDescription) ? {bookDescription: request.body.bookDescription} : {},
         ...(request.body.bookImage) ? {bookImage: request.body.bpostookImage} : {},
-        ...(request.body.bookCategory) ? {bookCategory: request.body.bookCategory} : {},
-        ...(request.body.bookAuthor) ? {bookAuthor: request.body.bookAuthor} : {},
         // the fellowing two may never be used
-        ...(request.body.bookReviews) ? {bookReviews: request.body.bookReviews} : {},
-        ...(request.body.bookRatings) ? {bookRatings: request.body.bookRatings} : {},
+        ...(bookRequest.reviews) ? {bookReviews: bookRequest.reviews} : {},
+        ...(bookRequest.ratings) ? {bookRatings: bookRequest.ratings} : {},
     }
+
     try
     {
-        await bookModel.findOneAndUpdate({_id: request.params.bookId}, bookInstance);
-        response.json({message: ResponseMessage.UPDATE_MESSAGE})
-        //res.send("book updated successfully")
+        let bookDoc = await bookModel.findById({ _id: id });
+        await bookModel.updateOne({_id: id}, bookInstance);
+
+        // check if category or author changed and update it
+        if (bookRequest.category && bookRequest.author) {
+            bookDoc.bookCategory = bookRequest.category;
+            bookDoc.bookAuthor = bookRequest.author;            
+        }else if (bookRequest.category){
+            bookDoc.bookCategory = bookRequest.category;
+        }else if (bookRequest.category){
+            bookDoc.bookAuthor = bookRequest.author;            
+        }
+        bookDoc.save()
+
+
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.UPDATE_MESSAGE
+        });
     }
     catch(e)
     {
-        next(ResponseCode.SERVER_ERROR)
-        //next(new Error("Updating book failed"))
+        console.log(e.name);
+        next(e)
     }
 }
 
