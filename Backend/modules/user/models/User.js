@@ -55,6 +55,9 @@ const userSchema = mongoose.Schema({
     userRatings: [{ 
         type:mongoose.Schema.Types.ObjectId, 
         ref: 'Rating'
+    }],
+    refreshToken: [{
+        type:String
     }]
 })
 userSchema.pre('save', async function(next){
@@ -71,7 +74,6 @@ userSchema.pre('save', async function(next){
 })
 
 userSchema.pre('deleteOne',async function(){
-    //user-rating rating-book user-review-review-book user-book
     const Review = require('../../review/models/Review')
     const ratingModel = require('../../rating/models/Rating')
     try

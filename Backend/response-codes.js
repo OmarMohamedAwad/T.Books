@@ -3,7 +3,11 @@ const VALIDATION_ERROR = 422;
 const AUTHENTICATION_ERROR = 411;
 const SUCCESS = 200;
 const NOT_FOUND = 404;
+
 const ROLE_ERROR = 401;
+
+const DUBLICATE_KEY = 11000;
+const TYPE_ERROR = 405
 
 module.exports = {
     SERVER_ERROR,
@@ -11,5 +15,7 @@ module.exports = {
     AUTHENTICATION_ERROR,
     SUCCESS, 
     NOT_FOUND,
-    ROLE_ERROR
+    ROLE_ERROR,
+    DUBLICATE_KEY,
+    TYPE_ERROR
 }

@@ -18,7 +18,7 @@ async function store(req, res, next) {
     const rating = new Rating ({
         rate: ratingSavingRequest.rate,
         rater: ratingSavingRequest.rater,
-        ratedBook: ratingSavingRequest.ratedBook
+        ratedBook: ratingSavingRequest.book
     })
     try {
         const newRating = await rating.save()

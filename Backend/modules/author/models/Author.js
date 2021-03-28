@@ -33,29 +33,20 @@ authorShcema.index({
     unique: [true, ValidationMessage.FIRST_LAST_NAME_UNIQUE] 
 });
 
+
+
 authorShcema.pre('deleteOne',async function(){
-const Book = require('../../book/models/Book');   
+    const BookModel = require('../../book/models/Book')
     try
     {
-        console.log(this._conditions._id)
         const deletedAuthor = await Author.findById(this._conditions._id)
+        for (const index in deletedAuthor.authorBooks)
+        {
+            //console.log(deletedAuthor.authorBooks[index])
 
-        console.log(this._conditions._id)
-        try {
-            console.log(this._conditions._id)
-            await Book.deleteMany({bookAuthor: "60565367af6fab55ff64592dgf"})
-            console.log(this._conditions._id)
-        }catch(error) {
-            console.log(error)
-            next(ResponseCode.SERVER_ERROR)
+            await BookModel.deleteOne({_id: index})
         }
-        
-        // for (const index in deletedAuthor.authorBooks)
-        // {
-        //     //console.log(deletedAuthor.authorBooks[index])
-        //     await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
-        // }
-        // console.log("Books deleted successfully")
+
     }
     catch(e)
     {
