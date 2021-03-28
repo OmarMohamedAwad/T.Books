@@ -28,6 +28,7 @@ async function store(request, response, next)
 {
     const bookRequest = request.body
     const bookInstance = new bookModel({
+
         bookName: bookRequest.name,
         bookDescription: bookRequest.description,
         bookImage: bookRequest.image,
@@ -37,6 +38,7 @@ async function store(request, response, next)
 
     try
     {
+        console.log(bookInstance);
         const bookPosted = await bookInstance.save()
         //console.log(bookPost)
         response.json(bookPosted)
@@ -81,7 +83,11 @@ async function destroy(request, response, next)
         next(ResponseCode.SERVER_ERROR)
     }
     
+
 }
+
+
+
 
 async function update(request, response, next) 
 {

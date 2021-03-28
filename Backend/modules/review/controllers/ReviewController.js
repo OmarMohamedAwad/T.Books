@@ -36,7 +36,7 @@ const update = async function (request, response, next){
     const { id } = request.params;
     const review = request.body
     const updatedReview = {
-        ...(review.reviewBody) ? {reviewBody: review.reviewBody} : {}
+        ...(review.reviewBody) ? {reviewBody: review.reviewBody} : {},
     } 
     
     try{

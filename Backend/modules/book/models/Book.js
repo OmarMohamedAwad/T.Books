@@ -50,6 +50,7 @@ const bookSchema = mongoos.Schema({
 })
 
 // saving book in categories and authors
+
 bookSchema.post('save', async function () {
 
     if (this.isNew) {
@@ -126,6 +127,56 @@ async function addDependencies(addedBook) {
         next(e)
     }
 }
+
+// removing book from categorie, author, rating and review 
+bookSchema.pre('remove', async function(next){
+
+    // delete book from author collection
+    try
+    {
+        await authorModel.findOneAndUpdate({}, { $pull: { authorBooks: this._id } })
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from category collection
+    try
+    {
+        await categoryModel.findOneAndUpdate({}, { $pull: { categoryBooks: this._id } })
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from review collection
+    //delete review drom user //still
+    try
+    {
+        if(this.bookReviews.length > 0)
+            await reviewModel.deleteMany({reviewedBook: this._id});
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // delete book from rating collection
+    //remove rating from user //still
+    try
+    {
+        if(this.bookRatings.length > 0)
+            await ratingModel.deleteMany({ratedBook: this._id});
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+    // Delete Book From User //3documention
+});
 
 var BookModel = mongoos.model('Book', bookSchema);
 

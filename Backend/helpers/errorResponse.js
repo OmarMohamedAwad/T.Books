@@ -1,3 +1,4 @@
+
 class ErrorResponse {
     constructor(statusCode,message){
         this.status=statusCode;
