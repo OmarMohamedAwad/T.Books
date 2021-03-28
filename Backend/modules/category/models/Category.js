@@ -32,6 +32,7 @@ categorySchema.pre('deleteOne',async function(){
     }
     catch(e)
     {
+
         next(new Error("Deleting books failed"))
     }
 })

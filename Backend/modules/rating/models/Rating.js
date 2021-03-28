@@ -24,8 +24,9 @@ const ratingShcema = new mongoose.Schema({
     }
 });
 
-//assign the new rating to its book
-ratingShcema.post('save' , async function (next) {
+
+ratingShcema.post('save' , async function (request , response , next) {
+
     try{
         await User.updateOne({ _id: this.rater } , { $push: { userRatings: this.rate } });
     }
@@ -37,6 +38,25 @@ ratingShcema.post('save' , async function (next) {
     }
     catch(err){
         next(new Error("Rating cann't be assigned to book"));
+    }
+})
+
+ratingShcema.pre('remove',async function(){
+    //rating-book rating-user
+    const BookModel = require('../../book/models/Book')
+    try
+    {
+        const deletedAuthor = await Author.findById(this._conditions._id)
+        for (const index in deletedAuthor.authorBooks)
+        {
+            //console.log(deletedAuthor.authorBooks[index])
+            await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
+        }
+        console.log("Books deleted successfully")
+    }
+    catch(e)
+    {
+        next(new Error("Deleting books failed"))
     }
 })
 
