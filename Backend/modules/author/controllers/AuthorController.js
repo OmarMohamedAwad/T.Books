@@ -17,10 +17,9 @@ async function store(request, response, next) {
     const author = new Author ({
         autherFirstName: authorRequest.first_name,
         autherLastName: authorRequest.last_name,
-        authorDob: authorRequest.dob,
+        authorDob: authorRequest,
         authorImage: authorRequest.image 
     })
-
     try {
         const savedAuthor = await author.save()
         response.json(savedAuthor)
