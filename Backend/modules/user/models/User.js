@@ -55,6 +55,9 @@ const userSchema = mongoose.Schema({
     userRatings: [{ 
         type:mongoose.Schema.Types.ObjectId, 
         ref: 'Rating'
+    }],
+    refreshToken: [{
+        type:String
     }]
 })
 userSchema.pre('save', async function(next){

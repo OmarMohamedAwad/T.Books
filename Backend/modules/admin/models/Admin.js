@@ -14,7 +14,10 @@ const adminSchema = mongoose.Schema({
         type: String,
         minLength: [6, ValidationMessage.PASSWORD_MIN_LENGTH],
         required: [true, ValidationMessage.PASSWORD_REQUIRED]
-    }
+    },
+    refreshToken: [{
+        type:String
+    }]
 })
 
 adminSchema.pre('save', async function(next){
