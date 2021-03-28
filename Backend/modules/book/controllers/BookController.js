@@ -103,9 +103,6 @@ async function update(request, response, next)
         ...(request.body.bookImage) ? {bookImage: request.body.bpostookImage} : {},
         ...(request.body.bookCategory) ? {bookCategory: request.body.bookCategory} : {},
         ...(request.body.bookAuthor) ? {bookAuthor: request.body.bookAuthor} : {},
-        // the fellowing two may never be used
-        ...(request.body.bookReviews) ? {bookReviews: request.body.bookReviews} : {},
-        ...(request.body.bookRatings) ? {bookRatings: request.body.bookRatings} : {},
     }
     try
     {

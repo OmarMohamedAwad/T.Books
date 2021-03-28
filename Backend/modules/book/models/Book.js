@@ -126,6 +126,47 @@ bookSchema.pre('remove', async function(next){
     // Delete Book From User //3documention
 });
 
+bookSchema.pre('deleteOne',async function(){
+    const categories = require('../../category/models/Category');   
+    const reviews = require('../../review/models/Review');  
+    const ratings = require('../../rating/models/Rating');  
+    const users = require('../../user/models/User'); 
+    const deletedBook = await BookModel.findById(this._conditions._id)
+    try
+    {
+        await removeDependencies(this._conditions._id);
+
+        await users.updateMany({} , {$pull: {currentlyReadedBooks: this._conditions._id}})
+        console.log(("removed the book from user(current read) correctly"))
+        await users.updateMany({} , {$pull: {wantToReadedBooks: this._conditions._id}})
+        console.log("removed the book from user(want to read) correctly")
+        await users.updateMany({} , {$pull: {readBooks: this._conditions._id}})
+        console.log(("removed the book from user(read books) correctly"))
+        //delete all reviews for this book
+        for (const index in deletedBook.bookReviews)
+        {
+            //console.log(deletedAuthor.authorBooks[index])
+            await reviews.deleteOne({_id: index})
+        }
+        //delete all ratings for this book
+        for (const index in deletedBook.bookRatings)
+        {
+            //console.log(deletedAuthor.authorBooks[index])
+            await ratings.deleteOne({_id: index})
+        }
+
+        // await reviews.deleteMany({reviewedBook: this._conditions._id})
+        // console.log(("removed the book from review correctly"))
+
+        // await ratings.deleteMany({ratedBook: this._conditions._id})
+        // console.log(("removed the book from rating correctly"))
+    }
+    catch(e)
+    {
+        next(new Error("can't remove dependencies"))
+    }
+})
+
 var BookModel = mongoos.model('Book', bookSchema);
 
 module.exports = BookModel;
