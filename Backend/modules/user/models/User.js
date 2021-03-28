@@ -70,7 +70,8 @@ userSchema.pre('save', async function(next){
     next();
 })
 
-userSchema.pre('deleteOne',async function(){
+userSchema.pre('remove',async function(){
+    //user-rating rating-book user-review-review-book user-book
     const Review = require('../../review/models/Review')
     const ratingModel = require('../../rating/models/Rating')
     try

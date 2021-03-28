@@ -40,5 +40,23 @@ ratingShcema.post('save' , async function (request , response , next) {
     }
 })
 
+ratingShcema.pre('remove',async function(){
+    //rating-book rating-user
+    const BookModel = require('../../book/models/Book')
+    try
+    {
+        const deletedAuthor = await Author.findById(this._conditions._id)
+        for (const index in deletedAuthor.authorBooks)
+        {
+            //console.log(deletedAuthor.authorBooks[index])
+            await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
+        }
+        console.log("Books deleted successfully")
+    }
+    catch(e)
+    {
+        next(new Error("Deleting books failed"))
+    }
+})
 const ratingModel = mongoose.model("Rating",ratingShcema);
 module.exports = ratingModel;

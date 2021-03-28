@@ -27,6 +27,24 @@ reviewShcema.post('save' , async function (next) {
     await Book.updateOne({ _id: this.reviewedBook } , { $push: { bookReviews: this._id } });
 })
 
+reviewShcema.pre('remove',async function(){
+    //review-book review-user
+    const BookModel = require('../../book/models/Book')
+    try
+    {
+        const deletedAuthor = await Author.findById(this._conditions._id)
+        for (const index in deletedAuthor.authorBooks)
+        {
+            //console.log(deletedAuthor.authorBooks[index])
+            await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
+        }
+        console.log("Books deleted successfully")
+    }
+    catch(e)
+    {
+        next(new Error("Deleting books failed"))
+    }
+})
 //OnDelete Cascade
 
 const Review = mongoose.model("Review", reviewShcema);

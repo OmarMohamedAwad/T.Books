@@ -100,6 +100,7 @@ bookSchema.pre('remove', async function(next){
     }
 
     // delete book from review collection
+    //delete review drom user //still
     try
     {
         if(this.bookReviews.length > 0)
@@ -111,6 +112,7 @@ bookSchema.pre('remove', async function(next){
     }
 
     // delete book from rating collection
+    //remove rating from user //still
     try
     {
         if(this.bookRatings.length > 0)
@@ -121,7 +123,7 @@ bookSchema.pre('remove', async function(next){
         next(ResponseCode.SERVER_ERROR)
     }
 
-    // Delete Book From User 
+    // Delete Book From User //3documention
 });
 
 var BookModel = mongoos.model('Book', bookSchema);
