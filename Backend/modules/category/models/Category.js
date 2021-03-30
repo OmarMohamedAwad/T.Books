@@ -18,7 +18,7 @@ const categorySchema = mongoose.Schema({
     }
 })
 
-/*
+
 categorySchema.pre('deleteOne',async function(){
     const BookModel = require('../../book/models/Book')
     try
@@ -36,8 +36,8 @@ categorySchema.pre('deleteOne',async function(){
         next(new Error("Deleting books failed"))
     }
 })
-*/
 
+/*
 categorySchema.pre('deleteOne',async function(){
     const BookModel = require('../../book/models/Book')
     try
@@ -49,6 +49,6 @@ categorySchema.pre('deleteOne',async function(){
         next(new Error("Updating books failed"))
     }
 })
-
+*/
 const Category = mongoose.model("Category" , categorySchema);
 module.exports = Category;

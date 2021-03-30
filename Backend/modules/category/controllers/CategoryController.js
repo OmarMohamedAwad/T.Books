@@ -11,21 +11,20 @@ async function index(req, res, next) {
     }  
 }
 
-async function paginate(req, res, next) {
+async function pagination(request, response, next){
     try{
-        const { page=1,limit=2} = req.query;
-        const categories = await Category.find();
-        const numOfCategories = categories.count();
-        if (numOfCategories<=page*limit)
-            throw (new Error("Not existting Page"));
-        const response=categories.sort('categoryName').limit(limit *1).skip((page-1) * limit).exec();
-        res.send(response);
+        const { page=1,limit=2} = request.query;
+       
+        const categories = await Category.find()
+        .sort('categoryName')
+        .limit(limit *1)
+        .skip((page-1) * limit).exec();   
+        response.send(categories);
     }
     catch(err){
         next(err);
     }
 }
-
 async function show(req, res, next) {
     const {path} = req.params
     try {
@@ -99,7 +98,7 @@ async function destroy(req, res, next) {
 
 module.exports = {
     index,
-    paginate,
+    pagination,
     show,
     search,
     store,
