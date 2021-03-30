@@ -1,10 +1,11 @@
 require("./boot/requires");
 require('./boot/dbConnection');
-
+//hi
 const express = require('express');
 const errorHandler = require('./middlewares/error');
 const jwt = require('jsonwebtoken');
 
+const Home = require("./modules/home/routes/HomeRoute")
 const Admin = require("./modules/admin/routes/AdminRoute");
 const Author = require("./modules/author/routes/AuthorRoute");
 
@@ -22,6 +23,10 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+//end point for home
+app.use("/home" , Home);
 
 //end point for book
 app.use("/book", booksRouter);

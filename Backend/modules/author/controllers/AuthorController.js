@@ -11,6 +11,29 @@ async function index(request, response, next) {
     }  
 }
 
+async function pagination(request, response, next){
+    try{
+        let { page=1,limit=2} = request.query;
+        page < 0 ? page = 1 : page;
+        limit < 2 ? limit = 2 : limit;
+        
+        const authers = await Author.find()
+        .sort('authorDob')
+        .limit(limit)
+        .skip((page-1) * limit).exec();  
+        
+        const numberOfPages = Math.ceil(authers.length / limit)
+        response.json({
+            authers,
+            pages: numberOfPages
+        });
+    }
+    catch(err){
+        next(err);
+    }
+}
+
+
 async function store(request, response, next) {
     const authorRequest = request.body
 
@@ -20,7 +43,6 @@ async function store(request, response, next) {
         authorDob: authorRequest.dob,
         authorImage: authorRequest.image 
     })
-
     try {
         const savedAuthor = await author.save()
         response.json(savedAuthor)
@@ -78,5 +100,6 @@ module.exports = {
     store,
     show,
     destroy,
-    update
+    update,
+    pagination
 }

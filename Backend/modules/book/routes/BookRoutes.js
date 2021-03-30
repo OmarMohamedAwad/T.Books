@@ -9,6 +9,10 @@ booksRouter.get('/', (request, response, next)=>{
     bookController.index(request, response, next);
 })
 
+booksRouter.get("/pages", (request, response, next)=> {
+    pagination(request, response, next);   
+})
+
 booksRouter.get('/:id', (request,response, next)=>{
     bookController.show(request, response, next);
 })
@@ -17,7 +21,7 @@ booksRouter.post('/', (request, response, next)=>{
     bookController.store(request, response, next);
 })
 
-booksRouter.patch('/:bookId', (request,response,next)=>{
+booksRouter.patch('/:id', (request,response,next)=>{
     bookController.update(request, response, next); 
 })
 
