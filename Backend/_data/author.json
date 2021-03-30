@@ -1,0 +1,137 @@
+[
+    {
+        "authorBooks": [],
+        "_id": "6062b985182f202651758434",
+        "autherFirstName": "Robert",
+        "autherLastName": "Ervin Howard",
+        "authorDob": "5-9-1980",
+        "authorImage": "Robert.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062b9ae182f202651758435",
+        "autherFirstName": "Edgar",
+        "autherLastName": "Allan Poe",
+        "authorDob": "5-9-1980",
+        "authorImage": "Edgar.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062b9cd182f202651758436",
+        "autherFirstName": "Emily",
+        "autherLastName": "Dickinson",
+        "authorDob": "5-9-1980",
+        "authorImage": "Emily.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062b9e1182f202651758437",
+        "autherFirstName": "William",
+        "autherLastName": "Shakespeare",
+        "authorDob": "5-9-1980",
+        "authorImage": "William.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062b9f3182f202651758438",
+        "autherFirstName": "Alfred",
+        "autherLastName": "Tennyson",
+        "authorDob": "5-9-1980",
+        "authorImage": "Alfred.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062ba11182f202651758439",
+        "autherFirstName": "John",
+        "autherLastName": "Donne",
+        "authorDob": "5-9-1980",
+        "authorImage": "John.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062ba1d182f20265175843a",
+        "autherFirstName": "Bret ",
+        "autherLastName": "Harte",
+        "authorDob": "5-9-1980",
+        "authorImage": "Bret.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062ba33182f20265175843b",
+        "autherFirstName": "Ambrose ",
+        "autherLastName": "Bierce",
+        "authorDob": "5-9-1980",
+        "authorImage": "Ambrose.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062ba4e182f20265175843c",
+        "autherFirstName": "Gilbert",
+        "autherLastName": "Keith Chesterton",
+        "authorDob": "5-9-1980",
+        "authorImage": "Gilbert.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062ba65182f20265175843d",
+        "autherFirstName": "Oscar",
+        "autherLastName": "Wilde",
+        "authorDob": "5-9-1980",
+        "authorImage": "Oscar.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062ba78182f20265175843e",
+        "autherFirstName": "Jack",
+        "autherLastName": "London",
+        "authorDob": "5-9-1980",
+        "authorImage": "Jack.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062ba95182f20265175843f",
+        "autherFirstName": "Robert",
+        "autherLastName": "Louis Stevenson",
+        "authorDob": "5-9-1980",
+        "authorImage": "Robert.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062baab182f202651758440",
+        "autherFirstName": "Charles",
+        "autherLastName": "Dickens",
+        "authorDob": "5-9-1980",
+        "authorImage": "Charles.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062bac2182f202651758441",
+        "autherFirstName": "Emily",
+        "autherLastName": "Brontë",
+        "authorDob": "5-9-1980",
+        "authorImage": "Emily.jpeg",
+        "__v": 0
+    },
+    {
+        "authorBooks": [],
+        "_id": "6062badc182f202651758442",
+        "autherFirstName": "Friedrich",
+        "autherLastName": "Nietzsche",
+        "authorDob": "5-9-1980",
+        "authorImage": "Friedrich.jpeg",
+        "__v": 0
+    }
+]

@@ -43,7 +43,6 @@ async function store(request, response, next) {
         authorDob: authorRequest.dob,
         authorImage: authorRequest.image 
     })
-
     try {
         const savedAuthor = await author.save()
         response.json(savedAuthor)
