@@ -25,6 +25,7 @@ const ratingShcema = new mongoose.Schema({
 });
 
 //assign the new rating to its book
+/*
 ratingShcema.post('save' , async function (next) {
     try{
         await User.updateOne({ _id: this.rater } , { $push: { userRatings: this.rate } });
@@ -39,6 +40,6 @@ ratingShcema.post('save' , async function (next) {
         next(new Error("Rating cann't be assigned to book"));
     }
 })
-
+*/
 const ratingModel = mongoose.model("Rating",ratingShcema);
 module.exports = ratingModel;
