@@ -42,6 +42,7 @@ ratingShcema.post('save' , async function (request , response , next) {
     catch(err){
         next(new Error("Rating cann't be assigned to book"));
     }
+})
 })*/
 
 ratingShcema.pre('deleteOne',async function(){
