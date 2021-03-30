@@ -1,0 +1,72 @@
+[
+    {
+        "categoryBooks": [],
+        "_id": "6062bc1bce1ece29cf3dac95",
+        "categoryName": "cooking",
+        "categoryImage": "cooking.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": [],
+        "_id": "6062bc6fce1ece29cf3dac96",
+        "categoryName": "Science fiction",
+        "categoryImage": "Science_fiction.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": ["6062bfb402d1792d0d7f9995"],
+        "_id": "6062bc81ce1ece29cf3dac97",
+        "categoryName": "Fantasy",
+        "categoryImage": "Fantasy.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": ["6062c33a381b872e4818b4a9"],
+        "_id": "6062bc92ce1ece29cf3dac98",
+        "categoryName": "Historical",
+        "categoryImage": "Historical.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": [],
+        "_id": "6062bc9cce1ece29cf3dac99",
+        "categoryName": "Romance",
+        "categoryImage": "Romance.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": ["6062c07002d1792d0d7f9997"],
+        "_id": "6062bcd9ce1ece29cf3dac9a",
+        "categoryName": "Horror",
+        "categoryImage": "Horror.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": [],
+        "_id": "6062bce6ce1ece29cf3dac9b",
+        "categoryName": "Art",
+        "categoryImage": "Art.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": [],
+        "_id": "6062bcf1ce1ece29cf3dac9c",
+        "categoryName": "Health",
+        "categoryImage": "Health.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": [],
+        "_id": "6062bd0ace1ece29cf3dac9d",
+        "categoryName": "Travel",
+        "categoryImage": "Travel.png",
+        "__v": 0
+    },
+    {
+        "categoryBooks": ["6062c17702d1792d0d7f999a","6062c42c381b872e4818b4ab"],
+        "_id": "6062c0e402d1792d0d7f9998",
+        "categoryName": "others",
+        "categoryImage": "other.png",
+        "__v": 0
+    }
+]

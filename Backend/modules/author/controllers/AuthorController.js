@@ -17,7 +17,7 @@ async function store(request, response, next) {
     const author = new Author ({
         autherFirstName: authorRequest.first_name,
         autherLastName: authorRequest.last_name,
-        authorDob: authorRequest,
+        authorDob: authorRequest.dob,
         authorImage: authorRequest.image 
     })
     try {
