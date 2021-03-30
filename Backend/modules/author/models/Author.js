@@ -33,6 +33,8 @@ authorShcema.index({
     unique: [true, ValidationMessage.FIRST_LAST_NAME_UNIQUE] 
 });
 
+
+
 authorShcema.pre('deleteOne',async function(){
     const BookModel = require('../../book/models/Book')
     try
@@ -41,9 +43,10 @@ authorShcema.pre('deleteOne',async function(){
         for (const index in deletedAuthor.authorBooks)
         {
             //console.log(deletedAuthor.authorBooks[index])
-            await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
+
+            await BookModel.deleteOne({_id: index})
         }
-        console.log("Books deleted successfully")
+
     }
     catch(e)
     {
