@@ -8,6 +8,10 @@ categoryRouter.get("/", (request, response, next)=> {
     CategoryController.index(request, response, next);   
 }) 
 
+categoryRouter.get("/pages", (request, response, next)=> {
+    CategoryController.pagination(request, response, next);   
+}) 
+
 categoryRouter.post("/", (request, response, next)=> {
     CategoryController.store(request, response, next);
 })

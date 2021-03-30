@@ -18,24 +18,32 @@ const categorySchema = mongoose.Schema({
     }
 })
 
+
+categorySchema.pre('deleteOne',async function(){
+    // book book-user book-rating book-review book-auther rating-user review-user
+    const Book = require('../../book/models/Book')
+    try
+    {
+        await Book.updateMany({bookCategory: this._conditions._id} , {bookCategory: "no suitable category"})
+    }
+    catch(e)
+    {
+        next(e)
+    }
+})
+
+/*
 categorySchema.pre('deleteOne',async function(){
     const BookModel = require('../../book/models/Book')
     try
     {
-        const deletedCategory = await Category.findById(this._conditions._id)
-        for (const index in deletedCategory.categoryBooks)
-        {
-            //console.log(deletedCategory.categoryBooks[index])
-            await BookModel.findOneAndDelete({_id: deletedCategory.categoryBooks[index]})
-        }
-        console.log("Books deleted successfully")
+        await BookModel.updateMany({ bookCategory: this._conditions._id }, { bookCategory: "none" });
     }
     catch(e)
     {
-        next(new Error("Deleting books failed"))
+        next(new Error("Updating books failed"))
     }
 })
-
-
+*/
 const Category = mongoose.model("Category" , categorySchema);
 module.exports = Category;

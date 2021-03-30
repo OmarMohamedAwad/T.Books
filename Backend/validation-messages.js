@@ -23,7 +23,7 @@ const BOOk_NAME_MAX_LENGTH_ERROR_MESSAGE = "Book name must contain at most 50 ch
 const BOOk_DESCRIPTION_UNIQUE_ERROR_MESSAGE = "Book description must be unique";
 const BOOk_DESCRIPTION_REQUIRED_ERROR_MESSAGE = "Book description is required";
 const BOOk_DESCRIPTION_MIN_LENGTH_ERROR_MESSAGE = "Book description must contain at least 10 character";
-const BOOk_DESCRIPTION_MAN_LENGTH_ERROR_MESSAGE = "Book name must contain at most 150 character";
+const BOOk_DESCRIPTION_MAN_LENGTH_ERROR_MESSAGE = "Book name must contain at most 250 character";
 
 const BOOk_IMAGE_UNIQUE_ERROR_MESSAGE = "Book image must be unique";
 const BOOk_IMAGE_REQUIRED_ERROR_MESSAGE = "Book image is required";

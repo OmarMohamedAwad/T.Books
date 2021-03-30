@@ -2,12 +2,14 @@ const Rating = require("../../rating/models/Rating")
 const Response_Code = require("../../../response-codes")
 const Response_Msg = require("../../../response-messages")
 
-async function index(req, res, next) {
+async function show(req, res, next) {
+
+    const { id } = request.params
     try{
-        const ratingsDetails = await Rating.find();
-        res.json(ratingsDetails)
-    } catch (err){
-        next(Response_Code.SERVER_ERROR)
+        const rating = await Rating.findById(id).populate("rater").populate("ratedBook");
+        response.json(review);
+    }catch(error){
+        next(ResponseCode.SERVER_ERROR)
     }
 }
 
@@ -22,6 +24,7 @@ async function store(req, res, next) {
         const newRating = await rating.save()
         res.json(newRating)
     }catch (err){
+        console.log(err)
         next(err)
     }
 }
@@ -30,9 +33,7 @@ async function update(req, res, next) {
     const {id} = req.params;
     const rating = req.body
     const newRating = {
-        ...(rating.name ? { rate: rating.name } : {}),
-        ...(rating.book ? { rater: rating.books } : {}),
-        ...(rating.image ? { ratedBook: rating.image } : {}),
+        ...(rating.rate ? { rate: rating.rate } : {})
     }
 
     try{
