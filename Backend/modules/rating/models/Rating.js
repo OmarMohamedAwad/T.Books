@@ -25,8 +25,11 @@ const ratingShcema = new mongoose.Schema({
 });
 
 
-ratingShcema.post('save' , async function (request , response , next) {
+//assign the new rating to its book
+/*
+//ratingShcema.post('save' , async function (next) {
 
+ratingShcema.post('save' , async function (request , response , next) {
     try{
         await User.updateOne({ _id: this.rater } , { $push: { userRatings: this.rate } });
     }
@@ -39,7 +42,7 @@ ratingShcema.post('save' , async function (request , response , next) {
     catch(err){
         next(new Error("Rating cann't be assigned to book"));
     }
-})
+})*/
 
 ratingShcema.pre('deleteOne',async function(){
     //review-book
@@ -57,6 +60,5 @@ ratingShcema.pre('deleteOne',async function(){
         next(new Error("can't remove dependencies"))
     }
 })
-
 const ratingModel = mongoose.model("Rating",ratingShcema);
 module.exports = ratingModel;

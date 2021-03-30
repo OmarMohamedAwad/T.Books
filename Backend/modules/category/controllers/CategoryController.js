@@ -11,6 +11,20 @@ async function index(req, res, next) {
     }  
 }
 
+async function pagination(request, response, next){
+    try{
+        const { page=1,limit=2} = request.query;
+       
+        const categories = await Category.find()
+        .sort('categoryName')
+        .limit(limit *1)
+        .skip((page-1) * limit).exec();   
+        response.send(categories);
+    }
+    catch(err){
+        next(err);
+    }
+}
 async function show(req, res, next) {
     const {path} = req.params
     try {
@@ -84,6 +98,7 @@ async function destroy(req, res, next) {
 
 module.exports = {
     index,
+    pagination,
     show,
     search,
     store,
