@@ -1,0 +1,19 @@
+nav {
+  background-color: #de3242;
+  top: 0px;
+  color: white;
+  padding: 0;
+}
+
+nav p{
+  margin: 10px 20px;
+}
+
+nav ul {
+  padding-left: 18%;
+  color: white;
+}
+
+nav ul a {
+  color: white;
+}

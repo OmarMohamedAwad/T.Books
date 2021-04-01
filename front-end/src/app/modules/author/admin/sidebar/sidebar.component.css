@@ -1,0 +1,32 @@
+.side-bar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18%;
+  bottom: 0;
+  background-color: rgb(33, 37, 41);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-family: Arial;
+}
+
+.content {
+  margin-top: 40%;
+}
+
+.content .menu {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 20px;
+}
+
+.content .menu li {
+  margin-top: 20px;
+  background-color: transparent;
+  color: white;
+}
+
+.content .menu li svg{
+  float: left;
+}
