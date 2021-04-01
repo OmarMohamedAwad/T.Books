@@ -8,7 +8,12 @@
   color: white;
   text-align: center;
   padding: 20px;
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.5), 0 1px 5px 0 rgba(0,0,0,0.5);
   font-family: Arial;
+}
+
+.side-bar .header svg {
+  color: #de3242;
 }
 
 .content {

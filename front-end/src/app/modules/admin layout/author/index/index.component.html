@@ -1,0 +1,80 @@
+<app-navbar-admin></app-navbar-admin>
+<app-admin-sidebar></app-admin-sidebar>
+
+<section class="author">
+  <div class="container">
+    <div class="top-part">
+      <h2>Author</h2>
+      <button type="button" class="add-author" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fas fa-plus"></i>
+      </button>
+      <div class="author-search">
+        <div class="input-group w-50 m-auto">
+          <div class="form-outline w-75 ">
+            <input type="search" class="form-control" placeholder="Search"/>
+          </div>
+          <button id="search-button" type="button" class="btn search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2"></div>
+      <table class="table col-8">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Date Of Birth</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td><img src="../../../../../assets/admin/author/author.svg" class="author-imag"></td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>
+              <button class="btn text-dark" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+              <button class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td><img src="../../../../../assets/admin/author/author.svg" class="author-imag"></td>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>
+              <button class="btn text-dark" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+              <button class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td><img src="../../../../../assets/admin/author/author.svg" class="author-imag"></td>
+            <td>Thornton</td>
+            <td>Thornton</td>
+            <td>@twitter</td>
+            <td>
+              <button class="btn text-dark" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+              <button class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+// Delete Modal
+<app-admin-delete></app-admin-delete>
+
+// Update Modal
+<app-admin-update></app-admin-update>
