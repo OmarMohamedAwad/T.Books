@@ -1,0 +1,90 @@
+.container {
+  padding-left: 15%;
+}
+
+button:focus,
+input:focus,
+svg:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+/*Top Section*/
+.top-part {
+  margin-top: 10%;
+  height: 200px;
+}
+
+.top-part h2 {
+  display: inline-block;
+}
+
+.top-part .author-search {
+  margin-top: 50px;
+}
+
+.top-part .author-search .input-group {
+  margin: auto;
+}
+
+.top-part .author-search input,
+.top-part .author-search button {
+  box-shadow: 0 2px 2px 0 rgba(66, 66, 66, 0.2),
+    0 4px 5px 0 rgba(66, 66, 66, 0.2);
+}
+
+.top-part .author-search button {
+  background-color: #de3242;
+  color: white;
+}
+
+.top-part .add-author {
+  background-color: #de3242;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  float: right;
+  border-radius: 50%;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3), 0 4px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.search-btn:hover {
+  transform: scale(1.2);
+  transition: all 0.5s ease-in-out;
+}
+
+/*Table Section*/
+
+.author-imag {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 500px) {
+  .author .container {
+    padding-left: 21%;
+  }
+
+  .author-search .input-group,
+  .orm-outline {
+    width: 90% !important;
+  }
+}
+
+table td button:hover {
+  transform: scale(1.5);
+  transition: all 0.5s ease-in-out;
+}
+.table-dark {
+  background-color: #24324a;
+}
+/*Our color*/
+.custom-bg {
+  background-color: #24324a;
+}
+.custom-txt {
+  color: #24324a;
+}
