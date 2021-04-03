@@ -1,0 +1,41 @@
+.container {
+  padding-left: 18%;
+}
+
+.update-form {
+  margin-top: 10%;
+  box-shadow: 3px 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+}
+
+  
+.book-form button {
+  width: 50%;
+  float: center;
+}
+
+.field {
+  margin: 10px 0 20px 2%;
+  width: 48%;
+  display: inline-block;
+}
+
+.input-field{
+  margin-left: 13%;
+}
+/* 
+.modal.show .modal-dialog {
+  margin-top: 10%;
+} */
+
+form svg {
+  color: #de3242;
+  margin: 40px auto;
+}
+
+@media (min-width: 576px){
+  .modal-dialog {
+    max-width: 800px;
+    margin: 1.75rem auto;
+  }
+}

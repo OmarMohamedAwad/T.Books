@@ -1,0 +1,72 @@
+<app-navbar-admin></app-navbar-admin>
+<app-admin-sidebar></app-admin-sidebar>
+
+<section class="book">
+  <div class="container">
+    <div class="top-part">
+      <h2>Book</h2>
+      <div class="book-search">
+        <div class="input-group w-100 m-auto">
+          <div class="form-outline w-85 ">
+            <input type="search" class="form-control" placeholder="Search"/>
+          </div>
+          <button id="search-button" type="button" class="btn search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <button type="button" class="add-book" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-2"></div>
+      <table class="table col-8">
+        <thead class="table-active">
+        <tr >
+            <th class="col" class="text-center">#</th>
+            <th class="col" class="text-center">Title</th>
+            <th class="col" class="text-center">Photo</th>
+            <th class="col" class="text-center">Category ID</th>
+            <th class="col" class="text-center">Author ID</th>
+            <th class="col-2" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="text-center pt-3">1</th>
+            <td class="text-center pt-3">Utopia</td>
+            <td class="text-center pt-3"><img src="assets/admin/book/open-book.svg" class="book-imag"></td>
+            <td class="text-center pt-3">1</td>
+            <td class="text-center pt-3">1</td>
+            <td class="text-center">
+              <button class="btn text-dark" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+              <button class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+              <!-- (click)="getBookTitle($event)"    for edit inital values -->
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-center pt-3">2</th>
+            <td class="text-center pt-3">The Forty Rules of Love</td>
+            <td class="text-center pt-3"><img src="assets/admin/book/open-book.svg" class="book-imag"></td>
+            <td class="text-center pt-3">3</td>
+            <td class="text-center pt-3">5</td>
+            <td class="text-center">
+              <button class="btn text-dark" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+              <button class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- // Add Module  -->
+<app-book-store></app-book-store>
+
+<!-- // Delete Modal -->
+<app-book-delete></app-book-delete>
+
+<!-- // Update Modal -->
+<app-book-update></app-book-update>

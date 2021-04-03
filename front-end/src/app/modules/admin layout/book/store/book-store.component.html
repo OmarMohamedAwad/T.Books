@@ -1,0 +1,58 @@
+<!-- <div class="modal fade w-100" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog w-100">
+    <div class="modal-content w-100">
+      <div class="modal-header ">
+        <h5 class="modal-title" id="staticBackdropLabel">Add New Book</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3 book-form">
+        <form class="" id="form">
+          <i class="fas fa-book-open fa-5x d-block"></i> -->
+
+<app-navbar-admin></app-navbar-admin>
+<app-admin-sidebar></app-admin-sidebar>
+
+<div class="container">
+  <div class="row p-5">
+    <div class="update-form p-3">
+      <form class="" id="form">
+        <i class="fas fa-book-open fa-5x d-block m-auto"></i>
+          <div class="mb-3 field w-75">
+            <label class="form-label" for="title">Title</label>
+            <input class="form-control input-field" id="title" placeholder="book title" type="text">
+          </div>
+          
+          <div class="mb-3 field w-75">
+            <label class="form-label" for="author">Author</label>
+            <select class="form-select input-field" aria-label="Default select example" id="author" >
+                <option selected>Select the author</option>
+                <option value="1">Ahmed Khaled</option>
+                <option value="2">Radwa Ashour</option>
+                <option value="3">Elif Shafaq</option>
+            </select>
+          </div>
+          <div class="mb-3 field w-75">
+            <label class="form-label" for="category id">Category</label>
+            <select class="form-select input-field" aria-label="Default select example" id="category">
+                <option selected>Select the category</option>
+                <option value="1">Science</option>
+                <option value="2">History</option>
+                <option value="3">Story</option>
+            </select>
+          </div>
+  
+          <div class="mb-3 field w-75">
+            <label class="form-label" for="image">Image</label>
+            <input class="form-control input-field" id="image" type="file">
+          </div>
+  
+          <div class="actions text-center mt-3">
+            <button class="btn btn-secondary w-25 m-1" data-bs-dismiss="modal" type="button">Close</button>
+            <button class="btn btn-danger w-25 m-1" type="submit">Add Book</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->
