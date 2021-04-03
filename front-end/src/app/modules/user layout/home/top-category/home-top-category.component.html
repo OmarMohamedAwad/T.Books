@@ -1,0 +1,18 @@
+<section class="top-category my-5 py-5">
+    <h2 class="text-center">The Top<span class="italic"> Category</span></h2>
+    <div class="border m-auto"></div>
+    <div class="container">
+        <div class="row mt-5"  *ngFor="let categoryRow of topCategories">
+            <div class="col-md-4 " *ngFor="let categoryCol of categoryRow; index as i">
+                <div class="card mb-3" >
+                    <img class="card-img-top" [src]="categoryCol" alt="Card image cap">
+                    <div class="overlay"></div>
+                    <div class="card-body text-center text-white " [class]="coleredBackground[i]">
+                        <h3 class=" italic">30 Books</h3>
+                        <p> see your favourite books in art category</p>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,51 @@
+.author{
+    font-family: 'PT Sans', sans-serif;
+    background-color: #F5F5F5;
+}
+
+.italic{ 
+    font-style: italic; 
+    font-family: 'Playfair Display';
+}
+
+button {
+    padding: 12px 24px !important;
+    color: #fff; 
+    background-color: #000; 
+    border-radius: 10px; 
+    font-size: 17px; 
+    line-height: 2;
+} 
+
+h2{
+    font-size: 48px;
+}
+
+.btn-custom {
+    font-size: 20px; 
+    font-weight:700;
+}
+
+button:hover{
+    background-color: transparent; 
+    border: 1px solid #000 !important;
+    color: #000 !important; 
+    font-size: 20px; 
+    font-weight: bold;
+}
+
+.author a{
+    color: #88807C; 
+    text-decoration: none; 
+    margin-top: 10px  !important;
+}
+
+.border{
+    background-color: #121212;
+    width: 100px; 
+    height: 2px;
+}
+
+
+
+

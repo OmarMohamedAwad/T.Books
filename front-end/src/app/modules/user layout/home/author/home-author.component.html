@@ -1,0 +1,18 @@
+
+<!------------------------------Start  Author Section--------------------->
+<section class="author py-5">
+    <h2 class=" text-center pt-4" >Popular<span class="italic"> Authors </span> </h2>
+    <div class="border m-auto"></div>
+    <div class="container">
+        <div class="row mt-4 pt-4" *ngFor="let authorRow of authors">
+            <div class="col" *ngFor="let authorCol of authorRow">
+                <img [src]="authorCol" class="w-100">
+                <a  href ="#" class="d-block text-center">AuthorName</a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center mt-5">
+            <button class="btn btn-custom-custom font-weight-bold">view more</button>
+        </div>
+    </div>
+</section>
+<!------------------------------End  Author Section--------------------->

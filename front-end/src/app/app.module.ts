@@ -18,6 +18,13 @@ import { BookIndexComponent } from './modules/admin layout/book/index/book-index
 import { BookDeleteComponent } from './modules/admin layout/book/delete/book-delete.component';
 import { BookUpdateComponent } from './modules/admin layout/book/update/book-update.component';
 import { BookStoreComponent } from './modules/admin layout/book/store/book-store.component';
+import { HomeAllComponent } from './modules/user layout/home/home-all/home-all.component';
+import { HomeHeaderComponent } from './modules/user layout/home/header/home-header.component';
+import { HomePopularBookComponent } from './modules/user layout/home/popular-book/home-popular-book.component';
+import { HomeSubscribeComponent } from './modules/user layout/home/subscribe/home-subscribe.component';
+import { HomeAuthorComponent } from './modules/user layout/home/author/home-author.component';
+import { HomeTopCategoryComponent } from './modules/user layout/home/top-category/home-top-category.component';
+import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +44,14 @@ import { BookStoreComponent } from './modules/admin layout/book/store/book-store
     BookIndexComponent,
     BookDeleteComponent,
     BookUpdateComponent,
-    BookStoreComponent
+    BookStoreComponent,
+    HomeAllComponent,
+    HomeHeaderComponent,
+    HomePopularBookComponent,
+    HomeSubscribeComponent,
+    HomeAuthorComponent,
+    HomeTopCategoryComponent,
+    HomeFooterComponent
   ],
   imports: [
     BrowserModule
