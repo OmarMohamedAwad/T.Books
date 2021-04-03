@@ -1,0 +1,56 @@
+.content-page {
+  background-color: #f7f7f7;
+  margin-top: 0 !important;
+}
+.setting {
+  margin-left: 19%;
+}
+.btn-custom {
+  background-color: #de3242;
+  color: #ffffff;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  width: 100px;
+  border-radius: 20px;
+}
+.content h2 {
+  line-height: 1.2;
+  color: #484848;
+  font-weight: bold;
+  font-size: 30px;
+}
+.content p {
+  font-size: 14px;
+  color: #484848;
+}
+
+form {
+  background-color: #ffffff;
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 20px;
+}
+form h4 {
+  line-height: 1.2;
+  color: #484848;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+form label {
+  font-size: 16px;
+  font-family: "Nunito";
+  color: rgb(72, 72, 72);
+  font-weight: 700;
+  line-height: 1.5;
+}
+.btn-header {
+  border-radius: 5px;
+  font-weight: 800;
+}
+.btn-header:hover {
+  background-color: #ffffff;
+  border: 1px solid rgb(255, 90, 95);
+  color: rgb(255, 90, 95);
+}

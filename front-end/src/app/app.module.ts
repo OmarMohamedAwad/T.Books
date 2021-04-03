@@ -8,6 +8,7 @@ import { StoreComponent } from './modules/admin layout/author/store/store.compon
 import { DeleteComponent } from './modules/admin layout/author/delete/delete.component';
 import { UpdateComponent } from './modules/admin layout/author/update/update.component';
 import { NavbarAdminComponent } from './modules/admin layout/shared/navbar-admin/navbar-admin.component';
+import { SettingComponent } from './modules/admin layout/setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NavbarAdminComponent } from './modules/admin layout/shared/navbar-admin
     StoreComponent,
     DeleteComponent,
     UpdateComponent,
-    NavbarAdminComponent
+    NavbarAdminComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule
