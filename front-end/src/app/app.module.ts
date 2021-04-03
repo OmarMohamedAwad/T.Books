@@ -12,6 +12,11 @@ import { ShowAuthorComponent } from './modules/user layout/shared/author/show/sh
 import { AuthorCardComponent } from './modules/user layout/shared/author/show/author-card/author-card.component';
 import { AuthorBookslistComponent } from './modules/user layout/shared/author/show/author-bookslist/author-bookslist.component';
 import { AuthorBookComponent } from './modules/user layout/shared/author/show/author-book/author-book.component';
+import { UserAuthorIndexComponent } from './modules/user layout/author/user-author-index/user-author-index.component';
+import { BookIndexComponent } from './modules/admin layout/book/index/book-index.component';
+import { BookDeleteComponent } from './modules/admin layout/book/delete/book-delete.component';
+import { BookUpdateComponent } from './modules/admin layout/book/update/book-update.component';
+import { BookStoreComponent } from './modules/admin layout/book/store/book-store.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,12 @@ import { AuthorBookComponent } from './modules/user layout/shared/author/show/au
     ShowAuthorComponent,
     AuthorCardComponent,
     AuthorBookslistComponent,
-    AuthorBookComponent
+    AuthorBookComponent,
+    UserAuthorIndexComponent
+    BookIndexComponent,
+    BookDeleteComponent,
+    BookUpdateComponent,
+    BookStoreComponent
   ],
   imports: [
     BrowserModule
