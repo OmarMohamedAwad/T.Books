@@ -1,37 +1,54 @@
-.side-bar{
-  position: absolute;
+.dashboard-sidebar {
+  background-color: #24324a;
+  height: 100vh;
+  box-sizing: border-box;
+  position: fixed;
   top: 0;
-  left: 0;
-  width: 18%;
-  bottom: 0;
-  background-color: rgb(33, 37, 41);
-  color: white;
-  text-align: center;
-  padding: 20px;
-  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.5), 0 1px 5px 0 rgba(0,0,0,0.5);
-  font-family: Arial;
 }
-
-.side-bar .header svg {
+.dashboard-sidebar .logo-icon {
+  margin: 15px 0;
+  text-align: center;
+  color: rgb(138, 153, 179);
+}
+.header-char {
   color: #de3242;
 }
-
-.content {
-  margin-top: 40%;
+.dashboard-sidebar .header {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.2;
+  padding: 20px 0 20px 30px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-style: italic;
 }
-
-.content .menu {
-  list-style-type: none;
-  padding-left: 0;
+.dashboard-sidebar .header i {
+  font-size: 30px;
+}
+.dashboard-sidebar a,
+.dashboard-sidebar .title {
+  color: rgb(138, 153, 179);
+}
+.dashboard-sidebar .title {
+  line-height: 1.5;
+}
+.mange {
+  padding: 5px 30px;
+  line-height: 3;
+}
+.mange:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-weight: 800;
+}
+.mange:hover a {
+  color: #fff;
+}
+.title {
+  margin: 15px 6px;
   font-size: 20px;
 }
-
-.content .menu li {
-  margin-top: 20px;
-  background-color: transparent;
-  color: white;
-}
-
-.content .menu li svg{
-  float: left;
+.dashboard-sidebar i {
+  padding-right: 10px;
 }
