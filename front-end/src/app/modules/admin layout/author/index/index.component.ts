@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-admin-index',
+  selector: 'app-admin-author-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
