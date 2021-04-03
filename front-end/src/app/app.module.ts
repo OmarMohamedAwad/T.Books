@@ -8,6 +8,7 @@ import { StoreComponent } from './modules/admin layout/author/store/store.compon
 import { DeleteComponent } from './modules/admin layout/author/delete/delete.component';
 import { UpdateComponent } from './modules/admin layout/author/update/update.component';
 import { NavbarAdminComponent } from './modules/admin layout/shared/navbar-admin/navbar-admin.component';
+import { SettingComponent } from './modules/admin layout/setting/setting.component';
 import { ShowAuthorComponent } from './modules/user layout/shared/author/show/show-author/show-author.component';
 import { AuthorCardComponent } from './modules/user layout/shared/author/show/author-card/author-card.component';
 import { AuthorBookslistComponent } from './modules/user layout/shared/author/show/author-bookslist/author-bookslist.component';
@@ -27,6 +28,7 @@ import { BookStoreComponent } from './modules/admin layout/book/store/book-store
     DeleteComponent,
     UpdateComponent,
     NavbarAdminComponent,
+    SettingComponent,
     ShowAuthorComponent,
     AuthorCardComponent,
     AuthorBookslistComponent,
