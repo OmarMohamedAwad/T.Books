@@ -31,7 +31,7 @@ import { BookStoreComponent } from './modules/admin layout/book/store/book-store
     AuthorCardComponent,
     AuthorBookslistComponent,
     AuthorBookComponent,
-    UserAuthorIndexComponent
+    UserAuthorIndexComponent,
     BookIndexComponent,
     BookDeleteComponent,
     BookUpdateComponent,
