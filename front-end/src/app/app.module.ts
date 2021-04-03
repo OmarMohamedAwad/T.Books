@@ -8,6 +8,10 @@ import { StoreComponent } from './modules/admin layout/author/store/store.compon
 import { DeleteComponent } from './modules/admin layout/author/delete/delete.component';
 import { UpdateComponent } from './modules/admin layout/author/update/update.component';
 import { NavbarAdminComponent } from './modules/admin layout/shared/navbar-admin/navbar-admin.component';
+import { BookIndexComponent } from './modules/admin layout/book/index/book-index.component';
+import { BookDeleteComponent } from './modules/admin layout/book/delete/book-delete.component';
+import { BookUpdateComponent } from './modules/admin layout/book/update/book-update.component';
+import { BookStoreComponent } from './modules/admin layout/book/store/book-store.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,11 @@ import { NavbarAdminComponent } from './modules/admin layout/shared/navbar-admin
     StoreComponent,
     DeleteComponent,
     UpdateComponent,
-    NavbarAdminComponent
+    NavbarAdminComponent,
+    BookIndexComponent,
+    BookDeleteComponent,
+    BookUpdateComponent,
+    BookStoreComponent
   ],
   imports: [
     BrowserModule
