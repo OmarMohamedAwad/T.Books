@@ -1,0 +1,16 @@
+.modal-body {
+    text-align: center;
+  }
+  
+  .modal-body button {
+    width: 45%;
+  }
+  
+  .modal-dialog {
+    margin: 15rem auto;
+  }
+  
+  .modal.show .modal-dialog {
+    margin-top: 20%;
+  }
+  
