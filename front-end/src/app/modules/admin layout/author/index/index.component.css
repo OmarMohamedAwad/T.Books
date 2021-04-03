@@ -1,8 +1,10 @@
-.container{
+.container {
   padding-left: 15%;
 }
 
-button:focus, input:focus, svg:focus {
+button:focus,
+input:focus,
+svg:focus {
   outline: none !important;
   border: none !important;
 }
@@ -17,19 +19,21 @@ button:focus, input:focus, svg:focus {
   display: inline-block;
 }
 
-.top-part .author-search{
+.top-part .author-search {
   margin-top: 50px;
 }
 
-.top-part .author-search .input-group{
+.top-part .author-search .input-group {
   margin: auto;
 }
 
-.top-part .author-search input,.top-part .author-search button {
-  box-shadow: 0 2px 2px 0 rgba(66,66,66,0.2), 0 4px 5px 0 rgba(66,66,66,0.2);
+.top-part .author-search input,
+.top-part .author-search button {
+  box-shadow: 0 2px 2px 0 rgba(66, 66, 66, 0.2),
+    0 4px 5px 0 rgba(66, 66, 66, 0.2);
 }
 
-.top-part .author-search button{
+.top-part .author-search button {
   background-color: #de3242;
   color: white;
 }
@@ -43,7 +47,7 @@ button:focus, input:focus, svg:focus {
   border-radius: 50%;
   color: white;
   border: none;
-  box-shadow: 0 4px 4px 0 rgba(0,0,0,0.3), 0 4px 5px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3), 0 4px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
 .search-btn:hover {
@@ -60,11 +64,12 @@ button:focus, input:focus, svg:focus {
 }
 
 @media only screen and (max-width: 500px) {
-  .author .container{
+  .author .container {
     padding-left: 21%;
   }
 
-  .author-search .input-group, .orm-outline {
+  .author-search .input-group,
+  .orm-outline {
     width: 90% !important;
   }
 }
@@ -72,4 +77,14 @@ button:focus, input:focus, svg:focus {
 table td button:hover {
   transform: scale(1.5);
   transition: all 0.5s ease-in-out;
+}
+.table-dark {
+  background-color: #24324a;
+}
+/*Our color*/
+.custom-bg {
+  background-color: #24324a;
+}
+.custom-txt {
+  color: #24324a;
 }

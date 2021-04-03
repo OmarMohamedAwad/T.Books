@@ -1,6 +1,17 @@
-body, html {
+body,
+html {
   margin: 0px;
   width: 100%;
   height: 100%;
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
+}
+::-moz-selection {
+  /* Code for Firefox */
+  color: #fff;
+  background: #000;
+}
+
+::selection {
+  color: #fff;
+  background: #000;
 }
