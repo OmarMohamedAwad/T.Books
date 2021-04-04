@@ -36,11 +36,12 @@ async function pagination(request, response, next){
 
 async function store(request, response, next) {
     const authorRequest = request.body
+    console.log(authorRequest)
 
     const author = new Author ({
-        autherFirstName: authorRequest.first_name,
-        autherLastName: authorRequest.last_name,
-        authorDob: authorRequest.dob,
+        autherFirstName: authorRequest.autherFirstName,
+        autherLastName: authorRequest.autherLastName,
+        authorDob: authorRequest.authorDob,
         authorImage: authorRequest.image 
     })
     try {
