@@ -26,6 +26,10 @@ import { HomeAuthorComponent } from './modules/user layout/home/author/home-auth
 import { HomeTopCategoryComponent } from './modules/user layout/home/top-category/home-top-category.component';
 import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
 import { UserBookIndexComponent } from './modules/user layout/book/user-book-index/user-book-index.component';
+import { UserCategoryIndexComponent } from './modules/user layout/category/user-category-index/user-category-index.component';
+import { UserCategorySidebarComponent } from './modules/user layout/category/user-category-sidebar/user-category-sidebar.component';
+import { UserCategoryHeaderComponent } from './modules/user layout/category/user-category-header/user-category-header.component';
+import { UserCategoryBooksComponent } from './modules/user layout/category/user-category-books/user-category-books.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,11 @@ import { UserBookIndexComponent } from './modules/user layout/book/user-book-ind
     HomeAuthorComponent,
     HomeTopCategoryComponent,
     HomeFooterComponent,
-    UserBookIndexComponent
+    UserBookIndexComponent,
+    UserCategoryIndexComponent,
+    UserCategorySidebarComponent,
+    UserCategoryHeaderComponent,
+    UserCategoryBooksComponent
   ],
   imports: [
     BrowserModule
