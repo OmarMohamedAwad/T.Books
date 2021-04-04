@@ -25,6 +25,7 @@ import { HomeSubscribeComponent } from './modules/user layout/home/subscribe/hom
 import { HomeAuthorComponent } from './modules/user layout/home/author/home-author.component';
 import { HomeTopCategoryComponent } from './modules/user layout/home/top-category/home-top-category.component';
 import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
+import { UserBookIndexComponent } from './modules/user layout/book/user-book-index/user-book-index.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { HomeFooterComponent } from './modules/user layout/home/footer/home-foot
     HomeSubscribeComponent,
     HomeAuthorComponent,
     HomeTopCategoryComponent,
-    HomeFooterComponent
+    HomeFooterComponent,
+    UserBookIndexComponent
   ],
   imports: [
     BrowserModule

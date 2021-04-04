@@ -1,0 +1,73 @@
+
+.back {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.books {
+  margin-top: 10%;
+  margin-bottom: 20px;
+  height: 70%;
+}
+
+.book {
+  position: relative;
+  background-color: #F5F5F5;
+  padding: 10px;
+  height: 380px;
+  border-radius: 5px;
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2), 0 1px 7px 0 rgba(0,0,0,0.2), 0 3px 2px -2px rgba(0,0,0,0.2);
+}
+
+.book:hover {
+  cursor: pointer;
+}
+
+.book-title p{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.book-image {
+  width: 55%;
+  height: 55%;
+  border-radius: 20px;
+}
+
+.book-image:hover{
+  transform: scale(1.2);
+  transition: all 0.3s linear;
+}
+
+.book-info p{
+  font-size: 1.1em;
+}
+
+.book-info a:hover {
+  background-color: transparent;
+  color: black;
+  border: 1px black solid;
+  transition: all 0.5s ease-in-out;
+}
+
+
+.category {
+  position: absolute;
+  top: 0%;
+  background-color: rgba(222, 50, 66, 0.8);
+  left: 0;
+  padding: 10px;
+  color: white;
+  border-radius: 0 20px 20px 0;
+}
+
+.category:hover {
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2), 0 1px 7px 0 rgba(0,0,0,0.2), 0 3px 2px -2px rgba(0,0,0,0.2);
+  background-color: rgba(222, 50, 66, 1);
+  transition: all 0.5s ease-in-out;
+}
+
+.category p{
+  margin-bottom: 0;
+}
