@@ -1,0 +1,13 @@
+.container {
+  padding-left: 18%;
+}
+
+.update-form {
+  margin-top: 10%;
+  box-shadow: 3px 4px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+}
+
+.fa-book-open {
+  color: #de3242;
+}
