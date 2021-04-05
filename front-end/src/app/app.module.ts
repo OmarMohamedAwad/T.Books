@@ -28,8 +28,11 @@ import { CategoryIndexComponent } from './modules/admin layout/category/category
 import { CategoryStoreComponent } from './modules/admin layout/category/category-store/category-store.component';
 import { CategoryUpdateComponent } from './modules/admin layout/category/category-update/category-update.component';
 import { CategoryDeleteComponent } from './modules/admin layout/category/category-delete/category-delete.component';
-
-
+import { UserProfileIndexComponent } from './modules/user layout/user-profile/index/user-profile-index.component';
+import { UserProfileHeaderComponent } from './modules/user layout/user-profile/header/user-profile-header.component';
+import { UserProfileSideComponent } from './modules/user layout/user-profile/side-menu/user-profile-side.component';
+import { UserProfilePaginationComponent } from './modules/user layout/user-profile/pagination/user-profile-pagination.component';
+import { UserProfileCardsComponent } from './modules/user layout/user-profile/cards/user-profile-cards.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,12 @@ import { CategoryDeleteComponent } from './modules/admin layout/category/categor
     CategoryIndexComponent,
     CategoryStoreComponent,
     CategoryUpdateComponent,
-    CategoryDeleteComponent
+    CategoryDeleteComponent,
+    UserProfileIndexComponent,
+    UserProfileHeaderComponent,
+    UserProfileSideComponent,
+    UserProfilePaginationComponent,
+    UserProfileCardsComponent
   ],
   imports: [
     BrowserModule

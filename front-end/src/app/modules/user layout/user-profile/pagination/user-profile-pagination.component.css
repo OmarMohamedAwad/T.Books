@@ -1,0 +1,22 @@
+/*Pagination Section*/
+.pagination{
+    margin: auto;
+    justify-content: center;
+  }
+  
+  .pagination li {
+    margin: 10px;
+  }
+  
+  .pagination li a{
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .pagination li a svg {
+    margin-top: -5px;
+    color: #de3242;
+  }
+  
