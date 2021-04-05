@@ -3,7 +3,7 @@
 
 /**/
 .parentContainer{
-    margin-top: -17%;
+    margin-top: 1%;
     margin-left: 10%;
 }
 .card-container{
@@ -45,4 +45,22 @@ select{
 .ratingStars{
     margin-top: 2%;
 }
+
+@media only screen and (max-width: 1000px) {
+    .card-container{
+        margin-left: 40%;
+        width: 50%
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .card-container{
+        margin-left: 2%;
+        width: 90%
+    }
+    .parentContainer{
+        margin-top: 5%;
+    }
+}
+
 

@@ -30,6 +30,7 @@ import { UserProfileHeaderComponent } from './modules/user layout/user-profile/h
 import { UserProfileSideComponent } from './modules/user layout/user-profile/side-menu/user-profile-side.component';
 import { UserProfilePaginationComponent } from './modules/user layout/user-profile/pagination/user-profile-pagination.component';
 import { UserProfileCardsComponent } from './modules/user layout/user-profile/cards/user-profile-cards.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { UserProfileCardsComponent } from './modules/user layout/user-profile/ca
     UserProfileCardsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
