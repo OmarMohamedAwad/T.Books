@@ -8,8 +8,10 @@
       </div>
       <div class="modal-body p-3 register-form">
         <p>Are you sure you want to delete this author</p>
-        <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-danger m-1" >Delete</button>
+        <form (ngSubmit)="submitForm()">
+          <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Close</button>
+          <button type="submit"  data-bs-dismiss="modal" (click)="deleteFun()" class="btn btn-danger m-1" >Delete</button>
+        </form>
       </div>
 
     </div>

@@ -27,7 +27,13 @@ import { HomeTopCategoryComponent } from './modules/user layout/home/top-categor
 import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes:Routes = [
+  
+  {path:'author/:id',component:DeleteComponent},
+]
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,14 +59,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HomeSubscribeComponent,
     HomeAuthorComponent,
     HomeTopCategoryComponent,
-    HomeFooterComponent
-
+    HomeFooterComponent,
+    AuthorsListForAdminComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

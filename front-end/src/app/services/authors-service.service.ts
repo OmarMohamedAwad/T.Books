@@ -19,7 +19,7 @@ export class AuthorsServiceService {
     return this.authorClient.post(this.baseURL,author)
   }
 
-  deleteAuthor(id:number)
+  deleteAuthor(id:string)
   {
     return this.authorClient.delete(`${this.baseURL}/${id}`)
   }
