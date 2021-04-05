@@ -25,6 +25,11 @@ import { HomeSubscribeComponent } from './modules/user layout/home/subscribe/hom
 import { HomeAuthorComponent } from './modules/user layout/home/author/home-author.component';
 import { HomeTopCategoryComponent } from './modules/user layout/home/top-category/home-top-category.component';
 import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
+import { UserProfileIndexComponent } from './modules/user layout/user-profile/index/user-profile-index.component';
+import { UserProfileHeaderComponent } from './modules/user layout/user-profile/header/user-profile-header.component';
+import { UserProfileSideComponent } from './modules/user layout/user-profile/side-menu/user-profile-side.component';
+import { UserProfilePaginationComponent } from './modules/user layout/user-profile/pagination/user-profile-pagination.component';
+import { UserProfileCardsComponent } from './modules/user layout/user-profile/cards/user-profile-cards.component';
 import { UserBookIndexComponent } from './modules/user layout/book/user-book-index/user-book-index.component';
 import { UserCategoryIndexComponent } from './modules/user layout/category/user-category-index/user-category-index.component';
 import { UserCategorySidebarComponent } from './modules/user layout/category/user-category-sidebar/user-category-sidebar.component';
@@ -57,6 +62,11 @@ import { UserCategoryBooksComponent } from './modules/user layout/category/user-
     HomeAuthorComponent,
     HomeTopCategoryComponent,
     HomeFooterComponent,
+    UserProfileIndexComponent,
+    UserProfileHeaderComponent,
+    UserProfileSideComponent,
+    UserProfilePaginationComponent,
+    UserProfileCardsComponent,
     UserBookIndexComponent,
     UserCategoryIndexComponent,
     UserCategorySidebarComponent,
