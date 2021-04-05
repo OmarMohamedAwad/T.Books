@@ -1,7 +1,7 @@
 <app-nav-user></app-nav-user>
 <section class="book_show">
     <div class="book_cover">
-        <img  src="assets/user/book/memories.jpg"><br>
+        <img  @fade src="assets/user/book/memories.jpg"><br>
         <button class="btn btn-danger w-75 mt-4">Add to favourits</button>
         <span class="font15 d-block mt-2">Rate This book</span>
         <ngb-rating style="color: rgb(250, 225, 0);" [max]="5" [(rate)]="userRate" [readonly]="false"></ngb-rating>
@@ -38,8 +38,8 @@
 <section class="reviews">
     <form action="Post">
         <img class="rev_img" [src]="user_img">
-        <textarea class="my_review review_body border-danger" rows="4" placeholder="Write your review about this book." required minlength="1"></textarea>
-        <button type="submit" class="btn btn-danger my_review_submit">Publish</button>
+        <textarea class="my_review review_body border-danger" rows="4" placeholder="Write your review about this book." required minlength="1" maxlength="300"></textarea>
+        <button type="submit" class="btn btn-danger my_review_submit" (click)="publishClicked($event)">Publish</button>
     </form>
     <ul>
         <li>
@@ -52,3 +52,8 @@
         </li>
     </ul>
 </section>
+
+<footer class="text-center text-white mt-5" style="background-color: rgba(0, 0, 0, 0.05);">
+    <p class="text-center custom-background text-white m-0 py-1"> Made with love <i class="far fa-heart"></i> By The
+        best team</p>
+</footer>

@@ -56,19 +56,30 @@ ngb-rating{
     margin-left: 10%;
     width: 90%;
 }
-ul{margin-top: 80px;}
+ul{
+    list-style: none;
+    margin-top: 80px;
+    padding: 0;
+}
 li{
+    
+    margin-left: 10%;
     border: 1px solid rgb(182, 182, 182);
     list-style: none;
-    margin-top: 5px;
+    margin-top: 10px;
     padding: 5px;
+    display: flex;
 }
 li img{
-    width: 7%;
+    width: 6%;    
     border-radius: 50%;
-    display: inline;
-    overflow-x: hidden;
+    display: inline-block;
 }
 li p{
     display: inline;
+    margin-left: 1%;
+    align-self: center;
 }
+.custom-background{
+    background-color:  rgba(0,0,0,0.8);
+ }
