@@ -4,13 +4,17 @@
   line-height: 1.714;
   margin-bottom: 40px;
 }
-.large {
+.Mission p:first-of-type {
   color: #484848;
   font-size: 16px;
   font-weight: bold;
   line-height: 1.5;
   margin-bottom: 45px;
 }
+.Mission p:last-of-type {
+  margin-bottom: 40px;
+}
+
 .icons .icon {
   color: #de3242;
   font-size: 40px;

@@ -3,39 +3,18 @@
     <p class="text-center mb-5">We provide full service at every step.</p>
     <div class="container-custom">
        <div class="row">
-           <div class="col-md-6 col-lg-4 col-xl-4">
+           <div class="col-md-6 col-lg-4 col-xl-4 " *ngFor="let card of cardData">
                <div class="item mb-3">
                    <div class="icons d-flex align-items-center justify-content-center">
-                       <i class="far fa-hand-spock icon"></i>
+                       <i [class]="card.icon"></i>
                     </div>
                     <div class="details text-center">
-                       <h4 class="mt-4 mb-2">Trusted By Thousands</h4>
-                       <p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
+                       <h4 class="mt-4 mb-2">{{card.title}}</h4>
+                       <p>{{card.desc}}</p>
                    </div>
                </div>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-               <div class="item mb-3">
-                   <div class="icons d-flex align-items-center justify-content-center">
-                       <i class="fas fa-book-open icon"></i>
-                    </div>
-                    <div class="details text-center">
-                       <h4 class="mt-4 mb-2">Wide Renge Of Books</h4>
-                       <p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-                   </div>
-               </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-               <div class="item mb-3">
-                   <div class="icons d-flex align-items-center justify-content-center">
-                       <i class="far fa-window-restore icon"></i>
-                    </div>
-                    <div class="details text-center">
-                       <h4 class="mt-4 mb-2">Easy to Find</h4>
-                       <p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-                   </div>
-               </div>
-            </div>
+        
        </div>
        
     </div>
