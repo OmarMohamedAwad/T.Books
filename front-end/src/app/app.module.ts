@@ -25,7 +25,11 @@ import { HomeSubscribeComponent } from './modules/user layout/home/subscribe/hom
 import { HomeAuthorComponent } from './modules/user layout/home/author/home-author.component';
 import { HomeTopCategoryComponent } from './modules/user layout/home/top-category/home-top-category.component';
 import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
-
+import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
+import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
+import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
+import { from } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,10 +55,14 @@ import { HomeFooterComponent } from './modules/user layout/home/footer/home-foot
     HomeSubscribeComponent,
     HomeAuthorComponent,
     HomeTopCategoryComponent,
-    HomeFooterComponent
+    HomeFooterComponent,
+    NavUserComponent,
+    BookDetComponent,
+    DashboardComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
