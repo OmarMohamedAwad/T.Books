@@ -1,0 +1,47 @@
+
+
+.user {
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14), 0 1px 7px 0 rgba(0,0,0,0.12), 0 3px 1px -1px rgba(0,0,0,0.2);
+    background-color: #f5f5f5;
+    margin-top: -2%;
+    border-radius: 25px;
+    margin-left: 3%;
+}
+    
+.user-image {
+    width: 50%;
+    height: 15%;
+    z-index: 1;
+    margin-top: -40%;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14), 0 1px 7px 0 rgba(0,0,0,0.12), 0 3px 1px -1px rgba(0,0,0,0.2);
+    left: 6.7%;
+}
+h3{
+    background-color: #de3242;
+    border-radius: 25px;
+    color: #ffffff;
+    
+}
+.mange{
+    text-align: left;
+    margin-top: 10%;
+}
+
+a:hover {
+    color: #de3242;
+    cursor: pointer;
+    font-weight: 800;
+  }
+
+
+button{
+    width: 90%;
+    margin-top: 5%;
+    border-radius: 15px;
+}
+button:hover {
+    background-color: #de3242;
+    cursor: pointer;
+    font-weight: 800;
+    color: #ffffff;
+  }
