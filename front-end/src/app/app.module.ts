@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { IndexComponent } from './modules/admin layout/author/index/index.component';
 import { SidebarComponent } from './modules/admin layout/shared/sidebar/sidebar.component';
@@ -25,6 +24,12 @@ import { HomeSubscribeComponent } from './modules/user layout/home/subscribe/hom
 import { HomeAuthorComponent } from './modules/user layout/home/author/home-author.component';
 import { HomeTopCategoryComponent } from './modules/user layout/home/top-category/home-top-category.component';
 import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
+import { CategoryIndexComponent } from './modules/admin layout/category/category-index/category-index.component';
+import { CategoryStoreComponent } from './modules/admin layout/category/category-store/category-store.component';
+import { CategoryUpdateComponent } from './modules/admin layout/category/category-update/category-update.component';
+import { CategoryDeleteComponent } from './modules/admin layout/category/category-delete/category-delete.component';
+
+
 
 @NgModule({
   declarations: [
@@ -51,7 +56,11 @@ import { HomeFooterComponent } from './modules/user layout/home/footer/home-foot
     HomeSubscribeComponent,
     HomeAuthorComponent,
     HomeTopCategoryComponent,
-    HomeFooterComponent
+    HomeFooterComponent,
+    CategoryIndexComponent,
+    CategoryStoreComponent,
+    CategoryUpdateComponent,
+    CategoryDeleteComponent
   ],
   imports: [
     BrowserModule

@@ -1,0 +1,14 @@
+.content-page {
+  background-color: #f7f7f7;
+  margin-top: 0 !important;
+}
+
+.category {
+  margin-left: 19%;
+}
+.category .card img {
+  height: 200px;
+}
+.custom-txt {
+  color: #24324a;
+}
