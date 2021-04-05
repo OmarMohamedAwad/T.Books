@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row p-5">
     <div class="update-form p-3">
-      <form class="" id="form" [formGroup]=myForm (ngSubmit)="submitForm($event)">
+      <form class="" id="form" [formGroup]=myForm>
         <i class="fas fa-book-open fa-5x d-block m-auto"></i>
         <div class="mb-3 field">
           <label class="form-label" for="first-name">First Name</label>
@@ -26,8 +26,9 @@
         </div>
 
         <div class="actions text-center mt-3">
-          <button class="btn btn-secondary w-25 m-1" data-bs-dismiss="modal" type="button">Close</button>
-          <button class="btn btn-danger w-25 m-1" type="submit">Add Author</button>
+          <button class="btn btn-secondary w-25 m-1" type="button" routerLink="">Close</button>
+          <button class="btn btn-danger w-25 m-1" type="button" routerLink=""
+          (click)="submitForm($event)">Add Author</button>
         </div>
       </form>
     </div>

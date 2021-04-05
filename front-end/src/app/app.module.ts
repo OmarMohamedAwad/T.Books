@@ -29,11 +29,16 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
 import { RouterModule, Routes } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 const routes:Routes = [
-  
-  {path:'author/:id',component:DeleteComponent},
+  {path:"",redirectTo:"author",pathMatch:"full"},
+  {path:'author',component:IndexComponent},
+  {path:'author/store',component:StoreComponent},
+
 ]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +73,7 @@ const routes:Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]

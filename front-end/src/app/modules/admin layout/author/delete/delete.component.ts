@@ -21,6 +21,8 @@ export class DeleteComponent implements OnInit {
     autherLastName:'',
     authorDob:''
   }
+  
+  
   a:any;
   deleteFun()
   {

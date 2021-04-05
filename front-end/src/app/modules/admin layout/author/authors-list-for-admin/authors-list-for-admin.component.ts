@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 
-
 @Component({
   selector: 'app-authors-list-for-admin',
   templateUrl: './authors-list-for-admin.component.html',

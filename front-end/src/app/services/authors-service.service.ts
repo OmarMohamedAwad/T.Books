@@ -29,4 +29,11 @@ export class AuthorsServiceService {
 
     return this.authorClient.get(`${this.baseURL}/${id}`)
   }
+
+  updateAuthor(id:string, author:{autherFirstName:string, 
+    autherLastName:string, authorDob: string, 
+    /*image: string*/})
+    {
+      return this.authorClient.patch(`${this.baseURL}/${id}`,author);
+    }
 }
