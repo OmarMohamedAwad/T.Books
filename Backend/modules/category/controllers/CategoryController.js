@@ -100,7 +100,6 @@ async function destroy(req, res, next) {
 module.exports = {
     index,
     paginate,
-    pagination,
     show,
     search,
     store,
