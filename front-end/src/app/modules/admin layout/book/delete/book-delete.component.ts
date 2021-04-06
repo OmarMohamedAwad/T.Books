@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Book} from '../models/book';
 import {BookServiceService} from '../services/book-service.service';
 
@@ -21,14 +21,12 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
   }
 
   deleteBook(){
-    console.log("delete")
-    console.log(this.book._id)
     this.subscriber = this.bookService.destroy(this.book._id)
       .subscribe((data)=>{
-        console.log(data);
+        this.deletedBook.emit(this.book);
         this.closebutton.nativeElement.click();
       },(err)=>{
-        console.log("delete error")
+        console.log(err)
       })
   }
 
@@ -40,4 +38,6 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
     bookCategory:"",
     bookAuthor:"",
   };
+
+  @Output() deletedBook:EventEmitter<Book> = new EventEmitter<Book>()
 }

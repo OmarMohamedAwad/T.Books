@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, OnDestroy} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
 import {BookServiceService} from '../services/book-service.service';
 import {Book} from '../models/book';
 
@@ -23,6 +23,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   constructor(private bookService: BookServiceService) {
 
   }
+
   ngOnInit(): void {
     this.subscriber = this.bookService.index()
       .subscribe((response:any)=>{
@@ -52,4 +53,8 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   //     console.log(error)
   //   })
   // }
+
+  deleteBook(book: any){
+    this.ngOnInit();
+  }
 }

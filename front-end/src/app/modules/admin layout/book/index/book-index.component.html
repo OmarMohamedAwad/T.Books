@@ -55,7 +55,7 @@
 <!--<app-book-store></app-book-store>-->
 
 <!-- // Delete Modal -->
-<app-book-delete [bookInfo]="clickedBook"></app-book-delete>
+<app-book-delete [bookInfo]="clickedBook" (deletedBook)="deleteBook($event)"></app-book-delete>
 
 <!-- // Update Modal -->
 <app-book-update></app-book-update>
