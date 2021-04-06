@@ -1,20 +1,55 @@
-import { Component, OnInit , EventEmitter, Output } from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, OnDestroy} from '@angular/core';
+import {BookServiceService} from '../services/book-service.service';
+import {Book} from '../models/book';
 
 @Component({
   selector: 'app-book-index',
   templateUrl: './book-index.component.html',
   styleUrls: ['./book-index.component.css']
 })
-export class BookIndexComponent implements OnInit {
+export class BookIndexComponent implements OnInit, OnDestroy {
 
-  titleValue:string = ''
-  constructor() { }
+  subscriber:any;
+  books : Array<Book> = []
+  clickedBook: Book = {
+      _id:"",
+      bookName:"",
+      bookDescription:"",
+      bookImage:"",
+      bookCategory:"",
+      bookAuthor:"",
+  };
 
-  ngOnInit(): void {
+  constructor(private bookService: BookServiceService) {
+
   }
-  // getBookTitle(event:any){
-  //   this.addStudentEmitter.emit({titleValue: this.titleValue});
-  // }
-  // @Output() addStudentEmitter:EventEmitter<{titleValue:string}> = new EventEmitter()
+  ngOnInit(): void {
+    this.subscriber = this.bookService.index()
+      .subscribe((response:any)=>{
+          this.books = response.body
+        },
+        (err)=>{
+          console.log(err)
+        }
+      )
+  }
 
+  ngOnDestroy(): void {
+    this.subscriber.unsubscribe();
+  }
+
+  getBook(book:Book)
+  {
+    this.clickedBook = book;
+    console.log(book);
+  }
+
+  // addStudent(student: Student){
+  //   student.id = this.students.length + 1;
+  //   this.studentService.store(student).subscribe((response)=>{
+  //     this.ngOnInit();
+  //   }, error => {
+  //     console.log(error)
+  //   })
+  // }
 }

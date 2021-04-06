@@ -23,39 +23,28 @@
       <div class="col-2"></div>
       <table class="table col-8">
         <thead class="table-active">
-        <tr >
-            <th class="col" class="text-center">#</th>
-            <th class="col" class="text-center">Title</th>
-            <th class="col" class="text-center">Photo</th>
-            <th class="col" class="text-center">Category ID</th>
-            <th class="col" class="text-center">Author ID</th>
-            <th class="col-2" class="text-center">Action</th>
+        <tr>
+            <th class="col text-center">#</th>
+            <th class="col text-center">Title</th>
+            <th class="col text-center">Photo</th>
+            <th class="col text-center">Category ID</th>
+            <th class="col text-center">Author ID</th>
+            <th class="col-2 text-center">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row" class="text-center pt-3">1</th>
-            <td class="text-center pt-3">Utopia</td>
+          <tr *ngFor="let book of books; index as i">
+            <th scope="row" class="text-center pt-3">{{i+1}}</th>
+            <td class="text-center pt-3">{{book.bookName}}</td>
             <td class="text-center pt-3"><img src="assets/admin/book/open-book.svg" class="book-imag"></td>
-            <td class="text-center pt-3">1</td>
-            <td class="text-center pt-3">1</td>
+            <td class="text-center pt-3">{{book.bookCategory}}</td>
+            <td class="text-center pt-3">{{book.bookCategory}}</td>
             <td class="text-center">
-              <button class="btn text-dark" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
-              <button class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
-              <!-- (click)="getBookTitle($event)"    for edit inital values -->
+              <button class="btn text-dark" (click)="getBook(book)" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+              <button class="btn text-danger"  (click)="getBook(book)" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
             </td>
           </tr>
-          <tr>
-            <th scope="row" class="text-center pt-3">2</th>
-            <td class="text-center pt-3">The Forty Rules of Love</td>
-            <td class="text-center pt-3"><img src="assets/admin/book/open-book.svg" class="book-imag"></td>
-            <td class="text-center pt-3">3</td>
-            <td class="text-center pt-3">5</td>
-            <td class="text-center">
-              <button class="btn text-dark" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
-              <button class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
-            </td>
-          </tr>
+
         </tbody>
       </table>
     </div>
@@ -63,10 +52,10 @@
 </section>
 
 <!-- // Add Module  -->
-<app-book-store></app-book-store>
+<!--<app-book-store></app-book-store>-->
 
 <!-- // Delete Modal -->
-<app-book-delete></app-book-delete>
+<app-book-delete [bookInfo]="clickedBook"></app-book-delete>
 
 <!-- // Update Modal -->
 <app-book-update></app-book-update>
