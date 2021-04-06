@@ -31,6 +31,17 @@ import { BookDetComponent } from './modules/user layout/book/book-det/book-det.c
 import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
 import { from } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserProfileIndexComponent } from './modules/user layout/user-profile/index/user-profile-index.component';
+import { UserProfileHeaderComponent } from './modules/user layout/user-profile/header/user-profile-header.component';
+import { UserProfileSideComponent } from './modules/user layout/user-profile/side-menu/user-profile-side.component';
+import { UserProfilePaginationComponent } from './modules/user layout/user-profile/pagination/user-profile-pagination.component';
+import { UserProfileCardsComponent } from './modules/user layout/user-profile/cards/user-profile-cards.component';
+import { UserBookIndexComponent } from './modules/user layout/book/user-book-index/user-book-index.component';
+import { UserCategoryIndexComponent } from './modules/user layout/category/user-category-index/user-category-index.component';
+import { UserCategorySidebarComponent } from './modules/user layout/category/user-category-sidebar/user-category-sidebar.component';
+import { UserCategoryHeaderComponent } from './modules/user layout/category/user-category-header/user-category-header.component';
+import { UserCategoryBooksComponent } from './modules/user layout/category/user-category-books/user-category-books.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +70,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeFooterComponent,
     NavUserComponent,
     BookDetComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserProfileIndexComponent,
+    UserProfileHeaderComponent,
+    UserProfileSideComponent,
+    UserProfilePaginationComponent,
+    UserProfileCardsComponent,
+    UserBookIndexComponent,
+    UserCategoryIndexComponent,
+    UserCategorySidebarComponent,
+    UserCategoryHeaderComponent,
+    UserCategoryBooksComponent
   ],
   imports: [
     BrowserModule,
