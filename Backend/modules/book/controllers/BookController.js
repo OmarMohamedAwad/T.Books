@@ -1,6 +1,7 @@
 const bookModel = require("../models/Book")
 const ResponseCode = require("../../../response-codes")
 const ResponseMessage = require("../../../response-messages")
+const BookPresenter = require("../presenter/BookPresenter")
 
 const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
@@ -13,8 +14,11 @@ async function index(request, response, next)
     try
     {
         const bookGetAllResults = await bookModel.find({})
-        //console.log(bookGetAllResults)
-        response.json(bookGetAllResults)
+            .populate("bookCategory").populate("bookAuthor").exec();        
+
+        response.json(bookGetAllResults.map((book)=>{
+            return BookPresenter.present(book);
+        }))
     }
     catch(e)
     {
@@ -27,7 +31,6 @@ async function store(request, response, next)
 {
     const bookRequest = request.body
     const bookInstance = new bookModel({
-
         bookName: bookRequest.name,
         bookDescription: bookRequest.description,
         bookImage: bookRequest.image,
@@ -37,9 +40,7 @@ async function store(request, response, next)
 
     try
     {
-        console.log(bookInstance);
         const bookPosted = await bookInstance.save()
-        //console.log(bookPost)
         response.json(bookPosted)
     }
     catch(e)
@@ -55,8 +56,7 @@ async function show(request, response, next)
     {
         const bookGetOneResults = await bookModel.findById(id)
                     .populate("bookCategory").populate("bookAuthor").exec();
-        console.log(bookGetOneResults)
-        response.json(bookGetOneResults);
+        response.json(BookPresenter.present(bookGetOneResults));
     }
     catch(e)
     {
@@ -103,9 +103,6 @@ async function destroy(request, response, next)
     
 
 }
-
-
-
 
 async function update(request, response, next) 
 {

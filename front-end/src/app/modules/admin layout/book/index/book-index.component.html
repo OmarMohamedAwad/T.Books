@@ -1,7 +1,8 @@
-<app-navbar-admin></app-navbar-admin>
-<app-admin-sidebar></app-admin-sidebar>
 
-<section class="book">
+<app-navbar-admin *ngIf="firstTimeFlag == true;"></app-navbar-admin>
+<app-admin-sidebar *ngIf="firstTimeFlag == true;"></app-admin-sidebar>
+
+<section class="book" *ngIf="addFlag == false; else navigateToAddLayout">
   <div class="container">
     <div class="top-part">
       <h2>Book</h2>
@@ -15,7 +16,7 @@
           </button>
         </div>
       </div>
-      <button type="button" class="add-book" data-bs-toggle="modal" data-bs-target="#addModal">
+      <button type="button" class="add-book" (click)="navigateToAdd()">
         <i class="fas fa-plus"></i>
       </button>
     </div>
@@ -27,18 +28,18 @@
             <th class="col text-center">#</th>
             <th class="col text-center">Title</th>
             <th class="col text-center">Photo</th>
-            <th class="col text-center">Category ID</th>
-            <th class="col text-center">Author ID</th>
+            <th class="col text-center">Category</th>
+            <th class="col text-center">Author</th>
             <th class="col-2 text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let book of books; index as i">
             <th scope="row" class="text-center pt-3">{{i+1}}</th>
-            <td class="text-center pt-3">{{book.bookName}}</td>
+            <td class="text-center pt-3">{{book.name}}</td>
             <td class="text-center pt-3"><img src="assets/admin/book/open-book.svg" class="book-imag"></td>
-            <td class="text-center pt-3">{{book.bookCategory}}</td>
-            <td class="text-center pt-3">{{book.bookCategory}}</td>
+            <td class="text-center pt-3">{{book.categoryName}}</td>
+            <td class="text-center pt-3">{{book.authorName}}</td>
             <td class="text-center">
               <button class="btn text-dark" (click)="getBook(book)" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
               <button class="btn text-danger"  (click)="getBook(book)" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
@@ -51,8 +52,9 @@
   </div>
 </section>
 
-<!-- // Add Module  -->
-<!--<app-book-store></app-book-store>-->
+<ng-template #navigateToAddLayout>
+  <app-book-store (addedBook)="addBook($event)"></app-book-store>
+</ng-template>
 
 <!-- // Delete Modal -->
 <app-book-delete [bookInfo]="clickedBook" (deletedBook)="deleteBook($event)"></app-book-delete>

@@ -10,18 +10,24 @@ import {Book} from '../models/book';
 export class BookIndexComponent implements OnInit, OnDestroy {
 
   subscriber:any;
+  addFlag: boolean;
   books : Array<Book> = []
+  firstTimeFlag: boolean;
+
   clickedBook: Book = {
-      _id:"",
-      bookName:"",
-      bookDescription:"",
-      bookImage:"",
-      bookCategory:"",
-      bookAuthor:"",
+      id:"",
+      name:"",
+      description:"",
+      image:"",
+      category:"",
+      author:"",
+      categoryName:"",
+      authorName:"",
   };
 
   constructor(private bookService: BookServiceService) {
-
+    this.firstTimeFlag = true;
+    this.addFlag = false;
   }
 
   ngOnInit(): void {
@@ -39,22 +45,21 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     this.subscriber.unsubscribe();
   }
 
-  getBook(book:Book)
-  {
+  getBook(book:Book) {
     this.clickedBook = book;
     console.log(book);
   }
 
-  // addStudent(student: Student){
-  //   student.id = this.students.length + 1;
-  //   this.studentService.store(student).subscribe((response)=>{
-  //     this.ngOnInit();
-  //   }, error => {
-  //     console.log(error)
-  //   })
-  // }
+  navigateToAdd(){
+    this.addFlag = true
+  }
 
   deleteBook(book: any){
     this.ngOnInit();
+  }
+
+  addBook(book: any){
+    this.firstTimeFlag = false
+    // this.ngOnInit();
   }
 }

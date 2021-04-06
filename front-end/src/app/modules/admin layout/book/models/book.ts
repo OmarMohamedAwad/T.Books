@@ -1,8 +1,10 @@
 export interface Book {
-  _id: string,
-  bookName: string,
-  bookDescription: string,
-  bookImage: string,
-  bookCategory: string,
-  bookAuthor: string
+  id: string,
+  name: string,
+  description: string,
+  image: string,
+  category: string,
+  author: string,
+  categoryName: string,
+  authorName: string
 }

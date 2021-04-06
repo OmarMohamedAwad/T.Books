@@ -21,7 +21,7 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
   }
 
   deleteBook(){
-    this.subscriber = this.bookService.destroy(this.book._id)
+    this.subscriber = this.bookService.destroy(this.book.id)
       .subscribe((data)=>{
         this.deletedBook.emit(this.book);
         this.closebutton.nativeElement.click();
@@ -31,12 +31,14 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
   }
 
   @Input('bookInfo') book: Book = {
-    _id:"",
-    bookName:"",
-    bookDescription:"",
-    bookImage:"",
-    bookCategory:"",
-    bookAuthor:"",
+    id:"",
+    name:"",
+    description:"",
+    image:"",
+    category:"",
+    author:"",
+    categoryName:"",
+    authorName:""
   };
 
   @Output() deletedBook:EventEmitter<Book> = new EventEmitter<Book>()

@@ -10,15 +10,15 @@ const ValidationMessage = require("../../../validation-messages")
 const bookSchema = mongoos.Schema({
     bookName: {
         type: String,
-        unique: [true, ValidationMessage.BOOk_NAME_REQUIRED_ERROR_MESSAGE],
         required: [true, ValidationMessage.BOOk_NAME_REQUIRED_ERROR_MESSAGE],
+        unique: [true, ValidationMessage.BOOk_NAME_REQUIRED_ERROR_MESSAGE],
         minLength: [2, ValidationMessage.BOOk_NAME_MIN_LENGTH_ERROR_MESSAGE],
         maxLength: [50, ValidationMessage.BOOk_NAME_MAX_LENGTH_ERROR_MESSAGE]
     },
     bookDescription: {
         type: String,
-        unique: [true, ValidationMessage.BOOk_DESCRIPTION_REQUIRED_ERROR_MESSAGE],
         required: [true, ValidationMessage.BOOk_DESCRIPTION_UNIQUE_ERROR_MESSAGE],
+        unique: [true, ValidationMessage.BOOk_DESCRIPTION_REQUIRED_ERROR_MESSAGE],
         minLength:[10,ValidationMessage.BOOk_DESCRIPTION_MIN_LENGTH_ERROR_MESSAGE],
         maxLength: [250,ValidationMessage.BOOk_DESCRIPTION_MAN_LENGTH_ERROR_MESSAGE]
 

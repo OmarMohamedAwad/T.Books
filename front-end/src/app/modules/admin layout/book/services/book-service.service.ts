@@ -22,11 +22,12 @@ export class BookServiceService {
   }
 
   store(book: Book){
+    console.log(book);
     return this.client.post(this.BASE_URL,book);
   }
 
   update(book: Book){
-    return this.client.patch(`${this.BASE_URL}/${book._id}`,book);
+    return this.client.patch(`${this.BASE_URL}/${book.id}`,book);
   }
 
   destroy(id: string){
