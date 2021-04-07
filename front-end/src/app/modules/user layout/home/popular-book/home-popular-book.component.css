@@ -1,4 +1,14 @@
 /*popular Book Section*/
+<<<<<<< HEAD
+=======
+
+.container-home{
+    max-width: 90%;
+    margin: auto;
+    padding: 0 20px !important;
+}
+
+>>>>>>> develop
 .popular-book { 
     font-family: 'PT Sans', sans-serif;
 }
@@ -19,4 +29,9 @@
 .border{
     background-color: #121212;
     width: 100px; height: 2px;
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> develop

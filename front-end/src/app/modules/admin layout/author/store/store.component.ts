@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-admin-store',
   templateUrl: './store.component.html',
@@ -19,21 +18,20 @@ export class StoreComponent implements OnInit {
 
     fName:new FormControl('',[Validators.required,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]),
-    
+
     lName:new FormControl('',[Validators.required,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]),
-      
+
     dob:new FormControl('',[Validators.required]),
 
   })
-
 
   submitForm(e:any)
   {
     console.log(this.myForm.controls.fName.value)
     console.log(this.myForm.controls.lName.value)
     console.log(this.myForm.controls.dob.value)
-    this.myService.postAuthor({autherFirstName:this.myForm.controls.fName.value, 
+    this.myService.postAuthor({autherFirstName:this.myForm.controls.fName.value,
       autherLastName:this.myForm.controls.lName.value, authorDob: this.myForm.controls.dob.value
       /*image: this.myForm.controls.fName.value*/})
       .subscribe((data)=>{

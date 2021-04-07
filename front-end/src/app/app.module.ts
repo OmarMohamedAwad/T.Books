@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './modules/admin layout/author/index/index.component';
@@ -38,6 +39,21 @@ const routes:Routes = [
   {path:'admin/author/store',component:StoreComponent},
 
 ]
+import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
+import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
+import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
+import { from } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserProfileIndexComponent } from './modules/user layout/user-profile/index/user-profile-index.component';
+import { UserProfileHeaderComponent } from './modules/user layout/user-profile/header/user-profile-header.component';
+import { UserProfileSideComponent } from './modules/user layout/user-profile/side-menu/user-profile-side.component';
+import { UserProfilePaginationComponent } from './modules/user layout/user-profile/pagination/user-profile-pagination.component';
+import { UserProfileCardsComponent } from './modules/user layout/user-profile/cards/user-profile-cards.component';
+import { UserBookIndexComponent } from './modules/user layout/book/user-book-index/user-book-index.component';
+import { UserCategoryIndexComponent } from './modules/user layout/category/user-category-index/user-category-index.component';
+import { UserCategorySidebarComponent } from './modules/user layout/category/user-category-sidebar/user-category-sidebar.component';
+import { UserCategoryHeaderComponent } from './modules/user layout/category/user-category-header/user-category-header.component';
+import { UserCategoryBooksComponent } from './modules/user layout/category/user-category-books/user-category-books.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +82,19 @@ const routes:Routes = [
     HomeTopCategoryComponent,
     HomeFooterComponent,
     AuthorsListForAdminComponent,
+    NavUserComponent,
+    BookDetComponent,
+    DashboardComponent,
+    UserProfileIndexComponent,
+    UserProfileHeaderComponent,
+    UserProfileSideComponent,
+    UserProfilePaginationComponent,
+    UserProfileCardsComponent,
+    UserBookIndexComponent,
+    UserCategoryIndexComponent,
+    UserCategorySidebarComponent,
+    UserCategoryHeaderComponent,
+    UserCategoryBooksComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +102,9 @@ const routes:Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    RouterModule.forRoot(routes),
+    NgbModule,
+    RouterModule.forRoot(routes)
+
   ],
   providers: [],
   bootstrap: [AppComponent]

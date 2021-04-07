@@ -2,7 +2,6 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 
-
 @Component({
   selector: 'app-admin-delete',
   templateUrl: './delete.component.html',
@@ -21,8 +20,7 @@ export class DeleteComponent implements OnInit {
     autherLastName:'',
     authorDob:''
   }
-  
-  
+
   a:any;
   deleteFun()
   {
@@ -47,5 +45,4 @@ export class DeleteComponent implements OnInit {
     //     console.log("post error")
     //   })
   }
-
 }
