@@ -34,8 +34,8 @@ import { Router } from '@angular/router';
 
 const routes:Routes = [
   //{path:"",redirectTo:"author",pathMatch:"full"},
-  {path:'author',component:IndexComponent},
-  {path:'author/store',component:StoreComponent},
+  {path:'admin/author',component:IndexComponent},
+  {path:'admin/author/store',component:StoreComponent},
 
 ]
 
