@@ -1,8 +1,3 @@
-
-body{ 
-    background-repeat: no-repeat;
-    font-family: 'PT Sans', sans-serif;
-}
 a {
     text-decoration: none;
     -ms-transition: all 0.1s ease-in;
@@ -30,7 +25,6 @@ nav .logo .books{
 }
 
 nav.navbar-default {
-    background-color: rgba(0, 0, 0, 0.3);
     border-color: rgba(0, 0, 0, 0.05);
     -ms-transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
@@ -79,9 +73,9 @@ nav.navbar-default .navbar-nav li a.active:hover {
     color: #DE3241;
     background-color: transparent;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
     .navbar-collapse{
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.8);
         margin-top: 67px;
         align-items: left;
     }
@@ -92,3 +86,13 @@ nav.navbar-default .navbar-nav li a.active:hover {
           border: #fff;
     }
   }
+  @media screen and (min-width: 992px){
+    nav.navbar-default{
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+}
+@media screen and (max-width: 991px){
+    nav.navbar-default{
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}

@@ -131,7 +131,6 @@ body {
   right: 12%;
 }
 
-<<<<<<< HEAD
 /*Pagination Section*/
 .pagination{
   margin: auto;
@@ -154,8 +153,6 @@ body {
   color: #de3242;
 }
 
-=======
->>>>>>> develop
 /*Responsive Media*/
 @media only screen and (max-width: 1400px) {
   .t-bottom-right{right: 6%;}
