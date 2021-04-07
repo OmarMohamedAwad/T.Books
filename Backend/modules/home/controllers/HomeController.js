@@ -47,6 +47,7 @@ async function index(request, response, next) {
 
 
         // category data
+
         const categories = await Category.aggregate([
             { $unwind: "$categoryBooks" }, 
             { $group : {_id:'$_id', 
@@ -87,7 +88,9 @@ async function index(request, response, next) {
         }
         response.json(homeJson)
     } catch (error) {
-        next(ResponseCode.SERVER_ERROR)
+    
+        // next(ResponseCode.SERVER_ERROR)
+        console.log(error)
         //response.json(error)
     }  
 }

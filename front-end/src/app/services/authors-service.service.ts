@@ -9,7 +9,7 @@ export class AuthorsServiceService {
   constructor(private authorClient: HttpClient) { }
   readonly baseURL: string = "http://localhost:3000/author";
   getAuthors() {
-    //fetch list of students
+    //fetch list of authors
   return this.authorClient.get(this.baseURL,{observe:'response'})
   }
 
@@ -25,7 +25,7 @@ export class AuthorsServiceService {
   }
 
   getAuthorById(id: number) {
-    //fetch student by id
+    //fetch authors by id
 
     return this.authorClient.get(`${this.baseURL}/${id}`)
   }

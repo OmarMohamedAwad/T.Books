@@ -17,6 +17,7 @@ export class AuthorsListForAdminComponent implements OnInit {
     autherFirstName:"",
     autherLastName:"",
     authorDob:""
+    // authorImage:""
   };
 
   subscriber:any;

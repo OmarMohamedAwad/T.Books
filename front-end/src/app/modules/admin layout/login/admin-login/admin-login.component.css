@@ -1,0 +1,207 @@
+/* @import "includes/nav.css"; */
+/* @import "includes/scroll.css"; */
+
+body{ 
+    /* background: url(src/assets/admin/login/bg.jpg); */
+    background-size: cover;
+    overflow-y: hidden;
+}
+
+.form-modal{
+    position:relative;
+    width:50%;
+    height:58vh;
+    margin-top:21vh;
+    font-size: 14px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(255, 255, 255, 0.85);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow:0 5px 25px 0px rgb(0, 0, 0)
+}
+
+.form-modal button{
+    position: relative;
+    text-transform: capitalize;
+    font-size:16px;
+    z-index: 2;
+    outline: none;
+    background:white;
+    border: 1px solid #DE3241;
+    transition:0.2s;
+}
+
+.form-modal .btn{
+    border-radius: 20px;
+    border:none;
+    font-weight: bold;
+    padding:0.8em 1em 0.8em 1em!important;
+    transition:0.5s;
+    margin-bottom:7px;
+    margin-top:7px;
+}
+
+.form-modal .login {
+    background:#DE3241;
+    color:#fff;
+}
+
+.form-modal .login:hover {
+    background:#222;
+}
+
+.form-toggle{
+    position: relative;
+    width:100%;
+    height:auto;
+}
+
+.form-toggle button{
+    width:100%;
+    float:left;
+    padding:10px;
+    margin-bottom:20px;
+    border:none;
+    transition: 0.2s;
+    font-weight: bold;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+
+#login-toggle{
+    background:#DE3241;
+    color:#ffff;
+}
+
+.form-modal form{
+    position: relative;
+    width:90%;
+    height:70vh;
+    left:50%;
+    transform:translateX(-50%);  
+}
+
+#login-form {
+    position:relative; 
+    width:100%;
+    height:fit-content;
+    padding-bottom: 10%;
+    padding-bottom:1em;
+}
+
+
+#login-form button {
+    width:100%;
+    margin-top:0.5em;
+    margin-bottom: 0.5em;
+    padding:0.6em;
+}
+
+.form-modal input{
+    position: relative;
+    font-size: 16px;
+    padding:10px 20px;
+    margin-top:0.6em;
+    margin-bottom:0.6em;
+    border-radius: 20px;
+    border:none;
+    background:#fff;
+    outline:none;
+    font-weight: bold;
+    transition:0.4s;
+}
+
+.form-modal input:focus , .form-modal input:active{
+    transform:scaleX(1.03);
+    border: 1px solid #de3240c9;
+}
+
+.form-modal input::-webkit-input-placeholder{
+    color:rgb(99, 98, 98);
+}
+
+
+.form-modal p{
+    font: 18px;
+    font-weight: bold;
+}
+
+.form-modal p a{
+    color:#DE3241;
+    text-decoration: none;
+    transition:0.2s;
+}
+
+.form-modal p a:hover{
+    color:#222;
+}
+
+
+.form-modal i {
+    position: absolute;
+    left:10%;
+    top:50%;
+    transform:translateX(-10%) translateY(-50%); 
+    align-self: center;
+}
+
+.fa-google{
+    color:#dd4b39;
+}
+
+.fa-facebook-official{
+    color:#3b5998;
+}
+
+.-box-sd-effect:hover{
+    box-shadow: 2px 4px 4px #dd4b39
+}
+
+.w-45{
+    width:45%;
+}
+.ml3{
+    margin-left: 3%;
+}
+.ml5{
+    margin-left: 5%;
+}
+
+@media only screen and (max-width:600px){
+    .form-modal{
+        width:100%;
+    }
+}
+
+#login-form img{
+     width: 10%;
+     margin-left: 45%;
+     animation: hu__hu__ 1 2s ease-in-out
+}
+@keyframes hu__hu__ {
+    25% { transform: translateY(-10px) }
+    50% { transform: translateY(10px) }
+    75% { transform: translateY(-10px) }
+}
+
+img:hover{
+    animation: rotation 5s 1 linear;
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+@media only screen and (max-width:600px){
+    i{
+        display: none!important;
+    }
+}
