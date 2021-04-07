@@ -1,5 +1,6 @@
 require("./boot/requires");
 require('./boot/dbConnection');
+var cors = require('cors');
 //hi
 const express = require('express');
 const errorHandler = require('./middlewares/error');
@@ -23,6 +24,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 
 
 //end point for home
@@ -47,7 +49,7 @@ app.use("/users", UserRouter);
 app.use("/access", Access);
 
 //end point for review
-app.use("/review", reviewRouter);
+//app.use("/review", reviewRouter);
 
 //end point for category
 app.use("/category", categoryRouter);

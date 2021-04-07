@@ -2,6 +2,21 @@ const Rating = require("../../rating/models/Rating")
 const Response_Code = require("../../../response-codes")
 const Response_Msg = require("../../../response-messages")
 
+
+async function index(request, response,next) {
+
+    try {
+        const ratings = await Rating.find();
+        console.log(ratings)
+        response.status(200).json(ratings);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+
+
 async function show(req, res, next) {
 
     const { id } = request.params
@@ -62,6 +77,7 @@ async function destroy(req, res, next) {
 
 module.exports = {
     index,
+    show,
     store,
     update,
     destroy

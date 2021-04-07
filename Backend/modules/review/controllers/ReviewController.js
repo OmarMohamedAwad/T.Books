@@ -65,7 +65,7 @@ const destroy = async function (request, response, next){
         next(error) //next(ResponseCode.SERVER_ERROR)
     }
 }
-
+/*
 const pagination = async function (request, response, next){
     try{
         const { id } = request.params
@@ -87,6 +87,7 @@ const pagination = async function (request, response, next){
         next(err);
     }
 }
+*/
 
 
 module.exports = {
@@ -94,5 +95,5 @@ module.exports = {
     store,
     destroy,
     update,
-    pagination
+    //pagination
 };
