@@ -131,6 +131,31 @@ body {
   right: 12%;
 }
 
+<<<<<<< HEAD
+/*Pagination Section*/
+.pagination{
+  margin: auto;
+  justify-content: center;
+}
+
+.pagination li {
+  margin: 10px;
+}
+
+.pagination li a{
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.pagination li a svg {
+  margin-top: -5px;
+  color: #de3242;
+}
+
+=======
+>>>>>>> develop
 /*Responsive Media*/
 @media only screen and (max-width: 1400px) {
   .t-bottom-right{right: 6%;}

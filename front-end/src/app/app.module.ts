@@ -26,6 +26,19 @@ import { HomeSubscribeComponent } from './modules/user layout/home/subscribe/hom
 import { HomeAuthorComponent } from './modules/user layout/home/author/home-author.component';
 import { HomeTopCategoryComponent } from './modules/user layout/home/top-category/home-top-category.component';
 import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
+import { RouterModule, Routes } from '@angular/router';
+import { Router } from '@angular/router';
+
+
+const routes:Routes = [
+  //{path:"",redirectTo:"author",pathMatch:"full"},
+  {path:'admin/author',component:IndexComponent},
+  {path:'admin/author/store',component:StoreComponent},
+
+]
 import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
 import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
 import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
@@ -68,6 +81,7 @@ import { UserCategoryBooksComponent } from './modules/user layout/category/user-
     HomeAuthorComponent,
     HomeTopCategoryComponent,
     HomeFooterComponent,
+    AuthorsListForAdminComponent,
     NavUserComponent,
     BookDetComponent,
     DashboardComponent,
@@ -84,8 +98,13 @@ import { UserCategoryBooksComponent } from './modules/user layout/category/user-
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    NgbModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NgbModule,
+    RouterModule.forRoot(routes)
+
   ],
   providers: [],
   bootstrap: [AppComponent]
