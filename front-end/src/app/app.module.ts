@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './modules/admin layout/author/index/index.component';
 import { SidebarComponent } from './modules/admin layout/shared/sidebar/sidebar.component';
@@ -28,6 +29,11 @@ import { CategoryIndexComponent } from './modules/admin layout/category/category
 import { CategoryStoreComponent } from './modules/admin layout/category/category-store/category-store.component';
 import { CategoryUpdateComponent } from './modules/admin layout/category/category-update/category-update.component';
 import { CategoryDeleteComponent } from './modules/admin layout/category/category-delete/category-delete.component';
+import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
+import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
+import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
+import { from } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileIndexComponent } from './modules/user layout/user-profile/index/user-profile-index.component';
 import { UserProfileHeaderComponent } from './modules/user layout/user-profile/header/user-profile-header.component';
 import { UserProfileSideComponent } from './modules/user layout/user-profile/side-menu/user-profile-side.component';
@@ -54,6 +60,9 @@ const appRoutes:Routes=[
   {path:'category/store',component:CategoryStoreComponent},
 
 ]
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +94,9 @@ const appRoutes:Routes=[
     CategoryStoreComponent,
     CategoryUpdateComponent,
     CategoryDeleteComponent,
+    NavUserComponent,
+    BookDetComponent,
+    DashboardComponent,
     UserProfileIndexComponent,
     UserProfileHeaderComponent,
     UserProfileSideComponent,
@@ -98,13 +110,17 @@ const appRoutes:Routes=[
     AboutUsComponent,
     AboutHeaderComponent,
     AboutMissionComponent,
-    AboutWhyChooseUsComponent
+    AboutWhyChooseUsComponent,
+    AdminMainBookComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    NgbModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent]
