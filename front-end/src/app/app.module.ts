@@ -30,7 +30,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { Router } from '@angular/router';
-import { AdminLoginComponent } from './modules/admin layout/login/admin-login/admin-login.component';
 
 
 const routes:Routes = [
@@ -67,7 +66,6 @@ const routes:Routes = [
     HomeTopCategoryComponent,
     HomeFooterComponent,
     AuthorsListForAdminComponent,
-    AdminLoginComponent,
   ],
   imports: [
     BrowserModule,
