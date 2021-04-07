@@ -57,7 +57,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   }
 
   addBook(book: any){
-    // this.ngOnInit();
+    this.ngOnInit();
   }
 
   updateBook(book: any){

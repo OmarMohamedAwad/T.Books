@@ -17,16 +17,16 @@
           <div class="mb-3 field">
             <label for="author" class="form-label">Author</label>
             <select class="form-select" aria-label="Default select example" id="author" formControlName="author">
-                <option selected>{{book.authorName}}</option>
-                <option value="1">Ahmed Khaled</option>
-                <option value="2">Radwa Ashour</option>
+              <option selected value="{{book.authorName}}">{{book.authorName}}</option>
+              <option value="2">Radwa Ashour</option>
+              <option value="1">Ahmed Khaled</option>
                 <option value="3">Elif Shafaq</option>
             </select>
           </div>
           <div class="field ">
             <label for="category" class="form-label">Category</label>
             <select class="form-select" aria-label="Default select example" id="category" formControlName="category">
-                <option selected>{{book.categoryName}}</option>
+                <option selected value="{{book.categoryName}}">{{book.categoryName}}</option>
                 <option value="1">Science</option>
                 <option value="2">History</option>
                 <option value="3">Story</option>
