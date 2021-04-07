@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
 
@@ -7,19 +8,45 @@ import { HostListener } from '@angular/core';
   styleUrls: ['./nav-user.component.css']
 })
 export class NavUserComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  srcWidth=0;
+ 
+  /*
+  const navLinks = document.querySelectorAll('.nav-item')!;
+  const menuToggle = document.querySelector('button')!;
+  const bsCollapse = new bootstrap.Collapse(menuToggle)
+  navLinks.forEach((l) => {
+      l.addEventListener('click', () => { bsCollapse.toggle() })
+  })
+  */
+  constructor() { 
+    this.srcWidth=0;
   }
-/*
+  ngOnInit(): void {
+    
+  }
   @HostListener('window:scroll', ['$event'])
 
-  onWindowScroll() {
-      let element = document.querySelector('navbar')!;
-      if (window.pageYOffset > element.clientHeight) {
-        element.style.backgroundColor = 'black';
-    }
+  onScroll() {
+      let navbar = document.querySelector('nav')!;
+      if (window.pageYOffset > navbar.clientHeight) {
+        navbar.setAttribute("style","background-color: rgba(0,0,0,0.8)");
+      }
+      else{
+        navbar.setAttribute("style","background-color: rgba(0,0,0,0.3)");
+      }
   }
-*/
+ 
+  @HostListener('window:resize', ['$event'])
+  getScreenSize() {
+      this.srcWidth = window.innerWidth;
+      let navbar = document.querySelector('nav')!;
+      if(this.srcWidth<992){
+        navbar.setAttribute("style","background-color: rgba(0,0,0,0.8)");
+      }
+      else{
+        navbar.setAttribute("style","background-color: rgba(0,0,0,0.3)");
+      }
+  }
+
+ 
 }

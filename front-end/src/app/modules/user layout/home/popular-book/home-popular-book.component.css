@@ -1,11 +1,4 @@
 /*popular Book Section*/
-
-.container-home{
-    max-width: 90%;
-    margin: auto;
-    padding: 0 20px !important;
-}
-
 .popular-book { 
     font-family: 'PT Sans', sans-serif;
 }
@@ -27,4 +20,3 @@
     background-color: #121212;
     width: 100px; height: 2px;
 }
-

@@ -26,7 +26,14 @@ html {
   color: #fff;
   background: #000;
 }
+.app-terms,.app-login-register{
+  background-image: url("assets/bg.jpg");
+  background-size: cover;
+}
 
+.app-login-register{
+  overflow-y: hidden;
+}
 .fontPink{
   color: #DE3241;
 }
@@ -34,28 +41,6 @@ html {
 ::selection {
   color: #fff;
   background: #000;
-}
-
-/*Pagination Section*/
-.pagination{
-  margin: auto;
-  justify-content: center;
-}
-
-.pagination li {
-  margin: 10px;
-}
-
-.pagination li a{
-  text-decoration: none;
-  color: black;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.pagination li a svg {
-  margin-top: -5px;
-  color: #de3242;
 }
 
 .col-xxs-1, .col-xxs-2, .col-xxs-3, .col-xxs-4,
