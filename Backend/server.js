@@ -1,6 +1,8 @@
 require("./boot/requires");
 require('./boot/dbConnection');
-//hi
+var cors = require('cors')
+
+
 const express = require('express');
 const errorHandler = require('./middlewares/error');
 const jwt = require('jsonwebtoken');
@@ -24,6 +26,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cors()) 
 
 //end point for home
 app.use("/home" , Home);
