@@ -44,6 +44,9 @@ import { UserCategoryIndexComponent } from './modules/user layout/category/user-
 import { UserCategorySidebarComponent } from './modules/user layout/category/user-category-sidebar/user-category-sidebar.component';
 import { UserCategoryHeaderComponent } from './modules/user layout/category/user-category-header/user-category-header.component';
 import { UserCategoryBooksComponent } from './modules/user layout/category/user-category-books/user-category-books.component';
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './modules/user layout/about-us/about-us.component';
 import { AboutHeaderComponent } from './modules/user layout/about-us/about-header/about-header.component';
 import { AboutMissionComponent } from './modules/user layout/about-us/about-mission/about-mission.component';
@@ -115,12 +118,11 @@ import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-m
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
-    RouterModule.forRoot(appRoutes),
+    NgbModule
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

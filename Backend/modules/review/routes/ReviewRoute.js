@@ -10,6 +10,7 @@ reviewRouter.get("/:id" , auth(Role.ADMIN), (request, response, next) => {
     ReviewController.show(request, response, next);
 })
 
+
 reviewRouter.get("/:id/pages", (request, response, next)=> {
     ReviewController.pagination(request, response, next);
 }) 
