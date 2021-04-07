@@ -1,0 +1,31 @@
+.author-form h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.author-form button {
+  width: 50%;
+  float: right;
+}
+
+.field {
+  margin: 10px 0 20px 2%;
+  width: 48%;
+  display: inline-block;
+}
+
+.modal.show .modal-dialog {
+  margin-top: 10%;
+}
+
+form svg {
+  color: #de3242;
+  margin: 40px auto;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 800px;
+    margin: 1.75rem auto;
+  }
+}

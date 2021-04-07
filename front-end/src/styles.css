@@ -5,19 +5,44 @@ html {
   height: 100%;
   font-family: "PT Sans", sans-serif;
 }
+
+::-webkit-scrollbar{width: 10px;}
+::-webkit-scrollbar-track{
+    border:2px solid #752028;
+    box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, .5);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background: linear-gradient(
+        45deg,
+        #DE3241,
+        #df878e
+    );
+}
+
 ::-moz-selection {
   /* Code for Firefox */
   color: #fff;
   background: #000;
 }
 
+.fontPink{
+  color: #DE3241;
+}
+
 ::selection {
   color: #fff;
   background: #000;
 }
+.container-custom {
+  max-width: 90%;
+  margin: auto;
+  padding: 0 20px !important;
+}
 
 /*Pagination Section*/
-.pagination{
+.pagination {
   margin: auto;
   justify-content: center;
 }
@@ -26,7 +51,7 @@ html {
   margin: 10px;
 }
 
-.pagination li a{
+.pagination li a {
   text-decoration: none;
   color: black;
   font-size: 18px;
@@ -38,9 +63,18 @@ html {
   color: #de3242;
 }
 
-.col-xxs-1, .col-xxs-2, .col-xxs-3, .col-xxs-4,
-.col-xxs-5, .col-xxs-6, .col-xxs-7, .col-xxs-8,
-.col-xxs-9, .col-xxs-10, .col-xxs-11, .col-xxs-12 {
+.col-xxs-1,
+.col-xxs-2,
+.col-xxs-3,
+.col-xxs-4,
+.col-xxs-5,
+.col-xxs-6,
+.col-xxs-7,
+.col-xxs-8,
+.col-xxs-9,
+.col-xxs-10,
+.col-xxs-11,
+.col-xxs-12 {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;

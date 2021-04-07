@@ -3,6 +3,8 @@ require('./boot/dbConnection');
 const cors = require('cors');
 //hi
 const express = require('express');
+var cors = require('cors');
+
 const errorHandler = require('./middlewares/error');
 const jwt = require('jsonwebtoken');
 
@@ -21,6 +23,7 @@ const categoryRouter = require('./modules/category/routes/CategoryRoute')
 const settingRouter = require('./modules/setting/routes/settingRoutes');
 const ratingRouter = require('./modules/rating/routes/RatingRoute');
 const app = express();
+app.use(cors());
 
 app.use(cors());
 app.use(express.json());

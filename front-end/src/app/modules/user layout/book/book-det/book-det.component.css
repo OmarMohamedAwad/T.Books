@@ -1,0 +1,85 @@
+.book_show{
+    margin: 90px 0 0 5%;
+}
+.book_cover{
+    width: 15%;
+    margin-top: 20px;
+    position: absolute;
+    text-align: center;
+}
+.book_cover img{
+    width: 100%;
+}
+a{
+    text-decoration: none;
+}
+.details{
+    margin-left: 17%;
+    padding: 15px 20px 0 10px;
+}
+h2{
+    font-family: 'Playfair Display';
+    margin-left: 32%;
+    margin-bottom: 20px;
+    
+}
+.font20{
+    font-size: 20px;
+}
+.font15{
+    font-size: 15px;
+    color: rgb(88, 88, 88);
+}
+.font17{
+    font-size: 17px;
+}
+p,a:hover,.colorBlack{
+    color: black;
+}
+ngb-rating{
+    outline: none;
+}
+.reviews{
+    width: 90%;
+    margin-left: 65px;
+    margin-top: 9%;
+}
+.my_review_submit{
+    float: right;   
+}
+.rev_img{
+    border-radius: 50%;
+    width: 8%;
+    position: absolute;
+}
+.review_body{
+    margin-left: 10%;
+    width: 90%;
+}
+ul{
+    list-style: none;
+    margin-top: 80px;
+    padding: 0;
+}
+li{
+    
+    margin-left: 10%;
+    border: 1px solid rgb(182, 182, 182);
+    list-style: none;
+    margin-top: 10px;
+    padding: 5px;
+    display: flex;
+}
+li img{
+    width: 6%;    
+    border-radius: 50%;
+    display: inline-block;
+}
+li p{
+    display: inline;
+    margin-left: 1%;
+    align-self: center;
+}
+.custom-background{
+    background-color:  rgba(0,0,0,0.8);
+ }

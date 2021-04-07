@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './modules/admin layout/author/index/index.component';
 import { SidebarComponent } from './modules/admin layout/shared/sidebar/sidebar.component';
@@ -25,6 +25,15 @@ import { HomeSubscribeComponent } from './modules/user layout/home/subscribe/hom
 import { HomeAuthorComponent } from './modules/user layout/home/author/home-author.component';
 import { HomeTopCategoryComponent } from './modules/user layout/home/top-category/home-top-category.component';
 import { HomeFooterComponent } from './modules/user layout/home/footer/home-footer.component';
+import { CategoryIndexComponent } from './modules/admin layout/category/category-index/category-index.component';
+import { CategoryStoreComponent } from './modules/admin layout/category/category-store/category-store.component';
+import { CategoryUpdateComponent } from './modules/admin layout/category/category-update/category-update.component';
+import { CategoryDeleteComponent } from './modules/admin layout/category/category-delete/category-delete.component';
+import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
+import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
+import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
+import { from } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileIndexComponent } from './modules/user layout/user-profile/index/user-profile-index.component';
 import { UserProfileHeaderComponent } from './modules/user layout/user-profile/header/user-profile-header.component';
 import { UserProfileSideComponent } from './modules/user layout/user-profile/side-menu/user-profile-side.component';
@@ -38,6 +47,26 @@ import { UserCategoryBooksComponent } from './modules/user layout/category/user-
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AboutUsComponent } from './modules/user layout/about-us/about-us.component';
+import { AboutHeaderComponent } from './modules/user layout/about-us/about-header/about-header.component';
+import { AboutMissionComponent } from './modules/user layout/about-us/about-mission/about-mission.component';
+import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'
+import { Observable } from 'rxjs';
+
+
+const appRoutes:Routes=[
+  {path:"",redirectTo:"author",pathMatch:"full"},
+  {path:'category',component:CategoryIndexComponent},
+  {path:'category/store',component:CategoryStoreComponent},
+
+]
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +93,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeAuthorComponent,
     HomeTopCategoryComponent,
     HomeFooterComponent,
+    CategoryIndexComponent,
+    CategoryStoreComponent,
+    CategoryUpdateComponent,
+    CategoryDeleteComponent,
+    NavUserComponent,
+    BookDetComponent,
+    DashboardComponent,
     UserProfileIndexComponent,
     UserProfileHeaderComponent,
     UserProfileSideComponent,
@@ -73,7 +109,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UserCategoryIndexComponent,
     UserCategorySidebarComponent,
     UserCategoryHeaderComponent,
-    UserCategoryBooksComponent
+    UserCategoryBooksComponent,
+    AboutUsComponent,
+    AboutHeaderComponent,
+    AboutMissionComponent,
+    AboutWhyChooseUsComponent,
+    AdminMainBookComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +122,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     NgbModule
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
