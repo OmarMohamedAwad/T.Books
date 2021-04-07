@@ -1,1 +1,33 @@
-<p>category-update works!</p>
+<div class="modal fade w-100" id="updateCategory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog w-100">
+    <div class="modal-content w-100">
+      <div class="modal-header ">
+        <h5 class="modal-title" id="staticBackdropLabel">Update Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3 author-form">
+        <form class="" id="form" [formGroup]="categoryForm" >
+          <i class="fas fa-book-open fa-5x d-block"></i>
+          <div class="mb-3 field">
+            <label for="first-name" class="form-label">Category Name</label>
+            <input formControlName="name" type="text" class="form-control" id="first-name" placeholder="update Category Name">
+          </div>
+
+         
+
+          <div class="field">
+            <label for="image" class="form-label">Category Image</label>
+            <input formControlName="image" type="file" class="form-control" id="image">
+          </div>
+
+          <div class="actions text-center">
+            <button type="button" class="btn btn-secondary w-25 m-1" data-bs-dismiss="modal">Close</button>
+            <button (click)="updateCategory()" type="submit" class="btn btn-danger w-25 m-1" >Update Category</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

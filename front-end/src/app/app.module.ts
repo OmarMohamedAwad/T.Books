@@ -42,6 +42,18 @@ import { AboutUsComponent } from './modules/user layout/about-us/about-us.compon
 import { AboutHeaderComponent } from './modules/user layout/about-us/about-header/about-header.component';
 import { AboutMissionComponent } from './modules/user layout/about-us/about-mission/about-mission.component';
 import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'
+import { Observable } from 'rxjs';
+
+
+const appRoutes:Routes=[
+  {path:"",redirectTo:"author",pathMatch:"full"},
+  {path:'category',component:CategoryIndexComponent},
+  {path:'category/store',component:CategoryStoreComponent},
+
+]
 
 @NgModule({
   declarations: [
@@ -89,7 +101,10 @@ import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-
     AboutWhyChooseUsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

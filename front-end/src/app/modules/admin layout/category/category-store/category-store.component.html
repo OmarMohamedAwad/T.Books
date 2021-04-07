@@ -4,7 +4,6 @@
 <!---->
 <div class="content-page ">
     <section class="category">
-           <!--update site-->
            <div class="container">
                 <div class="content pt-5">
                     <h2>Add New Category</h2>
@@ -12,17 +11,35 @@
                 </div>
            </div>
            <div class="conteiner mt-5">
-            <form action="">
+            <form  [formGroup]="categoryForm" (ngSubmit)=categoryForm.valid&&addCategory()>
                 <div class="mb-3">
                     <label for="headerTitel" class="form-label">Category Name</label>
-                    <input type="text" class="form-control" id="headerTitel" placeholder="Enter The Categoy Name">
+                    <input formControlName="name" [class.is-valid]="categoryForm.controls.name.status=='VALID'" type="text"  class="form-control" id="headerTitel" placeholder="Enter The Categoy Name">
+                    <div class="alert alert-danger mt-3" role="alert" *ngIf="categoryForm.controls.name.errors&&categoryForm.controls.name.touched">
+                        The Category Name is Required
+                    </div>
                 </div>
                 <div class="form-group mb-3">
                     <label for="exampleFormControlFile1">Category Image</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    <input type="file" formControlName="image"  class="form-control-file" id="exampleFormControlFile1">
+                    <div class="alert alert-danger mt-3" role="alert" *ngIf="categoryForm.controls.image.errors&&categoryForm.controls.image.touched">
+                        The Category Image is Required
+                    </div>
                   </div>
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-custom ">Add</button>
+                    <!--
+                        *first way :take only one style
+                        [style.backgroundColor]="categoryForm.invalid?'#24324a':'#de3242'"  
+                        *second way :can take more than one style
+                        [ngStyle]="categoryForm.invalid?{'background-color':'#24324a'}:{'background-color':'#de3242'}"
+                     -->
+                    <button [disabled]="categoryForm.invalid" [ngStyle]="categoryForm.invalid?isStyleInvalid:isStyleValid" class="btn btn-custom ">
+                        <span *ngIf="!isClicked">Add</span>
+                        <span *ngIf="isClicked">Wating....</span>
+                    </button>
+                </div>
+                <div *ngIf="isSucess" class="alert alert-success text-center" role="alert">
+                    {{responseMessage}}
                 </div>
             </form>
            </div>
