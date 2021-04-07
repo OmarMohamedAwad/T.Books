@@ -1,5 +1,6 @@
 require("./boot/requires");
 require('./boot/dbConnection');
+const cors = require('cors');
 //hi
 const express = require('express');
 const errorHandler = require('./middlewares/error');
@@ -21,6 +22,7 @@ const settingRouter = require('./modules/setting/routes/settingRoutes');
 const ratingRouter = require('./modules/rating/routes/RatingRoute');
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -10,7 +10,7 @@ reviewRouter.get("/:id" , auth(Role.ADMIN), async (request, response, next) => {
     await ReviewController.show(request, response, next);
 })
 
-reviewRouter.get("/:id/pages", (request, response, next)=> {
+reviewRouter.get("/:id/pages", async (request, response, next)=> {
     await ReviewController.pagination(request, response, next);   
 }) 
 
