@@ -29,8 +29,8 @@ export class BookStoreComponent implements OnInit {
   }
 
   bookForm = new FormGroup({
-    name: new FormControl("",[Validators.required,Validators.min(2),Validators.maxLength(50),Validators.pattern('[a-zA-Z ]*')]),
-    description: new FormControl("",[Validators.required,Validators.min(10),Validators.max(250),Validators.pattern('[0-9a-zA-Z ]*')]),
+    name: new FormControl("",[Validators.required,Validators.min(2),Validators.maxLength(50),Validators.pattern('[a-zA-Z0-9 ]*')]),
+    description: new FormControl("",[Validators.required,Validators.min(10),Validators.max(250),Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
     author: new FormControl("",[Validators.required]),
     category: new FormControl("",[Validators.required]),
 
@@ -62,7 +62,6 @@ export class BookStoreComponent implements OnInit {
       this.book.image = "https://i.morioh.com/21056367812/4b482f8e.webp";
 
       this.bookService.store(this.book).subscribe((response)=>{
-        console.log(response);
         this.indexFlag = true;
         this.bookForm.reset();
         this.addedBook.emit(this.book);
@@ -70,6 +69,10 @@ export class BookStoreComponent implements OnInit {
         console.log(error)
       })
     }
+  }
+
+  backToIndex(){
+    this.indexFlag = true;
   }
 
   @Output() addedBook: EventEmitter<Book> = new EventEmitter<Book>()

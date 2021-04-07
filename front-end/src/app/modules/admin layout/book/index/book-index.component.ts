@@ -12,7 +12,6 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   subscriber:any;
   addFlag: boolean;
   books : Array<Book> = []
-  firstTimeFlag: boolean;
 
   clickedBook: Book = {
       id:"",
@@ -26,7 +25,6 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   };
 
   constructor(private bookService: BookServiceService) {
-    this.firstTimeFlag = true;
     this.addFlag = false;
   }
 
@@ -59,7 +57,10 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   }
 
   addBook(book: any){
-    this.firstTimeFlag = false
     // this.ngOnInit();
+  }
+
+  updateBook(book: any){
+    this.ngOnInit();
   }
 }

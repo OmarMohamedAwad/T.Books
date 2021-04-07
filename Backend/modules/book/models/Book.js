@@ -69,13 +69,8 @@ bookSchema.pre('remove', async function (next) {
     try {
         if (this.bookReviews.length > 0)
             await reviewModel.deleteMany({ reviewedBook: this._id });
-    }
-    catch (e) {
-        next(e)
-    }
 
-    // delete book from rating collection
-    try {
+        // delete book from rating collection
         if (this.bookRatings.length > 0)
             await ratingModel.deleteMany({ ratedBook: this._id });
     }
@@ -95,13 +90,8 @@ async function removeDependencies(deleteBook) {
     // delete book from author collection
     try {
         await authorModel.updateMany({}, { $pull: { authorBooks: deleteBook._id } })
-    }
-    catch (e) {
-        next(e)
-    }
 
-    // delete book from category collection
-    try {
+        // delete book from category collection
         await categoryModel.updateMany({}, { $pull: { categoryBooks: deleteBook._id } })
     }
     catch (e) {
@@ -114,13 +104,8 @@ async function addDependencies(addedBook) {
     try {
         const updatingAuthor = await authorModel.updateOne({ _id: addedBook.bookAuthor },
             { $push: { authorBooks: addedBook._id } })
-    }
-    catch (e) {
-        next(e)
-    }
-
-    // add book to category collection
-    try {
+        
+        // add book to category collection
         const updatingCategories = await categoryModel.updateOne({ _id: addedBook.bookCategory },
             { $push: { categoryBooks: addedBook._id } })
     }
@@ -136,15 +121,8 @@ bookSchema.pre('remove', async function(next){
     try
     {
         await authorModel.findOneAndUpdate({}, { $pull: { authorBooks: this._id } })
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-    }
 
-    // delete book from category collection
-    try
-    {
+        // delete book from category collection
         await categoryModel.findOneAndUpdate({}, { $pull: { categoryBooks: this._id } })
     }
     catch(e)
@@ -153,7 +131,7 @@ bookSchema.pre('remove', async function(next){
     }
 
     // delete book from review collection
-    //delete review drom user //still
+    //delete review from user //still
     try
     {
         if(this.bookReviews.length > 0)

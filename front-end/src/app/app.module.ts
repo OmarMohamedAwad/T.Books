@@ -43,6 +43,7 @@ import { UserCategoryHeaderComponent } from './modules/user layout/category/user
 import { UserCategoryBooksComponent } from './modules/user layout/category/user-category-books/user-category-books.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     UserCategoryIndexComponent,
     UserCategorySidebarComponent,
     UserCategoryHeaderComponent,
-    UserCategoryBooksComponent
+    UserCategoryBooksComponent,
+    AdminMainBookComponent
   ],
   imports: [
     BrowserModule,

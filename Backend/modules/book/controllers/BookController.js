@@ -100,7 +100,6 @@ async function destroy(request, response, next)
         console.log(e);
         next(ResponseCode.SERVER_ERROR)
     }
-    
 
 }
 
@@ -110,9 +109,9 @@ async function update(request, response, next)
     const bookRequest = request.body
 
     const bookInstance = {
-        ...(bookRequest.bookName) ? {bookName: bookRequest.bookName} : {},
-        ...(bookRequest.bookDescription) ? {bookDescription: bookRequest.bookDescription} : {},
-        ...(bookRequest.bookImage) ? {bookImage: bookRequest.bpostookImage} : {},
+        ...(bookRequest.name) ? {bookName: bookRequest.name} : {},
+        ...(bookRequest.description) ? {bookDescription: bookRequest.description} : {},
+        ...(bookRequest.image) ? {bookImage: bookRequest.image} : {},
     }
 
     try
@@ -131,7 +130,6 @@ async function update(request, response, next)
         }
         bookDoc.save()
 
-
         response.json({
             status : ResponseCode.SUCCESS,
             message: ResponseMessage.UPDATE_MESSAGE
@@ -139,7 +137,6 @@ async function update(request, response, next)
     }
     catch(e)
     {
-        console.log(e.name);
         next(e)
     }
 }
