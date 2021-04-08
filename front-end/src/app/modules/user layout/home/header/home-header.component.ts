@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingsService } from 'src/app/services/settings.service'
 
 @Component({
   selector: 'app-home-header',
@@ -8,11 +9,32 @@ import { Component, OnInit } from '@angular/core';
 export class HomeHeaderComponent implements OnInit {
   slidePhotos:Array<string> = ["assets/user/home/header1.jpeg" , "assets/user/home/header1.jpeg"]
   currentSlide:number = 0;
+  subscriber: any;
+  settings: any;
+  headerTitleValue:string="";
+  headerParagraphValue:string="";
+  constructor(private settingService: SettingsService) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+ngOnInit(): void {
+  this.subscriber = this.settingService.getSettings()
+  .subscribe((response:any)=>{
+    console.log(response.body)
+    this.settings = response.body
+    this.settings.find((section:any) => {
+      if(section.sectionName == "headerData")
+      {
+        this.headerTitleValue=section.sectionContent.headerTitle;
+        this.headerParagraphValue=section.sectionContent.headerParagraph;
+      }
+    });
+  },
+  (err)=>{
+    console.log(err)
   }
+  )
+}
+
+
 // showSlides(slideIndex);
 
 // // Next/previous controls

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './modules/admin layout/author/index/index.component';
 import { SidebarComponent } from './modules/admin layout/shared/sidebar/sidebar.component';
@@ -28,6 +29,19 @@ import { CategoryIndexComponent } from './modules/admin layout/category/category
 import { CategoryStoreComponent } from './modules/admin layout/category/category-store/category-store.component';
 import { CategoryUpdateComponent } from './modules/admin layout/category/category-update/category-update.component';
 import { CategoryDeleteComponent } from './modules/admin layout/category/category-delete/category-delete.component';
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
+import { RouterModule, Routes } from '@angular/router';
+import { Router } from '@angular/router';
+import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
+import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
+import { LoginRegisterComponent } from './modules/user layout/login-register/login-register.component';
+import { TermsComponent } from './modules/user layout/terms/terms.component';
+import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
+import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
+import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileIndexComponent } from './modules/user layout/user-profile/index/user-profile-index.component';
 import { UserProfileHeaderComponent } from './modules/user layout/user-profile/header/user-profile-header.component';
 import { UserProfileSideComponent } from './modules/user layout/user-profile/side-menu/user-profile-side.component';
@@ -42,11 +56,13 @@ import { AboutUsComponent } from './modules/user layout/about-us/about-us.compon
 import { AboutHeaderComponent } from './modules/user layout/about-us/about-header/about-header.component';
 import { AboutMissionComponent } from './modules/user layout/about-us/about-mission/about-mission.component';
 import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
-import { RouterModule, Routes } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
 import { Observable } from 'rxjs';
 
+const routes:Routes = [
+  {path:'admin/author',component:IndexComponent},
+  {path:'admin/author/store',component:StoreComponent},
+
+]
 
 const appRoutes:Routes=[
   {path:"",redirectTo:"author",pathMatch:"full"},
@@ -85,6 +101,9 @@ const appRoutes:Routes=[
     CategoryStoreComponent,
     CategoryUpdateComponent,
     CategoryDeleteComponent,
+    NavUserComponent,
+    BookDetComponent,
+    DashboardComponent,
     UserProfileIndexComponent,
     UserProfileHeaderComponent,
     UserProfileSideComponent,
@@ -98,13 +117,25 @@ const appRoutes:Routes=[
     AboutUsComponent,
     AboutHeaderComponent,
     AboutMissionComponent,
-    AboutWhyChooseUsComponent
+    AboutWhyChooseUsComponent,
+    AdminMainBookComponent,
+    AuthorsListForAdminComponent,
+    NavUserComponent,
+    BookDetComponent,
+    DashboardComponent,
+    FooterComponent,
+    LoginRegisterComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    RouterModule,
+    NgbModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
