@@ -61,17 +61,21 @@ async function store(request, response, next) {
   }
 
   async function update(req,res,next){
+      console.log(req.params.id)
+      console.log(typeof(req.params.id))
     const sectionUpdated = {
-        ...(req.body.sectionName) ? {sectionContent: req.body.sectionContent} : {},
+        ...(req.body.sectionName) ? {sectionName: req.body.sectionName} : {},
         ...(req.body.sectionContent) ? {sectionContent: req.body.sectionContent} : {},
     }
+    console.log(sectionUpdated)
     try
     {
-        const sectionNewData = await Setting.findOneAndUpdate({_id: req.params.id}, 
+        const sectionNewData = await Setting.findOneAndUpdate({sectionName: req.params.id}, 
             sectionUpdated )
+            console.log(sectionNewData)
         res.send("sction updated successfully".blue.inverse)
     }
-    catch(e)
+    catch(err)
     {
         next(err);
     }

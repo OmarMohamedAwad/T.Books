@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingsService } from 'src/app/services/settings.service'
 
 @Component({
   selector: 'app-home-top-category',
@@ -11,10 +12,28 @@ export class HomeTopCategoryComponent implements OnInit {
   row2:string[] = []
   topCategories:string[][] = [ this.row1 , this.row2 ];
   coleredBackground:string[] = ["bg-bink one" , "bg-blue two" , "bg-yellow three"]
+  subscriber: any;
+  settings: any;
+  popularCategoryValue:string="";
   
-  constructor() { }
-
+  constructor(private settingService: SettingsService) { }
+  
   ngOnInit(): void {
+    this.subscriber = this.settingService.getSettings()
+    .subscribe((response:any)=>{
+      console.log(response.body)
+      this.settings = response.body
+      this.settings.find((section:any) => {
+        if(section.sectionName == "TitleData")
+        {
+          this.popularCategoryValue=section.sectionContent.popularCategory;
+        }
+      });
+    },
+    (err)=>{
+      console.log(err)
+    }
+    )
   }
 
 }

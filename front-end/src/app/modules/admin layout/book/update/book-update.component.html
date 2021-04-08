@@ -7,27 +7,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-3 book-form">
-        <form class="" id="form">
+        <form class="" id="form" [formGroup]="bookForm" (ngSubmit)="submitUpdateForm()">
           <i class="fas fa-book-open fa-5x d-block"></i>
           <div class="mb-3 field">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" value="Utopia">
-            <!-- [value]="getBookTitle()"     for edit intial value--> 
+            <input type="text" class="form-control" id="title" value="{{book.name}}" formControlName="name">
           </div>
 
           <div class="mb-3 field">
             <label for="author" class="form-label">Author</label>
-            <select class="form-select" aria-label="Default select example" id="author" >
-                <option selected>Select the author</option>
-                <option value="1">Ahmed Khaled</option>
-                <option value="2">Radwa Ashour</option>
+            <select class="form-select" aria-label="Default select example" id="author" formControlName="author">
+              <option selected value="{{book.authorName}}">{{book.authorName}}</option>
+              <option value="2">Radwa Ashour</option>
+              <option value="1">Ahmed Khaled</option>
                 <option value="3">Elif Shafaq</option>
             </select>
           </div>
           <div class="field ">
             <label for="category" class="form-label">Category</label>
-            <select class="form-select" aria-label="Default select example" id="category">
-                <option selected>Select the category</option>
+            <select class="form-select" aria-label="Default select example" id="category" formControlName="category">
+                <option selected value="{{book.categoryName}}">{{book.categoryName}}</option>
                 <option value="1">Science</option>
                 <option value="2">History</option>
                 <option value="3">Story</option>
@@ -39,8 +38,13 @@
             <input type="file" class="form-control" id="image">
           </div>
 
+          <div class="field">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="6" value="{{book.description}}"></textarea>
+          </div>
+
           <div class="actions text-center">
-            <button type="button" class="btn btn-secondary w-25 m-1" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary w-25 m-1" data-bs-dismiss="modal" #closebutton>Close</button>
             <button type="submit" class="btn btn-danger w-25 m-1">Update Book</button>
           </div>
         </form>

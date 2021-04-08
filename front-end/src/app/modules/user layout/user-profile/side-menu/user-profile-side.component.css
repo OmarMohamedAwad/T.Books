@@ -6,6 +6,7 @@
     margin-top: -2%;
     border-radius: 25px;
     margin-left: 3%;
+    position: fixed;
 }
     
 .user-image {
@@ -45,3 +46,9 @@ button:hover {
     font-weight: 800;
     color: #ffffff;
   }
+
+  @media only screen and (max-width: 767px) {
+    .user{
+        position: initial;
+    }
+}

@@ -1,0 +1,30 @@
+<section class="Mission py-5">
+    <div class="container-custom">
+        <h2 class="text-center my-5">Our Mission Is To Find All Book Tybes</h2>
+        <div class="row w-100">
+            <div class="col-lg-8 col-xl-7">
+                <p *ngFor="let para of paragraph">{{para}}</p>
+                <div class="icons">
+                    <div class="row " >
+                        <div class="col" *ngFor="let card of cardData">
+                            <div class="row">
+                                <div class="col-3 ">
+                                    <i [class]="card.icon"></i>
+                                </div>
+                                <div class="col-9">
+                                    <div class="details">
+                                        <h3>{{card.number}}</h3>
+                                        <p >{{card.desc}}</p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-5">
+                <img src="/assets/user/about-us/about-header.jpg" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</section>

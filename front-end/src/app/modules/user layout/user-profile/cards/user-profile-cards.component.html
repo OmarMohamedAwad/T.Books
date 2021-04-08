@@ -1,35 +1,38 @@
-<div class="parentContainer">
-<div class=" card-container col-lg-4 col-md-5 col-sm-7 col-xxs-9" *ngFor="let i of [1,2,3,4]">
+<div class="parentContainer justify-content-center ">
     <div class="row">
-        <div class="book-img col-3">
-            <img src="assets/user/home/books/book1.jpeg" alt="" class="w-100">
-        </div>
-        <div class="col-9">
+        <div class=" card-container col-lg-4 col-md-5 col-sm-10 col-xxs-12 " *ngFor="let i of [1,2,3,4]">
             <div class="row">
-                <div class="col-8">A Banquet of Mouse</div>
-                <div class="col-4">4.5 <i class="fas fa-star first-star"></i> </div>
-            </div>
-            <div class="row" class="author">
-                <div class="col-12">Author Name </div>
-            </div>
-            <div class="row" class="ratingStars"> 
-                <div class="col-12">
-                    <i class="fas fa-star ratingstar1"></i> 
-                    <i class="fas fa-star ratingstar1"></i> 
-                    <i class="fas fa-star ratingstar1"></i> 
-                    <i class="fas fa-star ratingstar1"></i> 
-                    <i class="fas fa-star ratingstar1"></i> 
+                <div class="book-img col-3">
+                    <img src="assets/user/home/books/book1.jpeg" alt="" class="w-100">
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-8">A Banquet of Mouse</div>
+                        <div class="col-4">4.5 <i class="fas fa-star first-star"></i> </div>
                     </div>
-            </div>
-            <div class="row">
-                <select class="form-select" aria-label="Default select example" id="category">
-                    <option selected class="selectHeader">Select</option>
-                    <option value="1">Read</option>
-                    <option value="2">Current reading</option>
-                    <option value="3">Want to read</option>
-                </select>
+                    <div class="row" class="author">
+                        <div class="col-12">Author Name </div>
+                    </div>
+                    <div class="row" class="ratingStars"> 
+                        <!-- <ngb-rating style="color: rgb(250, 225, 0);" [max]="5" [(rate)]="userRate" [readonly]="false"></ngb-rating> -->
+                        <div class="col-12">
+                            <i class="fas fa-star ratingstar1"></i> 
+                            <i class="fas fa-star ratingstar1"></i> 
+                            <i class="fas fa-star ratingstar1"></i> 
+                            <i class="fas fa-star ratingstar1"></i> 
+                            <i class="fas fa-star ratingstar1"></i> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <select class="form-select" aria-label="Default select example" id="category">
+                            <option selected class="selectHeader">Select</option>
+                            <option value="1">Read</option>
+                            <option value="2">Current reading</option>
+                            <option value="3">Want to read</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
