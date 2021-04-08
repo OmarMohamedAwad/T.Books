@@ -31,7 +31,7 @@ export class NavUserComponent implements OnInit {
       if (window.pageYOffset > navbar.clientHeight) {
         navbar.setAttribute("style","background-color: rgba(0,0,0,0.8)");
       }
-      else{
+      else if (window.innerWidth>=992){
         navbar.setAttribute("style","background-color: rgba(0,0,0,0.3)");
       }
   }

@@ -86,13 +86,13 @@ nav.navbar-default .navbar-nav li a.active:hover {
           border: #fff;
     }
   }
-  @media screen and (min-width: 992px){
-    nav.navbar-default{
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-}
-@media screen and (max-width: 991px){
+  @media screen and (max-width: 991px){
     nav.navbar-default{
         background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+@media screen and (min-width: 992px){
+    nav.navbar-default{
+        background-color: rgba(0, 0, 0, 0.3);
     }
 }
