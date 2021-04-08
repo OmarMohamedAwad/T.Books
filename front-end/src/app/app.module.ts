@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -57,10 +57,14 @@ import { AboutHeaderComponent } from './modules/user layout/about-us/about-heade
 import { AboutMissionComponent } from './modules/user layout/about-us/about-mission/about-mission.component';
 import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
 import { Observable } from 'rxjs';
+import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 
 const routes:Routes = [
+  {path:'admin' , component:AdminLoginComponent}, 
+  {path:'admin/dashboard',component:DashboardComponent},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
+  
 
 ]
 
@@ -125,7 +129,8 @@ const appRoutes:Routes=[
     DashboardComponent,
     FooterComponent,
     LoginRegisterComponent,
-    TermsComponent
+    TermsComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,
