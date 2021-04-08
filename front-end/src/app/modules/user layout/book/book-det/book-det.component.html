@@ -4,7 +4,7 @@
         <img  @fade src="assets/user/book/memories.jpg"><br>
         <button class="btn btn-danger w-75 mt-4">Add to favourits</button>
         <span class="font15 d-block mt-2">Rate This book</span>
-        <ngb-rating style="color: rgb(250, 225, 0);" [max]="5" [(rate)]="userRate" [readonly]="false"></ngb-rating>
+        <ngb-rating style="color: rgb(250, 225, 0); font-size: x-large;" [max]="5" [(rate)]="userRate" [readonly]="false"></ngb-rating>
     </div>
     <section class="details">
         <h2 class="fontPink">{{bookTitle}}</h2>
@@ -13,7 +13,7 @@
             <span>Category: <a class="fontPink" href="#">{{bookCategory}}</a></span> <br>
             <span class="d-inline-block col-3 font17">
                 <span >Rate: </span>
-                <ngb-rating style="color: rgb(250, 225, 0);" [max]="5" [(rate)]="avgRate" [readonly]="true">
+                <ngb-rating style="color: rgb(250, 225, 0); font-size: large;"  [max]="5" [(rate)]="avgRate" [readonly]="true">
                 </ngb-rating> {{avgRate}}
             </span>
             <span class="d-inline-block col-3 font17">
@@ -52,8 +52,4 @@
         </li>
     </ul>
 </section>
-
-<footer class="text-center text-white mt-5" style="background-color: rgba(0, 0, 0, 0.05);">
-    <p class="text-center custom-background text-white m-0 py-1"> Made with love <i class="far fa-heart"></i> By The
-        best team</p>
-</footer>
+<app-footer></app-footer>

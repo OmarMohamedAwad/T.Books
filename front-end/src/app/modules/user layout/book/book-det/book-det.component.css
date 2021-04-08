@@ -23,6 +23,7 @@ h2{
     margin-bottom: 20px;
     
 }
+
 .font20{
     font-size: 20px;
 }
@@ -80,6 +81,3 @@ li p{
     margin-left: 1%;
     align-self: center;
 }
-.custom-background{
-    background-color:  rgba(0,0,0,0.8);
- }

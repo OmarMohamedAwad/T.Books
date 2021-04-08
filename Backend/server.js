@@ -1,7 +1,7 @@
 require("./boot/requires");
 require('./boot/dbConnection');
 const cors = require('cors');
-//hi
+
 const express = require('express');
 var cors = require('cors');
 
@@ -29,6 +29,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cors()) 
 
 //end point for home
 app.use("/home" , Home);

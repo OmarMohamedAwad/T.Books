@@ -26,7 +26,14 @@ html {
   color: #fff;
   background: #000;
 }
+.app-terms,.app-login-register{
+  background-image: url("assets/bg.jpg");
+  background-size: cover;
+}
 
+.app-login-register{
+  overflow-y: hidden;
+}
 .fontPink{
   color: #DE3241;
 }

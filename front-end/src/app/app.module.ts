@@ -29,6 +29,20 @@ import { CategoryIndexComponent } from './modules/admin layout/category/category
 import { CategoryStoreComponent } from './modules/admin layout/category/category-store/category-store.component';
 import { CategoryUpdateComponent } from './modules/admin layout/category/category-update/category-update.component';
 import { CategoryDeleteComponent } from './modules/admin layout/category/category-delete/category-delete.component';
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
+import { RouterModule, Routes } from '@angular/router';
+import { Router } from '@angular/router';
+
+
+const routes:Routes = [
+  //{path:"",redirectTo:"author",pathMatch:"full"},
+  {path:'admin/author',component:IndexComponent},
+  {path:'admin/author/store',component:StoreComponent},
+
+]
+
 import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
 import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
 import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
@@ -66,6 +80,9 @@ const appRoutes:Routes=[
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
+import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
+import { LoginRegisterComponent } from './modules/user layout/login-register/login-register.component';
+import { TermsComponent } from './modules/user layout/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -114,15 +131,23 @@ import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-m
     AboutHeaderComponent,
     AboutMissionComponent,
     AboutWhyChooseUsComponent,
-    AdminMainBookComponent
+    AdminMainBookComponent,
+    AuthorsListForAdminComponent,
+    NavUserComponent,
+    BookDetComponent,
+    DashboardComponent,
+    FooterComponent,
+    LoginRegisterComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
-    RouterModule.forRoot(appRoutes)
+    RouterModule,
+    NgbModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

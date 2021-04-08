@@ -12,11 +12,10 @@ export class HomeTopCategoryComponent implements OnInit {
   row2:string[] = []
   topCategories:string[][] = [ this.row1 , this.row2 ];
   coleredBackground:string[] = ["bg-bink one" , "bg-blue two" , "bg-yellow three"]
-
   subscriber: any;
   settings: any;
   popularCategoryValue:string="";
-
+  
   constructor(private settingService: SettingsService) { }
   
   ngOnInit(): void {
