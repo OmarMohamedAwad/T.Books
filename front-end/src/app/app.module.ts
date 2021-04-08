@@ -34,19 +34,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { Router } from '@angular/router';
-
-
-const routes:Routes = [
-  //{path:"",redirectTo:"author",pathMatch:"full"},
-  {path:'admin/author',component:IndexComponent},
-  {path:'admin/author/store',component:StoreComponent},
-
-]
-
+import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
+import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
+import { LoginRegisterComponent } from './modules/user layout/login-register/login-register.component';
+import { TermsComponent } from './modules/user layout/terms/terms.component';
 import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
 import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
 import { DashboardComponent } from './modules/admin layout/dashboard/dashboard.component'
-import { from } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileIndexComponent } from './modules/user layout/user-profile/index/user-profile-index.component';
 import { UserProfileHeaderComponent } from './modules/user layout/user-profile/header/user-profile-header.component';
@@ -58,18 +52,17 @@ import { UserCategoryIndexComponent } from './modules/user layout/category/user-
 import { UserCategorySidebarComponent } from './modules/user layout/category/user-category-sidebar/user-category-sidebar.component';
 import { UserCategoryHeaderComponent } from './modules/user layout/category/user-category-header/user-category-header.component';
 import { UserCategoryBooksComponent } from './modules/user layout/category/user-category-books/user-category-books.component';
-import { HttpClientModule } from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AboutUsComponent } from './modules/user layout/about-us/about-us.component';
 import { AboutHeaderComponent } from './modules/user layout/about-us/about-header/about-header.component';
 import { AboutMissionComponent } from './modules/user layout/about-us/about-mission/about-mission.component';
 import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
-import { RouterModule, Routes } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
 import { Observable } from 'rxjs';
 
+const routes:Routes = [
+  {path:'admin/author',component:IndexComponent},
+  {path:'admin/author/store',component:StoreComponent},
+
+]
 
 const appRoutes:Routes=[
   {path:"",redirectTo:"author",pathMatch:"full"},
@@ -77,12 +70,6 @@ const appRoutes:Routes=[
   {path:'category/store',component:CategoryStoreComponent},
 
 ]
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
-import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
-import { LoginRegisterComponent } from './modules/user layout/login-register/login-register.component';
-import { TermsComponent } from './modules/user layout/terms/terms.component';
 
 @NgModule({
   declarations: [

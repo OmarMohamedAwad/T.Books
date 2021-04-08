@@ -3,7 +3,6 @@ require('./boot/dbConnection');
 const cors = require('cors');
 
 const express = require('express');
-var cors = require('cors');
 
 const errorHandler = require('./middlewares/error');
 const jwt = require('jsonwebtoken');
@@ -25,11 +24,8 @@ const ratingRouter = require('./modules/rating/routes/RatingRoute');
 const app = express();
 app.use(cors());
 
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(cors()) 
 
 //end point for home
 app.use("/home" , Home);
