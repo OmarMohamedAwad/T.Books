@@ -129,6 +129,7 @@ const appRoutes:Routes=[
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
