@@ -1,0 +1,51 @@
+[
+    {
+        "_id": "6062c731c39767323b7a1e7e",
+        "rate": 1,
+        "rater": "605a0532ba76f47a7793e130",
+        "ratedBook": "6062bfb402d1792d0d7f9995",
+        "__v": 0
+    },
+    {
+        "_id": "6062c739c39767323b7a1e7f",
+        "rate": 1,
+        "rater": "605a0532ba76f47a7793e130",
+        "ratedBook": "6062bfb402d1792d0d7f9995",
+        "__v": 0
+    },
+    {
+        "_id": "606de3d107572c0ecc53a3d2",
+        "rate": 3,
+        "rater": "605a0532ba76f47a7793e130",
+        "ratedBook": "6062bfb402d1792d0d7f9995",
+        "__v": 0
+    },
+    {
+        "_id": "606de3eb07572c0ecc53a3d3",
+        "rate": 4,
+        "rater": "605a162f144fcd83c71f6c15",
+        "ratedBook": "6062c07002d1792d0d7f9997",
+        "__v": 0
+    },
+    {
+        "_id": "606de40707572c0ecc53a3d4",
+        "rate": 4,
+        "rater": "605a16dba726cf842106331e",
+        "ratedBook": "6062c17702d1792d0d7f999a",
+        "__v": 0
+    },
+    {
+        "_id": "606de42907572c0ecc53a3d5",
+        "rate": 5,
+        "rater": "605a19a057cb98855317d227",
+        "ratedBook": "6062c33a381b872e4818b4a9",
+        "__v": 0
+    },
+    {
+        "_id": "606de44007572c0ecc53a3d6",
+        "rate": 5,
+        "rater": "605a1a4922c6ca862b8658d6",
+        "ratedBook": "6062c42c381b872e4818b4ab",
+        "__v": 0
+    }
+]
