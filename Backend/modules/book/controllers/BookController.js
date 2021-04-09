@@ -15,12 +15,13 @@ async function pagination(request, response, next){
         page < 0 ? page = 1 : page;
         limit < 2 ? limit = 8 : limit;
         
+        const booksNumber = await bookModel.estimatedDocumentCount();
         const books = await bookModel.find().populate("bookCategory").populate("bookAuthor")
         .sort('bookName')
         .limit(limit)
         .skip((page-1) * limit).exec();  
         
-        const numberOfPages = Math.ceil(books.length / limit)
+        const numberOfPages = Math.ceil(booksNumber / limit)
         const presentedBooks = books.map((book)=>{
             return BookPresenter.present(book);
         });

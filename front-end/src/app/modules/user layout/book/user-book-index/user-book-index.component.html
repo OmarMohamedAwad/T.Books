@@ -6,35 +6,38 @@
 
 <section class="books">
   <div class="container">
-    <div class="row">
-      <div class="col-lg col-sm-6 col-8 col-xxs-10 book text-center m-4" *ngFor="let book of books;">
-        <div class="book-title text-center">
-          <p class="w-75">{{book.name}} </p>
-          <hr class="text-danger w-75 m-auto">
-        </div>
-        <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
-        <div class="book-info">
-            <p class="mb-2 mt-4">{{book.authorName}}</p>
-            <a href="#" class="btn btn-dark">View More</a>
-        </div>
-        <div class="category">
-          <p>{{book.categoryName}}</p>
+    <div class="row justify-content-around">
+      <div class="col-lg-3 col-sm-6 col-xxs-6 text-center" *ngFor="let book of books;">
+        <div class="book">
+          <div class="book-title text-center">
+            <p class="w-75">{{book.name}} </p>
+            <hr class="text-danger w-75 m-auto">
+          </div>
+          <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
+          <div class="book-info">
+              <p class="mb-2 mt-4">{{book.authorName}}</p>
+              <a href="#" class="btn btn-dark">View More</a>
+          </div>
+          <div class="category">
+            <p>{{book.categoryName}}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="pagination-section">
+<section class="pagination-section" *ngIf="pageNumbers > 1">
   <div class="container">
     <div class="row">
       <nav aria-label="Page navigation example">
         <ul class="pagination w-50">
-          <li class="page-item"><a class="" href="#"><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
-          <li class="page-item"><a class="" href="#">1</a></li>
-          <li class="page-item"><a class="" href="#">2</a></li>
-          <li class="page-item"><a class="" href="#">3</a></li>
-          <li class="page-item"><a class="" href="#"><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
+          <li class="page-item" (click)="previous()"><a class="" href="#" ><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
+
+          <ng-container *ngFor="let page of pages; index as i">
+            <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="" href="#">{{i+1}}</a></li>
+          </ng-container>
+          <li class="page-item" (click)="next()"><a class="" href="#" ><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
         </ul>
       </nav>
     </div>
