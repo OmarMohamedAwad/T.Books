@@ -1,16 +1,11 @@
-
 <nav class="navbar navbar-default navbar-expand-lg fixed-top scrolling-navbar" data-spy="affix" data-offset-top="205">
     <div class="container-fluid">
         <div class="navbar-header">
             <div class="logo d-inline navbar-brand ml-lg-5">
-                <img src="assets/icon.ico">
+                <img class="icon" src="assets/icon.ico">
                 <span class="trending d-inline-block mt-1" style="font-size:25px;">Trending <span class="books"style="font-size:25px;">Books</span></span>
             </div>
-            <button class="navbar-toggler bg-danger float-right" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" ></span>
-            </button>
-
-            <div class="collapse navbar-collapse fixed-top pt-1" id="myNavbar">
+            <div class="collapse navbar-collapse fixed-top pt-1" id="myNavbar" #collapseList>
                 <ul class="navbar-nav col-6 ml-5" >
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#books">Books</a></li>
@@ -27,5 +22,8 @@
                 </span>
             </div>
         </div>
+        <button class="navbar-toggler" type="button" (click)="toggle_list($event)" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation" #toggle_btn>
+            <img class="toggle" src="assets/toggle_icon"/>
+        </button>
     </div>
 </nav>
