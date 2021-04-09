@@ -2,7 +2,39 @@
 
 <section class="authors">
   <div class="container">
-    <div class="row">
+    <div *ngIf="isLoad" class="row">
+      <div *ngFor="let author of authors; let i=index">
+        <div class="col-lg-3 col-sm-6 col-8 col-xxs-10" *ngIf="i<4">
+          <div class="author text-center p-3">
+            <img src="/assets/user/author/{{author.authorImage}}" class="author-image" [alt]="author.authorName">
+            <div class="big-cir">
+              <div class="small-cir"></div>
+              <div class="small-cir2"></div>
+              <div class="small-cir3"></div>
+            </div>
+            <div class="triangle t-top-left"></div>
+            <div class="triangle t-bottom-right"></div>
+            <p class="mb-4 mt-4">{{author.authorImage}}</p>
+            <a href="#" class="btn btn-dark" (click)="sendID(author._id)">View More</a>
+          </div>
+        </div>
+      </div>
+      <!--
+      <div class="col-lg-3 col-sm-6 col-8 col-xxs-10">
+        <div class="author text-center p-3" >
+
+          <img src="assets/user/author/author-1.jpg" class="author-image">
+          <div class="big-cir">
+            <div class="small-cir"></div>
+            <div class="small-cir2"></div>
+            <div class="small-cir3"></div>
+          </div>
+          <div class="triangle t-top-left"></div>
+          <div class="triangle t-bottom-right"></div>
+          <p class="mb-4 mt-4">Alaa Habib</p>
+          <a href="#" class="btn btn-dark">View More</a>
+        </div>
+      </div>
 
       <div class="col-lg-3 col-sm-6 col-8 col-xxs-10">
         <div class="author text-center p-3" >
@@ -67,7 +99,7 @@
           <a href="#" class="btn btn-dark">View More</a>
         </div>
       </div>
-
+    -->
     </div>
   </div>
 </section>
