@@ -1,6 +1,8 @@
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-admin-delete',
@@ -9,7 +11,7 @@ import { AuthorsServiceService } from 'src/app/services/authors-service.service'
 })
 export class DeleteComponent implements OnInit {
 
-  constructor(private myService:AuthorsServiceService) { }
+  constructor(private myService:AuthorsServiceService,  private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -21,6 +23,11 @@ export class DeleteComponent implements OnInit {
     authorDob:''
   }
 
+  goToAuthorsList()
+  {
+    this.router.navigate(['/admin/author']);
+  }
+
   a:any;
   deleteFun()
   {
@@ -30,19 +37,10 @@ export class DeleteComponent implements OnInit {
     this.myService.deleteAuthor(this.a._id)
       .subscribe((data)=>{
         console.log(data)
+        this.goToAuthorsList()
       },(err)=>{
         console.log("post error")
       })
   }
-  submitForm()
-  {
-    console.log("submit")
-    console.log(this.author)
-    // this.myService.deleteAuthor("6069dd2d280c79391bc381fe")
-    //   .subscribe((data)=>{
-    //     console.log(data)
-    //   },(err)=>{
-    //     console.log("post error")
-    //   })
-  }
+  
 }
