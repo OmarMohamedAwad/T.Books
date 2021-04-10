@@ -67,7 +67,7 @@ async function store(request, response, next)
     try
     {
         const bookPosted = await bookInstance.save()
-        response.json(bookPosted)
+        response.json(BookPresenter.present(bookPosted))
     }
     catch(e)
     {
