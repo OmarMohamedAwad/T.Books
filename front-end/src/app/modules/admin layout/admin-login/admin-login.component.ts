@@ -24,39 +24,35 @@ export class AdminLoginComponent implements OnInit {
   constructor(private myService:AdminLoginService, private router: Router) {
      
    }
-  /*
-  function toggleLogin() {
-      login_toggle.style.backgroundColor = "#DE3241";
-      login_toggle.style.color = "#fff";
-      signup_toggle.style.backgroundColor = "#fff";
-      signup_toggle.style.color = "#222";
-      signup_form.style.display = "none";
-      login_form.style.display = "block";
-  }
+  
 
-  box_login.addEventListener("change", function () {
-      if (this.checked)
-          password_login.type = 'text';
-      else
-          password_login.type = 'password';
-  });
+  // box_login.addEventListener("change", function () {
+  //     if (this.checked)
+  //         password_login.type = 'text';
+  //     else
+  //         password_login.type = 'password';
+  // });
 
   
-*/
+
 myForm = new FormGroup({
 
   adminName:new FormControl('',[Validators.required]),
   adminPassword:new FormControl('',[Validators.required])
 
 })
+userPassStatus:any
   ngOnInit(): void {
     document.body.className = "app-login-register";
+    this.userPassStatus = false;
   }
+
+  
 
   tokens:any
   enterSite()
   {
-    console.log("hi")
+    // console.log("hi")
     this.router.navigate(['/admin/dashboard']);
   }
 
@@ -67,11 +63,22 @@ myForm = new FormGroup({
       adminPassword:this.myForm.controls.adminPassword.value})
       .subscribe((data)=>{
         this.tokens = data
-        console.log(this.tokens.token.accessToken)
-        console.log(this.tokens.token.refreshToken)
-        sessionStorage.setItem("accessToken", this.tokens.token.accessToken);
-        sessionStorage.setItem("refreshToken", this.tokens.token.refreshToken);
-        this.enterSite()
+        console.log(this.tokens)
+        try
+        {
+          if(this.tokens.token.accessToken != undefined)
+          {
+            // console.log(this.tokens.token.accessToken)
+            // console.log(this.tokens.token.refreshToken)
+            sessionStorage.setItem("accessToken", this.tokens.token.accessToken);
+            sessionStorage.setItem("refreshToken", this.tokens.token.refreshToken);
+            this.enterSite()
+          }
+        }
+        catch
+        {
+          this.userPassStatus = true;
+        }
       },(err)=>{
         console.log("post error")
       })

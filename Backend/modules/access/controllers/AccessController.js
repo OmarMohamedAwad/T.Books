@@ -9,26 +9,21 @@ const Role = require("../../../helpers/Role")
 
 async function adminAccessController(request, response, next) {
     const accessRequest = request.body
-    console.log(request.body)
     try {
         
         const admin = await Admin.findOne({ adminName: accessRequest.adminName })
         if (!admin) {
-            console.log("adminNo")
             return next("no such admin") 
         }
-        // const match = await bcrypt.compare(accessRequest.adminPassword, admin.adminPassword);
-        // console.log(match)
-    
-        // if(!match) {
-        //     console.log("passNo")
-        //     return next("password is wrong");
-        // }
+
+        const match = await bcrypt.compare(accessRequest.adminPassword, admin.adminPassword);
+        if(!match) {
+            return next("password is wrong");
+        }
         var token = tokenGeneration({ admin }, Role.ADMIN);
-        console.log(token)
+        // console.log(token)
+        await Admin.findOneAndUpdate({adminName: admin.adminName}, {refreshToken: token.refreshToken})
         response.status(200).json({token});
-        //hossam
-        //await Admin.findOneAndUpdate({adminName: admin.adminName}, {refreshToken: tokenGeneration.refreshToken})
     }catch (error){
         next("bcrypt error")
     }

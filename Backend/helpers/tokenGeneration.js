@@ -6,11 +6,8 @@ const jwt = require('jsonwebtoken');
 // var jwt = new JWTR(redisClient);
 const ResponseCode = require("../response-codes")
 
-//
- function tokenGeneration (message , role){
-    console.log(message)
+function tokenGeneration (message , role){
     let token = {};
-
     if(role == Role.ADMIN)
     {
         token.accessToken =  jwt.sign(message, process.env.ADMIN_ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_EXPIRATION_DATE });
