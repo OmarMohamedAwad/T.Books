@@ -2,7 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BookServiceService} from '../../../admin layout/book/services/book-service.service';
 import {Book} from '../../../admin layout/book/models/book';
 import {AuthorsServiceService} from '../../../../services/authors-service.service';
-import {CategoryService} from '../../../admin layout/services/category.service';
+import {CategoryService }from '../../../../services/category.service';
+
 import {any} from 'codelyzer/util/function';
 
 @Component({
