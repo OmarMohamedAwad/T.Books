@@ -1,19 +1,19 @@
 function present(user) {
     return {
-        'ID': user._id,
-        'User Name': user.userName,
-        'First Name' :user.fName,
-        'Last Name':user.lName,
-        'EMail' :user.email,
-        'Avatar': user.userImage,
-        'Password':user.password,
-        'Full Name': user.fName +" "+  user.lName,
-        'Currently Readed Books':user.currentlyReadedBooks,
-        'Want To Readed Books':user.wantToReadedBooks,
-        'Read Books':user.readBooks,
-        'User Reviews':user.userReviews,
-        'User Rating':user.userRatings,
-        'Token ':user.refreshToken
+        'id': user._id,
+        'userName': user.userName,
+        'firstName' :user.fName,
+        'lastName':user.lName,
+        'email' :user.email,
+        'avatar': user.userImage,
+        'password':user.password,
+        'fullName': user.fName +" "+  user.lName,
+        'currentlyReadedBooks':user.currentlyReadedBooks,
+        'wantToReadedBooks':user.wantToReadedBooks,
+        'readBooks':user.readBooks,
+        'userReviews':user.userReviews,
+        'userRating':user.userRatings,
+        'token ':user.refreshToken
         
     }
 }

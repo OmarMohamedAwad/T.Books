@@ -5,7 +5,7 @@ import {Book} from '../models/book';
 @Component({
   selector: 'app-book-index',
   templateUrl: './book-index.component.html',
-  styleUrls: ['./book-index.component.css']
+  styleUrls: ['./book-index.component.css','../../shared/style/dashboard.css']
 })
 export class BookIndexComponent implements OnInit, OnDestroy {
 

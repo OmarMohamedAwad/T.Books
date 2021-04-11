@@ -16,7 +16,7 @@
              </div>
              <div class="col-6">
                 <div class="content pt-5">
-                    <a routerLink="/category/store" class="add text-decoration-none">Add</a>
+                    <a routerLink="admin/category/store" class="add text-decoration-none">Add</a>
                 </div>
              </div>
              </div>
@@ -29,8 +29,8 @@
         </div>
         <!--hide the data if the response dosn't come back-->
         <div *ngIf="isLoad" class="row w-100 mb-4 mt-5">
-            <div class="col-4 mb-4" *ngFor="let category of categories">
-                <div class="card"  >
+            <div class="col-md-6 col-lg-4 col-xl-4 mb-4" *ngFor="let category of categories">
+                <div class="card">
                     <img src="/assets/admin/category/{{category.categoryImage}}" class="card-img-top" [alt]="category.categoryName">
                     <div class="card-body row w-100 align-items-center">
                         <div class="col-6">{{category.categoryName}}</div><!--updateCategory-->

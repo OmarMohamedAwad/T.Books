@@ -57,14 +57,19 @@ import { AboutHeaderComponent } from './modules/user layout/about-us/about-heade
 import { AboutMissionComponent } from './modules/user layout/about-us/about-mission/about-mission.component';
 import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
 import { Observable } from 'rxjs';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { ConcateNamePipe } from './pipes/concate-name.pipe';
 
 const routes:Routes = [
-  {path:"",redirectTo:"author",pathMatch:"full"},
+  {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
-  {path:'category',component:CategoryIndexComponent},
-  {path:'category/store',component:CategoryStoreComponent},
-  {path:'dashboard',component:DashboardComponent},
+  {path:'admin/category',component:CategoryIndexComponent},
+  {path:'admin/category/store',component:CategoryStoreComponent},
+  {path:'admin/dashboard',component:DashboardComponent},
+  {path:'admin/book',component:AdminMainBookComponent},
+  {path:'admin/setting',component:SettingComponent},
+  {path:'*',component:NotFoundComponent}
 ]
 
 
@@ -122,8 +127,13 @@ const routes:Routes = [
     DashboardComponent,
     FooterComponent,
     LoginRegisterComponent,
-    TermsComponent
+    TermsComponent,
+    NotFoundComponent,
+    ConcateNamePipe
   ],
+  exports:[
+    ConcateNamePipe
+  ] ,
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
