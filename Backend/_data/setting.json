@@ -38,7 +38,7 @@
         "sectionName": "home",
         "sectionContent": {
             "title": "travel to your dream world",
-            "sub-title": "isolate yourself about the world across your favourite book",
+            "sub_title": "isolate yourself about the world across your favourite book",
             "button": "Discover Book"
         },
         "__v": 0
@@ -55,8 +55,11 @@
     },
     {
         "_id": "605cca74782e1d292f1d4295",
-        "sectionName": "footer-caption",
+        "sectionName": "footer-info",
         "sectionContent": {
+            "email": "book@mail.com",
+            "phone": "011 011 011 01",
+            "fax": "1234-4567-48344",
             "title": "Book Trending",
             "capation": "Our mission to give the customers opportunity to enjoy high-quality services to Choose thier favorite book with us. "
         },
