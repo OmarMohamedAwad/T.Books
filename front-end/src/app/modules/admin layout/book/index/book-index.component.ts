@@ -2,7 +2,7 @@ import {Component, OnInit, EventEmitter, Output, OnDestroy, OnChanges} from '@an
 import {BookServiceService} from '../services/book-service.service';
 import {Book} from '../models/book';
 import {AuthorsServiceService} from '../../../../services/authors-service.service';
-import {CategoryService} from '../../services/category.service';
+import {CategoryService} from '../../../../services/category.service';
 
 @Component({
   selector: 'app-book-index',
