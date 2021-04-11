@@ -22,22 +22,8 @@ export class CategoryService {
       return this.categoryClient.get(`${this.baseURL}/pages?name=${name}&page=${page}&bookName=${book}`,{observe:'response'})
   }
 
-  // storeCategory(category:{name:string , image:string}){
-  //   return this.categoryClient.post(this.baseURL,category)
-  // }
-
-  // deleteCategory(id:number)
-  // {
-  //   return this.categoryClient.delete(`${this.baseURL}/${id}`)
-  // }
-
   getCategoryByName(name: string) {
     return this.categoryClient.get(`${this.baseURL}/${name}`)
   }
-
-  // updateCategory(id:number, category:{name:string, image:string})
-  // {
-  //   return this.categoryClient.patch(`${this.baseURL}/${id}`,category);
-  // }
 
 }

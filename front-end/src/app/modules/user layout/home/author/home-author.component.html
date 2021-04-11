@@ -4,10 +4,10 @@
     <h2 class=" text-center pt-4" >Popular<span class="italic"> Authors </span> </h2>
     <div class="border m-auto"></div>
     <div class="container">
-        <div class="row mt-4 pt-4" *ngFor="let authorRow of authors">
-            <div class="col" *ngFor="let authorCol of authorRow">
+        <div class="row mt-4 pt-4" *ngFor="let authorRow of authorsImages">
+            <div class="col" *ngFor="let authorCol of authorRow; let i = index">
                 <img [src]="authorCol" class="w-100">
-                <a  href ="#" class="d-block text-center">AuthorName</a>
+                <a  href ="#" class="d-block text-center">{{authorsNames[i]}}</a>
             </div>
         </div>
         <div class="d-flex align-items-center justify-content-center mt-5">
