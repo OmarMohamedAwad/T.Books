@@ -1,5 +1,6 @@
 import { trigger,state,transition, animate, style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +17,17 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class DashboardComponent implements OnInit {
-  books=1648;
-  categories=13;
-  authors=123;
-  constructor() { }
-
+  data ={books: '', authors: '', categories: ''}
+  constructor(private _dashboard:DashboardService) {
+    this.dashboard();
+   }
+  dashboard(){
+    this._dashboard.index().subscribe((res)=>{
+      this.data=res;
+      console.log(this.data);
+      console.log(this.data.books)
+    })
+  }
   ngOnInit(): void {
   }
 

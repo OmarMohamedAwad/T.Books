@@ -59,17 +59,14 @@ import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-
 import { Observable } from 'rxjs';
 
 const routes:Routes = [
+  {path:"",redirectTo:"author",pathMatch:"full"},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
-
-]
-
-const appRoutes:Routes=[
-  {path:"",redirectTo:"author",pathMatch:"full"},
   {path:'category',component:CategoryIndexComponent},
   {path:'category/store',component:CategoryStoreComponent},
-
+  {path:'dashboard',component:DashboardComponent},
 ]
+
 
 @NgModule({
   declarations: [
