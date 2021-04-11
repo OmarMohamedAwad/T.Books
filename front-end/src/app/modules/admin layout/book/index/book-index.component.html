@@ -49,11 +49,11 @@
 </section>
 
 <ng-template #navigateToAddLayout>
-  <app-book-store (addedBook)="addBook($event)"></app-book-store>
+  <app-book-store (addedBook)="addBook($event)" [authorsInfo]="authors" [categoriesInfo]="categories"></app-book-store>
 </ng-template>
 
 <!-- // Delete Modal -->
 <app-book-delete [bookInfo]="clickedBook" (deletedBook)="deleteBook($event)"></app-book-delete>
 
 <!-- // Update Modal -->
-<app-book-update [bookInfo]="clickedBook" (updatedBook)="updateBook($event)"></app-book-update>
+<app-book-update [bookInfo]="clickedBook" (updatedBook)="updateBook($event)" [authorsInfo]="authors" [categoriesInfo]="categories"></app-book-update>

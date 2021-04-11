@@ -17,19 +17,19 @@
           <div class="mb-3 field">
             <label for="author" class="form-label">Author</label>
             <select class="form-select" aria-label="Default select example" id="author" formControlName="author">
-              <option selected value="{{book.authorName}}">{{book.authorName}}</option>
-              <option value="2">Radwa Ashour</option>
-              <option value="1">Ahmed Khaled</option>
-                <option value="3">Elif Shafaq</option>
+              <option selected value="{{book.author._id}}">{{book.authorName}}</option>
+              <ng-container *ngFor="let author of authors; " >
+                <option  *ngIf="author._id != book.author._id" value="{{author._id}}" >{{author.autherFirstName}} {{author.autherLastName}}</option>
+              </ng-container>
             </select>
           </div>
           <div class="field ">
             <label for="category" class="form-label">Category</label>
             <select class="form-select" aria-label="Default select example" id="category" formControlName="category">
-                <option selected value="{{book.categoryName}}">{{book.categoryName}}</option>
-                <option value="1">Science</option>
-                <option value="2">History</option>
-                <option value="3">Story</option>
+              <option selected value="{{book.category._id}}">{{book.categoryName}}</option>
+              <ng-container *ngFor="let category of categories;" >
+                  <option  *ngIf="category._id != book.category._id" value="{{category._id}}" >{{category.categoryName}}</option>
+                </ng-container>
             </select>
           </div>
 

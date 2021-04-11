@@ -17,8 +17,8 @@ export class BookUpdateComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
       this.bookForm.controls.name.setValue(this.book.name)
       this.bookForm.controls.description.setValue(this.book.description)
-      this.bookForm.controls.author.setValue(this.book.authorName)
-      this.bookForm.controls.category.setValue(this.book.categoryName)
+      this.bookForm.controls.author.setValue(this.book.author._id)
+      this.bookForm.controls.category.setValue(this.book.category._id)
   }
 
   ngOnInit(): void {
@@ -48,13 +48,12 @@ export class BookUpdateComponent implements OnInit, OnChanges {
   }
 
   submitUpdateForm(){
-
     if (this.getNameStatus() && this.getDescriptionStatus() && this.getAuthorStatus() && this.getCategoryStatus()){
       this.book.name = this.bookForm.controls.name.value;
       this.book.description = this.bookForm.controls.description.value;
-      this.book.author = "60565367af6fab55ff64592d";
-      this.book.category = "605ccb46d35bc87a93d31c5b";
-      this.book.image = "https://i.morioh.com/21056367812/4b482f8e.webp";
+      this.book.author = this.bookForm.controls.author.value;
+      this.book.category = this.bookForm.controls.category.value;
+      // this.book.image = "https://i.morioh.com/210563673d812/4b482f8e.webp";
 
       this.bookService.update(this.book).subscribe((response)=>{
         console.log(response);
@@ -77,6 +76,9 @@ export class BookUpdateComponent implements OnInit, OnChanges {
     categoryName:"",
     authorName:""
   };
+
+  @Input('authorsInfo') authors: any;
+  @Input('categoriesInfo') categories: any;
 
   @Output() updatedBook:EventEmitter<Book> = new EventEmitter<Book>()
 }
