@@ -7,9 +7,9 @@ const ResponseCode = require("../../../response-codes")
 const ResponseMessage = require("../../../response-messages")
 const { db } = require("../../category/models/Category")
 
-const NUMBER_OF_BOOK_ITEMS = 6;
+const NUMBER_OF_BOOK_ITEMS = 8;
 const NUMBER_OF_AUTHOR_ITEMS = 6;
-const NUMBER_OF_CATEGORY_ITEMS = 6;
+const NUMBER_OF_CATEGORY_ITEMS = 3;
 
 async function index(request, response, next) {
     try {
@@ -61,27 +61,42 @@ async function index(request, response, next) {
         //author data
         const authors = await Author.find({} , {authorBooks: false , __v: false , authorDob: false}).sort({'authorDob': 1}).limit(NUMBER_OF_AUTHOR_ITEMS)
 
-        // // book data
-        // let books = await Rating.aggregate([
-        //     { $addFields: { "userId": { $toObjectId: "$ratedBook" }}}, 
-        //     { $lookup: {from: "books" , localField: "userId" , foreignField: "_id" , as: "bookDetails" }}, 
-        //     { $group : {_id: "$ratedBook", 
-        //                 avg: {$sum: {$toInt: '$rate'}}, 
-        //                 bookName: { $first:  {$last: '$bookDetails.bookName'} }, 
-        //                 bookImage: { $first:  {$last: "$bookDetails.bookImage"} }, 
-        //                 bookCategory: { $first: {$last: "$bookDetails.bookCategory"} }, 
-        //                 bookAuthor: { $first: {$last: "$bookDetails.bookAuthor" } } } }, 
-        //     { $sort: { avg: -1 } }, 
-        //     { $limit: NUMBER_OF_BOOK_ITEMS} ]);
+        // book data
+        let books = await Rating.aggregate([
+            { $addFields: { "userId": { $toObjectId: "$ratedBook" }}}, 
+            { $lookup: {from: "books" , localField: "userId" , foreignField: "_id" , as: "bookDetails" }}, 
+            { $group : {_id: "$ratedBook", 
+                        avg: {$sum: {$toInt: '$rate'}}, 
+                        bookName: { $first:  {$last: '$bookDetails.bookName'} }, 
+                        bookImage: { $first:  {$last: "$bookDetails.bookImage"} }, 
+                        bookCategory: { $first: {$last: "$bookDetails.bookCategory"} }, 
+                        bookAuthor: { $first: {$last: "$bookDetails.bookAuthor" } } } },             
+            { $sort: { avg: -1 } }, 
+            { $limit: NUMBER_OF_BOOK_ITEMS} ]
+        );
+
+        
+        if(books.length < NUMBER_OF_BOOK_ITEMS)
+        {
+            
+            const moreBooks = await Book.find({ bookRatings: [] }, {bookRatings: false , bookDescription: false , bookReviews: false }).limit(NUMBER_OF_BOOK_ITEMS - books.length)
+            if(moreBooks.length > 0)
+            {
+                books = books.concat(moreBooks);
+                console.log(books)
+            }
+                
+        }
+        returnBooks = []
 
 
-        // if(books.length < NUMBER_OF_BOOK_ITEMS)
-        // {
-        //     const moreBooks = await Book.find({ bookRatings: {$exists: false} }, {bookRatings: false , bookDescription: false , bookReviews: false })
-        //     if(moreBooks.length > 0)
-        //         books = moreBooks.concat(books);
-        // }
-
+        for(let i = 0; i < NUMBER_OF_BOOK_ITEMS; i++)
+        {
+            console.log(await Author.find({_id: books[i].bookAuthor} , {autherFirstName: 1}))
+            let x = await Author.find({_id: books[i].bookAuthor} , {autherFirstName: 1})
+            console.log(x)
+            books[i].bookAuthor = x[0];
+        }
         const homeJson = {
             // "books": books,
             "authors": authors,
