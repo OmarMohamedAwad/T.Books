@@ -72,7 +72,7 @@ svg:focus {
 
 @media only screen and (max-width: 500px) {
   .book .container {
-    padding-left: 21%;
+    padding-left: 2%;
   }
 
   .book-search .input-group,
