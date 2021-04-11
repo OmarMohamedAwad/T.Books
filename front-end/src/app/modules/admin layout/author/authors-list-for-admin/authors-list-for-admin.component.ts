@@ -4,7 +4,7 @@ import { AuthorsServiceService } from 'src/app/services/authors-service.service'
 @Component({
   selector: 'app-authors-list-for-admin',
   templateUrl: './authors-list-for-admin.component.html',
-  styleUrls: ['./authors-list-for-admin.component.css']
+  styleUrls: ['./authors-list-for-admin.component.css','../../shared/style/dashboard.css']
 })
 export class AuthorsListForAdminComponent implements OnInit {
 

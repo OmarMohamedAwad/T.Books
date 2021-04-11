@@ -58,22 +58,21 @@ import { AboutMissionComponent } from './modules/user layout/about-us/about-miss
 import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
 import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { ConcateNamePipe } from './pipes/concate-name.pipe';
 
 const routes:Routes = [
-  {path:'admin' , component:AdminLoginComponent}, 
-  {path:'admin/dashboard',component:DashboardComponent},
+  {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
-  
-
+  {path:'admin/category',component:CategoryIndexComponent},
+  {path:'admin/category/store',component:CategoryStoreComponent},
+  {path:'admin/dashboard',component:DashboardComponent},
+  {path:'admin/book',component:AdminMainBookComponent},
+  {path:'admin/setting',component:SettingComponent},
+  {path:'*',component:NotFoundComponent}
 ]
 
-const appRoutes:Routes=[
-  {path:"",redirectTo:"author",pathMatch:"full"},
-  {path:'category',component:CategoryIndexComponent},
-  {path:'category/store',component:CategoryStoreComponent},
-
-]
 
 @NgModule({
   declarations: [
@@ -130,8 +129,13 @@ const appRoutes:Routes=[
     FooterComponent,
     LoginRegisterComponent,
     TermsComponent,
+    NotFoundComponent,
+    ConcateNamePipe,
     AdminLoginComponent
   ],
+  exports:[
+    ConcateNamePipe
+  ] ,
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

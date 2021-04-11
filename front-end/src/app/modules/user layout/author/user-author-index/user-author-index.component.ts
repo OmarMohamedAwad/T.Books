@@ -20,7 +20,7 @@ export class UserAuthorIndexComponent implements OnInit {
 
   getAuthors(){
     this._AuthorService.getAuthors().subscribe((res)=>{
-      this.authors=res;
+      this.authors=res.body;
       this.isLoad=true;
       console.log(this.authors)
     })

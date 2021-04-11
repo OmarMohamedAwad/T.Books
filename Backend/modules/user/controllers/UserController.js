@@ -4,13 +4,16 @@ const bcrypt = require('bcrypt');
 const bookModel = require('../../book/models/Book');
 const reviewModel = require('../../review/models/Review');
 const ratingModel = require('../../rating/models/Rating');
+const userPresenter = require("../presenter/userPresenter");
 
 async function index(request, response,next) {
 
     try {
         const users = await User.find();
-        console.log(users)
-        response.status(200).json(users);
+        console.log(users);
+        response.json(users.map((user)=>{
+            return userPresenter.present(user);
+        }))
 
     } catch (err) {
         next(err);
@@ -23,15 +26,7 @@ async function show(request, response, next) {
         console.log(id)
         const user = await User.findById(id);   
         response.status(200)
-        .json(
-            {
-                "user Name ":user.userName,
-                "Email ":user.email,
-                "First Name":user.fName, 
-                "Last Name":user.lName,
-                "avatar":user.userImage 
-            }
-        );
+        response.json(userPresenter.present(user));
 
     } catch (err) {
         next(err);

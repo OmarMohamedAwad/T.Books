@@ -19,6 +19,7 @@ const categoryRouter = require('./modules/category/routes/CategoryRoute')
 
 const settingRouter = require('./modules/setting/routes/settingRoutes');
 const ratingRouter = require('./modules/rating/routes/RatingRoute');
+const dashboardRouter = require('./modules/dashboard/routes/dasboardRoute')
 const app = express();
 //app.use(cors());
 
@@ -40,6 +41,9 @@ app.use("/book", booksRouter);
 //end Point for seeting
 app.use("/settings", settingRouter);
 
+//end point for Admin Dashboard
+app.use("/dashboard",dashboardRouter)
+
 //end point for admin
 app.use("/admin", Admin);
 
@@ -51,6 +55,7 @@ app.use("/users", UserRouter);
 
 //end point for access
 app.use("/access", Access);
+
 
 //end point for review
 //app.use("/review", reviewRouter);

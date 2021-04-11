@@ -1,7 +1,7 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CategoryService } from '../../services/category.service';
+import { CategoryService } from '../../../../services/category.service';
 
 @Component({
   selector: 'app-category-store',

@@ -6,7 +6,7 @@ import {Book} from '../models/book';
 @Component({
   selector: 'app-book-store',
   templateUrl: './book-store.component.html',
-  styleUrls: ['./book-store.component.css']
+  styleUrls: ['./book-store.component.css','../../shared/style/dashboard.css']
 })
 export class BookStoreComponent implements OnInit {
 

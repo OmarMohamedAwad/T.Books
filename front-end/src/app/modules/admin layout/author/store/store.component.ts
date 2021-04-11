@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-store',
   templateUrl: './store.component.html',
-  styleUrls: ['./store.component.css']
+  styleUrls: ['./store.component.css','../../shared/style/dashboard.css']
 })
 export class StoreComponent implements OnInit {
 
