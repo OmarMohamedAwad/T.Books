@@ -16,18 +16,12 @@ export class HomeHeaderComponent implements OnInit {
   constructor(private settingService: SettingsService) { }
 
 ngOnInit(): void {
-  this.subscriber = this.settingService.getSettings()
+  this.subscriber = this.settingService.getSettingId("home")
   .subscribe((response:any)=>{
-    console.log(response.body)
-    this.settings = response.body
-    this.settings.find((section:any) => {
-      if(section.sectionName == "headerData")
-      {
-        this.headerTitleValue=section.sectionContent.headerTitle;
-        this.headerParagraphValue=section.sectionContent.headerParagraph;
-      }
-    });
-  },
+    this.settings = response
+    this.headerTitleValue = this.settings.sectionContent.title;
+    this.headerParagraphValue = this.settings.sectionContent.sub_title;
+    },
   (err)=>{
     console.log(err)
   }

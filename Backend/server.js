@@ -27,6 +27,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 
+app.use((req,res,next)=>{
+    console.log(new Date(), req.url, req.method)
+    next()
+})
+
 //end point for home
 app.use("/home" , Home);
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -57,6 +57,7 @@ import { AboutHeaderComponent } from './modules/user layout/about-us/about-heade
 import { AboutMissionComponent } from './modules/user layout/about-us/about-mission/about-mission.component';
 import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
 import { Observable } from 'rxjs';
+import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
 
@@ -129,7 +130,8 @@ const routes:Routes = [
     LoginRegisterComponent,
     TermsComponent,
     NotFoundComponent,
-    ConcateNamePipe
+    ConcateNamePipe,
+    AdminLoginComponent
   ],
   exports:[
     ConcateNamePipe

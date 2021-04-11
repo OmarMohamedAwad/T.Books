@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-admin-update',
@@ -9,7 +11,7 @@ import { AuthorsServiceService } from 'src/app/services/authors-service.service'
 })
 export class UpdateComponent implements OnInit, OnChanges {
 
-  constructor(private myService:AuthorsServiceService) { }
+  constructor(private myService:AuthorsServiceService, private router: Router) { }
   ngOnChanges(changes: SimpleChanges): void {
     this.myForm.controls.fName.setValue(this.author.autherFirstName)
     this.myForm.controls.lName.setValue(this.author.autherLastName)
@@ -25,7 +27,6 @@ export class UpdateComponent implements OnInit, OnChanges {
     autherLastName:'',
     authorDob:''
   }
-  // a:any;
 
   myForm = new FormGroup({
 
@@ -38,18 +39,10 @@ export class UpdateComponent implements OnInit, OnChanges {
     dob:new FormControl('',[Validators.required]),
   })
 
-  updateFun()
+  goToAuthorsList()
   {
-    // this.a=this.author
-    // this.myForm.controls.fName.setValue(this.author.autherFirstName);
-
-    console.log("updateeeeee")
-    // console.log(this.a)
-    console.log(this.myForm.controls.fName.value)
-    console.log(this.myForm.controls.lName.value)
-    console.log(this.myForm.controls.dob.value)
-
-
+    console.log("asa")
+    this.router.navigate(['/admin/author']);
   }
 
   a:any
@@ -57,16 +50,12 @@ export class UpdateComponent implements OnInit, OnChanges {
   submitForm()
   {
     this.a = this.author;
-    console.log(this.a._id)
-    console.log(this.myForm.controls.fName.value)
-    console.log(this.myForm.controls.lName.value)
-    console.log(this.myForm.controls.dob.value)
-
     this.myService.updateAuthor(this.a._id,{autherFirstName:this.myForm.controls.fName.value,
       autherLastName:this.myForm.controls.lName.value, authorDob:this.myForm.controls.dob.value
       /*image: this.myForm.controls.fName.value*/})
       .subscribe((data)=>{
         console.log(data)
+        this.goToAuthorsList()
       },(err)=>{
         console.log("post error")
       })

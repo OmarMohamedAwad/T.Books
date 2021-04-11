@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SettingsService } from 'src/app/services/settings.service'
+import { HomeService } from 'src/app/services/home.service'
 
 @Component({
   selector: 'app-home-top-category',
@@ -8,27 +8,27 @@ import { SettingsService } from 'src/app/services/settings.service'
 })
 export class HomeTopCategoryComponent implements OnInit {
 
-  row1:string[] = ["assets/user/home/categories/art category" , "assets/user/home/categories/science category" , "assets/user/home/categories/category cooking"]
+  subscriber:any;
+
+  row1:string[] = []
   row2:string[] = []
   topCategories:string[][] = [ this.row1 , this.row2 ];
   coleredBackground:string[] = ["bg-bink one" , "bg-blue two" , "bg-yellow three"]
-  subscriber: any;
-  settings: any;
-  popularCategoryValue:string="";
-  
-  constructor(private settingService: SettingsService) { }
+
+  constructor(private homeService: HomeService) { }
   
   ngOnInit(): void {
-    this.subscriber = this.settingService.getSettings()
+    let home;
+    this.subscriber = this.homeService.getHome()
     .subscribe((response:any)=>{
-      console.log(response.body)
-      this.settings = response.body
-      this.settings.find((section:any) => {
-        if(section.sectionName == "TitleData")
-        {
-          this.popularCategoryValue=section.sectionContent.popularCategory;
-        }
-      });
+      home = response.body.categories;
+      console.log(home)
+      for(let i = 0 ; i < 3 ; i++)
+      {
+        this.row1.push(home[i].categoryImage)
+      }
+      this.topCategories = [ this.row1 , this.row2 ];
+      console.log(this.topCategories)
     },
     (err)=>{
       console.log(err)

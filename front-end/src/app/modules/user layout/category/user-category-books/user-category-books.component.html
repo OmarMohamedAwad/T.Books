@@ -1,18 +1,9 @@
 
 <section class="books">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-9 book text-center">
-        <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
-      </div>
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-9 book text-center">
-        <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
-      </div>
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-9 book text-center">
-        <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
-      </div>
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-9 book text-center">
-        <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
+    <div class="row" *ngFor="let bookRow of books">
+      <div class="col-lg-3 col-sm-6 col-8 col-xxs-9 book text-center" *ngFor="let book of bookRow">
+        <img [src]="book" class="book-image mt-3">
       </div>
     </div>
   </div>
@@ -24,11 +15,9 @@
       <div class="col-2"></div>
       <nav aria-label="Page navigation example" class="col-10">
         <ul class="pagination w-100">
-          <li class="page-item"><a class="" href="#"><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
-          <li class="page-item"><a class="" href="#">1</a></li>
-          <li class="page-item"><a class="" href="#">2</a></li>
-          <li class="page-item"><a class="" href="#">3</a></li>
-          <li class="page-item"><a class="" href="#"><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
+          <li class="page-item"><a class="" href="#" (click)="changePagination($event, 'back')"><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
+          <li class="page-item"><a class="" href="#" *ngFor="let page of paginationPages" (click)="changePagination($event, page)"> {{page}} </a></li>
+          <li class="page-item"><a class="" href="#" (click)="changePagination($event, 'next')"><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
         </ul>
       </nav>
     </div>

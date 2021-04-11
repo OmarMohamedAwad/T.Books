@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-user-category-header',
@@ -12,4 +12,10 @@ export class UserCategoryHeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  searchBook(event:any){
+    console.log(event.target.value);
+    this.searchEmitter.emit(event.target.value);  
+  }
+
+  @Output() searchEmitter:EventEmitter<string> = new EventEmitter()
 }
