@@ -48,6 +48,7 @@ async function index(request, response, next) {
 
         // category data
 
+
         const categories = await Category.aggregate([
             { $unwind: "$categoryBooks" }, 
             { $group : {_id:'$_id', 
@@ -88,6 +89,7 @@ async function index(request, response, next) {
         }
         returnBooks = []
 
+
         for(let i = 0; i < NUMBER_OF_BOOK_ITEMS; i++)
         {
             console.log(await Author.find({_id: books[i].bookAuthor} , {autherFirstName: 1}))
@@ -96,7 +98,7 @@ async function index(request, response, next) {
             books[i].bookAuthor = x[0];
         }
         const homeJson = {
-            "books": books,
+            // "books": books,
             "authors": authors,
             "categories": categories
         }

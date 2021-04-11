@@ -1,6 +1,8 @@
 import {Component, OnInit, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
 import {BookServiceService} from '../services/book-service.service';
 import {Book} from '../models/book';
+import {AuthorsServiceService} from '../../../../services/authors-service.service';
+import {CategoryService} from '../../services/category.service';
 
 @Component({
   selector: 'app-book-index',
@@ -12,6 +14,8 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   subscriber:any;
   addFlag: boolean;
   books : Array<Book> = []
+  authors : Array<Book> = []
+  categories : Array<Book> = []
 
   clickedBook: Book = {
       id:"",
@@ -24,14 +28,42 @@ export class BookIndexComponent implements OnInit, OnDestroy {
       authorName:"",
   };
 
-  constructor(private bookService: BookServiceService) {
+  constructor(private bookService: BookServiceService, private authorService: AuthorsServiceService, private categoryService: CategoryService) {
     this.addFlag = false;
   }
 
   ngOnInit(): void {
+    this.getBooks();
+    this.getAuthors();
+    this.getCategories();
+  }
+
+  getAuthors(){
+    this.subscriber = this.authorService.getAuthors()
+      .subscribe((response:any)=>{
+          this.authors = response.body
+        },
+        (err)=>{
+          console.log(err)
+        }
+      )
+  }
+
+  getBooks(){
     this.subscriber = this.bookService.index()
       .subscribe((response:any)=>{
           this.books = response.body
+        },
+        (err)=>{
+          console.log(err)
+        }
+      )
+  }
+
+  getCategories(){
+    this.subscriber = this.categoryService.categoryIndex()
+      .subscribe((response)=>{
+          this.categories = response
         },
         (err)=>{
           console.log(err)

@@ -32,18 +32,14 @@
             <label class="form-label" for="author">Author</label>
             <select class="form-select input-field" aria-label="Default select example" id="author" formControlName="author">
                 <option selected>Select the author</option>
-                <option value="1">Ahmed Khaled</option>
-                <option value="2">Radwa Ashour</option>
-                <option value="3">Elif Shafaq</option>
+                <option  *ngFor="let author of authors; " value="{{author._id}}" >{{author.autherFirstName}} {{author.autherLastName}}</option>
             </select>
           </div>
           <div class="mb-3 field w-75">
             <label class="form-label" for="category">Category</label>
             <select class="form-select input-field" aria-label="Default select example" id="category" formControlName="category">
                 <option selected>Select the category</option>
-                <option value="1">Science</option>
-                <option value="2">History</option>
-                <option value="3">Story</option>
+                <option  *ngFor="let category of categories; " value="{{category._id}}" >{{category.categoryName}}</option>
             </select>
           </div>
 
