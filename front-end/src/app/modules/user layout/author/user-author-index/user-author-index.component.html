@@ -1,12 +1,12 @@
+<app-nav-user></app-nav-user>
 <!-- section author-->
 
 <section class="authors">
   <div class="container">
     <div *ngIf="isLoad" class="row">
-      <div *ngFor="let author of authors; let i=index">
-        <div class="col-lg-3 col-sm-6 col-8 col-xxs-10" *ngIf="i<4">
+        <div class="col-lg-3 col-sm-6 col-8 col-xxs-10" *ngFor="let author of authors; let i=index">
           <div class="author text-center p-3">
-            <img src="/assets/user/author/{{author.authorImage}}" class="author-image" [alt]="author.authorName">
+            <img src="/assets/user/author/{{author.image}}" class="author-image" [alt]="author.authorName">
             <div class="big-cir">
               <div class="small-cir"></div>
               <div class="small-cir2"></div>
@@ -14,106 +14,22 @@
             </div>
             <div class="triangle t-top-left"></div>
             <div class="triangle t-bottom-right"></div>
-            <p class="mb-4 mt-4">{{author.authorImage}}</p>
+            <p class="mb-4 mt-4">{{author.name}}</p>
             <a href="#" class="btn btn-dark" (click)="sendID(author._id)">View More</a>
           </div>
-        </div>
       </div>
-      <!--
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-10">
-        <div class="author text-center p-3" >
-
-          <img src="assets/user/author/author-1.jpg" class="author-image">
-          <div class="big-cir">
-            <div class="small-cir"></div>
-            <div class="small-cir2"></div>
-            <div class="small-cir3"></div>
-          </div>
-          <div class="triangle t-top-left"></div>
-          <div class="triangle t-bottom-right"></div>
-          <p class="mb-4 mt-4">Alaa Habib</p>
-          <a href="#" class="btn btn-dark">View More</a>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-10">
-        <div class="author text-center p-3" >
-
-          <img src="assets/user/author/author-1.jpg" class="author-image">
-          <div class="big-cir">
-            <div class="small-cir"></div>
-            <div class="small-cir2"></div>
-            <div class="small-cir3"></div>
-          </div>
-          <div class="triangle t-top-left"></div>
-          <div class="triangle t-bottom-right"></div>
-          <p class="mb-4 mt-4">Alaa Habib</p>
-          <a href="#" class="btn btn-dark">View More</a>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-10">
-        <div class="author text-center p-3" >
-
-          <img src="assets/user/author/author-2.jpg" class="author-image">
-          <div class="big-cir">
-            <div class="small-cir"></div>
-            <div class="small-cir2"></div>
-            <div class="small-cir3"></div>
-          </div>
-          <div class="triangle t-top-left"></div>
-          <div class="triangle t-bottom-right"></div>
-          <p class="mb-4 mt-4">May Esmail</p>
-          <a href="#" class="btn btn-dark">View More</a>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-10">
-        <div class="author text-center p-3" >
-
-          <img src="assets/user/author/author-3.jpg" class="author-image">
-          <div class="big-cir">
-            <div class="small-cir"></div>
-            <div class="small-cir2"></div>
-            <div class="small-cir3"></div>
-          </div>
-          <div class="triangle t-top-left"></div>
-          <div class="triangle t-bottom-right"></div>
-          <p class="mb-4 mt-4">Hossam Radwan</p>
-          <a href="#" class="btn btn-dark">View More</a>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-sm-6 col-8 col-xxs-10">
-        <div class="author text-center p-3" >
-
-          <img src="assets/user/author/author-4.jpg" class="author-image">
-          <div class="big-cir">
-            <div class="small-cir"></div>
-            <div class="small-cir2"></div>
-            <div class="small-cir3"></div>
-          </div>
-          <div class="triangle t-top-left"></div>
-          <div class="triangle t-bottom-right"></div>
-          <p class="mb-4 mt-4">Ahmed Eldkahly</p>
-          <a href="#" class="btn btn-dark">View More</a>
-        </div>
-      </div>
-    -->
     </div>
   </div>
 </section>
 
-<section class="pagination-section">
+<section class="pagination-section" *ngIf="allPagesCount > 1">
   <div class="container">
     <div class="row">
       <nav aria-label="Page navigation example">
         <ul class="pagination w-50">
-          <li class="page-item"><a class="" href="#"><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
-          <li class="page-item"><a class="" href="#">1</a></li>
-          <li class="page-item"><a class="" href="#">2</a></li>
-          <li class="page-item"><a class="" href="#">3</a></li>
-          <li class="page-item"><a class="" href="#"><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
+          <li class="page-item"><a class="" href="#" (click)="prev()"><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
+          <li class="page-item"><a class="" href="#">{{pageNumber}}</a></li>
+          <li class="page-item"><a class="" href="#" (click)="next()"><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
         </ul>
       </nav>
     </div>
