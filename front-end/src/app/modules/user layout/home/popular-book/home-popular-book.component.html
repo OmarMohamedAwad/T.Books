@@ -2,13 +2,13 @@
     <div class="container-home">
         <h2 class="pt-3 text-center ">Popular<span class="italic"> Books</span> </h2>
         <div class="border m-auto "></div>
-        <div class="row mt-5" *ngFor="let bookRow of popularbooks">
-             <div class="col-3" *ngFor="let bookCol of bookRow">
+        <div class="row mt-5" *ngFor="let bookRow of popularbooks; let i = index;">
+             <div class="col-3" *ngFor="let bookCol of bookRow; let j = index;">
                 <div class="card mb-3 mt-3" >
                     <img class="card-img-top " [src]="bookCol" alt="Card image cap">
                     <div class="card-body d-flex align-items-center justify-content-between ">
-                        <a href="#" class="card-link">BookName</a>
-                        <a href="#" class="card-link">Author</a>
+                        <a href="#" class="card-link">{{popularbooksNames[i][j]}}</a>
+                        <a href="#" class="card-link">{{popularbooksAuthors[i][j]}}</a>
                         <a href="#"><i class="far fa-eye"></i></a>
                     </div>
                 </div>

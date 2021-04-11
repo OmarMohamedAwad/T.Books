@@ -1,14 +1,17 @@
 const Role = require("./Role")
 const jwt = require('jsonwebtoken');
+// var redis = require('redis');
+// var JWTR =  require('jwt-redis').default;
+// var redisClient = redis.createClient();
+// var jwt = new JWTR(redisClient);
 const ResponseCode = require("../response-codes")
 
-//
-let tokenGeneration = function (message , role){
+function tokenGeneration (message , role){
     let token = {};
     if(role == Role.ADMIN)
     {
-        token.accessToken = jwt.sign(message, process.env.ADMIN_ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_EXPIRATION_DATE });
-        token.refreshToken = jwt.sign(message, process.env.ADMIN_REFRESH_TOKEN_SECRET , { expiresIn: process.env.REFRESH_EXPIRATION_DATE } );
+        token.accessToken =  jwt.sign(message, process.env.ADMIN_ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_EXPIRATION_DATE });
+        token.refreshToken =  jwt.sign(message, process.env.ADMIN_REFRESH_TOKEN_SECRET , { expiresIn: process.env.REFRESH_EXPIRATION_DATE } );
     }
     else if(type == Role.USER)
     {

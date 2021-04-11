@@ -6,7 +6,6 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthorsServiceService {
-
   private _authorIdSource = new Subject<String>();
   authorID$ = this._authorIdSource.asObservable();
   constructor(private authorClient: HttpClient) { }
@@ -18,7 +17,11 @@ export class AuthorsServiceService {
   
   getAuthors() {
     //fetch list of authors
-  return this.authorClient.get(this.baseURL,{observe:'response'})
+    return this.authorClient.get(this.baseURL,{observe:'response'})
+  }
+
+  pagination(page:number){
+    return this.authorClient.get(`${this.baseURL}/pages?page=${page}`,{observe:"response"});
   }
 
   postAuthor(author:{autherFirstName:string, 

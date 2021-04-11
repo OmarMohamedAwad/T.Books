@@ -17,6 +17,10 @@ export class BookServiceService {
     return this.client.get(this.BASE_URL,{observe:"response"});
   }
 
+  pagination(page: number = 1){
+    return this.client.get(`${this.BASE_URL}/pages?page=${page}`,{observe:"response"});
+  }
+
   show(id: string){
     return this.client.get(`${this.BASE_URL}/${id}`,{observe:"response"});
   }

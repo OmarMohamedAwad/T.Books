@@ -22,12 +22,11 @@ export class SettingsService {
     return this.settingClient.delete(`${this.baseURL}/${id}`)
   }
 
-  getSettingId(id: number) {
-
+  getSettingId(id: string) {
     return this.settingClient.get(`${this.baseURL}/${id}`)
   }
 
-  updateAuthor(id:string, setting:{sectionName:string, 
+  updateSetting(id:string, setting:{sectionName:string, 
     sectionContent:JSON})
     {
       return this.settingClient.patch(`${this.baseURL}/${id}`,setting);

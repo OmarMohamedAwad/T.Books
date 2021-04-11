@@ -6,7 +6,7 @@
       <div class="book-search col-7">
         <div class="input-group w-100 m-auto">
           <div class="form-outline w-75 ">
-            <input type="search" class="form-control" placeholder="Search"/>
+            <input type="search" class="form-control" placeholder="Search" (keyup)="searchBook($event)"/>
           </div>
           <button id="search-button" type="button" class="btn search-btn">
             <i class="fas fa-search"></i>
