@@ -14,35 +14,35 @@
     
             <!--form-->
         <div class="container mt-5" >
-            <form action="" [formGroup]=homeHeaderForm>
+          <form class="form-horizontal" [formGroup]=homeHeaderForm>
                 <h4>Home Page Header </h4>
                 <div class="mb-3">
                     <label for="headerTitel" class="form-label">Header Title</label>
-                    <input type="text" class="form-control" id="headerTitel" formControlName="headerTitle"> <!-- travel to your dream world -->
+                    <input type="text" class="form-control" id="headerTitel" formControlName="title"> <!-- travel to your dream world -->
                 </div>
                 <div class="mb-3">
                     <label for="headerPara" class="form-label">Header paragraph</label>
-                    <input type="text" class="form-control" id="headerPara" formControlName="headerParagraph" > <!-- isolate yourself about the world across your favourite book-->
+                    <input type="text" class="form-control" id="headerPara" formControlName="sub_title" > <!-- isolate yourself about the world across your favourite book-->
                 </div>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-custom btn-header" (click)="submitHeaderForm($event)">Update</button>
                 </div>
             </form>
     
-            <form action="" class="mb-5" [formGroup]=HomeTitleForm>
+          <form class="form-horizontal"  class="mb-5" [formGroup]=HomeTitleForm>
                 <h4>Home Page Titles</h4>
                <div class="row">
                 <div class="mb-3 col">
                     <label for="bookSection" class="form-label">Book Section Title</label>
-                    <input type="text" class="form-control" id="bookSection" formControlName="popularBooks">
+                    <input type="text" class="form-control" id="bookSection" formControlName="book">
                 </div>
                 <div class="mb-3 col">
                     <label for="authorSection" class="form-label">Author Section Title</label>
-                    <input type="text" class="form-control" id="authorSection" formControlName="popularAuthor">
+                    <input type="text" class="form-control" id="authorSection" formControlName="author">
                 </div>
                 <div class="mb-3 col">
                     <label for="categorySection" class="form-label">Category Section Title</label>
-                    <input type="text" class="form-control" id="categorySection" formControlName="popularCategory">
+                    <input type="text" class="form-control" id="categorySection" formControlName="category">
                 </div>
                </div>
                 <div class="d-flex justify-content-end">
@@ -50,7 +50,7 @@
                 </div>
             </form>
             
-            <form action="" class="mb-5" [formGroup]=HomeFooterForm>
+          <form class="form-horizontal" class="mb-5" [formGroup]=HomeFooterForm>
                 <h4> Footer Contact Info</h4>
               <div class="row">
                 <div class="mb-3 col">
@@ -69,11 +69,11 @@
               <h4> Footer Capation</h4>
               <div class="mb-3 ">
                 <label for="footerTitle" class="form-label">Title</label>
-                <input type="text" class="form-control" id="footerTitle" formControlName="footerTitle"> <!-- value="Book Trendin " -->
+                <input type="text" class="form-control" id="footerTitle" formControlName="title"> <!-- value="Book Trendin " -->
               </div>
               <div class="form-floating">
                 <label for="floatingTextarea2">Descrition</label>
-                <textarea class="form-control mb-3" id="floatingTextarea2" style="height: 100px" formControlName="footerDescription">Our mission to give the customers opportunity to enjoy high-quality services to Choose thier favorite book with us.</textarea>
+                <textarea class="form-control mb-3" id="floatingTextarea2" style="height: 100px" formControlName="capation">Our mission to give the customers opportunity to enjoy high-quality services to Choose thier favorite book with us.</textarea>
               </div>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-custom btn-header" (click)="submitFooterForm($event)">Update</button>

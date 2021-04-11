@@ -6,7 +6,7 @@
   top: 0;
 }
 .dashboard-sidebar .logo-icon {
-  margin: 15px 0;
+  margin: 5% 0;
   text-align: center;
   color: rgb(138, 153, 179);
 }
@@ -18,7 +18,7 @@
   font-size: 28px;
   font-weight: bold;
   line-height: 1.2;
-  padding: 20px 0 20px 30px;
+  padding: 10% 0 10% 25%;
   text-align: left;
   background-color: rgba(0, 0, 0, 0.1);
   font-style: italic;
@@ -34,7 +34,7 @@
   line-height: 1.5;
 }
 .mange {
-  padding: 5px 30px;
+  padding: 2% 10% 1%;
   line-height: 3;
 }
 .mange:hover {
@@ -46,9 +46,6 @@
   color: #fff;
 }
 .title {
-  margin: 15px 6px;
+  margin: 7% 5%;
   font-size: 20px;
-}
-.dashboard-sidebar i {
-  padding-right: 10px;
 }

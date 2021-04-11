@@ -1,6 +1,6 @@
 require('dotenv').config()
 const bcrypt = require('bcrypt')
-var jwt = require('jsonwebtoken');
+
 const ResponseCode = require("../../../response-codes")
 const Admin = require("../../admin/models/Admin")
 const User = require("../../user/models/User");
@@ -15,18 +15,17 @@ async function adminAccessController(request, response, next) {
         if (!admin) {
             return next("no such admin") 
         }
-        const match = await bcrypt.compare(accessRequest.password, admin.adminPassword);
-    
+
+        const match = await bcrypt.compare(accessRequest.adminPassword, admin.adminPassword);
         if(!match) {
             return next("password is wrong");
         }
-
         var token = tokenGeneration({ admin }, Role.ADMIN);
+        // console.log(token)
+        await Admin.findOneAndUpdate({adminName: admin.adminName}, {refreshToken: token.refreshToken})
         response.status(200).json({token});
-        //hossam
-        //await Admin.findOneAndUpdate({adminName: admin.adminName}, {refreshToken: tokenGeneration.refreshToken})
     }catch (error){
-        next("bcryption error")
+        next("bcrypt error")
     }
 }
 

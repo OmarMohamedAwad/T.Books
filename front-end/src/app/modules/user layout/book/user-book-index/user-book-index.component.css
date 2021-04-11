@@ -1,23 +1,27 @@
 
 .back {
-  position: absolute;
-  right: 0;
+  position: fixed;
+  right: -5%;
   bottom: 0;
 }
 
 .books {
-  margin-top: 10%;
+  margin-top: 5%;
   margin-bottom: 20px;
-  height: 70%;
 }
 
 .book {
   position: relative;
   background-color: #F5F5F5;
   padding: 10px;
-  height: 400px;
+  min-height: 440px;
   border-radius: 5px;
+  box-sizing: border-box;
   box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2), 0 1px 7px 0 rgba(0,0,0,0.2), 0 3px 2px -2px rgba(0,0,0,0.2);
+}
+
+.books .col-lg-3 {
+  padding: 20px;
 }
 
 .book:hover {
@@ -27,6 +31,7 @@
 .book-title p{
   font-size: 1.2em;
   font-weight: bold;
+  margin: 10px auto;
 }
 
 .book-image {
@@ -51,16 +56,18 @@
   transition: all 0.5s ease-in-out;
 }
 
-
 .category {
   transform: rotate(90deg);
   position: absolute;
-  top: 8%;
+  top: 12%;
   background-color: rgba(222, 50, 66, 0.8);
-  left: -10%;
+  left: -18%;
   padding: 10px;
+  height: 40px;
+  width: 150px;
   color: white;
   border-radius: 0 20px 20px 5px;
+  overflow: hidden;
 }
 
 .category:hover {
@@ -72,3 +79,10 @@
 .category p{
   margin-bottom: 0;
 }
+
+@media only screen and (max-width: 600px) {
+  .category {
+    left: -12%;
+  }
+}
+

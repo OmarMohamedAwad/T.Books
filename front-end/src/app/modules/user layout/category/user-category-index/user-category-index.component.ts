@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-category-index.component.css']
 })
 export class UserCategoryIndexComponent implements OnInit {
-
+  category:string= "";
   constructor() { }
 
+  // selectCategoryParent(category:string)
+  // {
+  //   console.log(category)
+  //   this.category = category;
+  // }
   ngOnInit(): void {
   }
-
 }

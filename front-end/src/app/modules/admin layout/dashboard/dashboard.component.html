@@ -1,8 +1,52 @@
 <app-navbar-admin></app-navbar-admin>
 <app-admin-sidebar></app-admin-sidebar>
 
-<section class="dashboard">
-    <p class="-box-sd-effect" @fade><i class="fas fa-newspaper" style="color: #DE3241;"></i> Number of Categories: <a href="#">{{categories}}</a></p>
-    <p class="-box-sd-effect" @fade><i class="far fa-address-book " style="color: #DE3241;"></i> Number of Authors: <a href="#">{{authors}}</a></p>
-    <p class="-box-sd-effect" @fade><i class="fas fa-book-open" style="color: #DE3241;"></i> Number of Books: <a href="#">{{books}}</a></p>
-</section>
+<div class="page-content">
+    <section class="dashboard">
+        <div class="container">
+            <div class="row w-100">
+            <div class="col">
+               <div class="content pt-5">
+                   <h2>Welcome Admin</h2>
+                   <p>We are glad to see you again!</p>
+                </div>
+            </div>
+            </div>
+       </div>
+        <div class="row w-100">
+            <div class="col-md-6 col-lg-4 col-xl-4 " >
+                <div class="item my-5">
+                    <div class="icons d-flex align-items-center justify-content-center">
+                        <i class="fas fa-users icon"  ></i>
+                     </div>
+                     <div class="details text-center">
+                        <p class="mt-4 mb-2">Number of Authors :</p>
+                        <h4>{{data.authors}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-4 ">
+                <div class="item my-5">
+                    <div class="icons d-flex align-items-center justify-content-center">
+                        <i class="fas fa-book-open icon"></i>
+                     </div>
+                     <div class="details text-center">
+                        <p class="mt-4 mb-2">Number of Books:</p>
+                        <h4>{{data.books}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-4 ">
+                <div class="item my-5">
+                    <div class="icons d-flex align-items-center justify-content-center">
+                        <i class="fas fa-newspaper icon"  ></i>
+                     </div>
+                     <div class="details text-center">
+                        <p class="mt-4 mb-2">Number of Categories:</p>
+                        <h4>{{data.categories}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
