@@ -17,14 +17,17 @@ async function index(request, response, next){
 async function show(request, response, next){
     try {
         const { id } = request.params;
-        const section = await Setting.findById(id);   
+        console.log(id)
+        const section = await Setting.find({sectionName: id});   
+        console.log(section)
         response.status(200)
         .json(
             {
-                "section ":section.sectionName,
-                "Email ":section.sectionContent,
+                "sectionName": section[0].sectionName,
+                "sectionContent": section[0].sectionContent,
             }
         );
+        console.log()
     } catch (err) {
         next(err);
     }

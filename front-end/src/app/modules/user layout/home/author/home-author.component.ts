@@ -21,27 +21,8 @@ export class HomeAuthorComponent implements OnInit {
   row2:string[] = []
   authors:string[][] = [ this.row1 , this.row2 ];
 
-  subscriber: any;
-  settings: any;
-  popularAuthorValue:string="";
-  
-  constructor(private settingService: SettingsService) { }
+  constructor() { }
   
   ngOnInit(): void {
-    this.subscriber = this.settingService.getSettings()
-    .subscribe((response:any)=>{
-      console.log(response.body)
-      this.settings = response.body
-      this.settings.find((section:any) => {
-        if(section.sectionName == "TitleData")
-        {
-          this.popularAuthorValue=section.sectionContent.popularAuthor;
-        }
-      });
-    },
-    (err)=>{
-      console.log(err)
-    }
-    )
   }
 }

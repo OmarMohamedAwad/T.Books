@@ -1,47 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ElementRef, Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.css']
 })
-export class LoginRegisterComponent implements OnInit {
-  box_login = document.getElementById("l_box");
-  password_login = document.getElementById("l_pass");
-  box_signup = document.getElementById("s_box");
-  password_signup = document.getElementsByName("s_pass");
-  login_toggle = document.getElementById("login-toggle");
-  signup_toggle =  document.getElementById("signup-toggle");
-  login_form = document.getElementById("login-form");
-  signup_form = document.getElementById("signup-form");
-  /*function toggleSignup() {
-    this.login_toggle.setAttribute("style","background-color: #; color : #222");
-    this.login_toggle.style.backgroundColor = "#fff";
-    this.login_toggle.style.color = "#222";
-    this.signup_toggle.style.backgroundColor = "#DE3241";
-    this.signup_toggle.style.color = "#fff";
-    this.login_form.style.display = "none";
-    this.signup_form.style.display = "block";
-  }
+export class LoginRegisterComponent implements OnInit, AfterViewInit {
+  @ViewChild('l_pass') password_login!: ElementRef<HTMLInputElement>;
+  @ViewChild('s_pass') password_signup!: ElementRef<HTMLInputElement>;
+  @ViewChild('s_pass_confirm') confirm_password_signup!: ElementRef<HTMLInputElement>;
+  @ViewChild('login_toggle') login_toggle!: ElementRef<HTMLButtonElement>;
+  @ViewChild('signup_toggle') signup_toggle!: ElementRef<HTMLButtonElement>;
+  @ViewChild('login_form') login_form!: ElementRef<HTMLButtonElement>;
+  @ViewChild('signup_form') signup_form!: ElementRef<HTMLButtonElement>;
+  
   constructor() {
-     
    }
-  /*
-  function toggleLogin() {
-      login_toggle.style.backgroundColor = "#DE3241";
-      login_toggle.style.color = "#fff";
-      signup_toggle.style.backgroundColor = "#fff";
-      signup_toggle.style.color = "#222";
-      signup_form.style.display = "none";
-      login_form.style.display = "block";
+  
+  toggleLogin() {
+    this.login_toggle.nativeElement.setAttribute("style","backgroundColor: #DE3241; color: #fff");
+    this.signup_toggle.nativeElement.setAttribute("style","backgroundColor: #fff; color: #222");
+    this.signup_form.nativeElement.setAttribute("style","display : none");
+    this.login_form.nativeElement.setAttribute("style","display : block");
   }
-
-  box_login.addEventListener("change", function () {
-      if (this.checked)
-          password_login.type = 'text';
-      else
-          password_login.type = 'password';
-  });
+  toggleSignup() {
+    console.log("called");
+    this.login_toggle.nativeElement.setAttribute("style","background-color: #fff; color : #222");
+    this.signup_toggle.nativeElement.setAttribute("style","background-color: #DE3241; color: #fff");
+    this.login_form.nativeElement.setAttribute("style","display : none");
+    this.signup_form.nativeElement.setAttribute("style","display : block");
+  }
+  login_showPassword_changed(e:any){
+    if(e.target.checked)
+      this.password_login.nativeElement.setAttribute("type","text");
+    else
+      this.password_login.nativeElement.setAttribute("type","password");
+  }
+  signUp_showPassword_changed(e:any){
+    if(e.target.checked){
+      this.password_signup.nativeElement.setAttribute("type","text");
+      this.confirm_password_signup.nativeElement.setAttribute("type","text")
+    }
+    else{
+      console.log("called")
+      this.password_signup.nativeElement.setAttribute("type","password");
+      this.confirm_password_signup.nativeElement.setAttribute("type","password")
+    }
+  }
+  ngAfterViewInit(){
+    
+  }
+/*
 
   box_signup.addEventListener("change", function () {
       if (this.checked)
@@ -53,9 +62,7 @@ export class LoginRegisterComponent implements OnInit {
   ngOnInit(): void {
     document.body.className = "app-login-register";
   }
-
   ngOnDestroy(){
     document.body.className="";
   }
-
 }
