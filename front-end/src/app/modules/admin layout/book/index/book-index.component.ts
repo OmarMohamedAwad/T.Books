@@ -34,8 +34,8 @@ export class BookIndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getBooks();
-    this.getAuthors();
-    this.getCategories();
+    // this.getAuthors();
+    // this.getCategories();
   }
 
   getAuthors(){
@@ -54,6 +54,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     this.subscriber = this.bookService.index()
       .subscribe((response:any)=>{
           this.books = response.body
+          console.log(response.body);
         },
         (err)=>{
           console.log(err)
