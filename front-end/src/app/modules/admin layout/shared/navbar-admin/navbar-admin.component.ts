@@ -1,4 +1,6 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
+import {AdminLoginService} from 'src/app/services/admin-login.service'
 
 @Component({
   selector: 'app-navbar-admin',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarAdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:AdminLoginService) { }
 
   ngOnInit(): void {
   }
 
+  refreashToken:any = "";
+  logout()
+  {
+    console.log("out")
+
+    this.refreashToken = "sasasasasdklfl"
+
+    // this.refreashToken = sessionStorage.getItem("refreshToken") 
+    this.service.logoutAdmin({refreshToken:this.refreashToken})
+      .subscribe((data)=>{
+        console.log(data)
+        
+      },(err)=>{
+
+    })
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
+  }
 }
