@@ -10,7 +10,7 @@ export class UserCategoryBooksComponent implements OnInit {
 
   subscriber:any;
   currentPage:number = 1;
-  currentCategory:string = "Sport";
+  currentCategory:string = "Science fiction";
   maxPages:number = 1;
   row1:string[] = []
   row2:string[] = []
