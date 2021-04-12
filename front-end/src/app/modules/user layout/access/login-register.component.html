@@ -7,16 +7,18 @@
 
     <div id="login-form" #login_form>
         <img src="assets/icon.ico">
-        <form method="POST">
-            <input type="text" class="w-100" placeholder="Username" required />
-            <input class="w-100" type="password" id="l_pass" placeholder="Password" required minlength="8" #l_pass/>
+        <form method="POST" [formGroup]=loginForm (ngSubmit)="login()">
+            <input type="text" class="w-100" placeholder="Username" required formControlName="userName" />
+            <input class="w-100" type="password" id="l_pass" placeholder="Password" required minlength="8" #l_pass formControlName="password"/>
             <input type="checkbox" (change)="login_showPassword_changed($event)" id='l_box' class="ml3 mr-2 mb-2 mt-2" #l_box> <b class="mb-4 mt-3"> Show Password</b>
-            <button type="submit" class="btn login">login</button>
+            <button [disabled]="loginForm.invalid" type="submit" class="btn login">login</button>
             <hr/>
-            <button type="button" class="btn2 -box-sd-effect"> <i class="fa fa-google fa-lg" aria-hidden="true"></i>
-                sign in with google</button>
-            <button type="button" class="btn2 -box-sd-effect mt-3"> <i class="fa fa-facebook-official fa-lg"
-                    aria-hidden="true"></i> sign in with facebook</button>
+          <button type="button" class="btn2 -box-sd-effect"><i class="fab fa-google fa-lg" aria-hidden="true"></i>
+            <p class="d-inline-block w-45 m-0">sign in with google</p>
+          </button>
+          <button type="button" class="btn2 -box-sd-effect mt-3"><i class="fab fa-facebook-square fa-lg"></i>
+            <p class="d-inline-block w-45 m-0">sign in with facebook</p>
+          </button>
         </form>
     </div>
 
@@ -31,10 +33,12 @@
             <input type="checkbox" (change)="signUp_showPassword_changed($event)" id='s_box' class="ml5 mr-2 mb-2 mt-2" #s_box> <b class="mt-3 ml-2"> Show Password</b>
             <button type="submit" class="btn signup mb-2">create account</button>
             <hr />
-            <button type="button" class="btn2 -box-sd-effect"> <i class="fa fa-google fa-lg" aria-hidden="true"></i>
-                sign up with google</button>
-            <button type="button" class="btn2 -box-sd-effect mt-3"> <i class="fa fa-facebook-official fa-lg"
-                    aria-hidden="true"></i> sign up with facebook</button>
+            <button type="button" class="btn2 -box-sd-effect"><i class="fab fa-google fa-lg" aria-hidden="true"></i>
+              <p class="d-inline-block w-45 m-0">sign up with google</p>
+            </button>
+            <button type="button" class="btn2 -box-sd-effect mt-3"><i class="fab fa-facebook-square fa-lg"></i>
+              <p class="d-inline-block w-45 m-0">sign up with facebook</p>
+            </button>
         </form>
     </div>
 

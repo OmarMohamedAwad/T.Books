@@ -1,4 +1,5 @@
 import { AfterViewInit, ElementRef, Component, OnInit, ViewChild } from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login-register',
@@ -47,8 +48,41 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
       this.confirm_password_signup.nativeElement.setAttribute("type","password")
     }
   }
+
   ngAfterViewInit(){
 
+  }
+
+  loginForm = new FormGroup({
+    userName:new FormControl('',[Validators.required]),
+    password:new FormControl('',[Validators.required,Validators.minLength(6)])
+  })
+
+  login()
+  {
+    // console.log("loged")
+    // this.userService.register(User)
+    //   .subscribe((data)=>{
+    //     this.tokens = data
+    //     console.log(this.tokens)
+    //     try
+    //     {
+    //       if(this.tokens.token.accessToken != undefined)
+    //       {
+    //         // console.log(this.tokens.token.accessToken)
+    //         // console.log(this.tokens.token.refreshToken)
+    //         sessionStorage.setItem("accessToken", this.tokens.token.accessToken);
+    //         sessionStorage.setItem("refreshToken", this.tokens.token.refreshToken);
+    //         this.enterSite()
+    //       }
+    //     }
+    //     catch
+    //     {
+    //       this.userPassStatus = true;
+    //     }
+    //   },(err)=>{
+    //     console.log("post error")
+    //   })
   }
 
   ngOnInit(): void {
