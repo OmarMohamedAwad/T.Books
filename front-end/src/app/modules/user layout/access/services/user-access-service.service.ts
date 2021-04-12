@@ -13,13 +13,12 @@ export class UserAccessServiceService {
   constructor(private client:HttpClient) { }
 
   register(user: User){
-    console.log(user);
-    return this.client.post(this.BASE_URL,user);
+    return this.client.post(`${this.BASE_URL}/userRegister`,user);
   }
 
-  login(user: User){
+  login(user: any){
     console.log(user);
-    return this.client.post(this.BASE_URL,user);
+    return this.client.post(`${this.BASE_URL}/user`,user);
   }
 
 }
