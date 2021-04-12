@@ -2,6 +2,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import { Router } from '@angular/router';
+import {Author} from '../models/author';
 
 
 @Component({
@@ -16,25 +17,26 @@ export class DeleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input('authorInfo') author:{id:string,autherFirstName:string,autherLastName:string,authorDob:string} = {
-    id:'',
-    autherFirstName:'',
-    autherLastName:'',
-    authorDob:''
-  }
+  @Input('authorInfo') author:Author = {
+    id:"",
+    firstName:"",
+    lastName:"",
+    name:"",
+    birthDay:"",
+    image:"",
+    books:[]
+  };
 
   goToAuthorsList()
   {
     this.router.navigate(['/admin/author']);
   }
 
-  a:any;
   deleteFun()
   {
-    this.a = this.author;
     console.log("delete")
-    console.log(this.a._id)
-    this.myService.deleteAuthor(this.a._id)
+    console.log(this.author.id)
+    this.myService.deleteAuthor(this.author.id)
       .subscribe((data)=>{
         console.log(data)
         this.goToAuthorsList()
@@ -42,5 +44,5 @@ export class DeleteComponent implements OnInit {
         console.log("post error")
       })
   }
-  
+
 }

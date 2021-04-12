@@ -13,18 +13,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let author of authors; index as i;">   
+            <tr *ngFor="let author of authors; index as i;">
                 <th scope="row">{{i+1}}</th>
                 <td><img src="assets/admin/author/author.svg" class="author-imag"></td>
-                <td>{{author.autherFirstName}} </td>
-                <td>{{author.autherLastName}}</td>
-                <td>{{author.authorDob |date:'dd-mm-yyyy'}}</td>
+                <td>{{author.firstName}} </td>
+                <td>{{author.lastName}}</td>
+                <td>{{author.birthDay |date:'dd-mm-yyyy'}}</td>
                 <td>
                     <button (click)="getAuthor(author)" class="btn custom-txt" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
                     <button (click)="getAuthor(author)" class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
                 </td>
             </tr>
-    
+
         </tbody>
         </table>
     </div>

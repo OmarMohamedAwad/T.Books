@@ -7,11 +7,12 @@ const authorPresenter = require("../presenter/authorPresenter")
 async function index(request, response, next) {
     try {
         const authors = await Author.find();
+        console.log("hi",authors);
         response.json(authors.map((author)=>{
             return authorPresenter.present(author);
         }))
-        console.log(response)
     } catch (error) {
+        console.log(error);
         next(ResponseCode.SERVER_ERROR)
     }  
 }
@@ -47,9 +48,9 @@ async function store(request, response, next) {
     console.log(authorRequest)
 
     const author = new Author ({
-        autherFirstName: authorRequest.autherFirstName,
-        autherLastName: authorRequest.autherLastName,
-        authorDob: authorRequest.authorDob,
+        autherFirstName: authorRequest.firstName,
+        autherLastName: authorRequest.lastName,
+        authorDob: authorRequest.birthDay,
         authorImage: authorRequest.image 
     })
     try {
@@ -87,10 +88,10 @@ async function update(request, response, next) {
     const { id } = request.params;
     const author = request.body
     const updatedAuther = {
-        ...(author.autherFirstName ? { autherFirstName: author.autherFirstName } : {}),
-        ...(author.autherLastName ? { autherLastName: author.autherLastName } : {}),
-        ...(author.authorDob ? { authorDob: author.authorDob } : {}),
-        ...(author.authorImage ? { authorImage: author.authorImage } : {}),
+        ...(author.firstName ? { autherFirstName: author.firstName } : {}),
+        ...(author.lastName ? { autherLastName: author.lastName } : {}),
+        ...(author.birthDay ? { authorDob: author.birthDay } : {}),
+        ...(author.image ? { authorImage: author.image } : {}),
     }
 
     try {
