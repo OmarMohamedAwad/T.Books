@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { CategoryService } from '../../../../services/category.service';
 declare var $:any;
 @Component({
@@ -7,10 +7,10 @@ declare var $:any;
   styleUrls: ['./category-delete.component.css']
 })
 export class CategoryDeleteComponent implements OnInit {
-  deletedCategory :any; 
-  
+  deletedCategory :any;
+  @ViewChild('closebutton') closebutton: any;
   constructor(private _categoryService:CategoryService) {
-    
+
    }
 
   ngOnInit(): void {
@@ -32,6 +32,7 @@ export class CategoryDeleteComponent implements OnInit {
       if(res.message=="Deleted Correctly"){
         //$("#deleteCategory").model('hide');
         //this._categoryService.categoryIndex();
+        this.closebutton.nativeElement.click();
         console.log("deleted")
       }
     })

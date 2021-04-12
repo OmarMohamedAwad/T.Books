@@ -12,11 +12,11 @@
                     <h2>Category</h2>
                     <p>We are glad to see you again!</p>
                  </div>
-                  
+
              </div>
              <div class="col-6">
                 <div class="content pt-5">
-                    <a routerLink="admin/category/store" class="add text-decoration-none">Add</a>
+                    <a routerLink="/admin/category/store" class="add text-decoration-none">Add</a>
                 </div>
              </div>
              </div>
@@ -31,14 +31,14 @@
         <div *ngIf="isLoad" class="row w-100 mb-4 mt-5">
             <div class="col-md-6 col-lg-4 col-xl-4 mb-4" *ngFor="let category of categories">
                 <div class="card">
-                    <img src="/assets/admin/category/{{category.categoryImage}}" class="card-img-top" [alt]="category.categoryName">
+                    <img src="/assets/admin/category/{{category.image}}" class="card-img-top" [alt]="category.name">
                     <div class="card-body row w-100 align-items-center">
-                        <div class="col-6">{{category.categoryName}}</div><!--updateCategory-->
-                        <div class="col-3"> <button class="btn custom-txt" (click)="sendID(category._id)" data-bs-toggle="modal" data-bs-target="#updateCategory" ><i class="fas fa-edit"></i></button></div>
-                        <div class="col-3">  <button class="btn text-danger" (click)="sendID(category._id)" data-bs-toggle="modal" data-bs-target="#deleteCategory" ><i class="fas fa-trash"></i></button></div>
+                        <div class="col-6">{{category.name}}</div><!--updateCategory-->
+                        <div class="col-3"> <button class="btn custom-txt" (click)="sendID(category.id)" data-bs-toggle="modal" data-bs-target="#updateCategory" ><i class="fas fa-edit"></i></button></div>
+                        <div class="col-3">  <button class="btn text-danger" (click)="sendID(category.id)" data-bs-toggle="modal" data-bs-target="#deleteCategory" ><i class="fas fa-trash"></i></button></div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
    </section>
 </div>
