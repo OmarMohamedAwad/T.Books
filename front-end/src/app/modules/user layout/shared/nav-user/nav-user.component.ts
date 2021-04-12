@@ -1,5 +1,5 @@
 import { state } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HostListener } from '@angular/core';
 
 @Component({
@@ -9,7 +9,9 @@ import { HostListener } from '@angular/core';
 })
 export class NavUserComponent implements OnInit {
   srcWidth=0;
- 
+  is_open:boolean;
+  @ViewChild('toggle_btn') toggle_btn!: ElementRef<HTMLButtonElement>;
+  @ViewChild('collapseList') collapseList!: ElementRef<HTMLDivElement>;
   /*
   const navLinks = document.querySelectorAll('.nav-item')!;
   const menuToggle = document.querySelector('button')!;
@@ -20,6 +22,7 @@ export class NavUserComponent implements OnInit {
   */
   constructor() { 
     this.srcWidth=0;
+    this.is_open=false;
   }
   ngOnInit(): void {
     
@@ -47,6 +50,15 @@ export class NavUserComponent implements OnInit {
         navbar.setAttribute("style","background-color: rgba(0,0,0,0.3)");
       }
   }
-
+  toggle_list(e:any){
+    if(this.is_open){
+      this.is_open=false;
+      this.collapseList.nativeElement.setAttribute("style","display:none");
+    }
+    else{
+      this.is_open=true;
+      this.collapseList.nativeElement.setAttribute("style","display:block");
+    }
+  }
  
 }

@@ -19,24 +19,24 @@ export class SettingComponent implements OnInit {
       console.log(response.body)
       this.settings = response.body
       this.settings.find((section:any) => {
-        if(section.sectionName == "headerData")
+        if(section.sectionName == "home")
         {
-          this.homeHeaderForm.controls.headerTitle.setValue(section.sectionContent.headerTitle);
-          this.homeHeaderForm.controls.headerParagraph.setValue(section.sectionContent.headerParagraph);
+          this.homeHeaderForm.controls.title.setValue(section.sectionContent.title);
+          this.homeHeaderForm.controls.sub_title.setValue(section.sectionContent.sub_title);
         }
-        else if(section.sectionName == "TitleData")
+        else if(section.sectionName == "titles")
         {
-          this.HomeTitleForm.controls.popularBooks.setValue(section.sectionContent.popularBooks);
-          this.HomeTitleForm.controls.popularAuthor.setValue(section.sectionContent.popularAuthor);
-          this.HomeTitleForm.controls.popularCategory.setValue(section.sectionContent.popularCategory);
+          this.HomeTitleForm.controls.book.setValue(section.sectionContent.book);
+          this.HomeTitleForm.controls.author.setValue(section.sectionContent.author);
+          this.HomeTitleForm.controls.category.setValue(section.sectionContent.category);
         }
-        else if(section.sectionName == "FooterData")
+        else if(section.sectionName == "footer-info")
         {
           this.HomeFooterForm.controls.email.setValue(section.sectionContent.email)
           this.HomeFooterForm.controls.phone.setValue(section.sectionContent.phone)
           this.HomeFooterForm.controls.fax.setValue(section.sectionContent.fax)
-          this.HomeFooterForm.controls.footerTitle.setValue(section.sectionContent.footerTitle)
-          this.HomeFooterForm.controls.footerDescription.setValue(section.sectionContent.footerDescription)
+          this.HomeFooterForm.controls.title.setValue(section.sectionContent.title)
+          this.HomeFooterForm.controls.capation.setValue(section.sectionContent.capation)
         }
       });
     },
@@ -48,23 +48,23 @@ export class SettingComponent implements OnInit {
 
   homeHeaderForm = new FormGroup({
 
-    headerTitle: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
+    title: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]*/),
     
-    headerParagraph: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
+    sub_title: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]*/)
   })
 
   submitHeaderForm(e:any)
   {
-    console.log(this.homeHeaderForm.controls.headerTitle.value)
-    console.log(this.homeHeaderForm.controls.headerParagraph.value)
+    console.log(this.homeHeaderForm.controls.title.value)
+    console.log(this.homeHeaderForm.controls.sub_title.value)
     let insertedData : any = 
     {
-    "headerTitle": this.homeHeaderForm.controls.headerTitle.value,
-    "headerParagraph": this.homeHeaderForm.controls.headerParagraph.value
+    "title": this.homeHeaderForm.controls.title.value,
+    "sub_title": this.homeHeaderForm.controls.sub_title.value
     };
-    this.settingService.updateAuthor("headerData" , {sectionName:"headerData", sectionContent: <JSON>insertedData})
+    this.settingService.updateSetting("home" , {sectionName:"home", sectionContent: <JSON>insertedData})
       .subscribe((data)=>{
         console.log(data)
       },(err)=>{
@@ -75,28 +75,28 @@ export class SettingComponent implements OnInit {
 
   HomeTitleForm = new FormGroup({
 
-    popularBooks:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
+    book:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]*/),
     
-    popularAuthor:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
+    author:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/),
 
-    popularCategory:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
+    category:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/)
       
 
   })
   submitTitleForm(e:any){
-    console.log(this.HomeTitleForm.controls.popularBooks.value)
-    console.log(this.HomeTitleForm.controls.popularAuthor.value)
-    console.log(this.HomeTitleForm.controls.popularCategory.value)
+    console.log(this.HomeTitleForm.controls.book.value)
+    console.log(this.HomeTitleForm.controls.author.value)
+    console.log(this.HomeTitleForm.controls.category.value)
     let insertedData : any = 
     {
-    "popularBooks": this.HomeTitleForm.controls.popularBooks.value,
-    "popularAuthor": this.HomeTitleForm.controls.popularAuthor.value,
-    "popularCategory": this.HomeTitleForm.controls.popularCategory.value
+    "book": this.HomeTitleForm.controls.book.value,
+    "author": this.HomeTitleForm.controls.author.value,
+    "category": this.HomeTitleForm.controls.category.value
     };
-    this.settingService.updateAuthor("TitleData" , {sectionName:"TitleData", sectionContent: <JSON>insertedData})
+    this.settingService.updateSetting("titles" , {sectionName:"titles", sectionContent: <JSON>insertedData})
       .subscribe((data)=>{
         console.log(data)
       },(err)=>{
@@ -116,10 +116,10 @@ export class SettingComponent implements OnInit {
     fax: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/),
 
-    footerTitle: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
+    title: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/),
     
-    footerDescription: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
+    capation: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/)
   })
 
@@ -127,17 +127,17 @@ export class SettingComponent implements OnInit {
     console.log(this.HomeFooterForm.controls.email.value)
     console.log(this.HomeFooterForm.controls.phone.value)
     console.log(this.HomeFooterForm.controls.fax.value)
-    console.log(this.HomeFooterForm.controls.footerTitle.value)
-    console.log(this.HomeFooterForm.controls.footerDescription.value)
+    console.log(this.HomeFooterForm.controls.title.value)
+    console.log(this.HomeFooterForm.controls.capation.value)
     let insertedData : any = 
     {
     "email": this.HomeFooterForm.controls.email.value,
     "phone": this.HomeFooterForm.controls.phone.value,
     "fax": this.HomeFooterForm.controls.fax.value,
-    "footerTitle": this.HomeFooterForm.controls.footerTitle.value,
-    "footerDescription": this.HomeFooterForm.controls.footerDescription.value
+    "title": this.HomeFooterForm.controls.title.value,
+    "capation": this.HomeFooterForm.controls.capation.value
     };
-    this.settingService.updateAuthor("FooterData" , {sectionName:"FooterData", sectionContent: <JSON>insertedData})
+    this.settingService.updateSetting("footer-info" , {sectionName:"footer-info", sectionContent: <JSON>insertedData})
       .subscribe((data)=>{
         console.log(data)
       },(err)=>{
@@ -146,3 +146,15 @@ export class SettingComponent implements OnInit {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,11 +4,21 @@ a {
     -webkit-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
 }
+button{
+    background-color: #DE3241;
+    padding: 5px;
+}
+button:active{
+    outline: none;
+    border: none;
+}
+.toggle{
+    height: 30px;
+}
 ul:first-child{margin-left: 32%;}
 li{margin: 0 2%;}
 nav.logo{
     display: inline-block;
-    float: right;
 }
 nav .logo img{
     float: left;
@@ -86,6 +96,19 @@ nav.navbar-default .navbar-nav li a.active:hover {
           border: #fff;
     }
   }
+.icon{
+    animation: rotation 3s infinite;
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
   @media screen and (max-width: 991px){
     nav.navbar-default{
         background-color: rgba(0, 0, 0, 0.8);

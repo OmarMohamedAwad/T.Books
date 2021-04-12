@@ -1,78 +1,87 @@
-.container{
-    padding-left: 15%;
-  }
-  
-  button:focus, input:focus, svg:focus {
-    outline: none !important;
-    border: none !important;
-  }
-  
-  /*Top Section*/
-  .top-part {
-    margin-top: 10%;
-    height: 150px;
-  }
-  
-  /* .top-part h2 {
+.container {
+  padding-left: 15%;
+}
+
+button:focus,
+input:focus,
+svg:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+/*Top Section*/
+/*
+.top-part {
+  margin-top: 10%;
+  height: 150px;
+}*/
+.top-part {
+  padding-top: 10%;
+}
+
+/* .top-part h2 {
     display: block;
   } */
-  
-  .top-part .book-search{
-    margin-top: 0%;
-    margin-left: 55%;
-    display: inline-block;
+
+.top-part .book-search {
+  padding-bottom: 4%;
+  margin-top: 0;
+  margin-left: 35%;
+  display: inline-block;
+}
+
+.top-part .book-search .input-group {
+  margin: auto;
+}
+
+.top-part .book-search input,
+.top-part .book-search button {
+  box-shadow: 0 2px 2px 0 rgba(66, 66, 66, 0.2),
+    0 4px 5px 0 rgba(66, 66, 66, 0.2);
+}
+
+.top-part .book-search button {
+  background-color: #de3242;
+  color: white;
+}
+
+.top-part .add-book {
+  background-color: #de3242;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  float: right;
+  border-radius: 50%;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3), 0 4px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.search-btn:hover {
+  transform: scale(1.2);
+  transition: all 0.5s ease-in-out;
+}
+
+/*Table Section*/
+
+.book-imag {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 500px) {
+  .book .container {
+    padding-left: 2%;
   }
-  
-  .top-part .book-search .input-group{
-    margin: auto;
+
+  .book-search .input-group,
+  .orm-outline {
+    width: 90% !important;
   }
-  
-  .top-part .book-search input,.top-part .book-search button {
-    box-shadow: 0 2px 2px 0 rgba(66,66,66,0.2), 0 4px 5px 0 rgba(66,66,66,0.2);
-  }
-  
-  .top-part .book-search button{
-    background-color: #de3242;
-    color: white;
-  }
-  
-  .top-part .add-book {
-    background-color: #de3242;
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    float: right;
-    border-radius: 50%;
-    color: white;
-    border: none;
-    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.3), 0 4px 5px 0 rgba(0,0,0,0.3);
-  }
-  
-  .search-btn:hover {
-    transform: scale(1.2);
-    transition: all 0.5s ease-in-out;
-  }
-  
-  /*Table Section*/
-  
-  .book-imag {
-    height: 35px;
-    width: 35px;
-    border-radius: 50%;
-  }
-  
-  @media only screen and (max-width: 500px) {
-    .book .container{
-      padding-left: 21%;
-    }
-  
-    .book-search .input-group, .orm-outline {
-      width: 90% !important;
-    }
-  }
-  
-  table td button:hover {
-    transform: scale(1.5);
-    transition: all 0.5s ease-in-out;
-  }
-  
+}
+
+table td button:hover {
+  transform: scale(1.5);
+  transition: all 0.5s ease-in-out;
+}

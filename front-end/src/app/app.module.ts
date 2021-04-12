@@ -36,7 +36,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Router } from '@angular/router';
 import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
-import { LoginRegisterComponent } from './modules/user layout/login-register/login-register.component';
+import { LoginRegisterComponent } from './modules/user layout/access/login-register.component';
 import { TermsComponent } from './modules/user layout/terms/terms.component';
 import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
 import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
@@ -58,20 +58,26 @@ import { AboutMissionComponent } from './modules/user layout/about-us/about-miss
 import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-why-choose-us/about-why-choose-us.component';
 import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { ConcateNamePipe } from './pipes/concate-name.pipe';
 
 
 const routes:Routes = [
-  {path:'admin' , component:AdminLoginComponent}, 
-  {path:'admin/dashboard',component:DashboardComponent},
+  {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
-  {path:'category',component:CategoryIndexComponent},
-  {path:'category/store',component:CategoryStoreComponent},
   {path:'book', component:UserBookIndexComponent  },
-  {path:'book/:id', component:BookDetComponent }
+  {path:'book/:id', component:BookDetComponent },
   
 
+  {path:'admin/category',component:CategoryIndexComponent},
+  {path:'admin/category/store',component:CategoryStoreComponent},
+  {path:'admin/dashboard',component:DashboardComponent},
+  {path:'admin/book',component:AdminMainBookComponent},
+  {path:'admin/setting',component:SettingComponent},
+  {path:'*',component:NotFoundComponent}
 ]
+
 
 // const appRoutes:Routes=[
 //   {path:"",redirectTo:"",pathMatch:"full"},
@@ -132,8 +138,13 @@ const routes:Routes = [
     FooterComponent,
     LoginRegisterComponent,
     TermsComponent,
+    NotFoundComponent,
+    ConcateNamePipe,
     AdminLoginComponent
   ],
+  exports:[
+    ConcateNamePipe
+  ] ,
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

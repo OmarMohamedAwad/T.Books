@@ -1,31 +1,33 @@
-<div class="row">
-    <div class="col-2"></div>
-    <table class="table col-8">
-    <thead class="table-dark">
-        <tr>
-        <th scope="col">#</th>
-        <th scope="col">Image</th>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">Date Of Birth</th>
-        <th scope="col">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let author of authors; index as i;">   
-            <th scope="row">{{i+1}}</th>
-            <td><img src="assets/admin/author/author.svg" class="author-imag"></td>
-            <td>{{author.autherFirstName}}</td>
-            <td>{{author.autherLastName}}</td>
-            <td>{{author.authorDob}}</td>
-            <td>
-                <button (click)="getAuthor(author)" class="btn custom-txt" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
-                <button (click)="getAuthor(author)" class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
-            </td>
-        </tr>
+<div class="content-page">
+    <div class="row mt-5">
+        <div class="col-2"></div>
+        <table class="table col-8">
+        <thead class=" custom-bg text-white">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Date Of Birth</th>
+            <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let author of authors; index as i;">
+                <th scope="row">{{i+1}}</th>
+                <td><img src="assets/admin/author/author.svg" class="author-imag"></td>
+                <td>{{author.firstName}} </td>
+                <td>{{author.lastName}}</td>
+                <td>{{author.birthDay |date:'dd-mm-yyyy'}}</td>
+                <td>
+                    <button (click)="getAuthor(author)" class="btn custom-txt" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+                    <button (click)="getAuthor(author)" class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
 
-    </tbody>
-    </table>
+        </tbody>
+        </table>
+    </div>
 </div>
 
 <app-admin-delete  [authorInfo]="mAuthor"></app-admin-delete>

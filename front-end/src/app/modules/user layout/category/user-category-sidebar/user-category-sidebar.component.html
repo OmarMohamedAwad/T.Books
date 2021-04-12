@@ -9,20 +9,12 @@
 
         <div class="category">
           <ul>
-            <li>
-
-              <a href="#" class="active"><i class="fas fa-chevron-right"></i><span>Programming</span></a>
-            </li>
-            <li>
-              <a href="#"><i class="fas fa-chevron-right"></i><span>Comedy</span></a>
-            </li>
-            <li>
-              <a href="#"><i class="fas fa-chevron-right"></i><span>Sport</span></a>
+            <li *ngFor="let category of categoriesName">
+              <a href="#" class="active" (click)="selectCategory($event , category)"><i class="fas fa-chevron-right"></i><span>{{category}}</span></a>
             </li>
           </ul>
         </div>
       </div>
-
     </nav>
   </div>
 </div>

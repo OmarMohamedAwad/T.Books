@@ -2,14 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {Author} from '../models/author';
 
 @Component({
   selector: 'app-admin-store',
   templateUrl: './store.component.html',
-  styleUrls: ['./store.component.css']
+  styleUrls: ['./store.component.css','../../shared/style/dashboard.css']
 })
 export class StoreComponent implements OnInit {
 
+  newAuth:Author = {
+    id:"",
+    firstName:"",
+    lastName:"",
+    name:"",
+    birthDay:"",
+    image:"",
+    books:[]
+  };
   constructor(private myService:AuthorsServiceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -32,15 +42,13 @@ export class StoreComponent implements OnInit {
     this.router.navigate(['/admin/author']);
   }
 
-
   submitForm(e:any)
   {
-    console.log(this.myForm.controls.fName.value)
-    console.log(this.myForm.controls.lName.value)
-    console.log(this.myForm.controls.dob.value)
-    this.myService.postAuthor({autherFirstName:this.myForm.controls.fName.value,
-      autherLastName:this.myForm.controls.lName.value, authorDob: this.myForm.controls.dob.value
-      /*image: this.myForm.controls.fName.value*/})
+    this.newAuth.firstName = this.myForm.controls.fName.value;
+    this.newAuth.lastName = this.myForm.controls.lName.value;
+    this.newAuth.birthDay = this.myForm.controls.dob.value;
+
+    this.myService.postAuthor(this.newAuth)
       .subscribe((data)=>{
         console.log(data)
         this.  goToAuthorsList()

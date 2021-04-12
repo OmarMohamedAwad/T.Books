@@ -17,7 +17,7 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
+    //this.subscriber.unsubscribe();
   }
 
   deleteBook(){

@@ -17,9 +17,9 @@
           <div class="mb-3 field">
             <label for="author" class="form-label">Author</label>
             <select class="form-select" aria-label="Default select example" id="author" formControlName="author">
-              <option selected value="{{book.author._id}}">{{book.authorName}}</option>
+              <option selected value="{{book.author.id}}">{{book.authorName}}</option>
               <ng-container *ngFor="let author of authors; " >
-                <option  *ngIf="author._id != book.author._id" value="{{author._id}}" >{{author.autherFirstName}} {{author.autherLastName}}</option>
+                <option  *ngIf="author.id != book.author.id" value="{{author.id}}" >{{author.name}}</option>
               </ng-container>
             </select>
           </div>
@@ -28,7 +28,7 @@
             <select class="form-select" aria-label="Default select example" id="category" formControlName="category">
               <option selected value="{{book.category._id}}">{{book.categoryName}}</option>
               <ng-container *ngFor="let category of categories;" >
-                  <option  *ngIf="category._id != book.category._id" value="{{category._id}}" >{{category.categoryName}}</option>
+                  <option  *ngIf="category.id != book.category.id" value="{{category.id}}" >{{category.name}}</option>
                 </ng-container>
             </select>
           </div>

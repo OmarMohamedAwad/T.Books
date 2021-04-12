@@ -2,12 +2,12 @@ import {Component, OnInit, EventEmitter, Output, OnDestroy, OnChanges} from '@an
 import {BookServiceService} from '../services/book-service.service';
 import {Book} from '../models/book';
 import {AuthorsServiceService} from '../../../../services/authors-service.service';
-import {CategoryService} from '../../services/category.service';
+import {CategoryService} from '../../../../services/category.service';
 
 @Component({
   selector: 'app-book-index',
   templateUrl: './book-index.component.html',
-  styleUrls: ['./book-index.component.css']
+  styleUrls: ['./book-index.component.css','../../shared/style/dashboard.css']
 })
 export class BookIndexComponent implements OnInit, OnDestroy {
 
@@ -36,13 +36,14 @@ export class BookIndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getBooks();
-    this.getAuthors();
-    this.getCategories();
+    // this.getAuthors();
+    // this.getCategories();
   }
 
   getAuthors(){
     this.subscriber = this.authorService.getAuthors()
       .subscribe((response:any)=>{
+          console.log(response.body);
           this.authors = response.body
         },
         (err)=>{
@@ -55,6 +56,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     this.subscriber = this.bookService.index()
       .subscribe((response:any)=>{
           this.books = response.body
+          console.log(response.body);
         },
         (err)=>{
           console.log(err)
@@ -87,6 +89,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   }
 
   deleteBook(book: any){
+    console.log(book);
     this.ngOnInit();
   }
 

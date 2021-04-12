@@ -1,11 +1,15 @@
 const Author = require("../../author/models/Author")
 const ResponseCode = require("../../../response-codes")
 const ResponseMessage = require("../../../response-messages")
+const authorPresenter = require("../presenter/authorPresenter")
+
 
 async function index(request, response, next) {
     try {
         const authors = await Author.find();
-        response.json(authors)
+        response.json(authors.map((author)=>{
+            return authorPresenter.present(author);
+        }))
     } catch (error) {
         next(ResponseCode.SERVER_ERROR)
     }  
@@ -15,18 +19,21 @@ async function pagination(request, response, next){
     try{
         let { page=1,limit=2} = request.query;
         page < 0 ? page = 1 : page;
-        limit < 2 ? limit = 2 : limit;
-        
+        limit < 8 ? limit = 8 : limit;
         const authers = await Author.find()
         .sort('authorDob')
         .limit(limit)
         .skip((page-1) * limit).exec();  
-        
-        const numberOfPages = Math.ceil(authers.length / limit)
+        const authornum = await Author.estimatedDocumentCount()
+        const numberOfPages = Math.ceil(authornum / limit)
+        const presentedAuthors = authers.map((author)=>{
+            return authorPresenter.present(author);
+        });
         response.json({
-            authers,
+            authors: presentedAuthors,
             pages: numberOfPages
         });
+        console.log(response);
     }
     catch(err){
         next(err);
@@ -39,14 +46,14 @@ async function store(request, response, next) {
     console.log(authorRequest)
 
     const author = new Author ({
-        autherFirstName: authorRequest.autherFirstName,
-        autherLastName: authorRequest.autherLastName,
-        authorDob: authorRequest.authorDob,
+        autherFirstName: authorRequest.firstName,
+        autherLastName: authorRequest.lastName,
+        authorDob: authorRequest.birthDay,
         authorImage: authorRequest.image 
     })
     try {
         const savedAuthor = await author.save()
-        response.json(savedAuthor)
+        response.json(authorPresenter.present(savedAuthor))
     }catch (error){
         next(error)
     }
@@ -56,7 +63,7 @@ async function show(request, response, next) {
     const { id } = request.params
     try {
         const author = await Author.findById(id).populate("authorBooks").exec();     
-        response.json(author)
+        response.json(authorPresenter.present(author))
     } catch (error) {
         next(error);
     }
@@ -79,10 +86,10 @@ async function update(request, response, next) {
     const { id } = request.params;
     const author = request.body
     const updatedAuther = {
-        ...(author.autherFirstName ? { autherFirstName: author.autherFirstName } : {}),
-        ...(author.autherLastName ? { autherLastName: author.autherLastName } : {}),
-        ...(author.authorDob ? { authorDob: author.authorDob } : {}),
-        ...(author.authorImage ? { authorImage: author.authorImage } : {}),
+        ...(author.firstName ? { autherFirstName: author.firstName } : {}),
+        ...(author.lastName ? { autherLastName: author.lastName } : {}),
+        ...(author.birthDay ? { authorDob: author.birthDay } : {}),
+        ...(author.image ? { authorImage: author.image } : {}),
     }
 
     try {

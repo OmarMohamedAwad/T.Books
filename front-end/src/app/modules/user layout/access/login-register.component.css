@@ -60,13 +60,16 @@
     border:none;
     transition: 0.2s;
     font-weight: bold;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
 }
-
-.form-toggle button:nth-child(1), .form-toggle button:nth-child(2){
+.form-modal #login-toggle{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.form-modal #signup-toggle{
+    border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
 
 #login-toggle{
     background:#DE3241;
@@ -78,7 +81,7 @@
     width:90%;
     height:70vh;
     left:50%;
-    transform:translateX(-50%);  
+    transform:translateX(-50%);
 }
 
 #login-form , #signup-form{
@@ -124,7 +127,7 @@
 
 
 .form-modal p{
-    font: 18px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -143,7 +146,7 @@
     position: absolute;
     left:10%;
     top:50%;
-    transform:translateX(-10%) translateY(-50%); 
+    transform:translateX(-10%) translateY(-50%);
     align-self: center;
 }
 
@@ -151,7 +154,7 @@
     color:#dd4b39;
 }
 
-.fa-facebook-official{
+.fa-facebook-square{
     color:#3b5998;
 }
 
@@ -179,7 +182,7 @@
     }
 }
 
-#login-form img{
+img{
      width: 10%;
      margin-left: 45%;
      animation: hu__hu__ 1 2s ease-in-out
