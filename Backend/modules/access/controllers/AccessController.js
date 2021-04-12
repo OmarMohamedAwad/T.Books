@@ -125,15 +125,22 @@ async function userRegister(request, response, next) {
 
 }
 
-async function adminLogout(request, responce, next) {
+
+async function adminLogout (request, responce, next)
+{
+    console.log(request.body)
     if (request.body.refreshToken == null) return responce.sendStatus(401)
-    await Admin.findOneAndUpdate({ adminName: request.body.adminName }, { refreshToken: null })
+    // await Admin.findOneAndUpdate({adminName: request.body.adminName},{refreshToken: null}) 
+    await Admin.findOneAndUpdate({refreshToken: request.body.refreshToken},{refreshToken: null}) 
     responce.sendStatus(204)
 }
 
-async function userLogout(request, responce, next) {
+async function userLogout (request, responce, next)
+{
+    
     if (request.body.refreshToken == null) return responce.sendStatus(401)
-    await User.findOneAndUpdate({ userName: request.body.userName }, { refreshToken: null })
+    // await User.findOneAndUpdate({userName: request.body.userName},{refreshToken: null})
+    await User.findOneAndUpdate({refreshToken: request.body.refreshToken},{refreshToken: null}) 
     responce.sendStatus(204)
 }
 

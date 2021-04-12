@@ -61,10 +61,15 @@ import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-lo
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
 
+
 const routes:Routes = [
   {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
+  {path:'book', component:UserBookIndexComponent  },
+  {path:'book/:id', component:BookDetComponent },
+  
+
   {path:'admin/category',component:CategoryIndexComponent},
   {path:'admin/category/store',component:CategoryStoreComponent},
   {path:'admin/dashboard',component:DashboardComponent},
@@ -73,6 +78,10 @@ const routes:Routes = [
   {path:'*',component:NotFoundComponent}
 ]
 
+
+// const appRoutes:Routes=[
+//   {path:"",redirectTo:"",pathMatch:"full"},
+// ]
 
 @NgModule({
   declarations: [

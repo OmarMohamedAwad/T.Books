@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const ValidationMessage = require('../../../validation-messages');
 const User = require("../../user/models/User");
-const Book = require("../../book/models/Book")
 
 const reviewShcema = mongoose.Schema({
     reviwer: {
@@ -23,8 +22,10 @@ const reviewShcema = mongoose.Schema({
 });
 
 reviewShcema.post('save' , async function (next) {
-    await User.updateOne({ _id: this.reviwer } , { $push: { userReviews: this._id } });
+    const Book = require("../../book/models/Book")
+    console.log(this.reviewedBook ,"--",this._id )
     await Book.updateOne({ _id: this.reviewedBook } , { $push: { bookReviews: this._id } });
+    await User.updateOne({ _id: this.reviwer } , { $push: { userReviews: this._id } });
 })
 
 reviewShcema.pre('deleteOne',async function(){

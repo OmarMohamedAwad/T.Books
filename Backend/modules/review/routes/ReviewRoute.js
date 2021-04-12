@@ -6,7 +6,7 @@ const ReviewController = require('../controllers/ReviewController')
 
 const reviewRouter = express.Router();
 
-reviewRouter.get("/:id" , auth(Role.ADMIN), (request, response, next) => {
+reviewRouter.get("/:id" /*, auth(Role.ADMIN)*/, (request, response, next) => {
     ReviewController.show(request, response, next);
 })
 

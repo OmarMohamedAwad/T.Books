@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { trigger,state,transition, animate, style } from '@angular/animations';
+import {Book} from '../../../admin layout/book/models/book';
+import { ActivatedRoute } from '@angular/router';
+import {BookServiceService} from '../../../admin layout/book/services/book-service.service';
+import { ReviewsService } from 'src/app/services/reviews.service';
+import { Router } from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-book-det',
@@ -15,28 +23,117 @@ import { trigger,state,transition, animate, style } from '@angular/animations';
     ])
   ]
 })
+
 export class BookDetComponent implements OnInit {
-  bookTitle: string ="Memoirs of a Geisha";
-  bookAuthor:string ="Arthur Golden";
-  bookCategory:string = "Fiction Novels"
+
+  
+
+
+  selected:any = 'option2';
+
+  user_img="assets/user/author/author-1.jpg";
+
   ratesNum:number =112585
-  reviewsNum:number=5541
   avgRate:number = 3.1;
+
   favsNum:number =215;
   userRate=-1;
   userReview:string="";
-  dummy_rev="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text"
-  bookDescribtion: string = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`;
-  user_img="assets/user/author/author-1.jpg";
-  reviews_list= document.querySelector('ul')!;
-  /*for returned elements form database create li, img, p for each 1 and givethem same classes as current review */
-  publishClicked(e:any){
-    e.preventDedault();
-  }
-  constructor() { }
+
+  
+  
+  
+  constructor(private bookService: BookServiceService, private reviewsService: ReviewsService,
+              private myActivatedRoute:ActivatedRoute, private router: Router) { }
+
+  book : Book =
+    {
+      id: "",
+      name: "",
+      description: "",
+      image: "",
+      category: "",
+      author: "",
+      categoryName: "",
+      authorName: "",
+      bookReviews:[],
+      bookRatings:[]
+    }
+
+  subscriber:any;
+  reviewSubscriber:any;
+  
+  text:string = '';
+  reviewerId:any = ''; 
+  
+
+
+
+  reviews:Array<{reviewBody: string,
+  reviewedBook: string,
+  reviwer: string,
+  __v: any,
+  _id: string}>=[]
+
+  
+
   ngOnInit(): void {
+    this.subscriber = this.bookService.show(this.myActivatedRoute.snapshot.params.id)
+    .subscribe((response:any)=>{
+      this.book = response.body
+      console.log(this.book)
+      this.reviews = this.book.bookReviews;
+      console.log(this.reviews[0].reviewBody)
+      },
+      (err)=>{
+        console.log(err)
+      }
+    )    
   }
+
+  textChanged(e:any)
+  {
+    this.text = e.target.value;
+  }
+
+  reloadComponent() {
+    let currentUrl = this.router.url;
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate([currentUrl]);
+    }
+
+  publishClicked(e:any){
+    if(this.text.length > 9)
+    {
+      console.log(this.text)
+      console.log(this.book.id)
+      // this.reviewerId = sessionStorage.getItem("accessToken");
+      this.reviewSubscriber = this.reviewsService.store({reviwer:"605a1a4922c6ca862b8658d6", book:this.book.id, body:this.text})
+      .subscribe((response:any)=>
+        {
+          console.log(response)
+          // this.router.navigate([`/book/${this.myActivatedRoute.snapshot.params.id}`]);
+          this.reloadComponent()
+        
+          },
+          (err)=>{
+            console.log(err)
+        }
+      )
+    }
+  }
+
+  
+
+  
+
+  ngOnDestroy(): void {
+    this.subscriber.unsubscribe();
+    this.reviewSubscriber.unsubscribe();
+  }
+
+  
+  
 
 }
