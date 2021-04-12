@@ -13,10 +13,10 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
   @ViewChild('signup_toggle') signup_toggle!: ElementRef<HTMLButtonElement>;
   @ViewChild('login_form') login_form!: ElementRef<HTMLButtonElement>;
   @ViewChild('signup_form') signup_form!: ElementRef<HTMLButtonElement>;
-  
+
   constructor() {
    }
-  
+
   toggleLogin() {
     this.login_toggle.nativeElement.setAttribute("style","backgroundColor: #DE3241; color: #fff");
     this.signup_toggle.nativeElement.setAttribute("style","backgroundColor: #fff; color: #222");
@@ -48,19 +48,11 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
     }
   }
   ngAfterViewInit(){
-    
-  }
-/*
 
-  box_signup.addEventListener("change", function () {
-      if (this.checked)
-          password_signup[0].type = password_signup[1].type = 'text';
-      else
-          password_signup[0].type = password_signup[1].type = 'password';
-  });
-*/
+  }
+
   ngOnInit(): void {
-    document.body.className = "app-login-register";
+    document.body.className = "app-access";
   }
   ngOnDestroy(){
     document.body.className="";

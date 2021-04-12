@@ -36,7 +36,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Router } from '@angular/router';
 import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
-import { LoginRegisterComponent } from './modules/user layout/login-register/login-register.component';
+import { LoginRegisterComponent } from './modules/user layout/access/login-register.component';
 import { TermsComponent } from './modules/user layout/terms/terms.component';
 import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
 import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
