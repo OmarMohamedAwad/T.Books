@@ -26,6 +26,8 @@ export class BookIndexComponent implements OnInit, OnDestroy {
       author:"",
       categoryName:"",
       authorName:"",
+      bookReviews:[],
+      bookRatings:[]
   };
 
   constructor(private bookService: BookServiceService, private authorService: AuthorsServiceService, private categoryService: CategoryService) {

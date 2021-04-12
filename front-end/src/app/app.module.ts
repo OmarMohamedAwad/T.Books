@@ -59,21 +59,23 @@ import { AboutWhyChooseUsComponent } from './modules/user layout/about-us/about-
 import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 
+
 const routes:Routes = [
   {path:'admin' , component:AdminLoginComponent}, 
   {path:'admin/dashboard',component:DashboardComponent},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
+  {path:'category',component:CategoryIndexComponent},
+  {path:'category/store',component:CategoryStoreComponent},
+  {path:'book', component:UserBookIndexComponent  },
+  {path:'book/:id', component:BookDetComponent }
   
 
 ]
 
-const appRoutes:Routes=[
-  {path:"",redirectTo:"author",pathMatch:"full"},
-  {path:'category',component:CategoryIndexComponent},
-  {path:'category/store',component:CategoryStoreComponent},
-
-]
+// const appRoutes:Routes=[
+//   {path:"",redirectTo:"",pathMatch:"full"},
+// ]
 
 @NgModule({
   declarations: [

@@ -17,7 +17,6 @@ const show = async function (request, response, next){
 
 const store = async function (request, response, next){
     const reviewRequest = request.body
-    console.log(reviewRequest.book);
     const review = new Review({
         reviwer: reviewRequest.reviwer,
         reviewedBook: reviewRequest.book,

@@ -81,7 +81,7 @@ async function show(request, response, next)
     try
     {
         const bookGetOneResults = await bookModel.findById(id)
-                    .populate("bookCategory").populate("bookAuthor").exec();
+                    .populate("bookCategory").populate("bookAuthor").populate("bookReviews").populate("bookRatings").exec();
         response.json(BookPresenter.present(bookGetOneResults));
     }
     catch(e)

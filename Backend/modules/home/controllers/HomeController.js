@@ -82,8 +82,26 @@ async function index(request, response, next) {
         //         books = moreBooks.concat(books);
         // }
 
+
+        let books = await Rating.aggregate([
+        { $addFields: { "bookId": { $toObjectId: "$ratedBook" }}}, 
+        { $lookup: {from: "books" , localField: "bookId" , foreignField: "_id" , as: "bookDetails" }}, 
+        { $group : {_id: "$ratedBook", avg: {$avg: {$toInt: '$rate'}}, 
+          details:{$first: {$last: "$bookDetails"} } } },
+        { $sort: { avg: -1 } }, 
+        { $limit: NUMBER_OF_BOOK_ITEMS} ]);
+        
+        books.forEach((i)=> {
+        i.bookName = i.details.bookName;
+        i.bookCategory = i.details.bookCategory;
+        i.bookAuthor = i.details.bookAuthor;
+        i.bookImage = i.details.bookImage;
+        delete i.details;
+        })
+
+       
         const homeJson = {
-            // "books": books,
+            "books": books,
             "authors": authors,
             "categories": categories
         }

@@ -18,7 +18,9 @@ export class BookStoreComponent implements OnInit {
     category:"",
     author:"",
     categoryName:"",
-    authorName:""
+    authorName:"",
+    bookReviews:[],
+    bookRatings:[]
   };
 
   indexFlag: boolean = false;

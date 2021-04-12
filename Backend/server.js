@@ -53,7 +53,7 @@ app.use("/users", UserRouter);
 app.use("/access", Access);
 
 //end point for review
-//app.use("/review", reviewRouter);
+app.use("/review", reviewRouter);
 
 //end point for category
 app.use("/category", categoryRouter);

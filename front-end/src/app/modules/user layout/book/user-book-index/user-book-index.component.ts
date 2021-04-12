@@ -1,6 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
 import {BookServiceService} from '../../../admin layout/book/services/book-service.service';
 import {Book} from '../../../admin layout/book/models/book';
+import { Router } from '@angular/router';
 import {AuthorsServiceService} from '../../../../services/authors-service.service';
 import {CategoryService} from '../../../admin layout/services/category.service';
 import {any} from 'codelyzer/util/function';
@@ -18,7 +19,7 @@ export class UserBookIndexComponent implements OnInit, OnDestroy {
   currantPage: number = 1;
   pages = new Array(1)
 
-  constructor(private bookService: BookServiceService) { }
+  constructor(private bookService: BookServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.getBooks();
@@ -28,6 +29,7 @@ export class UserBookIndexComponent implements OnInit, OnDestroy {
   getBooks(page: number = 1){
     this.subscriber = this.bookService.pagination(page)
       .subscribe((response:any)=>{
+        console.log(response.body)
           this.books = response.body.books;
           this.pageNumbers = response.body.pages;
           this.pages = new Array(this.pageNumbers)
@@ -57,5 +59,8 @@ export class UserBookIndexComponent implements OnInit, OnDestroy {
     if (this.currantPage < this.pageNumbers) this.getBooks(++this.currantPage);
     else this.currantPage = this.pageNumbers
   }
+
+ 
+
 
 }

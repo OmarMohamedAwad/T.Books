@@ -16,7 +16,7 @@
           <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
           <div class="book-info">
               <p class="mb-2 mt-4">{{book.authorName}}</p>
-              <a href="#" class="btn btn-dark">View More</a>
+              <a href="#" class="btn btn-dark" [routerLink]="book.id.toString()">View More</a>
           </div>
           <div class="category">
             <p>{{book.categoryName}}</p>
