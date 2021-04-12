@@ -4,9 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StoreComponent } from '../author/store/store.component';
 import { Router } from '@angular/router';
 
-
-
-
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',

@@ -17,7 +17,6 @@ export class UserAccessServiceService {
   }
 
   login(user: any){
-    console.log(user);
     return this.client.post(`${this.BASE_URL}/user`,user);
   }
 

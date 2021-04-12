@@ -11,7 +11,9 @@
             <input type="text" class="w-100" placeholder="Username" required formControlName="userName" />
             <input class="w-100" type="password" id="l_pass" placeholder="Password" required minlength="8" #l_pass formControlName="password"/>
             <input type="checkbox" (change)="login_showPassword_changed($event)" id='l_box' class="ml3 mr-2 mb-2 mt-2" #l_box> <b class="mb-4 mt-3"> Show Password</b>
-            <button [disabled]="loginForm.invalid" type="submit" class="btn login">login</button>
+            <p *ngIf="userPassStatus;" class="ml3 mr-2 mb-2 mt-2" style="color: red;">Wrong username or password </p>
+
+          <button [disabled]="loginForm.invalid" type="submit" class="btn login">login</button>
             <hr/>
           <button type="button" class="btn2 -box-sd-effect"><i class="fab fa-google fa-lg" aria-hidden="true"></i>
             <p class="d-inline-block w-45 m-0">sign in with google</p>

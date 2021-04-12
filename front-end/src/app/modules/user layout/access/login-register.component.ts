@@ -18,7 +18,7 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
   @ViewChild('login_form') login_form!: ElementRef<HTMLButtonElement>;
   @ViewChild('signup_form') signup_form!: ElementRef<HTMLButtonElement>;
   subscriber:any;
-
+  userPassStatus= false
   userAccessToken: any;
   userRefreshToken: any;
   user: User ={
@@ -97,9 +97,12 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
           if (this.userAccessToken != undefined) {
             this.setSessionData(this.userAccessToken,this.userAccessToken,this.user)
             this.enterSite();
+          }else {
+            this.userPassStatus = true
+            console.log(this.userPassStatus);
           }
         } catch {
-          console.log("");
+          this.userPassStatus = true
         }
       }, (err) => {
         console.log('post error');
