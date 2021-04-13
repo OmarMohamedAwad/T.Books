@@ -10,10 +10,10 @@
         <li class="current-reading"><button>Current Reading</button></li>
         <li class="want-to-read"> <button>Want to Read</button></li> -->
 
-        <li class="mange"><a class ="text-decoration-none" href="#"><i class="fas fa-chevron-right"></i>  All</a></li>
-        <li class="mange"><a class ="text-decoration-none" href="#"><i class="fas fa-chevron-right"></i>  Read</a></li>
-        <li class="mange"><a class ="text-decoration-none" href="#"><i class="fas fa-chevron-right"></i>  Current Reading</a></li>
-        <li class="mange"><a class ="text-decoration-none" href="#"><i class="fas fa-chevron-right"></i>  Want ot Read</a></li>
+        <li class="mange"><a class ="text-decoration-none" (click)="selectBooksType($event , 'All')" href="#"><i class="fas fa-chevron-right"></i>  All</a></li>
+        <li class="mange"><a class ="text-decoration-none" (click)="selectBooksType($event , 'Read')" href="#"><i class="fas fa-chevron-right"></i>  Read</a></li>
+        <li class="mange"><a class ="text-decoration-none" (click)="selectBooksType($event , 'CurrentReading')" href="#"><i class="fas fa-chevron-right"></i>  Current Reading</a></li>
+        <li class="mange"><a class ="text-decoration-none" (click)="selectBooksType($event , 'WantToRead')"href="#"><i class="fas fa-chevron-right"></i>  Want ot Read</a></li>
     </ul>
 </div>
 </div>

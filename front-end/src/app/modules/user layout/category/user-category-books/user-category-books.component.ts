@@ -10,7 +10,7 @@ export class UserCategoryBooksComponent implements OnInit {
 
   subscriber:any;
   currentPage:number = 1;
-  currentCategory:string = "Sport";
+  currentCategory:string = "";
   maxPages:number = 1;
   row1:string[] = []
   row2:string[] = []
@@ -19,6 +19,10 @@ export class UserCategoryBooksComponent implements OnInit {
 
   constructor(private categoryService: CategoryService) { }
 
+  getDefaultCategory(category:string){
+    this.currentCategory = category;
+    this.getPage(this.currentCategory , this.currentPage);
+  }
   selectCategory(name:string){
     this.currentCategory = name;
     this.currentPage = 1;
@@ -31,7 +35,6 @@ export class UserCategoryBooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPage(this.currentCategory , this.currentPage);
   }
 
   changePagination(event:Event , type:any){
@@ -43,7 +46,7 @@ export class UserCategoryBooksComponent implements OnInit {
       this.currentPage++;
       this.getPage(this.currentCategory , this.currentPage);
     }
-    else{
+    else if (type != "back" && type != "next"){
       this.currentPage = type;
       this.getPage(this.currentCategory , this.currentPage);
     }

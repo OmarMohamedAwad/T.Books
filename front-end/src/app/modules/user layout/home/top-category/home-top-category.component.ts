@@ -10,9 +10,7 @@ export class HomeTopCategoryComponent implements OnInit {
 
   subscriber:any;
 
-  row1:string[] = []
-  row2:string[] = []
-  topCategories:string[][] = [ this.row1 , this.row2 ];
+  topCategories:string[] = [];
   coleredBackground:string[] = ["bg-bink one" , "bg-blue two" , "bg-yellow three"]
 
   constructor(private homeService: HomeService) { }
@@ -23,11 +21,10 @@ export class HomeTopCategoryComponent implements OnInit {
     .subscribe((response:any)=>{
       home = response.body.categories;
       console.log(home)
-      for(let i = 0 ; i < 3 ; i++)
+      for(let i = 0; i < home.length && i < 3; i++)
       {
-        this.row1.push(home[i].categoryImage)
+        this.topCategories.push(home[i].categoryImage)
       }
-      this.topCategories = [ this.row1 , this.row2 ];
       console.log(this.topCategories)
     },
     (err)=>{

@@ -2,8 +2,8 @@
     <h2 class="text-center">The Top<span class="italic"> Category</span></h2>
     <div class="border m-auto"></div>
     <div class="container">
-        <div class="row mt-5"  *ngFor="let categoryRow of topCategories">
-            <div class="col-md-4 " *ngFor="let categoryCol of categoryRow; index as i">
+        <div class="row mt-5" >
+            <div class="col-md-4 " *ngFor="let categoryCol of topCategories; index as i">
                 <div class="card mb-3" >
                     <img class="card-img-top" [src]="categoryCol" alt="Card image cap">
                     <div class="overlay"></div>

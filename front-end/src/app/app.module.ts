@@ -62,7 +62,6 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
 
 const routes:Routes = [
-  {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
   {path:'admin/category',component:CategoryIndexComponent},

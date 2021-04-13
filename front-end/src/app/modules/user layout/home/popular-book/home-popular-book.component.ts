@@ -7,9 +7,6 @@ import { HomeService } from 'src/app/services/home.service'
   styleUrls: ['./home-popular-book.component.css']
 })
 export class HomePopularBookComponent implements OnInit {
-  // row1:string[] = ["assets/user/home/books/book1.jpeg" , "assets/user/home/books/book2.jpeg" , "assets/user/home/books/book3.jpeg" , "assets/user/home/books/book4.jpeg"]
-  // row2:string[] = ["assets/user/home/books/book5.jpeg" , "assets/user/home/books/book6.jpeg" , "assets/user/home/books/book7.jpeg" , "assets/user/home/books/book8.jpeg"]
-  // popularbooks:string[][] = [ this.row1 , this.row2 ];
 
   row1:string[] = []
   row2:string[] = []
@@ -33,13 +30,13 @@ export class HomePopularBookComponent implements OnInit {
     .subscribe((response:any)=>{
       home = response.body.books;
       console.log(home)
-      for(let i = 0 ; i < 4 ; i++)
+      for(let i = 0; i < home.length && i < 4; i++)
       {
         this.row1.push(home[i].bookImage)
         this.bookNameRow1.push(home[i].bookName)
         this.bookAuthorRow1.push(home[i].bookAuthor)
       }
-      for(let i = 4 ; i < 8 ; i++)
+      for(let i = 4; i < home.length && i < 8; i++)
       {
         this.row2.push(home[i].bookImage)
         this.bookNameRow2.push(home[i].bookName)
