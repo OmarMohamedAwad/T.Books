@@ -36,7 +36,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Router } from '@angular/router';
 import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
-import { LoginRegisterComponent } from './modules/user layout/login-register/login-register.component';
+import { LoginRegisterComponent } from './modules/user layout/access/login-register.component';
 import { TermsComponent } from './modules/user layout/terms/terms.component';
 import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
 import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
@@ -61,10 +61,15 @@ import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-lo
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
 
+
 const routes:Routes = [
   {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
+  {path:'book', component:UserBookIndexComponent  },
+  {path:'book/:id', component:BookDetComponent },
+  
+
   {path:'admin/category',component:CategoryIndexComponent},
   {path:'admin/category/store',component:CategoryStoreComponent},
   {path:'admin/dashboard',component:DashboardComponent},
@@ -73,6 +78,10 @@ const routes:Routes = [
   {path:'*',component:NotFoundComponent}
 ]
 
+
+// const appRoutes:Routes=[
+//   {path:"",redirectTo:"",pathMatch:"full"},
+// ]
 
 @NgModule({
   declarations: [

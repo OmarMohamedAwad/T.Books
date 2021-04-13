@@ -74,7 +74,9 @@ export class BookUpdateComponent implements OnInit, OnChanges {
     category:"",
     author:"",
     categoryName:"",
-    authorName:""
+    authorName:"",
+    bookReviews:[],
+    bookRatings:[]
   };
 
   @Input('authorsInfo') authors: any;

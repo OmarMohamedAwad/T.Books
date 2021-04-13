@@ -5,6 +5,8 @@ export interface Book {
   image: string,
   category: any,
   author: any,
-  categoryName: string,
-  authorName: string
+  categoryName: string, 
+  authorName: string,
+  bookReviews:Array<any>,
+  bookRatings:Array<any>
 }
