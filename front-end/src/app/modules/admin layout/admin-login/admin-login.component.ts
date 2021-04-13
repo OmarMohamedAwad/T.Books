@@ -41,11 +41,13 @@ export class AdminLoginComponent implements OnInit {
   }
 
   login() {
+    console.log(this.myForm.controls.adminName.value,this.myForm.controls.adminPassword.value);
     this.myService.postAdmin({
       adminName: this.myForm.controls.adminName.value,
       adminPassword: this.myForm.controls.adminPassword.value
     })
       .subscribe((data) => {
+        console.log(data);
         this.tokens = data;
         try {
           if (this.tokens.token.accessToken != undefined) {

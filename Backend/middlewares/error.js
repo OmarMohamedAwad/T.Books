@@ -5,6 +5,7 @@ const ResponseCode = require('../response-codes');
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
 
+  console.log(error);
   error.message = err.message;
 
   let errorName = err.name;

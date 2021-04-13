@@ -14,7 +14,7 @@
             <input formControlName="name" type="text" class="form-control" id="first-name" placeholder="update Category Name">
           </div>
 
-         
+
 
           <div class="field">
             <label for="image" class="form-label">Category Image</label>
@@ -22,7 +22,7 @@
           </div>
 
           <div class="actions text-center">
-            <button type="button" class="btn btn-secondary w-25 m-1" data-bs-dismiss="modal">Close</button>
+            <button type="button" #closebutton class="btn btn-secondary w-25 m-1" data-bs-dismiss="modal">Close</button>
             <button (click)="updateCategory()" type="submit" class="btn btn-danger w-25 m-1" >Update Category</button>
           </div>
         </form>
