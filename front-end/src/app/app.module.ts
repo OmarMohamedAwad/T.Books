@@ -63,7 +63,8 @@ import { ConcateNamePipe } from './pipes/concate-name.pipe';
 
 
 const routes:Routes = [
-  {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
+  // {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
+  {path:'',component:HomeAllComponent},
   {path:'admin/author',component:IndexComponent},
   {path:'admin/author/store',component:StoreComponent},
   {path:'book', component:UserBookIndexComponent  },
