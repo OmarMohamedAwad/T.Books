@@ -35,21 +35,21 @@ authorShcema.index({
 
 
 
-authorShcema.pre('deleteOne',async function(){
+authorShcema.pre('deleteOne',async function(next){
     const BookModel = require('../../book/models/Book')
     try
     {
         const deletedAuthor = await Author.findById(this._conditions._id)
         for (const index in deletedAuthor.authorBooks)
         {
-            //console.log(deletedAuthor.authorBooks[index])
-
-            await BookModel.deleteOne({_id: index})
+            await BookModel.deleteOne({_id: index._id})
         }
+        next()
 
     }
     catch(e)
     {
+        console.log(e);
         next(new Error("Deleting books failed"))
     }
 })

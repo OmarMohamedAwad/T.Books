@@ -78,6 +78,7 @@ async function destroy(request, response, next) {
             message: ResponseMessage.DELETE_MESSAGE
         });
     }catch(error) {
+        console.log(error);
         next(ResponseCode.SERVER_ERROR)
     }
 }

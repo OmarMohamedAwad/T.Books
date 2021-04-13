@@ -36,8 +36,8 @@ export class BookIndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getBooks();
-    // this.getAuthors();
-    // this.getCategories();
+    this.getAuthors();
+    this.getCategories();
   }
 
   getAuthors(){
