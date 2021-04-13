@@ -34,11 +34,9 @@ export class CategoryDeleteComponent implements OnInit {
   }
 
   deleteCategory(){
-    this._categoryService.categoryDelete(this.deletedCategory).subscribe((res)=>{
+    this._categoryService.categoryDelete(this.deletedCategory.id).subscribe((res)=>{
       console.log(res);
       if(res.message=="Deleted Correctly"){
-        //$("#deleteCategory").model('hide');
-        //this._categoryService.categoryIndex();
         this.closebutton.nativeElement.click();
         this.refreshCategories.emit()
         console.log("deleted")

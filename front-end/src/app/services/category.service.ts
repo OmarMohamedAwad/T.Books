@@ -28,7 +28,8 @@ export class CategoryService {
   }
 
   categoryDelete(id: any): Observable<any> {
-    return this._HttpClient.delete(`${this.baseUrl}/${id}`);
+    console.log(id);
+    return this._HttpClient.delete(`${this.baseUrl}/${id.toString()}`);
   }
 
   categoryUpdate(id: string, cat: Category) {
