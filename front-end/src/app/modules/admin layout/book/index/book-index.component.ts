@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, OnDestroy, OnChanges} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy, ElementRef} from '@angular/core';
 import {BookServiceService} from '../services/book-service.service';
 import {Book} from '../models/book';
 import {AuthorsServiceService} from '../../../../services/authors-service.service';
@@ -10,13 +10,13 @@ import {CategoryService} from '../../../../services/category.service';
   styleUrls: ['./book-index.component.css','../../shared/style/dashboard.css']
 })
 export class BookIndexComponent implements OnInit, OnDestroy {
-
+  @ViewChild('search_box') search_box!: ElementRef<HTMLInputElement>;
   subscriber:any;
   addFlag: boolean;
-  books : Array<Book> = []
   authors : Array<Book> = []
   categories : Array<Book> = []
-
+  keywords:string = ""
+  allBooks:Array<Book> = []
   clickedBook: Book = {
       id:"",
       name:"",
@@ -40,7 +40,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     // this.getCategories();
   }
 
-  getAuthors(){
+   getAuthors(){
     this.subscriber = this.authorService.getAuthors()
       .subscribe((response:any)=>{
           console.log(response.body);
@@ -55,7 +55,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   getBooks(){
     this.subscriber = this.bookService.index()
       .subscribe((response:any)=>{
-          this.books = response.body
+          this.books=this.allBooks = response.body
           console.log(response.body);
         },
         (err)=>{
@@ -63,7 +63,17 @@ export class BookIndexComponent implements OnInit, OnDestroy {
         }
       )
   }
-
+  books:any=this.allBooks;
+  captureSearchContent(){
+    this.keywords = this.search_box.nativeElement.value;
+    this.filterList(this.keywords);
+  }
+  filterList(keywords:string){
+    console.log(keywords)
+    this.books= this.allBooks.filter((item)=>{
+      return item.name.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())
+    })
+  }
   getCategories(){
     this.subscriber = this.categoryService.categoryIndex()
       .subscribe((response)=>{
