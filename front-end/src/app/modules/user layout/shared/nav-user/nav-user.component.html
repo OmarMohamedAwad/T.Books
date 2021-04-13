@@ -14,12 +14,27 @@
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item d-lg-none d-md-block d-sm-block"><a class="nav-link" href="#categories">Login</a></li>
                     <li class="nav-item d-lg-none d-md-block d-sm-block"><a class="nav-link" href="#about">Register</a></li>
-                </ul> 
-                <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5">
-                    <a href="#">Login</a>
-                    <pre class="bg-transparent border-0 mt-3">  |  </pre>
-                    <a href="#">Register</a>
+                </ul>
+                
+                <!-- <p *ngIf="nameStatus;else falseBlock " id="green"></p>
+                <ng-template #falseBlock >
+                    <p id="red">
+                    Name must has at most 8 characters only 
+                    </p>
+                </ng-template> -->
+
+                <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5"
+                    *ngIf="userIsLogedIn; else falseBlock " >
+                    <a href="" (click)="userLogout()">Logout</a>
                 </span>
+                <ng-template #falseBlock >
+                    <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5">
+                        <a href="#">Login</a>
+                        <pre class="bg-transparent border-0 mt-3">  |  </pre>
+                        <a href="#">Register</a>
+                    </span>
+                </ng-template>
+                
             </div>
         </div>
         <button class="navbar-toggler" type="button" (click)="toggle_list($event)" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation" #toggle_btn>
