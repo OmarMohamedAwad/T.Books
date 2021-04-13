@@ -11,6 +11,7 @@ export class AuthorsListForAdminComponent implements OnInit {
 
   constructor(private myService:AuthorsServiceService) { }
   authors:Array<Author> = []
+  isLoad= false;
 
   mAuthor:Author =
   {
@@ -27,8 +28,8 @@ export class AuthorsListForAdminComponent implements OnInit {
   ngOnInit(): void {
     this.subscriber = this.myService.getAuthors()
     .subscribe((response:any)=>{
-      console.log(response.body)
-      this.authors = response.body
+        this.authors = response.body
+        this.isLoad = true
     },
     (err)=>{
       console.log(err)

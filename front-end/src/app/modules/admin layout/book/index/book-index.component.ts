@@ -11,6 +11,7 @@ import {CategoryService} from '../../../../services/category.service';
 })
 export class BookIndexComponent implements OnInit, OnDestroy {
 
+  isLoad= false;
   subscriber:any;
   addFlag: boolean;
   books : Array<Book> = []
@@ -56,7 +57,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     this.subscriber = this.bookService.index()
       .subscribe((response:any)=>{
           this.books = response.body
-          console.log(response.body);
+          this.isLoad = true
         },
         (err)=>{
           console.log(err)

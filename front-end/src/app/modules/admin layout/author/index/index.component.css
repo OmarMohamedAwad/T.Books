@@ -1,5 +1,6 @@
 .container {
   padding-left: 15%;
+  min-height: 90vh;
 }
 
 button:focus,
@@ -12,7 +13,7 @@ svg:focus {
 /*Top Section*/
 .top-part {
   padding-top: 10%;
-  height: 200px;
+  height: 240px;
 }
 
 .top-part h2 {
