@@ -40,7 +40,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     // this.getCategories();
   }
 
-   getAuthors(){
+  getAuthors(){
     this.subscriber = this.authorService.getAuthors()
       .subscribe((response:any)=>{
           console.log(response.body);
@@ -55,8 +55,33 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   getBooks(){
     this.subscriber = this.bookService.index()
       .subscribe((response:any)=>{
-          this.books=this.allBooks = response.body
-          console.log(response.body);
+          /*this.books=this.allBooks = [{
+            id:"605cdd9d22d5b83d40ada5e5",
+            name:"mybook",
+            description:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            image:"kk.png",
+            category:"605cd2adc5c1be45441514e6",
+            author:"605cc012292ba3558c650ada",
+            categoryName:"",
+            authorName:"",      
+            bookReviews:[],
+            bookRatings:[]
+        },
+        {
+          id:"605cvd9d22d5b83d40ada5e5",
+          name:"ag",
+          description:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          image:"kk.png",
+          category:"605cd2adc5c1be45441514e6",
+          author:"605cc012292ba3558c650ada",
+          categoryName:"",
+          authorName:"",    
+          bookReviews:[],
+          bookRatings:[]
+      }]
+      */
+          this.books=this.allBooks =response.body
+          //console.log(response.body);
         },
         (err)=>{
           console.log(err)
