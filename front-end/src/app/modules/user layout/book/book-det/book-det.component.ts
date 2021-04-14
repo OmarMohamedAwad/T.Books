@@ -6,9 +6,6 @@ import {BookServiceService} from '../../../admin layout/book/services/book-servi
 import { ReviewsService } from 'src/app/services/reviews.service';
 import { Router } from '@angular/router';
 
-
-
-
 @Component({
   selector: 'app-book-det',
   templateUrl: './book-det.component.html',
@@ -25,10 +22,6 @@ import { Router } from '@angular/router';
 })
 
 export class BookDetComponent implements OnInit {
-
-  
-
-
   selected:any = 'option2';
 
   user_img="assets/user/author/author-1.jpg";
@@ -37,12 +30,9 @@ export class BookDetComponent implements OnInit {
   avgRate:number = 3.1;
 
   favsNum:number =215;
-  userRate=-1;
+ // userRate=0;
   userReview:string="";
 
-  
-  
-  
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService,
               private myActivatedRoute:ActivatedRoute, private router: Router) { }
 
@@ -68,7 +58,9 @@ export class BookDetComponent implements OnInit {
   
 
 
-
+    setRate(e:any){
+      console.log(e);
+    }
   reviews:Array<{reviewBody: string,
   reviewedBook: string,
   reviwer: string,

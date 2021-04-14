@@ -1,0 +1,50 @@
+#ratingModal{
+    width: 200px;
+}
+#graph {
+    width: 500px;
+    height: 500px;
+    
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #e4e4e4;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.34);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.34);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.34);
+  }
+  
+  
+  .progressBar {
+    width: 90%;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+  }
+  .progressTrack {
+    width: 80%;
+    height: 40px;
+    
+    border-radius: 10px;
+    margin-top: 10px;
+    -webkit-box-shadow: inset 0px 0px 10px 5px rgba(0,0,0,0.4);
+  -moz-box-shadow: inset 0px 0px 10px 5px rgba(0,0,0,0.4);
+  box-shadow: inset 0px 0px 10px 5px rgba(0,0,0,0.4);
+  }
+  
+  .progressFill {
+    height: 40px;
+    width: 0%;
+    border-radius: 10px 10px 10px 10px;
+  background: linear-gradient(0deg, #CE3241 0%, #DE3241 52%, #CE3241 100%);
+    
+    text-align: center;
+    line-height: 40px;
+    transition: all 3s ease;
+}  

@@ -60,6 +60,7 @@ import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
+import { RatingDetComponent } from './modules/user layout/book/rating-det/rating-det.component';
 
 
 const routes:Routes = [
@@ -140,7 +141,8 @@ const routes:Routes = [
     TermsComponent,
     NotFoundComponent,
     ConcateNamePipe,
-    AdminLoginComponent
+    AdminLoginComponent,
+    RatingDetComponent
   ],
   exports:[
     ConcateNamePipe
