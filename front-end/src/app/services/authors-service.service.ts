@@ -20,19 +20,13 @@ export class AuthorsServiceService {
   getAuthors() {
     //fetch list of authors
     return this.authorClient.get(this.baseURL,{
-      observe:'response',
-      headers: {
-        "Authorization": "Bearer " + this.accessToken
-      }
+      observe:'response'
     })
   }
 
   pagination(page:number){
     return this.authorClient.get(`${this.baseURL}/pages?page=${page}`,{
-      observe:"response",
-      headers: {
-        "Authorization": "Bearer " + this.accessToken
-      }
+      observe:"response"
     });
   }
 
@@ -55,11 +49,7 @@ export class AuthorsServiceService {
 
   getAuthorById(id: number) {
     //fetch authors by id
-    return this.authorClient.get(`${this.baseURL}/${id}`,{
-      headers: {
-        "Authorization": "Bearer " + this.accessToken
-      }
-    })
+    return this.authorClient.get(`${this.baseURL}/${id}`)
   }
 
   updateAuthor(id:string, author:Author)

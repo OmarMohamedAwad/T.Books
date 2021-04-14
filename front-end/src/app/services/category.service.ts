@@ -21,11 +21,7 @@ export class CategoryService {
   }
 
   categoryIndex(): Observable<any> {
-    return this._HttpClient.get(this.baseUrl,{
-      headers: {
-        "Authorization": "Bearer " + this.accessToken
-      }
-    });
+    return this._HttpClient.get(this.baseUrl);
   }
 
   categoryStore(data: JSON): Observable<any> {

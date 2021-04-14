@@ -17,28 +17,19 @@ export class BookServiceService {
 
   index(){
     return this.client.get(this.BASE_URL,{
-      observe:"response",
-      headers: {
-        "Authorization": "Bearer " + this.accessToken
-      }
+      observe:"response"
     });
   }
 
   pagination(page: number = 1){
     return this.client.get(`${this.BASE_URL}/pages?page=${page}`,{
-      observe:"response",
-      headers: {
-        "Authorization": "Bearer " + this.accessToken
-      }
+      observe:"response"
     });
   }
 
   show(id: string){
     return this.client.get(`${this.BASE_URL}/${id}`,{
-      observe:"response",
-      headers: {
-        "Authorization": "Bearer " + this.accessToken
-      }
+      observe:"response"
     });
   }
 
