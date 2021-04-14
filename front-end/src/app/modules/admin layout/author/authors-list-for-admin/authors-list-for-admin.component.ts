@@ -44,7 +44,7 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
     console.log(changes)
     this.filterList(this.keywords)
   }
-  authors:any = this.allAuthors
+  // authors:any = this.allAuthors
   filterList(keywords:string){
     this.authors= this.allAuthors.filter((item)=>{
       return item.name.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())

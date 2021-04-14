@@ -1,6 +1,6 @@
 <app-navbar-admin></app-navbar-admin>
 <app-admin-sidebar></app-admin-sidebar>
-<div class="content-page h-100">
+<div class="content-page">
 <section class="author">
   <div class="container">
     <div class="top-part">
@@ -11,7 +11,7 @@
       <div class="author-search">
         <div class="input-group w-50 m-auto">
           <div class="form-outline w-75 ">
-            <input type="search" class="form-control" placeholder="Search" #search_box/>
+            <input type="search" class="form-control" placeholder="Search" [(ngModel)]="keywords" #search_box/>
           </div>
           <button id="search-button" (click)="captureSearchContent()" type="button" class="btn search-btn">
             <i class="fas fa-search"></i>

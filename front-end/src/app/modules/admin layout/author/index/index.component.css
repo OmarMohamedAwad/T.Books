@@ -1,6 +1,10 @@
+
+.content-page {
+  min-height: 100vh;
+}
+
 .container {
   padding-left: 15%;
-  min-height: 90vh;
 }
 
 button:focus,
