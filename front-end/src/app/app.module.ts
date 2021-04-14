@@ -36,7 +36,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Router } from '@angular/router';
 import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
-import { LoginRegisterComponent } from './modules/user layout/login-register/login-register.component';
+import { LoginRegisterComponent } from './modules/user layout/access/login-register.component';
 import { TermsComponent } from './modules/user layout/terms/terms.component';
 import { NavUserComponent } from './modules/user layout/shared/nav-user/nav-user.component';
 import { BookDetComponent } from './modules/user layout/book/book-det/book-det.component';
@@ -60,19 +60,12 @@ import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
+import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
 
-const routes:Routes = [
-  {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
-  {path:'admin/author',component:IndexComponent},
-  {path:'admin/author/store',component:StoreComponent},
-  {path:'admin/category',component:CategoryIndexComponent},
-  {path:'admin/category/store',component:CategoryStoreComponent},
-  {path:'admin/dashboard',component:DashboardComponent},
-  {path:'admin/book',component:AdminMainBookComponent},
-  {path:'admin/setting',component:SettingComponent},
-  {path:'*',component:NotFoundComponent}
-]
 
+// const appRoutes:Routes=[
+//   {path:"",redirectTo:"",pathMatch:"full"},
+// ]
 
 @NgModule({
   declarations: [
@@ -144,7 +137,7 @@ const routes:Routes = [
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
-    RouterModule.forRoot(routes)
+    AdminRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

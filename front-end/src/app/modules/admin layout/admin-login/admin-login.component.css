@@ -1,18 +1,23 @@
+.content {
+  padding-top: 20vh;
+  background-image: url("/assets/admin/login/back.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
 
 .form-modal{
     position:relative;
     width:50%;
-    height:60vh;
-    margin-top:15vh;
+    height:420px;
     font-size: 14px;
     left:50%;
     transform:translateX(-50%);
     background:rgba(255, 255, 255, 0.85);
     border-radius: 20px;
-    /*border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    */box-shadow:0 5px 25px 0px rgb(0, 0, 0)
+    box-shadow:0 5px 15px 0px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
 .form-modal button{
@@ -46,15 +51,8 @@
     background:#222;
 }
 
-.form-toggle{
-    position: relative;
-    width:100%;
-    height:auto;
-}
-
 .form-toggle button{
     width:100%;
-    /* float:left; */
     padding:10px;
     margin-bottom:20px;
     border:none;
@@ -62,8 +60,6 @@
     font-weight: bold;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
-    cursor: pointer;
-    
 }
 
 .form-toggle button:nth-child(1), .form-toggle button:nth-child(2){
@@ -79,13 +75,9 @@
 .form-modal form{
     position: relative;
     width:90%;
-    height:70vh;
     left:50%;
-    transform:translateX(-50%);  
+    transform:translateX(-50%);
 }
-
-
-
 
 .form-modal input {
     position: relative;
@@ -110,9 +102,8 @@
     color:rgb(99, 98, 98);
 }
 
-
 .form-modal p{
-    font: 18px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -126,12 +117,11 @@
     color:#222;
 }
 
-
 .form-modal i {
     position: absolute;
     left:10%;
     top:50%;
-    transform:translateX(-10%) translateY(-50%); 
+    transform:translateX(-10%) translateY(-50%);
     align-self: center;
 }
 
@@ -200,4 +190,40 @@ img:hover{
     width:100%;
     margin-top:0.5em;
     padding:0.6em;
+}
+
+html {
+  height: 100%;
+
+  background-color: indianred;
+
+  background-image:
+    linear-gradient(white,white),
+    linear-gradient(white,white),
+    linear-gradient(white,white),
+    linear-gradient(white,white),
+    linear-gradient(white,white),
+    linear-gradient(white,white),
+    linear-gradient(white,white);
+
+  background-position:
+    calc(50% - 30px) 50%,
+    calc(50% - 20px) 50%,
+    calc(50% - 10px) 50%,
+    50% 50%,
+    calc(50% + 10px) 50%,
+    calc(50% + 20px) 50%,
+    calc(50% + 30px) 50%;
+
+  background-size:
+    5px 10px,
+    5px 10px,
+    5px 10px,
+    5px 10px,
+    5px 10px,
+    5px 10px,
+    5px 10px;
+  background-repeat: no-repeat;
+
+  animation: l-bars 1s linear infinite alternate;
 }

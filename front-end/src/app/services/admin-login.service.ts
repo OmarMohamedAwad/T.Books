@@ -14,4 +14,9 @@ export class AdminLoginService {
   {
     return this.adminClient.post(`${this.baseURL}/admin`,admin)
   }
+
+  logoutAdmin(token:{refreshToken:any})
+  {
+    return this.adminClient.post(`${this.baseURL}/adminLogout`,token)
+  }
 }

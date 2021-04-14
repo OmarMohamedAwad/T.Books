@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../../../services/category.service';
+import {Component, OnInit} from '@angular/core';
+import {CategoryService} from '../../../../services/category.service';
+import {Category} from '../models/category';
 
 @Component({
   selector: 'app-category-index',
@@ -7,29 +8,30 @@ import { CategoryService } from '../../../../services/category.service';
   styleUrls: ['./category-index.component.css']
 })
 export class CategoryIndexComponent implements OnInit {
- 
-    categories:any;
-    isLoad=false;
-    categoryId:any=0;
-    public data = this.categoryId; 
-   
-    constructor(private _categoryService:CategoryService) 
-    { 
-      this.getAllCategories();
-    }
-  getAllCategories(){
-    this._categoryService.categoryIndex().subscribe((res)=>{
-      this.categories=res;
-      this.isLoad=true;
-      console.log(this.categories)
-    })
+
+  categories: Array<Category> = [];
+  isLoad = false;
+  categoryId: any = 0;
+  public data = this.categoryId;
+
+  constructor(private _categoryService: CategoryService) {
+    this.getAllCategories();
   }
+
+  getAllCategories() {
+    this._categoryService.categoryIndex().subscribe((res) => {
+      this.categories = res;
+      this.isLoad = true;
+    });
+  }
+
   ngOnInit(): void {
   }
-  sendID(id:any){
-    //this.categoryId=id;
+
+  sendID(id: any) {
     this._categoryService.sendID(id);
-    console.log("id from index"+id);
   }
-  
+
+  deleteCategory(){this.getAllCategories()}
+  updateCategory(){this.getAllCategories()}
 }

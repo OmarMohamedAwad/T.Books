@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Book} from '../models/book';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookServiceService {
+export class ReviewsService {
 
-  constructor(private client:HttpClient) {
+  constructor(private client:HttpClient) { }
 
-  }
-
-  readonly BASE_URL: string = "http://localhost:3000/book";
+  readonly BASE_URL: string = "http://localhost:3000/review";
 
   index(){
     return this.client.get(this.BASE_URL,{observe:"response"});
@@ -22,17 +19,17 @@ export class BookServiceService {
     return this.client.get(`${this.BASE_URL}/pages?page=${page}`,{observe:"response"});
   }
 
-  show(id: string){
+  show(id: any){
     return this.client.get(`${this.BASE_URL}/${id}`,{observe:"response"});
   }
 
-  store(book: Book){
-    console.log(book);
-    return this.client.post(this.BASE_URL,book);
+  store(review: {reviwer:string, book:string, body:string}){
+    // console.log(review);
+    return this.client.post(this.BASE_URL,review);
   }
 
-  update(book: Book){
-    return this.client.patch(`${this.BASE_URL}/${book.id}`,book);
+  update(review: {id:string, reviwer:string, reviewedBook:any, reviewBody:string}){
+    return this.client.patch(`${this.BASE_URL}/${review.id}`,review);
   }
 
   destroy(id: string){

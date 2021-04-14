@@ -84,7 +84,7 @@ async function store(request, response, next) {
         })
         await newUser.save();
         response.status(200)
-        .json(newUser);
+        .json(userPresenter.present(newUser));
     } catch (err) {
        next(err);
     }

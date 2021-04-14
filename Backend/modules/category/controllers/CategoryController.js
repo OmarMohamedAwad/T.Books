@@ -133,7 +133,9 @@ async function update(req, res, next) {
 
 
 async function destroy(req, res, next) {
-    const {id} = req.params
+    console.log(req.params.id);
+    const { id } = req.params
+    console.log(id);
     try {
         await Category.deleteOne({_id: id})
         res.json({
