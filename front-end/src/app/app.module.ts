@@ -61,15 +61,17 @@ import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-lo
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
 import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
+import { UserRoutingModule } from './modules/user layout/user-routing/user-routing.module';
+
 import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
 
 
- const appRoutes:Routes=[
-   {path:"",redirectTo:"",pathMatch:"full"},
-   {path:"login",component:LoginRegisterComponent},
-   //we can put guard in all url which we neeeeed to protect by CanActivate
-   {path:"user/home",canActivate:[UserAuthGaurdGuard],component:HomeAllComponent}
- ]
+//  const appRoutes:Routes=[
+//    {path:"",redirectTo:"",pathMatch:"full"},
+//    {path:"login",component:LoginRegisterComponent},
+//    //we can put guard in all url which we neeeeed to protect by CanActivate
+//    {path:"user/home",canActivate:[UserAuthGaurdGuard],component:HomeAllComponent}
+//  ]
 
 @NgModule({
   declarations: [
@@ -141,7 +143,8 @@ import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     NgbModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    UserRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
