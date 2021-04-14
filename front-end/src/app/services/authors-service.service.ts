@@ -11,6 +11,7 @@ export class AuthorsServiceService {
   authorID$ = this._authorIdSource.asObservable();
   constructor(private authorClient: HttpClient) { }
   readonly baseURL: string = "http://localhost:3000/author";
+  accessToken = sessionStorage.getItem('accessToken');
 
   sendID(id:String){
     this._authorIdSource.next(id);
@@ -18,30 +19,55 @@ export class AuthorsServiceService {
 
   getAuthors() {
     //fetch list of authors
-    return this.authorClient.get(this.baseURL,{observe:'response'})
+    return this.authorClient.get(this.baseURL,{
+      observe:'response',
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    })
   }
 
   pagination(page:number){
-    return this.authorClient.get(`${this.baseURL}/pages?page=${page}`,{observe:"response"});
+    return this.authorClient.get(`${this.baseURL}/pages?page=${page}`,{
+      observe:"response",
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    });
   }
 
   postAuthor(author:Author){
-    return this.authorClient.post(this.baseURL,author)
+    return this.authorClient.post(this.baseURL,author,{
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    })
   }
 
   deleteAuthor(id:string)
   {
-    return this.authorClient.delete(`${this.baseURL}/${id}`)
+    return this.authorClient.delete(`${this.baseURL}/${id}`, {
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    })
   }
 
   getAuthorById(id: number) {
     //fetch authors by id
-
-    return this.authorClient.get(`${this.baseURL}/${id}`)
+    return this.authorClient.get(`${this.baseURL}/${id}`,{
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    })
   }
 
   updateAuthor(id:string, author:Author)
     {
-      return this.authorClient.patch(`${this.baseURL}/${id}`,author);
+      return this.authorClient.patch(`${this.baseURL}/${id}`,author, {
+        headers: {
+          "Authorization": "Bearer " + this.accessToken
+        }
+      });
     }
 }
