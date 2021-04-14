@@ -108,8 +108,8 @@ export class BookDetComponent implements OnInit {
     {
       console.log(this.text)
       console.log(this.book.id)
-      // this.reviewerId = sessionStorage.getItem("accessToken");
-      this.reviewSubscriber = this.reviewsService.store({reviwer:"605a1a4922c6ca862b8658d6", book:this.book.id, body:this.text})
+      this.reviewerId = sessionStorage.getItem("userId");
+      this.reviewSubscriber = this.reviewsService.store({reviwer:this.reviewerId, book:this.book.id, body:this.text})
       .subscribe((response:any)=>
         {
           console.log(response)
@@ -129,8 +129,8 @@ export class BookDetComponent implements OnInit {
   
 
   ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
-    this.reviewSubscriber.unsubscribe();
+    // this.subscriber.unsubscribe();
+    // this.reviewSubscriber.unsubscribe();
   }
 
   

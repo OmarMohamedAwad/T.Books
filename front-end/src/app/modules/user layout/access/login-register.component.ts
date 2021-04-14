@@ -79,7 +79,7 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
 
   enterSite()
   {
-    this.router.navigate(['/admin/author']);
+    this.router.navigate(['/profile']);
   }
 
   loginForm = new FormGroup({
@@ -91,11 +91,11 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
     this.subscriber =this.userService.login({userName: this.loginForm.controls.userName.value, password: this.loginForm.controls.password.value})
       .subscribe((response:any) => {
         this.userAccessToken = response.accessToken;
-        this.userAccessToken = response.refreshToken;
+        this.userRefreshToken = response.refreshToken;
         this.user = response.user;
         try {
           if (this.userAccessToken != undefined) {
-            this.setSessionData(this.userAccessToken,this.userAccessToken,this.user)
+            this.setSessionData(this.userAccessToken,this.userRefreshToken,this.user)
             this.enterSite();
           }else {
             this.userPassStatus = true
@@ -132,11 +132,11 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
       this.subscriber =this.userService.register(this.user)
         .subscribe((response:any) => {
           this.userAccessToken = response.accessToken;
-          this.userAccessToken = response.refreshToken;
+          this.userRefreshToken = response.refreshToken;
           this.user = response.user;
           try {
             if (this.userAccessToken != undefined) {
-              this.setSessionData(this.userAccessToken,this.userAccessToken,this.user)
+              this.setSessionData(this.userAccessToken,this.userRefreshToken,this.user)
               this.enterSite();
             }
           } catch {

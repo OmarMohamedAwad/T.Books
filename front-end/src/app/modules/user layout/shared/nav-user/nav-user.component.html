@@ -7,21 +7,21 @@
             </div>
             <div class="collapse navbar-collapse fixed-top pt-1" id="myNavbar" #collapseList>
                 <ul class="navbar-nav col-6 ml-5" >
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#books">Books</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#authors">Authors</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#categories">categories</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item d-lg-none d-md-block d-sm-block"><a class="nav-link" href="#categories">Login</a></li>
-                    <li class="nav-item d-lg-none d-md-block d-sm-block"><a class="nav-link" href="#about">Register</a></li>
-                </ul>
+                    <li class="nav-item"><a class="nav-link" routerLink="/home" href="">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/books" href="">Books</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/authors" href="">Authors</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/categories" href="">categories</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/aboutUs" href="">About</a></li>
+                                            
+                    <li *ngIf="userIsLogedIn; else falseBlock1 " 
+                        class="nav-item d-lg-none d-md-block d-sm-block">
+                        <a class="nav-link" href="" (click)="userLogout()">Logout</a></li>
+                    <ng-template #falseBlock1 >
+                        <li class="nav-item d-lg-none d-md-block d-sm-block"><a class="nav-link" href="" routerLink="/login">Login</a></li>
+                        <li class="nav-item d-lg-none d-md-block d-sm-block"><a class="nav-link" href="" routerLink="/login">Register</a></li>
+                    </ng-template>
 
-                <!-- <p *ngIf="nameStatus;else falseBlock " id="green"></p>
-                <ng-template #falseBlock >
-                    <p id="red">
-                    Name must has at most 8 characters only
-                    </p>
-                </ng-template> -->
+                </ul>
 
                 <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5"
                     *ngIf="userIsLogedIn; else falseBlock " >
@@ -30,9 +30,9 @@
                 </span>
                 <ng-template #falseBlock >
                     <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5">
-                        <a href="#">Login</a>
+                        <a href="" routerLink="/login">Login</a>
                         <pre class="bg-transparent border-0 mt-3">  |  </pre>
-                        <a href="#">Register</a>
+                        <a href="" routerLink="/login">Register</a>
                     </span>
                 </ng-template>
 

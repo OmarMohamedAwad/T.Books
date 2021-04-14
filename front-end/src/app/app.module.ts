@@ -61,11 +61,10 @@ import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-lo
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
 import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
+import { UserRoutingModule } from './modules/user layout/user-routing/user-routing.module';
 
 
-// const appRoutes:Routes=[
-//   {path:"",redirectTo:"",pathMatch:"full"},
-// ]
+
 
 @NgModule({
   declarations: [
@@ -137,7 +136,8 @@ import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/a
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    UserRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
