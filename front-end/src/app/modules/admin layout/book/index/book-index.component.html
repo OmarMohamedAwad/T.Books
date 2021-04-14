@@ -75,9 +75,11 @@
                       [categoriesInfo]="categories"></app-book-store>
     </ng-template>
   </div>
+
 <!-- // Delete Modal -->
 <app-book-delete [bookInfo]="clickedBook" (deletedBook)="deleteBook($event)"></app-book-delete>
 
 <!-- // Update Modal -->
 <app-book-update [bookInfo]="clickedBook" (updatedBook)="updateBook($event)" [authorsInfo]="authors"
                  [categoriesInfo]="categories"></app-book-update>
+
