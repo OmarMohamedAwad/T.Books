@@ -28,7 +28,7 @@ reviewShcema.post('save' , async function (next) {
     await User.updateOne({ _id: this.reviwer } , { $push: { userReviews: this._id } });
 })
 
-reviewShcema.pre('deleteOne',async function(){
+reviewShcema.pre('deleteOne',async function(next){
     //review-book review-user
     const Book = require('../../book/models/Book')
     //review-book review-user
@@ -40,6 +40,7 @@ reviewShcema.pre('deleteOne',async function(){
         console.log("removed the review from user correctly")
         await Book.updateOne({_id: deletedReview.reviewedBook} , {$pull: {bookReviews: this._conditions._id}})
         console.log("removed the review from book correctly")
+        next()
     }
     catch(e)
     {

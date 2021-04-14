@@ -18,6 +18,7 @@ async function adminAccessController(request, response, next) {
         }
 
         const match = await bcrypt.compare(accessRequest.adminPassword, admin.adminPassword);
+        console.log(match);
         if (!match) {
             return next("password is wrong");
         }
@@ -26,6 +27,7 @@ async function adminAccessController(request, response, next) {
         await Admin.findOneAndUpdate({ adminName: admin.adminName }, { refreshToken: token.refreshToken })
         response.status(200).json({ token });
     } catch (error) {
+        console.log(error);
         next("bcrypt error")
     }
 }
@@ -63,6 +65,7 @@ async function userAccessController(request, response, next) {
         //hossam
         await User.findOneAndUpdate({ userName: user.userName }, { refreshToken: tokenGeneration.refreshToken })
     } catch (error) {
+        console.log(error);
         next(500)
     }
 }

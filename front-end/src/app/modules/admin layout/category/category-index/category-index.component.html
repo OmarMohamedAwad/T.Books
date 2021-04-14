@@ -23,7 +23,7 @@
         </div>
         <!--this loader is be hidden when the data come with response -->
         <div *ngIf="!isLoad" class="row w-100">
-            <div class="col-md-12 text-center ">
+            <div class="col-md-12 text-center loader">
                 <i class="fas fa-spinner fa-spin fa-5x text-info"></i>
             </div>
         </div>
@@ -43,5 +43,5 @@
    </section>
 </div>
 
-<app-category-delete></app-category-delete>
-<app-category-update></app-category-update>
+<app-category-delete (refreshCategories)="deleteCategory()"></app-category-delete>
+<app-category-update (refreshCategories)="updateCategory()"></app-category-update>

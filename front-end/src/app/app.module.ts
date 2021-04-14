@@ -60,24 +60,7 @@ import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
-
-
-const routes:Routes = [
-  // {path:"",redirectTo:"admin/dashboard",pathMatch:"full"},
-  {path:'',component:HomeAllComponent},
-  {path:'admin/author',component:IndexComponent},
-  {path:'admin/author/store',component:StoreComponent},
-  {path:'book', component:UserBookIndexComponent  },
-  {path:'book/:id', component:BookDetComponent },
-  
-
-  {path:'admin/category',component:CategoryIndexComponent},
-  {path:'admin/category/store',component:CategoryStoreComponent},
-  {path:'admin/dashboard',component:DashboardComponent},
-  {path:'admin/book',component:AdminMainBookComponent},
-  {path:'admin/setting',component:SettingComponent},
-  {path:'*',component:NotFoundComponent}
-]
+import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
 
 
 // const appRoutes:Routes=[
@@ -154,7 +137,7 @@ const routes:Routes = [
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
-    RouterModule.forRoot(routes)
+    AdminRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
