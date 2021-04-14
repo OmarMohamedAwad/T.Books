@@ -81,7 +81,7 @@
     width:90%;
     height:70vh;
     left:50%;
-    transform:translateX(-50%);  
+    transform:translateX(-50%);
 }
 
 #login-form , #signup-form{
@@ -127,7 +127,7 @@
 
 
 .form-modal p{
-    font: 18px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -146,7 +146,7 @@
     position: absolute;
     left:10%;
     top:50%;
-    transform:translateX(-10%) translateY(-50%); 
+    transform:translateX(-10%) translateY(-50%);
     align-self: center;
 }
 
@@ -154,7 +154,7 @@
     color:#dd4b39;
 }
 
-.fa-facebook-official{
+.fa-facebook-square{
     color:#3b5998;
 }
 

@@ -93,7 +93,7 @@ export class UserCategoryBooksComponent implements OnInit {
         this.paginationPages = [1,2];
         break;
       default:
-        if(this.currentPage == 1)
+        if(this.currentPage == 1 || this.currentPage == 2)
           this.paginationPages = [1,2,3];
         else if (this.currentPage == this.maxPages)
           this.paginationPages = [this.maxPages - 2 , this.maxPages - 1 , this.maxPages];

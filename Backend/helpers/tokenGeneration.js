@@ -13,7 +13,7 @@ function tokenGeneration (message , role){
         token.accessToken =  jwt.sign(message, process.env.ADMIN_ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_EXPIRATION_DATE });
         token.refreshToken =  jwt.sign(message, process.env.ADMIN_REFRESH_TOKEN_SECRET , { expiresIn: process.env.REFRESH_EXPIRATION_DATE } );
     }
-    else if(type == Role.USER)
+    else if(role == Role.USER)
     {
         token.accessToken = jwt.sign(message, process.env.USER_ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_EXPIRATION_DATE });
         token.refreshToken = jwt.sign(message, process.env.USER_REFRESH_TOKEN_SECRET , { expiresIn: process.env.REFRESH_EXPIRATION_DATE } );

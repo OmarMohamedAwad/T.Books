@@ -9,18 +9,29 @@ import { UserProfileService } from '../services/user-profile.service'
 export class UserProfileSideComponent implements OnInit {
 
   subscriber: any;
+  userId:string = "6075b51aa7c3f52f7904ec06" /*"6075b7d5a7c3f52f7904ec0a"*/;
   selectedBooksType:string = "All";
+  userImage:string = "assets/user/profile/author-4.jpg";
+  userName:string = "";
 
   constructor(private userProfileService: UserProfileService) { }
 
-  selectBooksType(event:Event  , BooksType:string): void{
+  selectBooksType(event:Event , BooksType:string): void{
     console.log("hi");
     console.log(event);
     console.log(BooksType);
-    //this.selectedBooksTypeEmitter.emit(BooksType);
+    this.selectedBooksTypeEmitter.emit(BooksType);
   }
   ngOnInit(): void {
-    this.selectedBooksTypeEmitter.emit("All");
+    this.subscriber = this.userProfileService.getuserById(this.userId)
+    .subscribe((response:any)=>{
+      console.log(response)
+      this.userName = response.firstName;
+      
+    },
+    (err)=>{
+      console.log(err)
+    })
   }
   @Output() selectedBooksTypeEmitter:EventEmitter<string> = new EventEmitter()
 }

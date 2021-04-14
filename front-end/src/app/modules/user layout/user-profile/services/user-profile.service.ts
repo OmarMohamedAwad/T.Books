@@ -6,15 +6,29 @@ import { Injectable } from '@angular/core';
 })
 export class UserProfileService {
 
-  readonly baseURL: string = "http://localhost:3000/category";
+  readonly baseURL: string = "http://localhost:3000/users";
+  readonly rateURL: string = "http://localhost:3000/rating";
 
-  constructor(private categoryClient: HttpClient) { }
+  constructor(private userProfileClient: HttpClient) { }
 
-    getCategoryPage(type:string , page:number , book:string="") {
-      console.log(type , page , (book ==""))
+    getCategoryPage(userId:string , booktype:string , page:number , book:string="") {
+      console.log(booktype , page , (book ==""))
       if(book == "")
-        return this.categoryClient.get(`${this.baseURL}/pages?type=${type}&page=${page}`,{observe:'response'})
+        return this.userProfileClient.get(`${this.baseURL}/pages?userId=${userId}&booktype=${booktype}&page=${page}`,{observe:'response'})
       else
-        return this.categoryClient.get(`${this.baseURL}/pages?type=${type}&page=${page}&bookName=${book}`,{observe:'response'})
+        return this.userProfileClient.get(`${this.baseURL}/pages?userId=${userId}&booktype=${booktype}&page=${page}&bookName=${book}`,{observe:'response'})
+    }
+
+    getuserById(id: string) {
+      return this.userProfileClient.get(`${this.baseURL}/${id}`)
+    }
+
+    postRate(userId: string, bookId: string, rate:number) {
+      console.log("post")
+      return this.userProfileClient.post(`${this.rateURL}` , {rate: rate, rater: userId, book: bookId})
+    }
+    updateRate(ratingId:string, rate:number){
+      console.log("update")
+      return this.userProfileClient.patch(`${this.rateURL}/${ratingId}`, {rate: rate})
     }
 }

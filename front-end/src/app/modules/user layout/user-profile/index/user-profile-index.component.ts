@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileIndexComponent implements OnInit {
 
+  paginationPagesOut:number[] = [1,2,3]
   constructor() { }
 
   ngOnInit(): void {

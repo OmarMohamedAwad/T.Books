@@ -11,7 +11,7 @@ export class CategoryService {
   constructor(private categoryClient: HttpClient) { }
 
   getCategories() {
-  return this.categoryClient.get(this.baseURL,{observe:'response'})
+    return this.categoryClient.get(this.baseURL,{observe:'response'})
   }
 
   getCategoryPage(name:string , page:number , book:string="") {

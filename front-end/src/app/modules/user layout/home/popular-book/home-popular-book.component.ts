@@ -34,13 +34,13 @@ export class HomePopularBookComponent implements OnInit {
       {
         this.row1.push(home[i].bookImage)
         this.bookNameRow1.push(home[i].bookName)
-        this.bookAuthorRow1.push(home[i].bookAuthor)
+        this.bookAuthorRow1.push(home[i].bookAuthor.autherFirstName)
       }
       for(let i = 4; i < home.length && i < 8; i++)
       {
         this.row2.push(home[i].bookImage)
         this.bookNameRow2.push(home[i].bookName)
-        this.bookAuthorRow2.push(home[i].bookAuthor)
+        this.bookAuthorRow2.push(home[i].bookAuthor.autherFirstName)
       }
       this.popularbooks = [ this.row1 , this.row2 ];
       this.popularbooksNames = [ this.bookNameRow1 , this.bookNameRow2 ];

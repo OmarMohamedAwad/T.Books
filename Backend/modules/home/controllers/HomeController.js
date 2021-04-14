@@ -14,15 +14,22 @@ const NUMBER_OF_CATEGORY_ITEMS = 3;
 async function index(request, response, next) {
     try {
         // category data
-        const categories = await Category.aggregate([
+        let categories = await Category.aggregate([
             { $unwind: "$categoryBooks" }, 
             { $group : {_id:'$_id', 
-                        numberOfBooks:{$sum:1}, 
                         categoryName: {$last: '$categoryName'}, 
                         categoryImage: {$last: '$categoryImage' } }}, 
             { $sort :{ numberOfBooks: -1}}, 
             {$limit: NUMBER_OF_CATEGORY_ITEMS}]);
 
+        //more categories if the full categories aren't enough
+        if(categories.length < NUMBER_OF_CATEGORY_ITEMS){
+            const moreCategories = await Category.find({ categoryBooks: [] }).limit(NUMBER_OF_CATEGORY_ITEMS - categories.length)
+            if(moreCategories.length > 0){
+                categories = categories.concat(moreCategories);
+            }     
+        }
+                console.log("category: " , categories)
         //author data
         const authors = await Author.find({},
                 { authorBooks: false,
@@ -36,7 +43,7 @@ async function index(request, response, next) {
             { $addFields: { "userId": { $toObjectId: "$ratedBook" }}}, 
             { $lookup: {from: "books" , localField: "userId" , foreignField: "_id" , as: "bookDetails" }}, 
             { $group : {_id: "$ratedBook", 
-                        avg: {$sum: {$toInt: '$rate'}}, 
+                        avg: {$avg: {$toInt: '$rate'}}, 
                         bookName: { $first:  {$last: '$bookDetails.bookName'} }, 
                         bookImage: { $first:  {$last: "$bookDetails.bookImage"} }, 
                         bookCategory: { $first: {$last: "$bookDetails.bookCategory"} }, 
@@ -59,7 +66,6 @@ async function index(request, response, next) {
             console.log(x)
             books[i].bookAuthor = x[0];
         }
-
         const homeJson = {
             "books": books,
             "authors": authors,

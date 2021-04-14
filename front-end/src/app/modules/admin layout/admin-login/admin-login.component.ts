@@ -4,9 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StoreComponent } from '../author/store/store.component';
 import { Router } from '@angular/router';
 
-
-
-
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
@@ -20,11 +17,11 @@ export class AdminLoginComponent implements OnInit {
   password_signup = document.getElementsByName("s_pass");
   login_toggle = document.getElementById("login-toggle");
   login_form = document.getElementById("login-form");
-  
+
   constructor(private myService:AdminLoginService, private router: Router) {
-     
+
    }
-  
+
 
   // box_login.addEventListener("change", function () {
   //     if (this.checked)
@@ -33,7 +30,7 @@ export class AdminLoginComponent implements OnInit {
   //         password_login.type = 'password';
   // });
 
-  
+
 
 myForm = new FormGroup({
 
@@ -43,11 +40,11 @@ myForm = new FormGroup({
 })
 userPassStatus:any
   ngOnInit(): void {
-    document.body.className = "app-login-register";
+    document.body.className = "app-access";
     this.userPassStatus = false;
   }
 
-  
+
 
   tokens:any
   enterSite()
@@ -59,7 +56,7 @@ userPassStatus:any
   login()
   {
     console.log("loged")
-    this.myService.postAdmin({adminName:this.myForm.controls.adminName.value, 
+    this.myService.postAdmin({adminName:this.myForm.controls.adminName.value,
       adminPassword:this.myForm.controls.adminPassword.value})
       .subscribe((data)=>{
         this.tokens = data

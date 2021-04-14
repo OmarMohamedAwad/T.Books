@@ -11,6 +11,10 @@ AccessRouter.post("/user" , async (request, response, next) => {
     await AccessController.userAccessController(request, response, next);
 })
 
+AccessRouter.post("/userRegister" , async (request, response, next) => {
+    await AccessController.userRegister(request, response, next);
+})
+
 AccessRouter.post("/adminLogout", async (request, response, next)=> {
     await AccessController.adminLogout(request, response, next);
 })

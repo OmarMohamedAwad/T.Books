@@ -7,12 +7,10 @@ const authorPresenter = require("../presenter/authorPresenter")
 async function index(request, response, next) {
     try {
         const authors = await Author.find();
-        console.log("hi",authors);
         response.json(authors.map((author)=>{
             return authorPresenter.present(author);
         }))
     } catch (error) {
-        console.log(error);
         next(ResponseCode.SERVER_ERROR)
     }  
 }

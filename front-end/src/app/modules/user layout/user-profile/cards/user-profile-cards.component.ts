@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserProfileService } from '../services/user-profile.service'
 import { BookObj } from '../models/book'
 
@@ -11,21 +11,26 @@ export class UserProfileCardsComponent implements OnInit {
 
   subscriber:any;
   toggleFlag:boolean = false;
+  userId:string = "6075b7d5a7c3f52f7904ec0a";
   currentBooksType:string = "All";
   currentPage:number = 1;
   maxPages:number = 1;
-  paginationPages:number[] = [4,5,6];
+  @Output() paginationPages:{paginationPages:number[], currentPage:number} = {paginationPages: [] , currentPage: 1}
   bookImages:string[] = [];
   bookNames:string[] = [];
-  bookIAuthoe:string[] = [];
-  bookRate:string[] = [];
-  bookOverallRate:string[] = [];
+  bookIAuthor:string[] = [];
+  bookRate:number[] = [];
+  bookOverallRate:number[] = [];
   bookUserType:string[] = [];
+  bookIds:string[] = [];
+  myRatingIds:string[] = [];
+  starsHover:number = 0;
+  cardHover:number = 0; 
 
   constructor(private userProfileService: UserProfileService) { }
 
   ngOnInit(): void {
-    //this.getPage(this.currentCategory , this.currentPage);
+    this.getPage(this.currentBooksType , this.currentPage);
   }
 
   showDropList(event:any){
@@ -35,44 +40,81 @@ export class UserProfileCardsComponent implements OnInit {
   selectBooksType(booksType:string){
     this.currentBooksType = booksType;
     this.currentPage = 1;
-    //this.getPage(this.currentCategory , this.currentPage);
+    this.getPage(this.currentBooksType , this.currentPage);
   }
+
   searchBook(book:string){
+    console.log("we are in search part")
     this.currentPage = 1;
-    //this.getPage(this.currentCategory , this.currentPage , book);
+    this.getPage(this.currentBooksType , this.currentPage , book);
   }
 
-  // changePagination(event:Event , type:any){
-  //   if(type == "back" && this.currentPage > 1){
-  //     this.currentPage--;
-  //     this.getPage(this.currentCategory , this.currentPage);
-  //   }
-  //   else if(type == "next" && this.currentPage < this.maxPages){
-  //     this.currentPage++;
-  //     this.getPage(this.currentCategory , this.currentPage);
-  //   }
-  //   else{
-  //     this.currentPage = type;
-  //     this.getPage(this.currentCategory , this.currentPage);
-  //   }
-  // }
+  submitRate(event:Event , index:number , ratingId:string , bookId:string){
+    console.log("submit" , index)
+    if(ratingId){
+      this.subscriber = this.userProfileService.updateRate(this.userId,index)
+      .subscribe((response:any)=>{
+        console.log(response.body)
+        },
+      (err)=>{
+        console.log(err)
+      })
+    }
+    else{
+      this.subscriber = this.userProfileService.postRate(this.userId,bookId,index)
+      .subscribe((response:any)=>{
+        console.log(response.body)
+        },
+      (err)=>{
+        console.log(err)
+      })
+    }
+  }
 
-  getPage(type:string , page:number , book:string="")
+  changePagination(type:any){
+    if(type == "back" && this.currentPage > 1){
+      this.currentPage--;
+      this.getPage(this.currentBooksType , this.currentPage);
+    }
+    else if(type == "next" && this.currentPage < this.maxPages){
+      this.currentPage++;
+      this.getPage(this.currentBooksType , this.currentPage);
+    }
+    else if (type != "back" && type != "next"){
+      this.currentPage = type;
+      this.getPage(this.currentBooksType , this.currentPage);
+    }
+  }
+
+  getPage(booktype:string , page:number , book:string="")
   {
-    this.books = [];
-    this.subscriber = this.userProfileService.getCategoryPage(type,page,book)
+    this.bookImages = [];
+    this.bookNames = [];
+    this.bookIAuthor = [];
+    this.bookRate = [];
+    this.bookOverallRate = [];
+    this.bookUserType = [];
+    this.subscriber = this.userProfileService.getCategoryPage(this.userId,booktype,page,book)
     .subscribe((response:any)=>{
       console.log(response.body)
       this.maxPages = Math.ceil(response.body.bookNumbers / 4);
       console.log(this.maxPages)
       let books = response.body.pagebooks;
+      console.log("this are the books",books)
       books.find((book:BookObj , index:number) => {
+        console.log("this index is ",index)
         if(index < 4 && index < books.length)
-          this.row1.push(book.name)
+        {
+          this.bookNames.push(book.name)
+          this.bookImages.push(book.image)
+          this.bookIAuthor.push(book.author)
+          this.bookRate.push(Math.round(book.myRating))
+          this.bookOverallRate.push(Math.round(book.bookRating))
+          this.bookUserType.push(book.state)
+          this.bookIds.push(book.bookId)
+          this.myRatingIds.push(book.myRatingId)
+        }
       })
-      console.log(this.row1 , this.row2)
-      this.books = [this.row1 , this.row2 ]
-      console.log(this.books)
       this.calculatePagination();
     },
     (err)=>{
@@ -85,24 +127,27 @@ export class UserProfileCardsComponent implements OnInit {
     switch(this.maxPages)
     {
       case 0:
-        this.paginationPages = [0];
+        this.paginationPages.paginationPages = [0];
         break;
       case 1:
-        this.paginationPages = [1];
+        this.paginationPages.paginationPages = [1];
         break;
       case 2:
-        this.paginationPages = [1,2];
+        this.paginationPages.paginationPages = [1,2];
         break;
       default:
-        if(this.currentPage == 1)
-          this.paginationPages = [1,2,3];
+        if(this.currentPage == 1 || this.currentPage == 2) 
+          this.paginationPages.paginationPages = [1,2,3];
         else if (this.currentPage == this.maxPages)
-          this.paginationPages = [this.maxPages - 2 , this.maxPages - 1 , this.maxPages];
+          this.paginationPages.paginationPages = [this.maxPages - 2 , this.maxPages - 1 , this.maxPages]; 
         else
-          this.paginationPages = [this.maxPages - 1 , this.maxPages , this.maxPages + 1];
+          this.paginationPages.paginationPages = [this.maxPages - 1 , this.maxPages , this.maxPages + 1];
         break;
     }
+    this.paginationPages.currentPage = this.currentPage;
+    this.setPaginationEmitter.emit(this.paginationPages)
   }
 
+  @Output() setPaginationEmitter:EventEmitter<{paginationPages:number[] , currentPage:number}> = new EventEmitter()
 }
 

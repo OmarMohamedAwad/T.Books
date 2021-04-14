@@ -1,4 +1,4 @@
-<app-user-profile-header></app-user-profile-header>
-<app-user-profile-side></app-user-profile-side>
-<app-user-profile-cards></app-user-profile-cards>
-<app-user-profile-pagination></app-user-profile-pagination>
+<app-user-profile-header (searchEmitter)="sendBookType.searchBook($event)"></app-user-profile-header>
+<app-user-profile-side (selectedBooksTypeEmitter)="sendBookType.selectBooksType($event)"></app-user-profile-side>
+<app-user-profile-cards #sendBookType (setPaginationEmitter)="paginationComponent.getPagination($event)" ></app-user-profile-cards>
+<app-user-profile-pagination #paginationComponent (selectedPageEmitter)="sendBookType.changePagination($event)"></app-user-profile-pagination>

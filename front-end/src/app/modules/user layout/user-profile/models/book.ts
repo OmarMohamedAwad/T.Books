@@ -1,8 +1,10 @@
 export interface BookObj {
   name: string,
   image: string,
-  author: any,
-  authorName: string,
+  author: string,
   myRating:number,
-  bookRating:number
+  bookRating:number,
+  state:string,
+  bookId:string,
+  myRatingId:string,
 }
