@@ -32,7 +32,7 @@ import { CategoryDeleteComponent } from './modules/admin layout/category/categor
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
@@ -63,8 +63,15 @@ import { ConcateNamePipe } from './pipes/concate-name.pipe';
 import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
 import { UserRoutingModule } from './modules/user layout/user-routing/user-routing.module';
 
+import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
 
 
+//  const appRoutes:Routes=[
+//    {path:"",redirectTo:"",pathMatch:"full"},
+//    {path:"login",component:LoginRegisterComponent},
+//    //we can put guard in all url which we neeeeed to protect by CanActivate
+//    {path:"user/home",canActivate:[UserAuthGaurdGuard],component:HomeAllComponent}
+//  ]
 
 @NgModule({
   declarations: [
@@ -134,7 +141,7 @@ import { UserRoutingModule } from './modules/user layout/user-routing/user-routi
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,
+    RouterModule.forRoot(appRoutes),
     NgbModule,
     AdminRoutingModule,
     UserRoutingModule

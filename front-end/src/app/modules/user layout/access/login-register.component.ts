@@ -79,7 +79,9 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
 
   enterSite()
   {
+
     this.router.navigate(['/profile']);
+
   }
 
   loginForm = new FormGroup({
@@ -95,8 +97,12 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
         this.user = response.user;
         try {
           if (this.userAccessToken != undefined) {
+
             this.setSessionData(this.userAccessToken,this.userRefreshToken,this.user)
-            this.enterSite();
+
+            this.setLocalStorageData(this.userAccessToken,this.userRefreshToken,this.user);
+            this.enterSite();//navigate to user profile isa
+
           }else {
             this.userPassStatus = true
             console.log(this.userPassStatus);
@@ -149,12 +155,17 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
   }
 
   setSessionData(access:string, refresh:string, user:User){
-    sessionStorage.setItem('accessToken', access);
-    sessionStorage.setItem('refreshToken', refresh);
-    sessionStorage.setItem('userName', user.userName);
-    sessionStorage.setItem('userId', user.id);
+    localStorage.setItem('TOKEN', access);
+    localStorage.setItem('refreshToken', refresh);
+    localStorage.setItem('userName', user.userName);
+    localStorage.setItem('userId', user.id);
   }
-
+ setLocalStorageData(access:string, refresh:string, user:User){
+  sessionStorage.setItem('accessToken', access);
+  sessionStorage.setItem('refreshToken', refresh);
+  sessionStorage.setItem('userName', user.userName);
+  sessionStorage.setItem('userId', user.id);
+}
   ngOnInit(): void {
     document.body.className = 'app-access';
   }

@@ -10,6 +10,7 @@ export class CategoryService {
   readonly baseUrl: string = 'http://localhost:3000/category';
   private _categoryIdSource = new Subject<String>();
   categoryID$ = this._categoryIdSource.asObservable();
+  accessToken = sessionStorage.getItem('accessToken');
 
   constructor(private _HttpClient: HttpClient) {
 
@@ -24,15 +25,26 @@ export class CategoryService {
   }
 
   categoryStore(data: JSON): Observable<any> {
-    return this._HttpClient.post(this.baseUrl, data);
+    return this._HttpClient.post(this.baseUrl, data,{
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    });
   }
 
   categoryDelete(id: any): Observable<any> {
-    console.log(id);
-    return this._HttpClient.delete(`${this.baseUrl}/${id.toString()}`);
+    return this._HttpClient.delete(`${this.baseUrl}/${id.toString()}`,{
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    });
   }
 
   categoryUpdate(id: string, cat: Category) {
-    return this._HttpClient.patch(`${this.baseUrl}/${id}`, cat);
+    return this._HttpClient.patch(`${this.baseUrl}/${id}`, cat, {
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    });
   }
 }

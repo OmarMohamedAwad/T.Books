@@ -7,11 +7,13 @@
             <div class="mb-3 field w-75">
               <label class="form-label" for="title">Title</label>
               <input class="form-control input-field" id="title" placeholder="book title" type="text" formControlName="name">
+              <p class="alert-danger p-1 mt-2" *ngIf="!getNameStatus() && incorrectData">The name is invalid must be at least 2 character</p>
             </div>
 
             <div class="mb-3 field w-75">
               <label class="form-label" for="description">Description</label>
               <textarea class="form-control input-field" id="description" formControlName="description"></textarea>
+              <p class="alert-danger p-1 mt-2" *ngIf="!getDescriptionStatus() && incorrectData">The description is invalid must be at least 10 character</p>
             </div>
 
             <div class="mb-3 field w-75">
@@ -20,6 +22,8 @@
                   <option selected>Select the author</option>
                   <option  *ngFor="let author of authors; " value="{{author.id}}" >{{author.name}}</option>
               </select>
+              <p class="alert-danger p-1 mt-2" *ngIf="!getAuthorStatus() && incorrectData">The author is invalid</p>
+
             </div>
             <div class="mb-3 field w-75">
               <label class="form-label" for="category">Category</label>
@@ -27,6 +31,7 @@
                   <option selected>Select the category</option>
                   <option  *ngFor="let category of categories; " value="{{category.id}}" >{{category.name}}</option>
               </select>
+              <p class="alert-danger p-1 mt-2 w-100" *ngIf="!getAuthorStatus() && incorrectData">The category is invalid</p>
             </div>
 
             <div class="mb-3 field w-75">

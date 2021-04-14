@@ -20,6 +20,8 @@ export class StoreComponent implements OnInit {
     image:"",
     books:[]
   };
+  incorrectData = false;
+
   constructor(private myService:AuthorsServiceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -37,6 +39,18 @@ export class StoreComponent implements OnInit {
 
   })
 
+  getFNameStatus(){
+    return this.myForm.controls.fName.valid
+  }
+
+  getLNameStatus(){
+    return this.myForm.controls.lName.valid
+  }
+
+  getDOBStatus(){
+    return this.myForm.controls.dob.valid
+  }
+
   goToAuthorsList()
   {
     this.router.navigate(['/admin/author']);
@@ -48,13 +62,17 @@ export class StoreComponent implements OnInit {
     this.newAuth.lastName = this.myForm.controls.lName.value;
     this.newAuth.birthDay = this.myForm.controls.dob.value;
 
-    this.myService.postAuthor(this.newAuth)
-      .subscribe((data)=>{
-        console.log(data)
-        this.  goToAuthorsList()
-      },(err)=>{
-        console.log("post error")
-      })
+    if (this.getDOBStatus() && this.getFNameStatus(), this.getLNameStatus()){
+      this.myService.postAuthor(this.newAuth)
+        .subscribe((data)=>{
+          console.log(data)
+          this.goToAuthorsList()
+        },(err)=>{
+          console.log("post error")
+        })
+    }else {
+      this.incorrectData = true
+    }
   }
 
 }
