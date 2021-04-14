@@ -22,7 +22,10 @@ export class UserAccessServiceService {
 
   logoutUser(token:{refreshToken:any})
   {
-    return this.client.post(`${this.BASE_URL}/userLogout`,token) 
+    return this.client.post(`${this.BASE_URL}/userLogout`,token)
   }
 
+  isLoggedIn(){
+    return !!localStorage.getItem('TOKEN');
+  }
 }
