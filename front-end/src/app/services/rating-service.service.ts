@@ -11,13 +11,4 @@ export class RatingServiceService {
   store(rating_det: { rate:number, rater:string, book:string}){
     return this.client.post(this.BASE_URL,rating_det);
   }
-
-  update(rating_det: {lastRateId:string, rate:number}){
-    return this.client.patch(`${this.BASE_URL}/${rating_det.lastRateId}`,rating_det);
-  }
-
-  show(bookId: any,userId:any){
-    return this.client.get(`${this.BASE_URL}/${bookId}/${userId}`,{observe:"response"});
-  }
-
 }

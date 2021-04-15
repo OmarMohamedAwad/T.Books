@@ -31,12 +31,12 @@ async function search(request, response, next) {
     }
     try{
         const filterCount = await Author.find({ $or: [{autherFirstName: regex1 },{autherLastName: regex2}] }) .count(); 
-        const filterd = await Author.find({ $or: [{autherFirstName: regex1 },{autherLastName: regex2}] })
+        const filtered = await Author.find({ $or: [{autherFirstName: regex1 },{autherLastName: regex2}] })
         .sort('authorDob')
         .limit(8)
         .skip((page-1) * 8).exec();
         const numberOfPages = Math.ceil(filterCount / 8)
-        const presentedAuthors = filterd.map((author)=>{
+        const presentedAuthors = filtered.map((author)=>{
             return authorPresenter.present(author);
         });
         response.json({

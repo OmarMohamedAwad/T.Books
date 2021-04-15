@@ -1,5 +1,4 @@
 import { ElementRef, Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges} from '@angular/core';
-
 @Component({
   selector: 'app-rating-det',
   templateUrl: './rating-det.component.html',
@@ -11,17 +10,20 @@ export class RatingDetComponent implements OnInit, OnChanges {
   @ViewChild('progressFill3') progressFill3!: ElementRef<HTMLDivElement>;
   @ViewChild('progressFill2') progressFill2!: ElementRef<HTMLDivElement>;
   @ViewChild('progressFill1') progressFill1!: ElementRef<HTMLDivElement>;
-  chartData = [20,5,15,10,50];
+  chartData = [0,0,0,0,0];
+  ratingFreq= [0,0,0,0,0];
+  userId:any;
+  subscriber:any;
+  constructor(){}
   
-  constructor() { 
-    
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.flagNavigate);
-    this.setFill();
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
   
   ngOnInit(): void {
+    for(let i=0;i<this.ratingsArr.length;i++)
+      this.ratingFreq[this.ratingsArr[i].rate-1]++;
+    for(let i=0;i<5;i++)
+      this.chartData[i]=Math.ceil((this.ratingFreq[i]*100)/this.ratingsArr.length)
+    console.log(this.chartData);
     this.setFill();
   }
   setFill(){
@@ -31,5 +33,5 @@ export class RatingDetComponent implements OnInit, OnChanges {
     this.progressFill4.nativeElement.setAttribute('style', `width: ${this.chartData[3]}%;`);
     this.progressFill5.nativeElement.setAttribute('style', `width: ${this.chartData[4]}%;`);
   }
-  @Input() flagNavigate:any;
+  @Input() ratingsArr:any;
 }
