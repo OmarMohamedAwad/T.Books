@@ -1,3 +1,4 @@
+import { ShowAuthorComponent } from './../author/show/show-author/show-author.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
@@ -10,13 +11,14 @@ import { HomeAllComponent } from '../home/home-all/home-all.component'
 import { TermsComponent } from '../terms/terms.component'
 import { UserProfileIndexComponent } from '../user-profile/index/user-profile-index.component'
 import { LoginRegisterComponent } from '../access/login-register.component'
- 
+
 
 const routes:Routes = [
 
   {path:"",redirectTo:"home",pathMatch:"full"},
   {path:'aboutUs',component:AboutUsComponent},
   {path:'authors',component:UserAuthorIndexComponent},
+  {path:'authors/:id',component:ShowAuthorComponent},
   {path:'books', component:UserBookIndexComponent  },
   {path:'books/:id', component:BookDetComponent },
   {path:'categories', component:UserCategoryIndexComponent},

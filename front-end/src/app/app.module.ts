@@ -9,10 +9,10 @@ import { DeleteComponent } from './modules/admin layout/author/delete/delete.com
 import { UpdateComponent } from './modules/admin layout/author/update/update.component';
 import { NavbarAdminComponent } from './modules/admin layout/shared/navbar-admin/navbar-admin.component';
 import { SettingComponent } from './modules/admin layout/setting/setting.component';
-import { ShowAuthorComponent } from './modules/user layout/shared/author/show/show-author/show-author.component';
-import { AuthorCardComponent } from './modules/user layout/shared/author/show/author-card/author-card.component';
-import { AuthorBookslistComponent } from './modules/user layout/shared/author/show/author-bookslist/author-bookslist.component';
-import { AuthorBookComponent } from './modules/user layout/shared/author/show/author-book/author-book.component';
+import { ShowAuthorComponent } from  './modules/user layout/author/show/show-author/show-author.component';
+import { AuthorCardComponent } from  './modules/user layout/author/show/author-card/author-card.component';
+import { AuthorBookslistComponent } from  './modules/user layout/author/show/author-bookslist/author-bookslist.component';
+import { AuthorBookComponent } from  './modules/user layout/author/show/author-book/author-book.component';
 import { UserAuthorIndexComponent } from './modules/user layout/author/user-author-index/user-author-index.component';
 import { BookIndexComponent } from './modules/admin layout/book/index/book-index.component';
 import { BookDeleteComponent } from './modules/admin layout/book/delete/book-delete.component';
@@ -141,7 +141,7 @@ import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule,//.forRoot(appRoutes),
     NgbModule,
     AdminRoutingModule,
     UserRoutingModule

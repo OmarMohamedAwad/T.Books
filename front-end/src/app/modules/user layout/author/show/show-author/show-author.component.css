@@ -1,0 +1,44 @@
+.myCard {
+    width: 322px;
+    float: left;
+    margin-left: 120px;
+    margin-top: 100px;
+}
+
+.myBooks {
+    width: 60%;
+    float: left;
+    height: 70%;
+    margin-left: 40px;
+    margin-top: 70px;
+}
+
+.box-part {
+    position: relative;
+    height: 453px;
+    width: 322px;
+    background: #ddd;
+    width: 80%;
+    height: 40%;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px 2px rgba(95, 93, 93, 0.39), -4px -4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.title {
+    padding-top: 20px;
+    color: black;
+}
+
+.text {
+    margin: 20px 0px;
+    color: black;
+    padding-bottom: 10px;
+}
+
+img {
+    position: relative;
+    margin-top: 30px;
+    width: 186px;
+    height: 186px;
+    border-radius: 50%;
+}

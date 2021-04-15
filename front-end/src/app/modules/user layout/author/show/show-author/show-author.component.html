@@ -2,11 +2,22 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<app-nav-user></app-nav-user>
 
 <div class="myCard">
-    <app-author-card></app-author-card>
+    <!--<app-author-card [selectedAuthor]="author"></app-author-card>-->
+    <div class=" box-part text-center px-3">
+        <img src='/assets/user/author/{{author.image}}' [alt]='author.name'>
+        <hr>
+        <div class="title">
+            <h4>{{author.name}}</h4>
+        </div>
+        <div class="text">
+            <span>{{author.birthDay | date}} </span>
+        </div>
+    </div>
+
 </div>
 <div class="myBooks">
     <app-author-bookslist></app-author-bookslist>
 </div>
-
