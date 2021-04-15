@@ -1,3 +1,4 @@
+<app-nav-user></app-nav-user>
 <app-user-category-header (searchEmitter)="sendCategory.searchBook($event)"></app-user-category-header>
-<app-user-category-sidebar (selectCategoryEmitter)="sendCategory.selectCategory($event)"></app-user-category-sidebar>
-<app-user-category-books #sendCategory></app-user-category-books>
+<app-user-category-sidebar (selectCategoryEmitter)="sendCategory.selectCategory($event)" (setDefaultCategoryEmitter)="sendCategory.getDefaultCategory($event)"></app-user-category-sidebar>
+<app-user-category-books #sendCategory ></app-user-category-books>

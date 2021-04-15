@@ -16,7 +16,12 @@
       <nav aria-label="Page navigation example" class="col-10">
         <ul class="pagination w-100">
           <li class="page-item"><a class="" href="#" (click)="changePagination($event, 'back')"><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
-          <li class="page-item"><a class="" href="#" *ngFor="let page of paginationPages" (click)="changePagination($event, page)"> {{page}} </a></li>
+            <span *ngFor="let page of paginationPages, let i = index" >
+              <li class="page-item"><a class="" href="#" *ngIf="page==currentPage; else noStar" (click)="changePagination($event, page)" style="color:  #de3242"> {{page}} </a></li>
+              <ng-template #noStar>
+                <li class="page-item"><a class="" href="#" (click)="changePagination($event, page)"> {{page}} </a></li>
+              </ng-template>
+            </span>
           <li class="page-item"><a class="" href="#" (click)="changePagination($event, 'next')"><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
         </ul>
       </nav>

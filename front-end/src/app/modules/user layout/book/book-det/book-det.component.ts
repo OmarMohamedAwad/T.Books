@@ -33,6 +33,11 @@ export class BookDetComponent implements OnInit {
   userId:string = "";
   bookId:string="";
   user_img="assets/user/author/author-1.jpg";
+
+  favsNum:number =215;
+  userRate=-1;
+  userReview:string="";
+
   book : Book =
     {
       id: "",
@@ -56,16 +61,14 @@ export class BookDetComponent implements OnInit {
   ratings:any;
   myRating:any;
   text:string = '';
-    
   reviewerId:any = '';
-  reviews:Array<{reviewBody: string,
+
+reviews:Array<{reviewBody: string,
     reviewedBook: string,
     reviwer: string,
     __v: any,
     _id: string}>=[]
 
-  favsNum:number =215;
-  userReview:string="";
   
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService,
     private ratingService: RatingServiceService, private myActivatedRoute:ActivatedRoute, private router: Router) {
@@ -107,7 +110,6 @@ export class BookDetComponent implements OnInit {
   }
   
   drawMyRating(rate:number){
-    
   }
 
   textChanged(e:any)
@@ -127,14 +129,14 @@ export class BookDetComponent implements OnInit {
     {
       console.log(this.text)
       console.log(this.book.id)
-      // this.reviewerId = sessionStorage.getItem("accessToken");
-      this.reviewSubscriber = this.reviewsService.store({reviwer:"605a1a4922c6ca862b8658d6", book:this.book.id, body:this.text})
+      this.reviewerId = sessionStorage.getItem("userId");
+      this.reviewSubscriber = this.reviewsService.store({reviwer:this.reviewerId, book:this.book.id, body:this.text})
       .subscribe((response:any)=>
         {
           console.log(response)
           // this.router.navigate([`/book/${this.myActivatedRoute.snapshot.params.id}`]);
           this.reloadComponent()
-        
+
           },
           (err)=>{
             console.log(err)

@@ -10,7 +10,8 @@ export class UserCategoryBooksComponent implements OnInit {
 
   subscriber:any;
   currentPage:number = 1;
-  currentCategory:string = "Science fiction";
+  currentCategory:string = "";
+
   maxPages:number = 1;
   row1:string[] = []
   row2:string[] = []
@@ -19,6 +20,10 @@ export class UserCategoryBooksComponent implements OnInit {
 
   constructor(private categoryService: CategoryService) { }
 
+  getDefaultCategory(category:string){
+    this.currentCategory = category;
+    this.getPage(this.currentCategory , this.currentPage);
+  }
   selectCategory(name:string){
     this.currentCategory = name;
     this.currentPage = 1;
@@ -31,7 +36,6 @@ export class UserCategoryBooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPage(this.currentCategory , this.currentPage);
   }
 
   changePagination(event:Event , type:any){
@@ -43,7 +47,7 @@ export class UserCategoryBooksComponent implements OnInit {
       this.currentPage++;
       this.getPage(this.currentCategory , this.currentPage);
     }
-    else{
+    else if (type != "back" && type != "next"){
       this.currentPage = type;
       this.getPage(this.currentCategory , this.currentPage);
     }
@@ -90,7 +94,7 @@ export class UserCategoryBooksComponent implements OnInit {
         this.paginationPages = [1,2];
         break;
       default:
-        if(this.currentPage == 1)
+        if(this.currentPage == 1 || this.currentPage == 2)
           this.paginationPages = [1,2,3];
         else if (this.currentPage == this.maxPages)
           this.paginationPages = [this.maxPages - 2 , this.maxPages - 1 , this.maxPages];

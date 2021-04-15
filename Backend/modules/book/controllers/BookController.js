@@ -74,14 +74,12 @@ async function index(request, response, next)
         const bookGetAllResults = await bookModel.find()
             .populate("bookCategory").populate("bookAuthor").exec();        
 
-        
         response.json(bookGetAllResults.map((book)=>{
             return BookPresenter.present(book);
         }))
     }
     catch(e)
     {
-        console.log(e);
         next(ResponseCode.SERVER_ERROR)
         //return next(new Error("Listing all book failed"))
     } 

@@ -26,8 +26,8 @@ export class NavUserComponent implements OnInit {
    this.srcWidth=0;
    this.is_open=false;
   }
-  userIsLogedIn:any = "akfjflkjafa.aflidfjlasl;k$";
-  // userIsLogedIn:any = sessionStorage.getItem("accessToken");
+  // userIsLogedIn:any = false;
+  userIsLogedIn:any = sessionStorage.getItem("accessToken");
   ngOnInit(): void 
   {
     console.log("status",this.userIsLogedIn)
@@ -38,9 +38,7 @@ export class NavUserComponent implements OnInit {
   {
     console.log("out")
 
-    this.refreashToken = "sasasasasdklfl"
-
-    // this.refreashToken = sessionStorage.getItem("refreshToken") 
+    this.refreashToken = sessionStorage.getItem("refreshToken") 
 
     this.service.logoutUser({refreshToken:this.refreashToken})
       .subscribe((data)=>{
@@ -51,6 +49,10 @@ export class NavUserComponent implements OnInit {
     })
     sessionStorage.removeItem("accessToken");
     sessionStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("userName");
+    sessionStorage.removeItem("userId");
+
+    
   }
   @HostListener('window:scroll', ['$event'])
 

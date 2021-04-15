@@ -23,6 +23,7 @@ export class BookStoreComponent implements OnInit {
     bookRatings:[]
   };
 
+  incorrectData = false;
   indexFlag: boolean = false;
 
   constructor(private bookService: BookServiceService) { }
@@ -70,6 +71,8 @@ export class BookStoreComponent implements OnInit {
       }, error => {
         console.log(error)
       })
+    }else {
+      this.incorrectData = true
     }
   }
 

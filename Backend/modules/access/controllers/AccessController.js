@@ -33,8 +33,10 @@ async function adminAccessController(request, response, next) {
 }
 
 async function userAccessController(request, response, next) {
+    console.log("lkalsksand;alsd")
     const userRequest = request.body
-    try {
+    try 
+    {
 
         const user = await User.findOne({ userName: userRequest.userName })
         if (!user) {
@@ -57,20 +59,26 @@ async function userAccessController(request, response, next) {
         }
 
         var token = tokenGeneration({ userMessage }, Role.USER);
+        console.log(token.accessToken)
+        console.log(token.refreshToken)
         response.status(200).json({
             accessToken: token.accessToken,
             refreshToken: token.refreshToken,
             user: userPresenter.present(user)
         });
-        //hossam
-        await User.findOneAndUpdate({ userName: user.userName }, { refreshToken: tokenGeneration.refreshToken })
-    } catch (error) {
+        console.log(user.userName, tokenGeneration.refreshToken )
+        await User.findOneAndUpdate({ userName: user.userName }, { refreshToken: token.refreshToken })
+        console.log("sakmalsl")
+    } 
+    catch (error) 
+    {
         console.log(error);
         next(500)
     }
 }
 
 async function userRegister(request, response, next) {
+    console.log("testing register")
 
     try {
 
