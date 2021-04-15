@@ -141,7 +141,6 @@ import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
     NgbModule,
     AdminRoutingModule,
     UserRoutingModule

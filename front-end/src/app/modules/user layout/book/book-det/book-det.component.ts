@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 
 export class BookDetComponent implements OnInit {
 
-  
+
 
 
   selected:any = 'option2';
@@ -40,9 +40,6 @@ export class BookDetComponent implements OnInit {
   userRate=-1;
   userReview:string="";
 
-  
-  
-  
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService,
               private myActivatedRoute:ActivatedRoute, private router: Router) { }
 
@@ -62,10 +59,10 @@ export class BookDetComponent implements OnInit {
 
   subscriber:any;
   reviewSubscriber:any;
-  
+
   text:string = '';
-  reviewerId:any = ''; 
-  
+  reviewerId:any = '';
+
 
 
 
@@ -75,20 +72,17 @@ export class BookDetComponent implements OnInit {
   __v: any,
   _id: string}>=[]
 
-  
-
   ngOnInit(): void {
     this.subscriber = this.bookService.show(this.myActivatedRoute.snapshot.params.id)
     .subscribe((response:any)=>{
       this.book = response.body
       console.log(this.book)
       this.reviews = this.book.bookReviews;
-      console.log(this.reviews[0].reviewBody)
       },
       (err)=>{
         console.log(err)
       }
-    )    
+    )
   }
 
   textChanged(e:any)
@@ -115,7 +109,7 @@ export class BookDetComponent implements OnInit {
           console.log(response)
           // this.router.navigate([`/book/${this.myActivatedRoute.snapshot.params.id}`]);
           this.reloadComponent()
-        
+
           },
           (err)=>{
             console.log(err)
@@ -124,16 +118,16 @@ export class BookDetComponent implements OnInit {
     }
   }
 
-  
 
-  
+
+
 
   ngOnDestroy(): void {
     // this.subscriber.unsubscribe();
     // this.reviewSubscriber.unsubscribe();
   }
 
-  
-  
+
+
 
 }
