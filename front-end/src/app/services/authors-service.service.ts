@@ -60,4 +60,9 @@ export class AuthorsServiceService {
         }
       });
     }
+
+///Author Details
+  show(id:any): Observable<any> {
+    return this.authorClient.get(`${this.baseURL}/${id}`)
+  }
 }
