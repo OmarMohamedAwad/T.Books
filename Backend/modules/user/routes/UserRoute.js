@@ -1,5 +1,5 @@
 const express = require('express')
-const {index,store,show,update,destroy,pagination} = require('../controllers/UserController')
+const {index,store,show,update,destroy,pagination, paginationBooks} = require('../controllers/UserController')
 
 const User = require('../models/User');
 const Book = require('../../book/models/Book')
@@ -13,7 +13,14 @@ userRouter.get("/", (request, response, next)=> {
 }) 
 
 userRouter.get("/pages", (request, response, next)=> {
-    pagination(request, response, next);   
+    const { userId,type,page=1,limit=2,book} = request.query;
+    if(userId){
+        if(book){}
+        else
+            paginationBooks(request, response, next); 
+    }
+    else
+        pagination(request, response, next);   
 }) 
 
 userRouter.get("/:id",async (request, response, next)=> {
