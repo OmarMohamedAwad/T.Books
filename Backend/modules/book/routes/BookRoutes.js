@@ -13,6 +13,10 @@ booksRouter.get("/pages", (request, response, next)=> {
     bookController.pagination(request, response, next);   
 })
 
+booksRouter.get("/search/:keyword", (request, response, next)=> {
+    bookController.search(request, response, next);   
+})
+
 booksRouter.get('/:id', (request,response, next)=>{
     bookController.show(request, response, next);
 })

@@ -36,6 +36,7 @@ async function store(req, res, next) {
         rater: ratingSavingRequest.rater,
         ratedBook: ratingSavingRequest.book
     })
+    await Rating.deleteMany({ $and: [{rater: rating.rater },{ratedBook: rating.ratedBook}] })
     console.log("before post")
     try {
         const newRating = await rating.save()

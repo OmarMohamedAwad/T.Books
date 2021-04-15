@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild,ElementRef } from '@angular/core';
 import { AuthorsServiceService} from '../../../../services/authors-service.service'
 
 
@@ -8,7 +8,11 @@ import { AuthorsServiceService} from '../../../../services/authors-service.servi
   styleUrls: ['./user-author-index.component.css']
 })
 export class UserAuthorIndexComponent implements OnInit, OnDestroy {
+  @ViewChild('search_box')searchBox!:ElementRef<HTMLInputElement>;
+  keywords:string = "";
   authors:any;
+  lastSearchContent:string="";
+  search:boolean = false;
   isLoad=false;
   authorId:any=0;
   subscriber:any;
@@ -30,19 +34,33 @@ export class UserAuthorIndexComponent implements OnInit, OnDestroy {
           this.pages = new Array(this.allPagesCount)
         },(err)=>{console.log(err)})
   }
+  captureSearchContent(page=1){
+    this.pageNumber=page;
+    this.search=true;
+    this.lastSearchContent=this.keywords=this.searchBox.nativeElement.value;
+    this.filter(this.lastSearchContent,page);
+  }
+  filter(searchContent:any,page:number){
+    this.subscriber = this.authorService.search(searchContent,page).subscribe((res:any)=>{
+      this.authors=res.body.authors;
+      this.allPagesCount= res.body.pages;
+    },(err)=>{console.log(err)})
+  }
   sendID(id:any){
     this.authorService.sendID(id);
     console.log("id from index"+id);
   }
   prev(){
-    if(this.pageNumber > 1){
-      this.getAuthors(--this.pageNumber);
-    }
+    if( !this.search && this.pageNumber > 1 )
+      this.getAuthors(--this.pageNumber)
+    else if(this.search)
+      this.filter(this.lastSearchContent,--this.pageNumber)
   }
   next(){
-    if(this.pageNumber < this.allPagesCount){
-      this.getAuthors(++this.pageNumber);
-    }
+    if( !this.search && this.pageNumber< this.allPagesCount )
+      this.getAuthors(++this.pageNumber)
+    else if(this.search)
+      this.filter(this.lastSearchContent,++this.pageNumber)
   }
   ngOnDestroy():void{
     this.subscriber.unsubscribe();
