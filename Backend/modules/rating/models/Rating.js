@@ -26,24 +26,27 @@ const ratingShcema = new mongoose.Schema({
 
 
 //assign the new rating to its book
-/*
+
 //ratingShcema.post('save' , async function (next) {
 
-ratingShcema.post('save' , async function (request , response , next) {
+ratingShcema.pre('save' , async function (request , response , next) {
+    const User = require('../../user/models/User')
+    const Book = require('../../book/models/Book')
+    console.log("jsjdsjdjsjdsj")
     try{
-        await User.updateOne({ _id: this.rater } , { $push: { userRatings: this.rate } });
+        await User.updateOne({ _id: this.rater } , { $push: { userRatings: this._id}  });
     }
     catch(err){
         next(new Error("Rating cannot be added to this user"));
     }
     try{
-        await Book.updateOne({ _id: this.ratedBook } , { $push: { bookRatings: this._id } });
+        await Book.updateOne({ _id: this.ratedBook } , { $push: { bookRatings: this._id}});
     }
     catch(err){
         next(new Error("Rating cann't be assigned to book"));
     }
 })
-})*/
+
 
 ratingShcema.pre('deleteOne',async function(next){
     //review-book

@@ -8,7 +8,7 @@ import { CategoryService } from '../service/category.service'
 })
 export class UserCategorySidebarComponent implements OnInit {
 
-  subscriber: any;
+  subscriber:any;
   selectedCategory:string = "";
   categories:{name:string , image:string} [] = [];
   categoriesName:string[] = [];
@@ -25,12 +25,19 @@ export class UserCategorySidebarComponent implements OnInit {
       this.categoriesName = this.categories.map((category) => {
         return category.name;
       })
+      if(this.categories.length > 0)
+      {
+        this.setDefaultCategoryEmitter.emit(this.categories[0].name);
+        console.log("i am here Ahmed")
+      }
     },
     (err)=>{
       console.log(err)
     })
+
   }
 
 @Output() selectCategoryEmitter:EventEmitter<string> = new EventEmitter()
+@Output() setDefaultCategoryEmitter:EventEmitter<string> = new EventEmitter()
 
 }

@@ -145,7 +145,6 @@ import { SumPipe } from './pipes/sum.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,//.forRoot(appRoutes),
     NgbModule,
     AdminRoutingModule,
     UserRoutingModule
