@@ -1,5 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { CategoryService } from '../../../../services/category.service';
+import {Category} from '../models/category';
+import {Book} from '../../book/models/book';
 declare var $:any;
 @Component({
   selector: 'app-category-delete',
@@ -7,7 +9,12 @@ declare var $:any;
   styleUrls: ['./category-delete.component.css']
 })
 export class CategoryDeleteComponent implements OnInit {
-  deletedCategory :any;
+  deletedCategory :Category = {
+    id: "",
+    name: "",
+    image: "",
+    books: [],
+  };
   @ViewChild('closebutton') closebutton: any;
   constructor(private _categoryService:CategoryService) {
 
@@ -17,7 +24,7 @@ export class CategoryDeleteComponent implements OnInit {
     this._categoryService.categoryID$
     .subscribe(
       (id)=>{
-        this.deletedCategory=id;
+        this.deletedCategory.id= id.toString();
       }
     )
   }
@@ -27,15 +34,15 @@ export class CategoryDeleteComponent implements OnInit {
   }
 
   deleteCategory(){
-    this._categoryService.categoryDelete(this.deletedCategory).subscribe((res)=>{
+    this._categoryService.categoryDelete(this.deletedCategory.id).subscribe((res)=>{
       console.log(res);
       if(res.message=="Deleted Correctly"){
-        //$("#deleteCategory").model('hide');
-        //this._categoryService.categoryIndex();
         this.closebutton.nativeElement.click();
+        this.refreshCategories.emit()
         console.log("deleted")
       }
     })
   }
 
+  @Output() refreshCategories:EventEmitter<Category> = new EventEmitter<Category>()
 }

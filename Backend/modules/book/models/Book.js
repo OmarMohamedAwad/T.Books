@@ -52,41 +52,78 @@ const bookSchema = mongoos.Schema({
 
 // saving book in categories and authors
 
-bookSchema.post('save', async function () {
+bookSchema.post('save', async function (next) {
 
     if (this.isNew) {
-        addDependencies(this)
+        addDependencies(this,next)
     }else {
-        updateDependencies(this)
+        updateDependencies(this,next)
     }
 
 })
 
 // removing book from categorie, author, rating and review 
-bookSchema.pre('remove', async function (next) {
-    removeDependencies(this)
-    // delete book from review collection
-    try {
-        if (this.bookReviews.length > 0)
-            await reviewModel.deleteMany({ reviewedBook: this._id });
+bookSchema.pre('remove', async function(next){
 
-        // delete book from rating collection
-        if (this.bookRatings.length > 0)
-            await ratingModel.deleteMany({ ratedBook: this._id });
+    try
+    {
+        removeDependencies(this,next)
+        // // delete book from author collection
+        // await authorModel.updateMany({}, { $pull: { authorBooks: this._id } })
+
+        // // delete book from category collection
+        // await categoryModel.updateMany({}, { $pull: { categoryBooks: this._id } })
+
+        await users.updateMany({} , {$pull: {currentlyReadedBooks: this._id}})
+        console.log(("removed the book from user(current read) correctly"))
+        await users.updateMany({} , {$pull: {wantToReadedBooks: this._id}})
+        console.log("removed the book from user(want to read) correctly")
+        await users.updateMany({} , {$pull: {readBooks: this._id}})
+        console.log(("removed the book from user(read books) correctly"))
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+
+ 
+    // delete book from rating collection and from review collection
+    try
+    {
+        for (const index in deletedBook.bookReviews){
+            //console.log(deletedAuthor.authorBooks[index])
+            await reviews.deleteOne({_id: index._id})
+        }
+
+        for (const index in deletedBook.bookRatings){
+            //console.log(deletedAuthor.authorBooks[index])
+            await ratings.deleteOne({_id: index._id})
+        }
+    }
+    catch(e)
+    {
+        next(ResponseCode.SERVER_ERROR)
+    }
+    
+});
+
+async function addDependencies(addedBook, next) {
+    // add book to author collection
+    try {
+        const updatingAuthor = await authorModel.updateOne({ _id: addedBook.bookAuthor },
+            { $push: { authorBooks: addedBook._id } })
+        
+        // add book to category collection
+        const updatingCategories = await categoryModel.updateOne({ _id: addedBook.bookCategory },
+            { $push: { categoryBooks: addedBook._id } })
+        
     }
     catch (e) {
         next(e)
     }
-
-    // Delete Book From User 
-});
-
-function updateDependencies(updatedBook){
-    removeDependencies(updatedBook);
-    addDependencies(updatedBook);
 }
 
-async function removeDependencies(deleteBook) {
+async function removeDependencies(deleteBook, next) {
     // delete book from author collection
     try {
         await authorModel.updateMany({}, { $pull: { authorBooks: deleteBook._id } })
@@ -99,73 +136,21 @@ async function removeDependencies(deleteBook) {
     }
 }
 
-async function addDependencies(addedBook) {
-    // add book to author collection
-    try {
-        const updatingAuthor = await authorModel.updateOne({ _id: addedBook.bookAuthor },
-            { $push: { authorBooks: addedBook._id } })
-        
-        // add book to category collection
-        const updatingCategories = await categoryModel.updateOne({ _id: addedBook.bookCategory },
-            { $push: { categoryBooks: addedBook._id } })
-    }
-    catch (e) {
-        next(e)
-    }
+function updateDependencies(updatedBook,next){
+    removeDependencies(updatedBook, next);
+    addDependencies(updatedBook, next);
 }
 
-// removing book from categorie, author, rating and review 
-bookSchema.pre('remove', async function(next){
-
-    // delete book from author collection
-    try
-    {
-        await authorModel.findOneAndUpdate({}, { $pull: { authorBooks: this._id } })
-
-        // delete book from category collection
-        await categoryModel.findOneAndUpdate({}, { $pull: { categoryBooks: this._id } })
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-    }
-
-    // delete book from review collection
-    //delete review from user //still
-    try
-    {
-        if(this.bookReviews.length > 0)
-            await reviewModel.deleteMany({reviewedBook: this._id});
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-    }
-
-    // delete book from rating collection
-    //remove rating from user //still
-    try
-    {
-        if(this.bookRatings.length > 0)
-            await ratingModel.deleteMany({ratedBook: this._id});
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-    }
-
-    // Delete Book From User //3documention
-});
-
-bookSchema.pre('deleteOne',async function(){
+bookSchema.pre('deleteOne',async function(next){
     const categories = require('../../category/models/Category');   
     const reviews = require('../../review/models/Review');  
     const ratings = require('../../rating/models/Rating');  
     const users = require('../../user/models/User'); 
-    const deletedBook = await BookModel.findById(this._conditions._id)
+    console.log(this._conditions._id);
+    const deletedBook = await BookModel.findById(this._conditions.id)
     try
     {
-        await removeDependencies(this._conditions._id);
+        await removeDependencies(this._conditions._id,next);
 
         await users.updateMany({} , {$pull: {currentlyReadedBooks: this._conditions._id}})
         console.log(("removed the book from user(current read) correctly"))
@@ -173,17 +158,18 @@ bookSchema.pre('deleteOne',async function(){
         console.log("removed the book from user(want to read) correctly")
         await users.updateMany({} , {$pull: {readBooks: this._conditions._id}})
         console.log(("removed the book from user(read books) correctly"))
+        console.log(deletedBook);
         //delete all reviews for this book
         for (const index in deletedBook.bookReviews)
         {
             //console.log(deletedAuthor.authorBooks[index])
-            await reviews.deleteOne({_id: index})
+            await reviews.deleteOne({_id: index._id})
         }
         //delete all ratings for this book
         for (const index in deletedBook.bookRatings)
         {
             //console.log(deletedAuthor.authorBooks[index])
-            await ratings.deleteOne({_id: index})
+            await ratings.deleteOne({_id: index._id})
         }
 
         // await reviews.deleteMany({reviewedBook: this._conditions._id})
@@ -191,9 +177,11 @@ bookSchema.pre('deleteOne',async function(){
 
         // await ratings.deleteMany({ratedBook: this._conditions._id})
         // console.log(("removed the book from rating correctly"))
+        next()
     }
     catch(e)
     {
+        console.log(e);
         next(new Error("can't remove dependencies"))
     }
 })

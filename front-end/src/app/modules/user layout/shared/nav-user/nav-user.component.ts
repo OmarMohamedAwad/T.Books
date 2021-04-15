@@ -2,6 +2,8 @@ import { state } from '@angular/animations';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HostListener } from '@angular/core';
 
+import {UserAccessServiceService} from 'src/app/modules/user layout/access/services/user-access-service.service'
+
 @Component({
   selector: 'app-nav-user',
   templateUrl: './nav-user.component.html',
@@ -17,14 +19,39 @@ export class NavUserComponent implements OnInit {
   const menuToggle = document.querySelector('button')!;
   const bsCollapse = new bootstrap.Collapse(menuToggle)
   navLinks.forEach((l) => {
-      l.addEventListener('click', () => { bsCollapse.toggle() })
+    l.addEventListener('click', () => { bsCollapse.toggle() })
   })
   */
-  constructor() { 
-    this.srcWidth=0;
-    this.is_open=false;
+ constructor(private service:UserAccessServiceService) { 
+   this.srcWidth=0;
+   this.is_open=false;
   }
-  ngOnInit(): void {
+  // userIsLogedIn:any = false;
+  userIsLogedIn:any = sessionStorage.getItem("accessToken");
+  ngOnInit(): void 
+  {
+    console.log("status",this.userIsLogedIn)
+    
+  }
+  refreashToken:any = "";
+  userLogout()
+  {
+    console.log("out")
+
+    this.refreashToken = sessionStorage.getItem("refreshToken") 
+
+    this.service.logoutUser({refreshToken:this.refreashToken})
+      .subscribe((data)=>{
+        console.log(data)
+        
+      },(err)=>{
+
+    })
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("userName");
+    sessionStorage.removeItem("userId");
+
     
   }
   @HostListener('window:scroll', ['$event'])
@@ -60,5 +87,7 @@ export class NavUserComponent implements OnInit {
       this.collapseList.nativeElement.setAttribute("style","display:block");
     }
   }
+
+  
  
 }

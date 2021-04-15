@@ -23,6 +23,7 @@ export class BookStoreComponent implements OnInit {
     bookRatings:[]
   };
 
+  incorrectData = false;
   indexFlag: boolean = false;
 
   constructor(private bookService: BookServiceService) { }
@@ -60,15 +61,18 @@ export class BookStoreComponent implements OnInit {
       this.book.description = this.bookForm.controls.description.value;
       this.book.author = this.bookForm.controls.author.value;
       this.book.category = this.bookForm.controls.category.value;
-      this.book.image = "https://i.morioh.com/21056da3fv32436456787812/4b482f8e.webp";
+      this.book.image = "https://i.morio421hjkeewh.com/21056da3fv32436456787812/4b482f8e.webp";
 
       this.bookService.store(this.book).subscribe((response)=>{
+        console.log(response);
         this.indexFlag = true;
         this.bookForm.reset();
         this.addedBook.emit(this.book);
       }, error => {
         console.log(error)
       })
+    }else {
+      this.incorrectData = true
     }
   }
 

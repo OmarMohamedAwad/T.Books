@@ -13,7 +13,6 @@ function present(user) {
         readBooks:user.readBooks,
         userReviews:user.userReviews,
         userRating:user.userRatings,
-        token :user.refreshToken
     }
 }
 

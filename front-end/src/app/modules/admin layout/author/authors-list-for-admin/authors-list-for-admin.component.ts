@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import {Author} from '../models/author';
 
@@ -7,11 +7,15 @@ import {Author} from '../models/author';
   templateUrl: './authors-list-for-admin.component.html',
   styleUrls: ['./authors-list-for-admin.component.css','../../shared/style/dashboard.css']
 })
-export class AuthorsListForAdminComponent implements OnInit {
+export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
+  @Input('keywords')  keywords:string = "";
 
   constructor(private myService:AuthorsServiceService) { }
   authors:Array<Author> = []
+  isLoad= false;
 
+  //authors:Array<Author> = []
+  allAuthors:Array<Author> = []
   mAuthor:Author =
   {
     id:"",
@@ -27,13 +31,24 @@ export class AuthorsListForAdminComponent implements OnInit {
   ngOnInit(): void {
     this.subscriber = this.myService.getAuthors()
     .subscribe((response:any)=>{
-      console.log(response.body)
-      this.authors = response.body
+        this.authors = response.body
+        this.isLoad = true
+        this.authors=this.allAuthors = response.body
     },
     (err)=>{
       console.log(err)
     }
     )
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+    this.filterList(this.keywords)
+  }
+  // authors:any = this.allAuthors
+  filterList(keywords:string){
+    this.authors= this.allAuthors.filter((item)=>{
+      return item.name.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())
+    })
   }
 
   getAuthor(a:any)

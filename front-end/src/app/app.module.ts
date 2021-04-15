@@ -32,7 +32,7 @@ import { CategoryDeleteComponent } from './modules/admin layout/category/categor
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
@@ -60,27 +60,18 @@ import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
+import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
+import { UserRoutingModule } from './modules/user layout/user-routing/user-routing.module';
+
+import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
 
 
-const routes:Routes = [
-  {path:'admin/author',component:IndexComponent},
-  {path:'admin/author/store',component:StoreComponent},
-  {path:'book', component:UserBookIndexComponent  },
-  {path:'book/:id', component:BookDetComponent },
-  
-
-  {path:'admin/category',component:CategoryIndexComponent},
-  {path:'admin/category/store',component:CategoryStoreComponent},
-  {path:'admin/dashboard',component:DashboardComponent},
-  {path:'admin/book',component:AdminMainBookComponent},
-  {path:'admin/setting',component:SettingComponent},
-  {path:'*',component:NotFoundComponent}
-]
-
-
-// const appRoutes:Routes=[
-//   {path:"",redirectTo:"",pathMatch:"full"},
-// ]
+//  const appRoutes:Routes=[
+//    {path:"",redirectTo:"",pathMatch:"full"},
+//    {path:"login",component:LoginRegisterComponent},
+//    //we can put guard in all url which we neeeeed to protect by CanActivate
+//    {path:"user/home",canActivate:[UserAuthGaurdGuard],component:HomeAllComponent}
+//  ]
 
 @NgModule({
   declarations: [
@@ -150,9 +141,9 @@ const routes:Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,
     NgbModule,
-    RouterModule.forRoot(routes)
+    AdminRoutingModule,
+    UserRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

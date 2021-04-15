@@ -22,8 +22,4 @@ export class CategoryService {
       return this.categoryClient.get(`${this.baseURL}/pages?name=${name}&page=${page}&bookName=${book}`,{observe:'response'})
   }
 
-  getCategoryByName(name: string) {
-    return this.categoryClient.get(`${this.baseURL}/${name}`)
-  }
-
 }

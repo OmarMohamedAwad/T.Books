@@ -11,6 +11,7 @@ export class UserCategoryBooksComponent implements OnInit {
   subscriber:any;
   currentPage:number = 1;
   currentCategory:string = "";
+
   maxPages:number = 1;
   row1:string[] = []
   row2:string[] = []

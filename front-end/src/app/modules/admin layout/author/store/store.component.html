@@ -9,25 +9,28 @@
           <div class="mb-3 field">
             <label class="form-label" for="first-name">First Name</label>
             <input formControlName="fName" class="form-control" id="first-name" placeholder="Enter first name..." type="text">
+            <p class="alert-danger p-1 mt-2" *ngIf="!getFNameStatus() && incorrectData">The first name is invalid must be at least 2 character</p>
           </div>
-  
+
           <div class="mb-3 field">
             <label  class="form-label" for="last-name">Last Name</label>
             <input formControlName="lName" class="form-control" id="last-name" placeholder="Enter last name..." type="text">
+            <p class="alert-danger p-1 mt-2" *ngIf="!getLNameStatus() && incorrectData">The last name is invalid must be at least 2 character</p>
           </div>
           <div class="mb-3 field">
             <label class="form-label" for="dob">Date Of Birth</label>
             <input formControlName="dob"  class="form-control" id="dob" placeholder="Enter date..." type="date">
+            <p class="alert-danger p-1 mt-2" *ngIf="!getDOBStatus() && incorrectData">The date is invalid must be in this format mm/dd/yyyy</p>
           </div>
-  
+
           <div class="mb-3 field">
             <label class="form-label" for="image">Image</label>
             <input class="form-control" id="image" type="file">
           </div>
-  
+
           <div class="actions text-center mt-3">
             <button class="btn btn-secondary w-25 m-1" type="button" routerLink="../../author">Close</button>
-            <button class="btn btn-danger w-25 m-1" type="button" routerLink="../../author"
+            <button class="btn btn-danger w-25 m-1" type="button"
             (click)="submitForm($event)">Add Author</button>
           </div>
         </form>

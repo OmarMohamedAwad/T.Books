@@ -70,6 +70,10 @@ html {
   color: #de3242;
 }
 
+.loader svg {
+  color: #de3242 !important;
+}
+
 .col-xxs-1,
 .col-xxs-2,
 .col-xxs-3,

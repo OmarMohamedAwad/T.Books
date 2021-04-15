@@ -1,3 +1,7 @@
+.content-page{
+  min-height: 95vh;
+}
+
 .container {
   padding-left: 18%;
 }
@@ -10,4 +14,8 @@
 
 .fa-book-open {
   color: #de3242;
+}
+
+.field p {
+  border-radius: 5px;
 }

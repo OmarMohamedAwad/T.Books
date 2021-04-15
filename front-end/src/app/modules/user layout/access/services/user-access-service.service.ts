@@ -20,4 +20,12 @@ export class UserAccessServiceService {
     return this.client.post(`${this.BASE_URL}/user`,user);
   }
 
+  logoutUser(token:{refreshToken:any})
+  {
+    return this.client.post(`${this.BASE_URL}/userLogout`,token)
+  }
+
+  isLoggedIn(){
+    return !!localStorage.getItem('TOKEN');
+  }
 }
