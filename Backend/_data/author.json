@@ -1,6 +1,5 @@
-[
-    {
-        "authorBooks": [],
+[{
+        "authorBooks": ["6062c07002d1792d0d7f9997", "6062bfb402d1792d0d7f9995"],
         "_id": "6062b985182f202651758434",
         "autherFirstName": "Robert",
         "autherLastName": "Ervin Howard",
@@ -9,7 +8,7 @@
         "__v": 0
     },
     {
-        "authorBooks": [],
+        "authorBooks": ["6062c17702d1792d0d7f999a"],
         "_id": "6062b9ae182f202651758435",
         "autherFirstName": "Edgar",
         "autherLastName": "Allan Poe",
@@ -27,7 +26,7 @@
         "__v": 0
     },
     {
-        "authorBooks": [],
+        "authorBooks": ["6062c33a381b872e4818b4a9", "6062c42c381b872e4818b4ab"],
         "_id": "6062b9e1182f202651758437",
         "autherFirstName": "William",
         "autherLastName": "Shakespeare",

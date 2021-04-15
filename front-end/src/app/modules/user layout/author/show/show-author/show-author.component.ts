@@ -1,3 +1,4 @@
+import { Book } from './../../../../admin layout/book/models/book';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author } from 'src/app/modules/admin layout/author/models/author';
@@ -23,8 +24,12 @@ author:Author =
     name:"",
     birthDay:"",
     image:"",
-    books:[]
+    books:[
+
+    ]
   };
+
+
 authorID:any;
 
   ngOnInit(): void {
@@ -38,6 +43,8 @@ getAuthorById(){
       console.log(this.authorID);
       this.author=res;
       console.log(this.author);
+      console.log(this.author.books.length)
+      console.log(this.author.books)
     }
   )
 }

@@ -2,7 +2,6 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<app-nav-user></app-nav-user>
 
 <div class="myCard">
     <!--<app-author-card [selectedAuthor]="author"></app-author-card>-->
@@ -19,5 +18,39 @@
 
 </div>
 <div class="myBooks">
-    <app-author-bookslist></app-author-bookslist>
+
+    <!--      <app-author-book></app-author-book>   -->
+    <div class="main authorBook" *ngFor="let authorBook of author.books">
+
+        <div class="image">
+            <img src='/assets/user/book/' [alt]="authorBook['image']">
+        </div>
+        <div class="info1">
+            <p style="color: black;">Harry Potter and the Order of the Phoenix</p>
+            <p style>300 Ratings</p>
+            <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
+            <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
+            <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
+            <i class="far fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
+            <i class="far fa-star" style="color: rgb(255, 60, 0);"></i>
+        </div>
+        <div class="info2">
+            <div style="margin-left: 120px; font-size: larger;">
+                <p style="display: inline; ">4.5</p>
+                <i class="fas fa-star" style="color: red; margin-left: 5px;"></i>
+            </div>
+            <div class="dropdown" style="margin-top: 90px; margin-left: 35px;">
+                <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Book status
+              </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Is currently reading</a>
+                    <a class="dropdown-item" href="#">Want to read</a>
+                    <a class="dropdown-item" href="#">Finished reading</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
