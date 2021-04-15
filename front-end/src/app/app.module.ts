@@ -64,6 +64,8 @@ import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/a
 import { UserRoutingModule } from './modules/user layout/user-routing/user-routing.module';
 
 import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
+import { AveragePipe } from './pipes/average.pipe';
+import { SumPipe } from './pipes/sum.pipe';
 
 
 //  const appRoutes:Routes=[
@@ -130,7 +132,9 @@ import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
     TermsComponent,
     NotFoundComponent,
     ConcateNamePipe,
-    AdminLoginComponent
+    AdminLoginComponent,
+    AveragePipe,
+    SumPipe
   ],
   exports:[
     ConcateNamePipe

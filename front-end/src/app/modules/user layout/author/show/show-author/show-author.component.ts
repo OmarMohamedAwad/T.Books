@@ -16,21 +16,10 @@ export class ShowAuthorComponent implements OnInit {
       this.authorID = this.myActivatedRoute.snapshot.params.id;
 
     }
-author:Author =
-  {
-    id:"",
-    firstName:"",
-    lastName:"",
-    name:"",
-    birthDay:"",
-    image:"",
-    books:[
-
-    ]
-  };
-
+author:any;
 
 authorID:any;
+ratings=[1,2,3,4,5,4,5,3];
 
   ngOnInit(): void {
     this.getAuthorById();
@@ -44,7 +33,7 @@ getAuthorById(){
       this.author=res;
       console.log(this.author);
       console.log(this.author.books.length)
-      console.log(this.author.books)
+      console.log(this.author.books[0].bookName);
     }
   )
 }

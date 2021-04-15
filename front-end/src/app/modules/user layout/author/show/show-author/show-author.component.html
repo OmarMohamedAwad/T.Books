@@ -23,11 +23,11 @@
     <div class="main authorBook" *ngFor="let authorBook of author.books">
 
         <div class="image">
-            <img src='/assets/user/book/' [alt]="authorBook['image']">
+            <img src='/assets/user/book/{{authorBook.bookImage}}' [alt]='authorBook.bookName'>
         </div>
         <div class="info1">
-            <p style="color: black;">Harry Potter and the Order of the Phoenix</p>
-            <p style>300 Ratings</p>
+            <p style="color: black;">{{authorBook.bookName}}</p>
+            <p style>{{ratings.length}} Ratings</p>
             <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
             <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
             <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
@@ -36,7 +36,7 @@
         </div>
         <div class="info2">
             <div style="margin-left: 120px; font-size: larger;">
-                <p style="display: inline; ">4.5</p>
+                <p style="display: inline; ">{{ratings|average}}</p>
                 <i class="fas fa-star" style="color: red; margin-left: 5px;"></i>
             </div>
             <div class="dropdown" style="margin-top: 90px; margin-left: 35px;">

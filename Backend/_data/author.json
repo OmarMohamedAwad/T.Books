@@ -4,7 +4,7 @@
         "autherFirstName": "Robert",
         "autherLastName": "Ervin Howard",
         "authorDob": "5-9-1980",
-        "authorImage": "Robert.jpeg",
+        "authorImage": "Robert.jpg",
         "__v": 0
     },
     {
@@ -13,7 +13,7 @@
         "autherFirstName": "Edgar",
         "autherLastName": "Allan Poe",
         "authorDob": "5-9-1980",
-        "authorImage": "Edgar.jpeg",
+        "authorImage": "Edgar.jpg",
         "__v": 0
     },
     {
@@ -22,7 +22,7 @@
         "autherFirstName": "Emily",
         "autherLastName": "Dickinson",
         "authorDob": "5-9-1980",
-        "authorImage": "Emily.jpeg",
+        "authorImage": "Emily.jpg",
         "__v": 0
     },
     {
@@ -31,7 +31,7 @@
         "autherFirstName": "William",
         "autherLastName": "Shakespeare",
         "authorDob": "5-9-1980",
-        "authorImage": "William.jpeg",
+        "authorImage": "William.jpg",
         "__v": 0
     },
     {
@@ -40,7 +40,7 @@
         "autherFirstName": "Alfred",
         "autherLastName": "Tennyson",
         "authorDob": "5-9-1980",
-        "authorImage": "Alfred.jpeg",
+        "authorImage": "Alfred.jpg",
         "__v": 0
     },
     {
@@ -49,7 +49,7 @@
         "autherFirstName": "John",
         "autherLastName": "Donne",
         "authorDob": "5-9-1980",
-        "authorImage": "John.jpeg",
+        "authorImage": "John.jpg",
         "__v": 0
     },
     {
@@ -58,7 +58,7 @@
         "autherFirstName": "Bret ",
         "autherLastName": "Harte",
         "authorDob": "5-9-1980",
-        "authorImage": "Bret.jpeg",
+        "authorImage": "Bret.jpg",
         "__v": 0
     },
     {
@@ -67,7 +67,7 @@
         "autherFirstName": "Ambrose ",
         "autherLastName": "Bierce",
         "authorDob": "5-9-1980",
-        "authorImage": "Ambrose.jpeg",
+        "authorImage": "Ambrose.jpg",
         "__v": 0
     },
     {
@@ -76,7 +76,7 @@
         "autherFirstName": "Gilbert",
         "autherLastName": "Keith Chesterton",
         "authorDob": "5-9-1980",
-        "authorImage": "Gilbert.jpeg",
+        "authorImage": "Gilbert.jpg",
         "__v": 0
     },
     {
@@ -85,7 +85,7 @@
         "autherFirstName": "Oscar",
         "autherLastName": "Wilde",
         "authorDob": "5-9-1980",
-        "authorImage": "Oscar.jpeg",
+        "authorImage": "Oscar.jpg",
         "__v": 0
     },
     {
@@ -94,7 +94,7 @@
         "autherFirstName": "Jack",
         "autherLastName": "London",
         "authorDob": "5-9-1980",
-        "authorImage": "Jack.jpeg",
+        "authorImage": "Jack.jpg",
         "__v": 0
     },
     {
@@ -103,7 +103,7 @@
         "autherFirstName": "Robert",
         "autherLastName": "Louis Stevenson",
         "authorDob": "5-9-1980",
-        "authorImage": "Robert.jpeg",
+        "authorImage": "Robert.jpg",
         "__v": 0
     },
     {
@@ -112,7 +112,7 @@
         "autherFirstName": "Charles",
         "autherLastName": "Dickens",
         "authorDob": "5-9-1980",
-        "authorImage": "Charles.jpeg",
+        "authorImage": "Charles.jpg",
         "__v": 0
     },
     {
@@ -121,7 +121,7 @@
         "autherFirstName": "Emily",
         "autherLastName": "Brontë",
         "authorDob": "5-9-1980",
-        "authorImage": "Emily.jpeg",
+        "authorImage": "Emily.jpg",
         "__v": 0
     },
     {
@@ -130,7 +130,7 @@
         "autherFirstName": "Friedrich",
         "autherLastName": "Nietzsche",
         "authorDob": "5-9-1980",
-        "authorImage": "Friedrich.jpeg",
+        "authorImage": "Friedrich.jpg",
         "__v": 0
     }
 ]
