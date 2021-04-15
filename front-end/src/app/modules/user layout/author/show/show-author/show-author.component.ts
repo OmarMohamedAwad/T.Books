@@ -19,7 +19,7 @@ export class ShowAuthorComponent implements OnInit {
 author:any;
 
 authorID:any;
-ratings=[1,2,3,4,5,4,5,3];
+ratings=[1,2,3,4,5,3];
 
   ngOnInit(): void {
     this.getAuthorById();
