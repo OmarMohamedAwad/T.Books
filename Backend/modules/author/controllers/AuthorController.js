@@ -15,6 +15,40 @@ async function index(request, response, next) {
     }  
 }
 
+async function search(request, response, next) {
+    const { keyword } = request.params;
+    const { page } = request.query;
+    //trim
+    var refactoredKeyword = keyword.replace(/^\s*|\s*$/g, '');
+    page < 0 ? page = 1 : page;
+    let regex1 = new RegExp(),regex2 = new RegExp();
+    if(refactoredKeyword.length)
+        regex1=regex2= new RegExp(refactoredKeyword,'i');
+    if(refactoredKeyword.includes(' ')){
+        let idx=refactoredKeyword.indexOf(' ');
+        regex1=new RegExp(refactoredKeyword.substring(0, idx),'i');
+        regex2=new RegExp(refactoredKeyword.substring(idx+1, refactoredKeyword.length),'i');
+    }
+    try{
+        const filterCount = await Author.find({ $or: [{autherFirstName: regex1 },{autherLastName: regex2}] }) .count(); 
+        const filterd = await Author.find({ $or: [{autherFirstName: regex1 },{autherLastName: regex2}] })
+        .sort('authorDob')
+        .limit(8)
+        .skip((page-1) * 8).exec();
+        const numberOfPages = Math.ceil(filterCount / 8)
+        const presentedAuthors = filterd.map((author)=>{
+            return authorPresenter.present(author);
+        });
+        response.json({
+            authors: presentedAuthors,
+            pages: numberOfPages
+        });
+    }
+    catch{
+        next(ResponseCode.SERVER_ERROR);
+    }
+}
+
 async function pagination(request, response, next){
     try{
         let { page=1,limit=2} = request.query;
@@ -78,6 +112,7 @@ async function destroy(request, response, next) {
             message: ResponseMessage.DELETE_MESSAGE
         });
     }catch(error) {
+        console.log(error);
         next(ResponseCode.SERVER_ERROR)
     }
 }
@@ -107,6 +142,7 @@ async function update(request, response, next) {
 module.exports = {
     index,
     store,
+    search,
     show,
     destroy,
     update,

@@ -4,6 +4,7 @@ import {Book} from '../../../admin layout/book/models/book';
 import { ActivatedRoute } from '@angular/router';
 import {BookServiceService} from '../../../admin layout/book/services/book-service.service';
 import { ReviewsService } from 'src/app/services/reviews.service';
+import { RatingServiceService } from '../../../../services/rating-service.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +24,8 @@ import { Router } from '@angular/router';
 
 export class BookDetComponent implements OnInit {
   selected:any = 'option2';
-
+  flagNavigate:boolean = false;
+  userId:string = "";
   user_img="assets/user/author/author-1.jpg";
 
   ratesNum:number =112585
@@ -32,10 +34,14 @@ export class BookDetComponent implements OnInit {
   favsNum:number =215;
  // userRate=0;
   userReview:string="";
-
+  ratingDetailsClicked(){
+    this.flagNavigate=true;
+  }
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService,
-              private myActivatedRoute:ActivatedRoute, private router: Router) { }
-
+    private ratingService: RatingServiceService, private myActivatedRoute:ActivatedRoute, private router: Router) {
+      this.userId=sessionStorage.getItem("userId")!;
+    }
+  
   book : Book =
     {
       id: "",
@@ -51,23 +57,21 @@ export class BookDetComponent implements OnInit {
     }
 
   subscriber:any;
+  rateSubscriber:any;
   reviewSubscriber:any;
   
   text:string = '';
   reviewerId:any = ''; 
   
+  setRate(bookRate:any){
+    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:this.userId, book:this.book.id})
+  }
 
-
-    setRate(e:any){
-      console.log(e);
-    }
   reviews:Array<{reviewBody: string,
   reviewedBook: string,
   reviwer: string,
   __v: any,
   _id: string}>=[]
-
-  
 
   ngOnInit(): void {
     this.subscriber = this.bookService.show(this.myActivatedRoute.snapshot.params.id)
@@ -88,15 +92,15 @@ export class BookDetComponent implements OnInit {
     this.text = e.target.value;
   }
 
-  reloadComponent() {
+  reloadComponent(){
     let currentUrl = this.router.url;
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate([currentUrl]);
-    }
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+  }
 
   publishClicked(e:any){
-    if(this.text.length > 9)
+    if(this.text.length > 8)
     {
       console.log(this.text)
       console.log(this.book.id)
@@ -115,17 +119,8 @@ export class BookDetComponent implements OnInit {
       )
     }
   }
-
-  
-
-  
-
   ngOnDestroy(): void {
     this.subscriber.unsubscribe();
     this.reviewSubscriber.unsubscribe();
   }
-
-  
-  
-
 }

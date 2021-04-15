@@ -21,6 +21,10 @@ export class AuthorsServiceService {
     return this.authorClient.get(this.baseURL,{observe:'response'})
   }
 
+  search(keyword:string,page:number){
+    return this.authorClient.get(`${this.baseURL}/search/${keyword} ?page=${page}`,{observe:"response"})
+  }
+
   pagination(page:number){
     return this.authorClient.get(`${this.baseURL}/pages?page=${page}`,{observe:"response"});
   }

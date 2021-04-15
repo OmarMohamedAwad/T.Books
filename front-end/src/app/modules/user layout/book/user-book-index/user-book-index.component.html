@@ -4,6 +4,17 @@
   <img src="assets/user/book/book-gif.gif">
 </div>
 
+<div class="book-search">
+  <div class="input-group m-auto w-40">
+    <div class="form-outline w-90">
+      <input type="search" class="form-control" placeholder="Search" #search_box/>
+    </div>
+    <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+</div>
+
 <section class="books">
   <div class="container">
     <div class="row justify-content-around">

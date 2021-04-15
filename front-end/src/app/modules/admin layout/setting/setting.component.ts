@@ -11,6 +11,7 @@ export class SettingComponent implements OnInit {
 
   subscriber: any;
   settings: any;
+  isLoad = false;
   constructor(private settingService: SettingsService) { }
 
   ngOnInit(): void {
@@ -18,6 +19,7 @@ export class SettingComponent implements OnInit {
     .subscribe((response:any)=>{
       console.log(response.body)
       this.settings = response.body
+      this.isLoad = true
       this.settings.find((section:any) => {
         if(section.sectionName == "home")
         {
@@ -50,7 +52,7 @@ export class SettingComponent implements OnInit {
 
     title: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]*/),
-    
+
     sub_title: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]*/)
   })
@@ -59,7 +61,7 @@ export class SettingComponent implements OnInit {
   {
     console.log(this.homeHeaderForm.controls.title.value)
     console.log(this.homeHeaderForm.controls.sub_title.value)
-    let insertedData : any = 
+    let insertedData : any =
     {
     "title": this.homeHeaderForm.controls.title.value,
     "sub_title": this.homeHeaderForm.controls.sub_title.value
@@ -77,20 +79,20 @@ export class SettingComponent implements OnInit {
 
     book:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]*/),
-    
+
     author:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/),
 
     category:new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/)
-      
+
 
   })
   submitTitleForm(e:any){
     console.log(this.HomeTitleForm.controls.book.value)
     console.log(this.HomeTitleForm.controls.author.value)
     console.log(this.HomeTitleForm.controls.category.value)
-    let insertedData : any = 
+    let insertedData : any =
     {
     "book": this.HomeTitleForm.controls.book.value,
     "author": this.HomeTitleForm.controls.author.value,
@@ -109,7 +111,7 @@ export class SettingComponent implements OnInit {
 
     email: new FormControl('',[Validators.required , Validators.email]/*,Validators.maxLength(50),Validators.minLength(2),
       Validators.pattern('[a-zA-Z]*')]*/),
-    
+
     phone: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/),
 
@@ -118,7 +120,7 @@ export class SettingComponent implements OnInit {
 
     title: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/),
-    
+
     capation: new FormControl('',[Validators.required]/*,Validators.maxLength(50),Validators.minLength(2),
     Validators.pattern('[a-zA-Z]*')]*/)
   })
@@ -129,7 +131,7 @@ export class SettingComponent implements OnInit {
     console.log(this.HomeFooterForm.controls.fax.value)
     console.log(this.HomeFooterForm.controls.title.value)
     console.log(this.HomeFooterForm.controls.capation.value)
-    let insertedData : any = 
+    let insertedData : any =
     {
     "email": this.HomeFooterForm.controls.email.value,
     "phone": this.HomeFooterForm.controls.phone.value,

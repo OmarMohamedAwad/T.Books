@@ -1,3 +1,8 @@
+
+.content-page {
+  min-height: 100vh;
+}
+
 .container {
   padding-left: 15%;
 }
@@ -12,7 +17,7 @@ svg:focus {
 /*Top Section*/
 .top-part {
   padding-top: 10%;
-  height: 200px;
+  height: 240px;
 }
 
 .top-part h2 {

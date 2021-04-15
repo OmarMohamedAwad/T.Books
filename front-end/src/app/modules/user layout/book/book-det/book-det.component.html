@@ -5,7 +5,7 @@
         <button class="btn btn-danger w-75 mt-4">Add to favourits</button>
         <span class="font15 d-block mt-2">Rate This book</span>
         <!-- <ngb-rating style="color: rgb(250, 225, 0); font-size: x-large;" [max]="5" [readonly]="false" ></ngb-rating> -->
-        <fieldset class="rating">
+        <fieldset class="rating d-block text-center rating_field">
             <input type="radio" id="star5" name="rating" value="5" (click)="setRate(5)"/><label class = "full" for="star5" title="Awesome - 5 stars" (click)="setRate(5)"></label>
             <input type="radio" id="star4" name="rating" value="4" (click)="setRate(4)"/><label class = "full" for="star4" title="Excellent- 4 stars" (click)="setRate(4)"></label>
             <input type="radio" id="star3" name="rating" value="3" (click)="setRate(3)"/><label class = "full" for="star3" title="Good - 3 stars" (click)="setRate(3)"></label>
@@ -27,7 +27,7 @@
             <span class="d-inline-block col-3 font17">
                 <img src="assets/user/book/book_details.jpg" style="width: 22px;">
                 <pre class="d-inline-block"> </pre>
-                <a class="colorBlack" href="#" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating details</a>
+                <a class="colorBlack" href="#" data-bs-toggle="modal" data-bs-target="#ratingModal" (click)="ratingDetailsClicked()">Rating details</a>
             </span>
             <span class="d-inline-block col-3 font17">
                 Number of rates: {{ratesNum}}
@@ -60,5 +60,5 @@
 
     </ul>
 </section>
-<app-rating-det></app-rating-det>
+<app-rating-det [flagNavigate]="flagNavigate"></app-rating-det>
 <app-footer></app-footer>

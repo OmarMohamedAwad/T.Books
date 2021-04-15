@@ -1,22 +1,31 @@
 <app-nav-user></app-nav-user>
+<div class="author-search">
+  <div class="input-group m-auto w-40">
+    <div class="form-outline w-90">
+      <input type="search" class="form-control" placeholder="Search" #search_box/>
+    </div>
+    <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+</div>
 <!-- section author-->
-
 <section class="authors">
   <div class="container">
     <div *ngIf="isLoad" class="row">
-        <div class="col-lg-3 col-sm-6 col-8 col-xxs-10" *ngFor="let author of authors; let i=index">
-          <div class="author text-center p-3">
-            <img src="/assets/user/author/{{author.image}}" class="author-image" [alt]="author.authorName">
-            <div class="big-cir">
-              <div class="small-cir"></div>
-              <div class="small-cir2"></div>
-              <div class="small-cir3"></div>
-            </div>
-            <div class="triangle t-top-left"></div>
-            <div class="triangle t-bottom-right"></div>
-            <p class="mb-4 mt-4">{{author.name}}</p>
-            <a href="#" class="btn btn-dark" (click)="sendID(author._id)">View More</a>
+      <div class="col-lg-3 col-sm-6 col-8 col-xxs-10" *ngFor="let author of authors; let i=index">
+        <div class="author text-center p-3">
+          <img src="/assets/user/author/{{author.image}}" class="author-image" [alt]="author.authorName">
+          <div class="big-cir">
+            <div class="small-cir"></div>
+            <div class="small-cir2"></div>
+            <div class="small-cir3"></div>
           </div>
+          <div class="triangle t-top-left"></div>
+          <div class="triangle t-bottom-right"></div>
+          <p class="mb-4 mt-4">{{author.name}}</p>
+          <a href="#" class="btn btn-dark" (click)="sendID(author._id)">View More</a>
+        </div>
       </div>
     </div>
   </div>
@@ -27,9 +36,11 @@
     <div class="row">
       <nav aria-label="Page navigation example">
         <ul class="pagination w-50">
-          <li class="page-item"><a class="" href="#" (click)="prev()"><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
+          <li class="page-item"><a class="" href="#" (click)="prev()"><i
+                class="fas fa-chevron-circle-left fa-2x"></i></a></li>
           <li class="page-item"><a class="" href="#">{{pageNumber}}</a></li>
-          <li class="page-item"><a class="" href="#" (click)="next()"><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
+          <li class="page-item"><a class="" href="#" (click)="next()"><i
+                class="fas fa-chevron-circle-right fa-2x"></i></a></li>
         </ul>
       </nav>
     </div>

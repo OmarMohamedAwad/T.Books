@@ -11,6 +11,8 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
   @Input('keywords')  keywords:string = "";
 
   constructor(private myService:AuthorsServiceService) { }
+  authors:Array<Author> = []
+  isLoad= false;
 
   //authors:Array<Author> = []
   allAuthors:Array<Author> = []
@@ -29,8 +31,9 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
   ngOnInit(): void {
     this.subscriber = this.myService.getAuthors()
     .subscribe((response:any)=>{
-      console.log(response.body)
-      this.authors=this.allAuthors = response.body
+        this.authors = response.body
+        this.isLoad = true
+        this.authors=this.allAuthors = response.body
     },
     (err)=>{
       console.log(err)
@@ -41,7 +44,7 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
     console.log(changes)
     this.filterList(this.keywords)
   }
-  authors:any = this.allAuthors
+  // authors:any = this.allAuthors
   filterList(keywords:string){
     this.authors= this.allAuthors.filter((item)=>{
       return item.name.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())

@@ -1,36 +1,44 @@
-<div class="content-page">
-  <section class="book" *ngIf="addFlag == false; else navigateToAddLayout">
-    <div class="container">
-      <div class="top-part">
-        <div class="row">
-          <div class="col-6">
-            <div class="content ">
-              <h2>Books</h2>
-              <p>We are glad to see you again!</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <button type="button" class="add-book" (click)="navigateToAdd()">
-              <i class="fas fa-plus"></i>
-            </button>
-          </div>
-        </div>
-        <div class="book-search">
-          <div class="input-group w-100 m-auto">
-            <div class="form-outline w-85 ">
-              <input type="search" class="form-control" placeholder="Search" #search_box />
-            </div>
-            <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
+  <div class="content-page">
+    <section class="book" *ngIf="addFlag == false; else navigateToAddLayout">
+      <div class="container">
+        <div class="top-part">
+          <div class="row">
+            <div class="col-6">
+              <div class="content ">
+                <h2>Books</h2>
+                <p>We are glad to see you again!</p>
+              </div>
 
-      </div>
-      <div class="row">
-        <div class="col-2"></div>
-        <table class="table col-8">
-          <thead class="table-active">
+            </div>
+            <div class="col-6">
+              <button type="button" class="add-book" (click)="navigateToAdd()">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="book-search ">
+            <div class="input-group w-100 m-auto">
+              <div class="form-outline w-85 ">
+                <input type="search" class="form-control" placeholder="Search" #search_box [(ngModel)]="keywords" (keyup)="filterList(keywords)"/>
+              </div>
+              <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <!--this loader is be hidden when the data come with response -->
+        <div *ngIf="!isLoad; else displayContent" class="row w-100">
+          <div class="col-md-12 text-center loader">
+            <i class="fas fa-spinner fa-spin fa-5x text-info"></i>
+          </div>
+        </div>
+        <ng-template #displayContent>
+          <div class="row">
+          <div class="col-2"></div>
+          <table class="table col-8">
+            <thead class="table-active">
             <tr>
               <th class="col text-center">#</th>
               <th class="col text-center">Title</th>
@@ -39,35 +47,39 @@
               <th class="col text-center">Author</th>
               <th class="col-2 text-center">Action</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr *ngFor="let book of books; index as i">
-              <th scope="row" class="text-center pt-3">{{i+1}}</th>
+              <th scope="row" class="text-center pt-3">{{i + 1}}</th>
               <td class="text-center pt-3">{{book.name}}</td>
               <td class="text-center pt-3"><img src="assets/admin/book/open-book.svg" class="book-imag"></td>
               <td class="text-center pt-3">{{book.categoryName}}</td>
               <td class="text-center pt-3">{{book.authorName}}</td>
               <td class="text-center">
                 <button class="btn text-dark" (click)="getBook(book)" data-bs-toggle="modal"
-                  data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+                        data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
                 <button class="btn text-danger" (click)="getBook(book)" data-bs-toggle="modal"
-                  data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+                        data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
               </td>
             </tr>
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
+        </ng-template>
+
       </div>
-    </div>
-  </section>
-  <ng-template #navigateToAddLayout>
-    <app-book-store (addedBook)="addBook($event)" [authorsInfo]="authors" [categoriesInfo]="categories">
-    </app-book-store>
-  </ng-template>
-</div>
+    </section>
+    <ng-template #navigateToAddLayout>
+      <app-book-store (addedBook)="addBook($event)" [authorsInfo]="authors"
+                      [categoriesInfo]="categories"></app-book-store>
+    </ng-template>
+  </div>
+
 <!-- // Delete Modal -->
 <app-book-delete [bookInfo]="clickedBook" (deletedBook)="deleteBook($event)"></app-book-delete>
 
 <!-- // Update Modal -->
 <app-book-update [bookInfo]="clickedBook" (updatedBook)="updateBook($event)" [authorsInfo]="authors"
-  [categoriesInfo]="categories"></app-book-update>
+                 [categoriesInfo]="categories"></app-book-update>
+

@@ -4,7 +4,7 @@
     margin: 90px 0 0 5%;
 }
 .desc{
-    min-height: 25vh;
+    min-height: 28vh;
 }
 .book_cover{
     width: 15%;
@@ -101,9 +101,9 @@ h1 { font-size: 1.5em; margin: 10px; }
 .rating > input { display: none; } 
 .rating > label:before { 
   margin: 5px;
-  font-size: 1.25em;
+  font-size: 1.2em;
   font-family: FontAwesome;
-  display: inline-block;
+  display: inlEMine-block;
   content: "\f005";
 }
 
@@ -115,6 +115,9 @@ h1 { font-size: 1.5em; margin: 10px; }
 .rating > label { 
   color: #ddd; 
  float: right; 
+}
+.rating_field{
+    width: 84%;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/

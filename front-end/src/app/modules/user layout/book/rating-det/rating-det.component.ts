@@ -1,11 +1,11 @@
-import { ElementRef, Component, OnInit, ViewChild} from '@angular/core';
+import { ElementRef, Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-rating-det',
   templateUrl: './rating-det.component.html',
   styleUrls: ['./rating-det.component.css']
 })
-export class RatingDetComponent implements OnInit {
+export class RatingDetComponent implements OnInit, OnChanges {
   @ViewChild('progressFill5') progressFill5!: ElementRef<HTMLDivElement>;
   @ViewChild('progressFill4') progressFill4!: ElementRef<HTMLDivElement>;
   @ViewChild('progressFill3') progressFill3!: ElementRef<HTMLDivElement>;
@@ -15,6 +15,10 @@ export class RatingDetComponent implements OnInit {
   
   constructor() { 
     
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.flagNavigate);
+    this.setFill();
   }
   
   ngOnInit(): void {
@@ -27,5 +31,5 @@ export class RatingDetComponent implements OnInit {
     this.progressFill4.nativeElement.setAttribute('style', `width: ${this.chartData[3]}%;`);
     this.progressFill5.nativeElement.setAttribute('style', `width: ${this.chartData[4]}%;`);
   }
-  
+  @Input() flagNavigate:any;
 }

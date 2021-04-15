@@ -10,6 +10,8 @@ import {CategoryService} from '../../../../services/category.service';
   styleUrls: ['./book-index.component.css','../../shared/style/dashboard.css']
 })
 export class BookIndexComponent implements OnInit, OnDestroy {
+
+  isLoad= false;
   @ViewChild('search_box') search_box!: ElementRef<HTMLInputElement>;
   subscriber:any;
   addFlag: boolean;
@@ -36,8 +38,8 @@ export class BookIndexComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getBooks();
-    // this.getAuthors();
-    // this.getCategories();
+    this.getAuthors();
+    this.getCategories();
   }
 
   getAuthors(){
@@ -55,6 +57,8 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   getBooks(){
     this.subscriber = this.bookService.index()
       .subscribe((response:any)=>{
+          this.books = response.body
+          this.isLoad = true
           /*this.books=this.allBooks = [{
             id:"605cdd9d22d5b83d40ada5e5",
             name:"mybook",

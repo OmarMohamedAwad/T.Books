@@ -61,6 +61,7 @@ import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-lo
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
 import { RatingDetComponent } from './modules/user layout/book/rating-det/rating-det.component';
+import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
 
 
 const routes:Routes = [
@@ -155,7 +156,7 @@ const routes:Routes = [
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
-    RouterModule.forRoot(routes)
+    AdminRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

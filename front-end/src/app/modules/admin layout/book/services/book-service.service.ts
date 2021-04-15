@@ -22,6 +22,10 @@ export class BookServiceService {
     return this.client.get(`${this.BASE_URL}/pages?page=${page}`,{observe:"response"});
   }
 
+  search(keyword:string,page:number){
+    return this.client.get(`${this.BASE_URL}/search/${keyword} ?page=${page}`,{observe:"response"})
+  }
+
   show(id: string){
     return this.client.get(`${this.BASE_URL}/${id}`,{observe:"response"});
   }

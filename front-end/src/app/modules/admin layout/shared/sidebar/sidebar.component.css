@@ -45,6 +45,17 @@
 .mange:hover a {
   color: #fff;
 }
+
+.active {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.active a{
+  color: #fff !important;
+}
+
 .title {
   margin: 7% 5%;
   font-size: 20px;

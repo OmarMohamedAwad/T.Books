@@ -1,5 +1,6 @@
 .container {
   padding-left: 15%;
+  min-height: 94vh;
 }
 
 button:focus,
