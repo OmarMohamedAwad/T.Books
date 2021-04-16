@@ -9,17 +9,22 @@
             <li class="nav-item dropdown m-0 w-100 btn-danger">
               <a class="nav-link dropdown-toggle btn w-100 p-0 text-white" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add to favourites</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" (click)="changeBookStatus('1')" >Currant Read</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click)="changeBookStatus('2')">Want To Read</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click)="changeBookStatus('3')">Read</a>
+                <a class="dropdown-item" (click)="changeBookStatus('1')" >Is currently reading</a>
+                <a class="dropdown-item" (click)="changeBookStatus('2')">Want to read</a>
+                <a class="dropdown-item" (click)="changeBookStatus('3')">Finished reading</a>
               </div>
             </li>
           </ul>
 
         <span class="font15 d-block mt-2">Rate This book</span>
-        <ngb-rating style="color: rgb(250, 225, 0); font-size: x-large;" [max]="5" [(rate)]="userRate" [readonly]="false"></ngb-rating>
+        <!-- <ngb-rating style="color: rgb(250, 225, 0); font-size: x-large;" [max]="5" [readonly]="false" ></ngb-rating> -->
+        <fieldset class="rating d-block text-center rating_field">
+            <input type="radio" id="star5" name="rating" value="5" (click)="setRate(5)" #star5/><label class = "full" for="star5" title="Awesome - 5 stars" (click)="setRate(5)"></label>
+            <input type="radio" id="star4" name="rating" value="4" (click)="setRate(4)" #star4/><label class = "full" for="star4" title="Excellent- 4 stars" (click)="setRate(4)"></label>
+            <input type="radio" id="star3" name="rating" value="3" (click)="setRate(3)" #star3/><label class = "full" for="star3" title="Good - 3 stars" (click)="setRate(3)"></label>
+            <input type="radio" id="star2" name="rating" value="2" (click)="setRate(2)" #star2/><label class = "full" for="star2" title="Kinda Good - 2 stars" (click)="setRate(2)"></label>
+            <input type="radio" id="star1" name="rating" value="1" (click)="setRate(1)" #star1/><label class = "full" for="star1" title="bad - 1 star" (click)="setRate(1)"></label>
+        </fieldset>
     </div>
     <section class="details">
         <h2 class="fontPink">{{book.name}}</h2>
@@ -35,7 +40,7 @@
             <span class="d-inline-block col-3 font17">
                 <img src="assets/user/book/book_details.jpg" style="width: 22px;">
                 <pre class="d-inline-block"> </pre>
-                <a class="colorBlack" href="" data-toggle="modal" data-target="modalId">Rating details</a>
+                <a class="colorBlack" href="#" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating details</a>
             </span>
             <span class="d-inline-block col-3 font17">
                 Number of rates: {{ratesNum}}
@@ -48,7 +53,7 @@
             </span>
         </p>
         <hr>
-        <p>{{book.description}}</p>
+        <p class="desc">{{book.description}}</p>
     </section>
 </section>
 
@@ -56,7 +61,7 @@
 
     <form action="Post">
         <img class="rev_img" [src]="user_img">
-        <textarea (keyup)="textChanged($event)"  [value]="text" class="my_review review_body border-danger" rows="4" placeholder="Write your review about this book." required minlength="10" maxlength="300"></textarea>
+        <textarea  [value]="text" class="my_review review_body border-danger" rows="4" placeholder="Write your review about this book." required minlength="10" maxlength="300" #reviewArea></textarea>
         <button type="submit" class="btn btn-danger my_review_submit" (click)="publishClicked($event)">Publish</button>
     </form>
 
@@ -68,4 +73,6 @@
 
     </ul>
 </section>
+
+<app-rating-det [ratingsArr]="ratings"></app-rating-det>
 <app-footer></app-footer>

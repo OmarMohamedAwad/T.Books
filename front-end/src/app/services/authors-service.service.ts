@@ -24,6 +24,10 @@ export class AuthorsServiceService {
     })
   }
 
+  search(keyword:string,page:number){
+    return this.authorClient.get(`${this.baseURL}/search/${keyword} ?page=${page}`,{observe:"response"})
+  }
+
   pagination(page:number){
     return this.authorClient.get(`${this.baseURL}/pages?page=${page}`,{
       observe:"response"
@@ -60,4 +64,9 @@ export class AuthorsServiceService {
         }
       });
     }
+
+///Author Details
+  show(id:any): Observable<any> {
+    return this.authorClient.get(`${this.baseURL}/${id}`)
+  }
 }

@@ -1,5 +1,10 @@
+@import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 .book_show{
     margin: 90px 0 0 5%;
+}
+.desc{
+    min-height: 28vh;
 }
 .book_cover{
     width: 15%;
@@ -19,9 +24,9 @@ a{
 }
 h2{
     font-family: 'Playfair Display';
-    margin-left: 32%;
     margin-bottom: 20px;
-
+    display: block;
+    text-align: center;
 }
 
 .font20{
@@ -89,3 +94,46 @@ li p{
 .dropdown-item{
   cursor: pointer;
 }
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.2em;
+  font-family: FontAwesome;
+  display: inlEMine-block;
+  content: "\f005";
+}
+
+.rating {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label {
+  color: #ddd;
+ float: right;
+}
+.rating_field{
+    width: 84%;
+}
+
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }

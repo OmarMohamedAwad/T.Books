@@ -164,6 +164,7 @@ async function update(req, res) {
 
 async function updateBookList(req, res, next) {
     const { id } = req.params;
+    console.log(id);
     const {
         bookId,
         type
