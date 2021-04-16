@@ -1,6 +1,7 @@
 .img-empty {
-    height: 70vh;
+    height: 80vh;
     background-image: url('/assets/empty-comp.jpg');
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: cover;
 }

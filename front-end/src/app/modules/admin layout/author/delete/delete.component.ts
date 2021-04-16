@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import { Router } from '@angular/router';
 import {Author} from '../models/author';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-admin-delete',
@@ -37,12 +37,19 @@ export class DeleteComponent implements OnInit {
     console.log("delete")
     console.log(this.author.id)
     this.myService.deleteAuthor(this.author.id)
-      .subscribe((data)=>{
-        console.log(data)
+      .subscribe((data:any)=>{
+        console.log(data.status)
+        this.deleted();
         this.goToAuthorsList()
       },(err)=>{
         console.log("post error")
       })
   }
-
+  deleted(){
+    Swal.fire(
+      'Good job!',
+      'Author deleted Successfully!',
+      'success'
+    )
+  }
 }

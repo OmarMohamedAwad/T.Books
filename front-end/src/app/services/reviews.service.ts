@@ -17,7 +17,8 @@ export class ReviewsService {
   }
 
   pagination(page: number = 1){
-    return this.client.get(`${this.BASE_URL}/pages?page=${page}`,{observe:"response"});
+    return this.client.get(`${this.BASE_URL}/pages?page=${page}`,
+    {observe:"response"});
   }
 
   show(id: any){
@@ -26,14 +27,29 @@ export class ReviewsService {
 
   store(review: {reviwer:string, book:string, body:string}){
     // console.log(review);
-    return this.client.post(this.BASE_URL,review);
+    return this.client.post(this.BASE_URL,review,{
+      observe: 'response',
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    });
   }
 
   update(review: {id:string, reviwer:string, reviewedBook:any, reviewBody:string}){
-    return this.client.patch(`${this.BASE_URL}/${review.id}`,review);
+    return this.client.patch(`${this.BASE_URL}/${review.id}`,review,{
+      observe: 'response',
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    });
   }
 
   destroy(id: string){
-    return this.client.delete(`${this.BASE_URL}/${id}`,{observe:"response"});
+    return this.client.delete(`${this.BASE_URL}/${id}`,{
+      observe: 'response',
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    });
   }
 }

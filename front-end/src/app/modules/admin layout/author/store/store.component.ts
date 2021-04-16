@@ -3,6 +3,7 @@ import { AuthorsServiceService } from 'src/app/services/authors-service.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {Author} from '../models/author';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 @Component({
   selector: 'app-admin-store',
@@ -65,7 +66,8 @@ export class StoreComponent implements OnInit {
     if (this.getDOBStatus() && this.getFNameStatus(), this.getLNameStatus()){
       this.myService.postAuthor(this.newAuth)
         .subscribe((data)=>{
-          console.log(data)
+          console.log(data);
+          this.added();
           this.goToAuthorsList()
         },(err)=>{
           console.log("post error")
@@ -73,6 +75,13 @@ export class StoreComponent implements OnInit {
     }else {
       this.incorrectData = true
     }
+  }
+  added(){
+    Swal.fire(
+      'Good job!',
+      'Author Added Successfully!',
+      'success'
+    )
   }
 
 }

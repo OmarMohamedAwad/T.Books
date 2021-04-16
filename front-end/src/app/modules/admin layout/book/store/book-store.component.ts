@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BookServiceService} from '../services/book-service.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Book} from '../models/book';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   selector: 'app-book-store',
   templateUrl: './book-store.component.html',
@@ -62,10 +62,10 @@ export class BookStoreComponent implements OnInit {
       this.book.author = this.bookForm.controls.author.value;
       this.book.category = this.bookForm.controls.category.value;
       this.book.image = "https://i.morio421hjkeewh.com/21056da3fv32436456787812/4b482f8e.webp";
-
-      this.bookService.store(this.book).subscribe((response)=>{
-        console.log(response);
+      this.bookService.store(this.book).subscribe((response:any)=>{
+        console.log(response.body);
         this.indexFlag = true;
+        this.added();
         this.bookForm.reset();
         this.addedBook.emit(this.book);
       }, error => {
@@ -79,7 +79,13 @@ export class BookStoreComponent implements OnInit {
   backToIndex(){
     this.indexFlag = true;
   }
-
+  added(){
+    Swal.fire(
+      'Good job!',
+      'Author Added Successfully!',
+      'success'
+    )
+  }
   @Input('authorsInfo') authors: any;
   @Input('categoriesInfo') categories: any;
 

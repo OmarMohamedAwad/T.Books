@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import { Router } from '@angular/router';
 import {Author} from '../models/author';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 @Component({
   selector: 'app-admin-update',
@@ -55,10 +55,18 @@ export class UpdateComponent implements OnInit, OnChanges {
     this.myService.updateAuthor(this.author.id, this.author)
       .subscribe((data) => {
         console.log(data)
+        this.updated();
         this.goToAuthorsList()
       }, (err) => {
         console.log("post error")
       })
 
+  }
+  updated(){
+    Swal.fire(
+      'Good job!',
+      'Author updated Successfully!',
+      'success'
+    )
   }
 }
