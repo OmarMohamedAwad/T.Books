@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home-top-category',
@@ -28,7 +29,12 @@ export class HomeTopCategoryComponent implements OnInit {
       console.log(this.topCategories)
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error, Can't load home content!",
+        footer: ''
+      })
     }
     )
   }

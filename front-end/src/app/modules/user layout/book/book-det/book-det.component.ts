@@ -6,6 +6,7 @@ import {BookServiceService} from '../../../admin layout/book/services/book-servi
 import { ReviewsService } from 'src/app/services/reviews.service';
 import { RatingServiceService } from '../../../../services/rating-service.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-det',
@@ -35,7 +36,7 @@ export class BookDetComponent implements OnInit {
   bookId:string="";
   user_img="assets/user/author/author-1.jpg";
 
-  favsNum:number =215;
+  favsNum:number=100;
   userRate=-1;
   userReview:string="";
 
@@ -57,8 +58,8 @@ export class BookDetComponent implements OnInit {
   rateSubscriber:any;
   reviewSubscriber:any;
 
-  ratesNum:number =112585
-  avgRate:number = 3.1;
+  ratesNum:number =0
+  avgRate:number = 0;
   ratings:any;
   myRating=-1;
   text:string = '';
@@ -92,13 +93,27 @@ reviews:Array<{reviewBody: string,
       this.drawMyRating(this.ratings);
       },
       (err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error getting book details!",
+          footer: ''
+        })
       }
     )
   }
 
   setRate(bookRate:any){
-    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/})
+    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/}).subscribe((response:any)=>{},
+    (err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error, your rate hasn't been saved !",
+        footer: ''
+      })
+    }
+  )
   }
   drawMyRating(ratingsArr:any){
     this.stars_Arr=[this.star1,this.star2,this.star3,this.star4,this.star5];
@@ -129,10 +144,13 @@ reviews:Array<{reviewBody: string,
           console.log(response)
           // this.router.navigate([`/book/${this.myActivatedRoute.snapshot.params.id}`]);
           this.reloadComponent()
-
-          },
-          (err)=>{
-            console.log(err)
+        },(err)=>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Error, your review hasn't been saved !",
+            footer: ''
+          })
         }
       )
     }

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BookServiceService} from '../services/book-service.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Book} from '../models/book';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-book-store',
   templateUrl: './book-store.component.html',
@@ -36,7 +36,6 @@ export class BookStoreComponent implements OnInit {
     description: new FormControl("",[Validators.required,Validators.min(10),Validators.max(250),Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
     author: new FormControl("",[Validators.required]),
     category: new FormControl("",[Validators.required]),
-
   })
 
   getNameStatus(){
@@ -64,12 +63,16 @@ export class BookStoreComponent implements OnInit {
       this.book.image = "https://i.morio421hjkeewh.com/21056da3fv32436456787812/4b482f8e.webp";
 
       this.bookService.store(this.book).subscribe((response)=>{
-        console.log(response);
         this.indexFlag = true;
         this.bookForm.reset();
         this.addedBook.emit(this.book);
       }, error => {
-        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error saving book, Try again !",
+          footer: ''
+        })
       })
     }else {
       this.incorrectData = true

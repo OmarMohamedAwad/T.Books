@@ -33,7 +33,7 @@ html {
     background-size: cover;
 }
 
-.app-login-register {
+.app-login-register,.app-not-found {
     overflow-y: hidden;
 }
 

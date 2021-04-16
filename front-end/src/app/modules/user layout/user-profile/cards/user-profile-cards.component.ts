@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserProfileService } from '../services/user-profile.service'
 import { BookObj } from '../models/book'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-profile-cards',
@@ -57,7 +58,12 @@ export class UserProfileCardsComponent implements OnInit {
         console.log(response.body)
         },
       (err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating rate!",
+          footer: ''
+        })
       })
     }
     else{
@@ -66,7 +72,12 @@ export class UserProfileCardsComponent implements OnInit {
         console.log(response.body)
         },
       (err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Your rate hasn't been saved!",
+          footer: ''
+        })
       })
     }
   }
@@ -118,7 +129,12 @@ export class UserProfileCardsComponent implements OnInit {
       this.calculatePagination();
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error getting categories information !",
+        footer: ''
+      })
     })
   }
 
