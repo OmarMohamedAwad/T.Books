@@ -8,6 +8,17 @@ categoryRouter.get("/", (request, response, next)=> {
     CategoryController.index(request, response, next);   
 }) 
 
+categoryRouter.get("/pages", (request, response, next)=> {
+    const { bookName } = request.query;
+    if(bookName)
+        CategoryController.paginateSearch(request, response, next);   
+    else
+        CategoryController.paginate(request, response, next);   
+}) 
+
+categoryRouter.get("/search", (request, response, next)=> {
+})
+
 categoryRouter.post("/", (request, response, next)=> {
     CategoryController.store(request, response, next);
 })

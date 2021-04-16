@@ -1,0 +1,56 @@
+[{
+        "bookReviews": [],
+        "bookRatings": [],
+        "_id": "6062bfb402d1792d0d7f9995",
+        "bookName": "The Shadow Kingdom",
+        "bookDescription": "The story introduces Kull himself, the setting of Valusia, Brule the Spear-Slayer (a supporting character), and the Serpent Men (who don't appear in any other work by Howard.",
+        "bookImage": "Shadow_Kingdom.png",
+        "bookCategory": "6062bc81ce1ece29cf3dac97",
+        "bookAuthor": "6062b985182f202651758434",
+        "__v": 0
+    },
+    {
+        "bookReviews": [],
+        "bookRatings": [],
+        "_id": "6062c07002d1792d0d7f9997",
+        "bookName": "Horror fiction",
+        "bookDescription": "Horror is a genre of speculative fiction which is intended to frighten, scare, or disgust. Literary historian J. A. Cuddon defined the horror story as a 'piece of fiction in prose of variable length... which shocks, or even frightens the reader'",
+        "bookImage": "Horror_fiction.png",
+        "bookCategory": "6062bcd9ce1ece29cf3dac9a",
+        "bookAuthor": "6062b985182f202651758434",
+        "__v": 0
+    },
+    {
+        "bookReviews": [],
+        "bookRatings": [],
+        "_id": "6062c17702d1792d0d7f999a",
+        "bookName": "The Black Cat",
+        "bookDescription": "The story is a study of the psychology of guilt .In both, a murderer carefully conceals his crime and believes himself unassailable, but eventually breaks down and reveals himself, impelled by a nagging reminder of his guilt.",
+        "bookImage": "Black_Cat.png",
+        "bookCategory": "6062c0e402d1792d0d7f9998",
+        "bookAuthor": "6062b9ae182f202651758435",
+        "__v": 0
+    },
+    {
+        "bookReviews": [],
+        "bookRatings": [],
+        "_id": "6062c33a381b872e4818b4a9",
+        "bookName": "Hamlet",
+        "bookDescription": "The Intellectual Backgrounds and Extracts from the Sources sections, both highly praised, remain as germane as ever. Intellectual Backgrounds includes readings on melancholy, demonology, the nature of man, and death, including works by Peter",
+        "bookImage": "Hamlet.png",
+        "bookCategory": "6062bc92ce1ece29cf3dac98",
+        "bookAuthor": "6062b9e1182f202651758437",
+        "__v": 0
+    },
+    {
+        "bookReviews": [],
+        "bookRatings": [],
+        "_id": "6062c42c381b872e4818b4ab",
+        "bookName": "Shakespeare on the Double! Julius Caesar",
+        "bookDescription": "is a history play and tragedy by William Shakespeare first performed in 1599. Although the play is named Julius Caesar, Brutus speaks more than four times as many lines as the title character.",
+        "bookImage": " Julius_Caesar.png",
+        "bookCategory": "6062c0e402d1792d0d7f9998",
+        "bookAuthor": "6062b9e1182f202651758437",
+        "__v": 0
+    }
+]

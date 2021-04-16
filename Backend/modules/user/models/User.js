@@ -13,13 +13,13 @@ const userSchema = mongoose.Schema({
     },
     fName: { 
         type: String,
-        minLength:[3,minLength(5,"First Name ")], 
+        minLength:[3,minLength(3,"First Name ")], 
         required: [true, required("First Name")],
         maxLength: [10,maxLength(10,"First Name ")],
     },
     lName: {
         type: String,
-        minLength:[3,minLength(5,"First Name ")], 
+        minLength:[3,minLength(3,"First Name ")], 
         required: [true, required("First Name")],
         maxLength: [10,maxLength(10,"First Name ")],
     },
@@ -55,6 +55,9 @@ const userSchema = mongoose.Schema({
     userRatings: [{ 
         type:mongoose.Schema.Types.ObjectId, 
         ref: 'Rating'
+    }],
+    refreshToken: [{
+        type:String
     }]
 })
 userSchema.pre('save', async function(next){
@@ -69,7 +72,6 @@ userSchema.pre('save', async function(next){
     }
     next();
 })
-
 
 userSchema.pre('deleteOne',async function(){
     const Review = require('../../review/models/Review')

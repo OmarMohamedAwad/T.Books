@@ -1,0 +1,65 @@
+.dashboard-sidebar {
+  background-color: #24324a;
+  height: 100vh;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+}
+.dashboard-sidebar .logo-icon {
+  margin: 5% 0;
+  text-align: center;
+  color: rgb(138, 153, 179);
+}
+.header-char {
+  color: #de3242;
+}
+.dashboard-sidebar .header {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.2;
+  padding: 10% 0 10% 25%;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.1);
+  font-style: italic;
+}
+.dashboard-sidebar .header i {
+  font-size: 30px;
+}
+.dashboard-sidebar a,
+.dashboard-sidebar .title {
+  color: rgb(138, 153, 179);
+}
+.dashboard-sidebar .title {
+  line-height: 1.5;
+}
+.mange {
+  padding: 2% 10% 1%;
+  line-height: 3;
+}
+.mange:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-weight: 800;
+}
+.mange:hover a {
+  color: #fff;
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.active a{
+  color: #fff !important;
+}
+
+.title {
+  margin: 7% 5%;
+  font-size: 20px;
+}
+li a svg {
+  margin-right: 10px;
+}

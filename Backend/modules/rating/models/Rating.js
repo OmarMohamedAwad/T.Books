@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const User = require('../../user/models/User')
-const Book = require('../../book/models/Book')
 const ValidationMessage = require('../../../validation-messages');
 const ResponseCode = require("../../../response-codes")
 const ResponseMessage = require("../../../response-messages");
@@ -25,40 +23,50 @@ const ratingShcema = new mongoose.Schema({
 });
 
 
-ratingShcema.post('save' , async function (request , response , next) {
+/*
+ratingShcema.post('save' , async function (next) {
+    const Book = require('../../book/models/Book')
+    const User = require('../../user/models/User')
+    //await Book.updateOne({ $and [_id: this.ratedBook],[] } , { $pull: { bookRatings: this._id } });
+    await Book.updateOne({ _id: this.ratedBook } , { $push: { bookRatings: this._id } });
+    await User.updateOne({ _id: this.rater } , { $push: { userRatings: this._id } });
+*/
 
+ratingShcema.pre('save' , async function (request , response , next) {
+    const User = require('../../user/models/User')
+    const Book = require('../../book/models/Book')
+    console.log("jsjdsjdjsjdsj")
     try{
-        await User.updateOne({ _id: this.rater } , { $push: { userRatings: this.rate } });
+        await User.updateOne({ _id: this.rater } , { $push: { userRatings: this._id}  });
     }
     catch(err){
         next(new Error("Rating cannot be added to this user"));
     }
     try{
-        await Book.updateOne({ _id: this.ratedBook } , { $push: { bookRatings: this._id } });
+        await Book.updateOne({ _id: this.ratedBook } , { $push: { bookRatings: this._id}});
     }
     catch(err){
         next(new Error("Rating cann't be assigned to book"));
     }
 })
 
-ratingShcema.pre('remove',async function(){
-    //rating-book rating-user
-    const BookModel = require('../../book/models/Book')
+
+ratingShcema.pre('deleteOne',async function(next){
+    //review-book
+    const Book = require('../../book/models/Book')
+    //review-user
+    const user = require('../../user/models/User')
+    const deletedRating = await ratingModel.findById(this._conditions._id)
     try
     {
-        const deletedAuthor = await Author.findById(this._conditions._id)
-        for (const index in deletedAuthor.authorBooks)
-        {
-            //console.log(deletedAuthor.authorBooks[index])
-            await BookModel.findOneAndDelete({_id: deletedAuthor.authorBooks[index]})
-        }
-        console.log("Books deleted successfully")
-    }
-    catch(e)
-    {
-        next(new Error("Deleting books failed"))
+        await user.updateOne({_id: deletedRating.rater} , {$pull: {userRatings: this._conditions._id}})
+        console.log("removed the review from user correctly")
+        await Book.updateOne({_id: deletedRating.ratedBook} , {$pull: {bookRatings: this._conditions._id}})
+        console.log("removed the review from book correctly")
+        next()
+    }catch(e){
+        next(new Error("can't remove dependencies"))
     }
 })
-
 const ratingModel = mongoose.model("Rating",ratingShcema);
 module.exports = ratingModel;

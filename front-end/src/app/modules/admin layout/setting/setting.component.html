@@ -1,0 +1,98 @@
+<!--include sidebar and navbar-->
+<app-navbar-admin></app-navbar-admin>
+<app-admin-sidebar></app-admin-sidebar>
+<!---->
+<div class="content-page ">
+  <section class="setting">
+    <!--update site-->
+    <div class="container">
+      <div class="content pt-5">
+        <h2>Update Website Content</h2>
+        <p>We are glad to see you again!</p>
+      </div>
+    </div>
+
+    <!--this loader is be hidden when the data come with response -->
+    <div *ngIf="!isLoad; else displayContent" class="row w-100">
+      <div class="col-md-12 text-center loader">
+        <i class="fas fa-spinner fa-spin fa-5x text-info"></i>
+      </div>
+    </div>
+    <ng-template #displayContent>
+      <!--form-->
+      <div class="container mt-5">
+        <form class="form-horizontal" [formGroup]=homeHeaderForm>
+          <h4>Home Page Header </h4>
+          <div class="mb-3">
+            <label for="headerTitel" class="form-label">Header Title</label>
+            <input type="text" class="form-control" id="headerTitel" formControlName="title">
+            <!-- travel to your dream world -->
+          </div>
+          <div class="mb-3">
+            <label for="headerPara" class="form-label">Header paragraph</label>
+            <input type="text" class="form-control" id="headerPara" formControlName="sub_title">
+            <!-- isolate yourself about the world across your favourite book-->
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-custom btn-header" (click)="submitHeaderForm($event)">Update</button>
+          </div>
+        </form>
+
+        <form class="form-horizontal mb-5" [formGroup]=HomeTitleForm>
+          <h4>Home Page Titles</h4>
+          <div class="row">
+            <div class="mb-3 col">
+              <label for="bookSection" class="form-label">Book Section Title</label>
+              <input type="text" class="form-control" id="bookSection" formControlName="book">
+            </div>
+            <div class="mb-3 col">
+              <label for="authorSection" class="form-label">Author Section Title</label>
+              <input type="text" class="form-control" id="authorSection" formControlName="author">
+            </div>
+            <div class="mb-3 col">
+              <label for="categorySection" class="form-label">Category Section Title</label>
+              <input type="text" class="form-control" id="categorySection" formControlName="category">
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-custom btn-header" (click)="submitTitleForm($event)">Update</button>
+          </div>
+        </form>
+
+        <form class="form-horizontal mb-5" [formGroup]=HomeFooterForm>
+          <h4> Footer Contact Info</h4>
+          <div class="row">
+            <div class="mb-3 col">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email">
+              <!-- value=" book@mail.com" -->
+            </div>
+            <div class="mb-3 col">
+              <label for="phone" class="form-label">phone</label>
+              <input type="phone" class="form-control" id="phone" formControlName="phone">
+              <!-- value="011 011 011 01" -->
+            </div>
+            <div class="mb-3 col">
+              <label for="fax" class="form-label">Fax</label>
+              <input type="text" class="form-control" id="fax" formControlName="fax"> <!-- value="1234-4567-48344" -->
+            </div>
+          </div>
+          <h4> Footer Capation</h4>
+          <div class="mb-3 ">
+            <label for="footerTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="footerTitle" formControlName="title">
+            <!-- value="Book Trendin " -->
+          </div>
+          <div class="form-floating">
+            <label for="floatingTextarea2">Descrition</label>
+            <textarea class="form-control mb-3" id="floatingTextarea2" style="height: 100px" formControlName="capation">Our mission to give the customers opportunity to enjoy high-quality services to Choose thier favorite book with us.</textarea>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-custom btn-header" (click)="submitFooterForm($event)">Update</button>
+          </div>
+        </form>
+      </div>
+
+    </ng-template>
+  </section>
+</div>

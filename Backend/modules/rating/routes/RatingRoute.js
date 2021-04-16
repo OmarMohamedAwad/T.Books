@@ -3,8 +3,13 @@ const RatingController = require('../controllers/RatingController')
 
 const ratingRouter = express.Router()
 
+
 ratingRouter.get("/", (request, response, next)=> {
     RatingController.index(request, response, next);   
+}) 
+
+ratingRouter.get("/:id", (request, response, next)=> {
+    RatingController.show(request, response, next);   
 }) 
 
 ratingRouter.post("/", (request, response, next)=> {

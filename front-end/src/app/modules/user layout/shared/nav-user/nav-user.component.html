@@ -1,0 +1,45 @@
+<nav class="navbar navbar-default navbar-expand-lg fixed-top scrolling-navbar" data-spy="affix" data-offset-top="205">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="logo d-inline navbar-brand ml-lg-5">
+                <img class="icon" src="assets/icon.ico">
+                <span class="trending d-inline-block mt-1" style="font-size:25px;">Trending <span class="books"style="font-size:25px;">Books</span></span>
+            </div>
+            <div class="collapse navbar-collapse fixed-top pt-1" id="myNavbar" #collapseList>
+                <ul class="navbar-nav col-6 ml-5" >
+                    <li class="nav-item"><a class="nav-link" routerLink="/home" href="">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/books" href="">Books</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/authors" href="">Authors</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/categories" href="">categories</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/aboutUs" href="">About</a></li>
+                                            
+                    <li *ngIf="userIsLogedIn; else falseBlock1 " 
+                        class="nav-item d-lg-none d-md-block d-sm-block">
+                        <a class="nav-link" href="" (click)="userLogout()">Logout</a></li>
+                    <ng-template #falseBlock1 >
+                        <li class="nav-item d-lg-none d-md-block d-sm-block"><a class="nav-link" href="" routerLink="/login">Login</a></li>
+                        <li class="nav-item d-lg-none d-md-block d-sm-block"><a class="nav-link" href="" routerLink="/login">Register</a></li>
+                    </ng-template>
+
+                </ul>
+
+                <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5"
+                    *ngIf="userIsLogedIn; else falseBlock " >
+                    <a href="" (click)="userLogout()">Logout</a>
+                  <pre class="bg-transparent border-0 mt-3">  </pre>
+                </span>
+                <ng-template #falseBlock >
+                    <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5">
+                        <a href="" routerLink="/login">Login</a>
+                        <pre class="bg-transparent border-0 mt-3">  |  </pre>
+                        <a href="" routerLink="/login">Register</a>
+                    </span>
+                </ng-template>
+
+            </div>
+        </div>
+        <button class="navbar-toggler" type="button" (click)="toggle_list($event)" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation" #toggle_btn>
+            <img class="toggle" src="assets/toggle_icon"/>
+        </button>
+    </div>
+</nav>

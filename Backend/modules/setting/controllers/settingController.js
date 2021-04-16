@@ -17,14 +17,17 @@ async function index(request, response, next){
 async function show(request, response, next){
     try {
         const { id } = request.params;
-        const section = await Setting.findById(id);   
+        console.log(id)
+        const section = await Setting.find({sectionName: id});   
+        console.log(section)
         response.status(200)
         .json(
             {
-                "section ":section.sectionName,
-                "Email ":section.sectionContent,
+                "sectionName": section[0].sectionName,
+                "sectionContent": section[0].sectionContent,
             }
         );
+        console.log()
     } catch (err) {
         next(err);
     }
@@ -61,17 +64,21 @@ async function store(request, response, next) {
   }
 
   async function update(req,res,next){
+      console.log(req.params.id)
+      console.log(typeof(req.params.id))
     const sectionUpdated = {
-        ...(req.body.sectionName) ? {sectionContent: req.body.sectionContent} : {},
+        ...(req.body.sectionName) ? {sectionName: req.body.sectionName} : {},
         ...(req.body.sectionContent) ? {sectionContent: req.body.sectionContent} : {},
     }
+    console.log(sectionUpdated)
     try
     {
-        const sectionNewData = await Setting.findOneAndUpdate({_id: req.params.id}, 
+        const sectionNewData = await Setting.findOneAndUpdate({sectionName: req.params.id}, 
             sectionUpdated )
+            console.log(sectionNewData)
         res.send("sction updated successfully".blue.inverse)
     }
-    catch(e)
+    catch(err)
     {
         next(err);
     }

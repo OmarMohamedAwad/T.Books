@@ -1,26 +1,47 @@
 const Rating = require("../../rating/models/Rating")
 const Response_Code = require("../../../response-codes")
 const Response_Msg = require("../../../response-messages")
+const RatingPresenter = require("../presenter/RatingPresenter")
 
-async function index(req, res, next) {
+
+async function index(request, response,next) {
+
+    try {
+        const ratings = await Rating.find().populate("rater").populate("ratedBook").exec();
+        response.json(ratings.map((rate)=>{
+            return RatingPresenter.present(rate);
+        }));
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function show(req, res, next) {
+
+    const { id } = request.params
     try{
-        const ratingsDetails = await Rating.find();
-        res.json(ratingsDetails)
-    } catch (err){
-        next(Response_Code.SERVER_ERROR)
+        const rating = await Rating.findById(id).populate("rater").populate("ratedBook");
+        response.json(RatingPresenter.present(rating));
+    }catch(error){
+        next(ResponseCode.SERVER_ERROR)
     }
 }
 
 async function store(req, res, next) {
+    console.log("enter Post")
     const ratingSavingRequest = req.body
     const rating = new Rating ({
         rate: ratingSavingRequest.rate,
         rater: ratingSavingRequest.rater,
         ratedBook: ratingSavingRequest.book
     })
+    await Rating.deleteMany({ $and: [{rater: rating.rater },{ratedBook: rating.ratedBook}] })
+    console.log("before post")
     try {
         const newRating = await rating.save()
-        res.json(newRating)
+        res.json(200)
+        console.log("after post")
     }catch (err){
         console.log(err)
         next(err)
@@ -28,12 +49,12 @@ async function store(req, res, next) {
 }
 
 async function update(req, res, next) {
+
+    console.log("jdsj")
     const {id} = req.params;
     const rating = req.body
     const newRating = {
-        ...(rating.name ? { rate: rating.name } : {}),
-        ...(rating.book ? { rater: rating.books } : {}),
-        ...(rating.image ? { ratedBook: rating.image } : {}),
+        ...(rating.rate ? { rate: rating.rate } : {})
     }
 
     try{
@@ -62,6 +83,7 @@ async function destroy(req, res, next) {
 
 module.exports = {
     index,
+    show,
     store,
     update,
     destroy

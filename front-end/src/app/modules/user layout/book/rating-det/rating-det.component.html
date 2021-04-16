@@ -1,0 +1,63 @@
+<div class="modal fade" id="ratingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title d-block text-center" id="staticBackdropLabel">Rating details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 author-form">
+                <div id="graph" #graph>
+                    <div class="progressBar">
+                        <label class="barLabel" style="font-size: x-large;">5
+                            <ngb-rating style="color: #DE3241; font-size: xx-large; width:0;"  [max]="1" [rate]="1" [readonly]="true"></ngb-rating>
+                        </label>
+                        <div class="progressTrack mt-0 pt-0">
+                            <div class="progressFill" #progressFill5></div>
+                        </div>
+                    </div>
+
+                    <div class="progressBar">
+                        <label class="barLabel d-inline" style="font-size: x-large;">4
+                            <ngb-rating style="color: #DE3241; font-size: xx-large; width:0;"  [max]="1" [rate]="1" [readonly]="true"></ngb-rating>
+                        </label>
+
+                        <div class="progressTrack mt-0 pt-0">
+                            <div class="progressFill" #progressFill4></div>
+                        </div>
+                    </div>
+
+                    <div class="progressBar">
+                        <label class="barLabel d-inline-block" style="font-size: x-large;">3
+                            <ngb-rating style="color: #DE3241; font-size: xx-large; width:0;"  [max]="1" [rate]="1" [readonly]="true"></ngb-rating>
+                        </label>
+                        <div class="progressTrack mt-0 pt-0">
+                            <div class="progressFill" #progressFill3></div>
+                        </div>
+                    </div>
+
+                    <div class="progressBar">
+                        <label class="barLabel" style="font-size: x-large;">2
+                            <ngb-rating style="color: #DE3241; font-size: xx-large; width:0;"  [max]="1" [rate]="1" [readonly]="true"></ngb-rating>
+                        </label>
+
+                        <div class="progressTrack mt-0 pt-0">              
+                            <div class="progressFill" #progressFill2></div>
+                        </div>
+                    </div>
+
+                    <div class="progressBar">
+                        <label class="barLabel" style="font-size: x-large;">1
+                            <ngb-rating style="color: #DE3241; font-size: xx-large; width:0;"  [max]="1" [rate]="1" [readonly]="true"></ngb-rating>
+                        </label>
+
+                        <div class="progressTrack mt-0 pt-0">
+                            <div class="progressFill" #progressFill1></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

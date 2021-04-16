@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="sidebar row">
+    <nav id="sidebar" class="sidebar-wrapper col-3">
+      <div class="category-content">
+
+        <div class="category-header">
+          <a href="#" class="btn btn-danger w-100">Category</a>
+        </div>
+
+        <div class="category">
+          <ul>
+            <li *ngFor="let category of categoriesName">
+              <a href="#" class="active" (click)="selectCategory($event , category)"><i class="fas fa-chevron-right"></i><span>{{category}}</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

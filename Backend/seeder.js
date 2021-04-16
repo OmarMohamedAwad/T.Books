@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const mongoose = require('mongoose');
 const colors = require('colors');
@@ -8,8 +9,12 @@ const PORT=3000
 const MONGODB_URL="mongodb://localhost:27017/trending_books"
 
 //load user model 
+const Admin = require('./modules/admin/models/Admin');
 const User = require('./modules/user/models/User');
 const Setting = require('./modules/setting/models/setting');
+const Author = require('./modules/author/models/Author');
+const Book = require('./modules/book/models/Book');
+const Category = require('./modules/category/models/Category');
 const { settings } = require('cluster');
 /***You Can add Your Model Link here please ***/
 
@@ -27,6 +32,10 @@ mongoose.connect(MONGODB_URL,{
 //read json files which have data to insert into DataBase
 const users = JSON.parse(  fs.readFileSync(`${__dirname}/_data/user.json`, 'utf-8'));
 const setting = JSON.parse(  fs.readFileSync(`${__dirname}/_data/setting.json`, 'utf-8'));
+const admin = JSON.parse(  fs.readFileSync(`${__dirname}/_data/admin.json`, 'utf-8'));
+const authors = JSON.parse(  fs.readFileSync(`${__dirname}/_data/author.json`, 'utf-8'));
+const catgories = JSON.parse(  fs.readFileSync(`${__dirname}/_data/category.json`, 'utf-8'));
+const books = JSON.parse(  fs.readFileSync(`${__dirname}/_data/book.json`, 'utf-8'));
 /***You Can add Your json File (put data as a json file in folder _data) Link here please  ***/
 
 
@@ -35,7 +44,10 @@ const importData = async()=>{
     try{
         await User.create(users);
         await Setting.create(setting);
-        /*** Create Your Model.create(fileJsonVariabe) ***/
+        await Admin.create(admin);
+        await Author.create(authors);
+        await Category.create(catgories);
+        await Book.create(books);
         console.log('Data Imported Into DB....'.green.inverse);
         process.exit();
     }
@@ -48,6 +60,10 @@ const deleteData = async()=>{
     try{
         await User.deleteMany();
         await Setting.deleteMany();
+        await Admin.deleteMany();
+        await Author.deleteMany();
+        await Category.deleteMany();
+        await Book.deleteMany();
           /*** Create Your Model.deleteMany(fileJsonVariabe) ***/
         console.log('Data Destoryed...'.red.inverse);
         process.exit();
