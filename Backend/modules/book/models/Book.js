@@ -1,5 +1,6 @@
 const mongoos = require('mongoose')
 
+const ResponseCode = require("../../../response-codes")
 const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
 const ratingModel = require('../../rating/models/Rating')
@@ -76,7 +77,8 @@ bookSchema.post('save', async function (next) {
 
 // removing book from categorie, author, rating and review 
 bookSchema.pre('remove', async function (next) {
-
+    const users = require('../../user/models/User');
+    console.log(this);
     try {
         removeDependencies(this, next)
         // // delete book from author collection
@@ -99,17 +101,18 @@ bookSchema.pre('remove', async function (next) {
 
     // delete book from rating collection and from review collection
     try {
-        for (const index in deletedBook.bookReviews) {
+        for (const index in this.bookReviews) {
             //console.log(deletedAuthor.authorBooks[index])
             await reviews.deleteOne({ _id: index._id })
         }
 
-        for (const index in deletedBook.bookRatings) {
+        for (const index in this.bookRatings) {
             //console.log(deletedAuthor.authorBooks[index])
             await ratings.deleteOne({ _id: index._id })
         }
     }
     catch (e) {
+        console.log(e);
         next(ResponseCode.SERVER_ERROR)
     }
 
@@ -154,7 +157,7 @@ bookSchema.pre('deleteOne', async function (next) {
     const reviews = require('../../review/models/Review');
     const ratings = require('../../rating/models/Rating');
     const users = require('../../user/models/User');
-    console.log(this._conditions._id);
+    console.log("id:",this._conditions._id);
     const deletedBook = await BookModel.findById(this._conditions.id)
     try {
         await removeDependencies(this._conditions._id, next);
@@ -165,16 +168,21 @@ bookSchema.pre('deleteOne', async function (next) {
         console.log("removed the book from user(want to read) correctly")
         await users.updateMany({}, { $pull: { readBooks: this._conditions._id } })
         console.log(("removed the book from user(read books) correctly"))
-        console.log(deletedBook);
-        //delete all reviews for this book
-        for (const index in deletedBook.bookReviews) {
-            //console.log(deletedAuthor.authorBooks[index])
-            await reviews.deleteOne({ _id: index._id })
+
+        if (deletedBook.bookReviews) {
+            //delete all reviews for this book
+            for (const index in deletedBook.bookReviews) {
+                //console.log(deletedAuthor.authorBooks[index])
+                await reviews.deleteOne({ _id: index._id })
+            }
         }
-        //delete all ratings for this book
-        for (const index in deletedBook.bookRatings) {
-            //console.log(deletedAuthor.authorBooks[index])
-            await ratings.deleteOne({ _id: index._id })
+        
+        if (deletedBook.bookRatings) {
+            //delete all ratings for this book
+            for (const index in deletedBook.bookRatings) {
+                //console.log(deletedAuthor.authorBooks[index])
+                await ratings.deleteOne({ _id: index._id })
+            }
         }
 
         // await reviews.deleteMany({reviewedBook: this._conditions._id})

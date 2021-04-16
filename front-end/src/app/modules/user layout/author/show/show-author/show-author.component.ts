@@ -18,6 +18,7 @@ export class ShowAuthorComponent implements OnInit {
   authorID: any;
   ratings = [1, 2, 3, 4, 5, 3];
   userSubscriber:any;
+  bookStatus: Array<String> = []
 
   constructor(private authorService: AuthorsServiceService,
               private myActivatedRoute: ActivatedRoute, private router: Router, private userService: UserService) {
@@ -35,19 +36,21 @@ export class ShowAuthorComponent implements OnInit {
         console.log(this.authorID);
         this.author = res;
         console.log(this.author);
-        console.log(this.author.books.length);
+        this.readBookStatus(this.author.books);
         console.log(this.author.books[0].bookName);
       }
     );
   }
 
-  changeBookStatus(type: string, bookId: any){
+  changeBookStatus(type: string, bookId: any, index: number){
     console.log(type, bookId);
     this.userId = "605a0532ba76f47a7793e130"
     this.userSubscriber = this.userService.updateUserBookList({userId:this.userId, bookId:bookId, type:type})
       .subscribe((response:any)=>
         {
-          console.log(response)
+          if(type == "1") this.bookStatus[index]= "Is currant read"
+          else if(type == "2") this.bookStatus[index] = "Want to read"
+          else if(type == "3") this.bookStatus[index] = "Finished reading"
           this.ngOnInit()
 
         },
@@ -55,6 +58,24 @@ export class ShowAuthorComponent implements OnInit {
           console.log(err)
         }
       )
+  }
+
+  readBookStatus(books: any){
+    this.userId = "605a0532ba76f47a7793e130"
+    console.log(books);
+    for(let i =0; i< books.length; i++){
+      if (books[i].currantReader && books[i].currantReader.find((element: any) => element == this.userId)){
+        this.bookStatus[i] = "Is currant read"
+      }else if(books[i].wantToReadeUsers && books[i].wantToReadeUsers.find((element: any) => element == this.userId)){
+        this.bookStatus[i] = "Want to read"
+      }else if(books[i].finishReadUsers && books[i].finishReadUsers.find((element: any) => element == this.userId)){
+        this.bookStatus[i] = "Finished reading"
+      }else {
+        this.bookStatus[i] = "Add to my list"
+      }
+      console.log("here",this.bookStatus[i]);
+    }
+
   }
 
 }

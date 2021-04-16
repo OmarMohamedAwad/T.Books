@@ -91,7 +91,7 @@ export class BookDetComponent implements OnInit {
       this.reviews = this.book.bookReviews;
       this.ratings = this.book.bookRatings;
       this.ratesNum = this.book.bookRatings.length;
-      this.readeBookStatus(response.body.currantReader, response.body.wantToReadeUsers, response.body.finishReadUsers);
+      this.readBookStatus(response.body.currantReader, response.body.wantToReadeUsers, response.body.finishReadUsers);
       this.favsNum = 0
       this.avgRate=0
       for(let i=0;i<this.ratings.length;i++)
@@ -147,11 +147,11 @@ export class BookDetComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
-    this.rateSubscriber.unsubscribe();
-    this.reviewSubscriber.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.subscriber.unsubscribe();
+  //   this.rateSubscriber.unsubscribe();
+  //   this.reviewSubscriber.unsubscribe();
+  // }
 
   changeBookStatus(type: string){
     this.reviewerId = "605a0532ba76f47a7793e130"
@@ -171,7 +171,7 @@ export class BookDetComponent implements OnInit {
       )
   }
 
-  readeBookStatus(currantReader: [], wantToRead: [], finishRead: []){
+  readBookStatus(currantReader: [], wantToRead: [], finishRead: []){
     this.userId = "605a0532ba76f47a7793e130"
     const currant = currantReader.find(element => element == this.userId)
     const want = wantToRead.find(element => element == this.userId)

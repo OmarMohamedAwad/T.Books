@@ -20,7 +20,7 @@
 <div class="myBooks">
 
     <!--      <app-author-book></app-author-book>   -->
-    <div class="main authorBook" *ngFor="let authorBook of author.books">
+    <div class="main authorBook" *ngFor="let authorBook of author.books; index as i">
 
         <div class="image">
             <img src='/assets/user/book/{{authorBook.bookImage}}' [alt]='authorBook.bookName'>
@@ -41,12 +41,12 @@
             </div>
             <div class="dropdown" style="margin-top: 90px; margin-left: 35px;">
                 <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Book status
+                  {{bookStatus[i]}}
               </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" (click)="changeBookStatus('1',authorBook._id)">Is currently reading</a>
-                    <a class="dropdown-item" (click)="changeBookStatus('2',authorBook._id)">Want to read</a>
-                    <a class="dropdown-item" (click)="changeBookStatus('3',authorBook._id)">Finished reading</a>
+                    <a class="dropdown-item" (click)="changeBookStatus('1',authorBook._id, i)">Is currently reading</a>
+                    <a class="dropdown-item" (click)="changeBookStatus('2',authorBook._id, i)">Want to read</a>
+                    <a class="dropdown-item" (click)="changeBookStatus('3',authorBook._id, i)">Finished reading</a>
                 </div>
             </div>
         </div>

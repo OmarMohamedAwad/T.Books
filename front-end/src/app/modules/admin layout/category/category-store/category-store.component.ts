@@ -23,7 +23,7 @@ export class CategoryStoreComponent implements OnInit {
   }
 
   categoryForm = new FormGroup({
-    'name': new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+    'name': new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]),
     'image': new FormControl('', [Validators.required])
   });
 
@@ -32,13 +32,13 @@ export class CategoryStoreComponent implements OnInit {
     if (this.categoryForm.valid) {
       // console.log(this.categoryForm.value)
       this._categoryService.categoryStore(this.categoryForm.value).subscribe(response => {
-        if (response.message == 'success') {
+        // if (response.message == 'success') {
           this.isClicked = false;
           this.isSucess = true;
           this.responseMessage = 'Added Successfully.';
           this.categoryForm.reset();
           this.router.navigate(['/admin/category']);
-        }
+        // }
         console.log(response);
       });
       console.log(this.categoryForm);

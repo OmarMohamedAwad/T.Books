@@ -43,12 +43,12 @@
     <div class="row">
       <nav aria-label="Page navigation example">
         <ul class="pagination w-50">
-          <li class="page-item" (click)="previous()"><a class="" href="#" ><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
+          <li class="page-item" (click)="previous()"><a class=""><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
 
           <ng-container *ngFor="let page of pages; index as i">
-            <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="" href="#">{{i+1}}</a></li>
+            <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="" >{{i+1}}</a></li>
           </ng-container>
-          <li class="page-item" (click)="next()"><a class="" href="#" ><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
+          <li class="page-item" (click)="next()"><a class=""><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
         </ul>
       </nav>
     </div>
