@@ -3,7 +3,7 @@ import {BookServiceService} from '../services/book-service.service';
 import {Book} from '../models/book';
 import {AuthorsServiceService} from '../../../../services/authors-service.service';
 import {CategoryService} from '../../../../services/category.service';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-book-index',
   templateUrl: './book-index.component.html',
@@ -50,7 +50,12 @@ export class BookIndexComponent implements OnInit, OnDestroy {
           this.authors = response.body
         },
         (err)=>{
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Loading authors failed !",
+            footer: ''
+          })
         }
       )
   }
@@ -89,7 +94,12 @@ export class BookIndexComponent implements OnInit, OnDestroy {
           //console.log(response.body);
         },
         (err)=>{
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Loading Books failed !",
+            footer: ''
+          })
         }
       )
   }
@@ -99,7 +109,6 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     this.filterList(this.keywords);
   }
   filterList(keywords:string){
-    console.log(keywords)
     this.books= this.allBooks.filter((item)=>{
       return item.name.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())
     })
@@ -110,7 +119,12 @@ export class BookIndexComponent implements OnInit, OnDestroy {
           this.categories = response
         },
         (err)=>{
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Loading categories failed !",
+            footer: ''
+          })
         }
       )
   }
@@ -121,7 +135,6 @@ export class BookIndexComponent implements OnInit, OnDestroy {
 
   getBook(book:Book) {
     this.clickedBook = book;
-    console.log(book);
   }
 
   navigateToAdd(){
@@ -129,7 +142,6 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   }
 
   deleteBook(book: any){
-    console.log(book);
     this.ngOnInit();
   }
 

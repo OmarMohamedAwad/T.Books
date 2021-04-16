@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author } from 'src/app/modules/admin layout/author/models/author';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-show-author',
@@ -34,6 +35,13 @@ getAuthorById(){
       console.log(this.author);
       console.log(this.author.books.length)
       console.log(this.author.books[0].bookName);
+    },(err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error getting Author information !",
+        footer: ''
+      })
     }
   )
 }

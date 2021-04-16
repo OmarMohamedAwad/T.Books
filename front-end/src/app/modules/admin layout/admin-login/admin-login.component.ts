@@ -3,6 +3,8 @@ import {AdminLoginService} from 'src/app/services/admin-login.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreComponent} from '../author/store/store.component';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-admin-login',
@@ -59,7 +61,12 @@ export class AdminLoginComponent implements OnInit {
           this.userPassStatus = true;
         }
       }, (err) => {
-        console.log('post error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Session Expired, Login again",
+          footer: ''
+        })
       });
   }
 

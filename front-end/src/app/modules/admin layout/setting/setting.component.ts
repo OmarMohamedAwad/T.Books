@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-setting',
@@ -17,7 +18,6 @@ export class SettingComponent implements OnInit {
   ngOnInit(): void {
     this.subscriber = this.settingService.getSettings()
     .subscribe((response:any)=>{
-      console.log(response.body)
       this.settings = response.body
       this.isLoad = true
       this.settings.find((section:any) => {
@@ -43,7 +43,12 @@ export class SettingComponent implements OnInit {
       });
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error getting settings content!",
+        footer: ''
+      })
     }
     )
   }
@@ -70,7 +75,12 @@ export class SettingComponent implements OnInit {
       .subscribe((data)=>{
         console.log(data)
       },(err)=>{
-        console.log("post error")
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating home settings. Try again !",
+          footer: ''
+        })
       })
   }
 
@@ -100,9 +110,13 @@ export class SettingComponent implements OnInit {
     };
     this.settingService.updateSetting("titles" , {sectionName:"titles", sectionContent: <JSON>insertedData})
       .subscribe((data)=>{
-        console.log(data)
       },(err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating titles. Try again !",
+          footer: ''
+        })
       })
   }
 
@@ -143,7 +157,12 @@ export class SettingComponent implements OnInit {
       .subscribe((data)=>{
         console.log(data)
       },(err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating footer settings. Try again !",
+          footer: ''
+        })
       })
   }
 

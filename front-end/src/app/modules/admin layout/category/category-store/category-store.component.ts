@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../../../services/category.service';
 import {Router} from '@angular/router';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-category-store',
   templateUrl: './category-store.component.html',
@@ -30,19 +30,23 @@ export class CategoryStoreComponent implements OnInit {
   addCategory() {
     this.isClicked = true;
     if (this.categoryForm.valid) {
-      // console.log(this.categoryForm.value)
-      this._categoryService.categoryStore(this.categoryForm.value).subscribe(response => {
-        if (response.message == 'success') {
-          this.isClicked = false;
-          this.isSucess = true;
-          this.responseMessage = 'Added Successfully.';
-          this.categoryForm.reset();
-          this.router.navigate(['/admin/category']);
-        }
-        console.log(response);
-      });
-      console.log(this.categoryForm);
+        this._categoryService.categoryStore(this.categoryForm.value).subscribe(response => {
+          if (response.message == 'success') {
+            this.isClicked = false;
+            this.isSucess = true;
+            this.responseMessage = 'Added Successfully.';
+            this.categoryForm.reset();
+            this.router.navigate(['/admin/category']);
+          }
+        },(err)=>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Error saving category, Try again",
+            footer: ''
+          })
+        });
+        console.log(this.categoryForm);
     }
-
   }
 }
