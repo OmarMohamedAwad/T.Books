@@ -1,5 +1,5 @@
 const express = require('express')
-const {index,store,show,update,destroy,pagination, paginationBooks} = require('../controllers/UserController')
+const {index,store,show,update,destroy,pagination, paginationBooks, updateBookList} = require('../controllers/UserController')
 
 const User = require('../models/User');
 const Book = require('../../book/models/Book')
@@ -33,6 +33,10 @@ userRouter.post("/", (request, response, next)=> {
 
 userRouter.patch("/:id", async (request, response, next)=> {
     update(request, response, next);
+})
+
+userRouter.post("/:id/update-books", async (request, response, next)=> {
+    updateBookList(request, response, next);
 })
 
 userRouter.delete("/:id", async (request, response, next)=> {

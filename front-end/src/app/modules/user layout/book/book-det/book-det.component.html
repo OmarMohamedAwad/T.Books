@@ -3,10 +3,20 @@
     <div class="book_cover">
         <img  @fade src="assets/user/book/memories.jpg"><br>
 
-        <button class="btn btn-danger w-75 mt-4">Add to favourits</button>
-
-        
-        
+<!--        <button class="btn btn-danger w-75 mt-4">Add to favourites</button>-->
+          <!-- Content here -->
+          <ul class="nav nav-pills mt-2">
+            <li class="nav-item dropdown m-0 w-100 btn-danger">
+              <a class="nav-link dropdown-toggle btn w-100 p-0 text-white" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add to favourites</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="changeBookStatus('1')" >Currant Read</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="changeBookStatus('2')">Want To Read</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="changeBookStatus('3')">Read</a>
+              </div>
+            </li>
+          </ul>
 
         <span class="font15 d-block mt-2">Rate This book</span>
         <ngb-rating style="color: rgb(250, 225, 0); font-size: x-large;" [max]="5" [(rate)]="userRate" [readonly]="false"></ngb-rating>

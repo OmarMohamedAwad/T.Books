@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import {BookServiceService} from '../../../admin layout/book/services/book-service.service';
 import { ReviewsService } from 'src/app/services/reviews.service';
 import { Router } from '@angular/router';
+import {UserService} from '../../../../services/user.service';
 
 
 
@@ -26,11 +27,8 @@ import { Router } from '@angular/router';
 
 export class BookDetComponent implements OnInit {
 
-
-
-
   selected:any = 'option2';
-
+  // userId =
   user_img="assets/user/author/author-1.jpg";
 
   ratesNum:number =112585
@@ -40,7 +38,7 @@ export class BookDetComponent implements OnInit {
   userRate=-1;
   userReview:string="";
 
-  constructor(private bookService: BookServiceService, private reviewsService: ReviewsService,
+  constructor(private bookService: BookServiceService, private reviewsService: ReviewsService, private userService: UserService,
               private myActivatedRoute:ActivatedRoute, private router: Router) { }
 
   book : Book =
@@ -59,12 +57,10 @@ export class BookDetComponent implements OnInit {
 
   subscriber:any;
   reviewSubscriber:any;
+  userSubscriber:any;
 
   text:string = '';
   reviewerId:any = '';
-
-
-
 
   reviews:Array<{reviewBody: string,
   reviewedBook: string,
@@ -78,6 +74,7 @@ export class BookDetComponent implements OnInit {
       this.book = response.body
       console.log(this.book)
       this.reviews = this.book.bookReviews;
+
       },
       (err)=>{
         console.log(err)
@@ -118,16 +115,23 @@ export class BookDetComponent implements OnInit {
     }
   }
 
-
-
-
-
   ngOnDestroy(): void {
     // this.subscriber.unsubscribe();
     // this.reviewSubscriber.unsubscribe();
   }
 
+  changeBookStatus(type: string){
+    this.reviewerId = "605a0532ba76f47a7793e130"
+    this.userSubscriber = this.userService.updateUserBookList({userId:this.reviewerId, bookId:this.book.id, type:type})
+      .subscribe((response:any)=>
+        {
+          console.log(response)
+          this.reloadComponent()
 
-
-
+        },
+        (err)=>{
+          console.log(err)
+        }
+      )
+  }
 }
