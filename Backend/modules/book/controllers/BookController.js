@@ -1,20 +1,82 @@
 const bookModel = require("../models/Book")
-const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-message")
+const ResponseCode = require("../../../response-codes")
+const ResponseMessage = require("../../../response-messages")
+const BookPresenter = require("../presenter/BookPresenter")
 
 const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
 const reviewModel = require('../../review/models/Review')
 const ratingModel = require('../../rating/models/Rating')
+const Author = require("../../author/models/Author")
+
+async function pagination(request, response, next){
+    try{
+        let { page=1,limit=8} = request.query;
+        page < 0 ? page = 1 : page;
+        limit < 2 ? limit = 8 : limit;
+        
+        const booksNumber = await bookModel.estimatedDocumentCount();
+        const books = await bookModel.find().populate("bookCategory").populate("bookAuthor")
+        .sort('bookName')
+        .limit(limit)
+        .skip((page-1) * limit).exec();  
+        
+        const numberOfPages = Math.ceil(booksNumber / limit)
+        const presentedBooks = books.map((book)=>{
+            return BookPresenter.present(book);
+        });
+        response.json({
+            books: presentedBooks,
+            pages: numberOfPages
+        });
+    }
+    catch(err){
+        next(err);
+    }
+}
+
+async function search(request, response, next) {
+    const { keyword } = request.params;
+    const { page } = request.query;
+    console.log("search");
+    //trim
+    var refactoredKeyword = keyword.replace(/^\s*|\s*$/g, '');
+    page < 0 ? page = 1 : page;
+    let regex = new RegExp();
+    if(refactoredKeyword.length)
+        regex= new RegExp(refactoredKeyword,'i');
+    try{
+        const filterCount = await bookModel.find( {bookName: regex } ) .count(); 
+        const filtered = await bookModel.find( {bookName: regex } )
+            .sort('bookName')
+            .limit(8)
+            .skip((page-1) * 8)
+            .exec();
+        const numberOfPages = Math.ceil(filterCount / 8)
+        const presentedBooks = filtered.map((book)=>{
+            return BookPresenter.present(book);
+        });
+        response.json({
+            books: presentedBooks,
+            pages: numberOfPages
+        });
+    }
+    catch{
+        next(ResponseCode.SERVER_ERROR);
+    }
+}
 
 
 async function index(request, response, next) 
 {
     try
     {
-        const bookGetAllResults = await bookModel.find({})
-        //console.log(bookGetAllResults)
-        response.json(bookGetAllResults)
+        const bookGetAllResults = await bookModel.find()
+            .populate("bookCategory").populate("bookAuthor").exec();        
+
+        response.json(bookGetAllResults.map((book)=>{
+            return BookPresenter.present(book);
+        }))
     }
     catch(e)
     {
@@ -25,134 +87,104 @@ async function index(request, response, next)
 
 async function store(request, response, next) 
 {
+    const bookRequest = request.body
     const bookInstance = new bookModel({
-        bookName: request.body.bookName,
-        bookDescription: request.body.bookDescription,
-        bookImage: request.body.bookImage,
-        bookCategory: request.body.bookCategory,
-        bookAuthor: request.body.bookAuthor,
+        bookName: bookRequest.name,
+        bookDescription: bookRequest.description,
+        bookImage: bookRequest.image,
+        bookCategory: bookRequest.category,
+        bookAuthor: bookRequest.author,
     })
-    console.log(bookInstance)
+
     try
     {
         const bookPosted = await bookInstance.save()
-        console.log()
-        //console.log(bookPost)
-        response.json(bookPosted)
+        response.json(BookPresenter.present(bookPosted))
     }
     catch(e)
     {
-        next(ResponseCode.SERVER_ERROR)
-        //return next(new Error("Saving book failed"))
-
+        next(e)
     }
 }
 
 async function show(request, response, next) 
 {
+    const { id } = request.params
     try
     {
-        const bookGetOneResults = await bookModel.findById(requset.param.bookId)
-                    .populate("bookCategory").populate("bookAuthor").exec();
-        //console.log(bookGetOneResults)
-        response.json(bookGetOneResults);
+        const bookGetOneResults = await bookModel.findById(id).populate("bookCategory").populate("bookAuthor").populate("bookReviews").populate("bookRatings").exec();
+        response.json(BookPresenter.present(bookGetOneResults));
     }
     catch(e)
     {
-        next(ResponseCode.SERVER_ERROR);
-        //next(new Error("Listing some books failed"))
+        next(e);
     }
 }
 
 async function destroy(request, response, next) 
 {
+    const { id } = request.params
     try
     {
-        const bookDeleteResult = await bookModel.deleteOne({_id: request.params.bookId})
-        console.log(bookDeleteResult)
-        response.json({message: ResponseMessage.DELETE_MESSAGE})
+        const bookDeleteResult = await bookModel.findById(id);
+        bookDeleteResult.remove()
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.DELETE_MESSAGE
+        });
     }
     catch(e)
     {
-        //next(new Error("Deleting book failed"))
+        console.log(e);
         next(ResponseCode.SERVER_ERROR)
     }
-    // delete book from author collection
-    try
-    {
-        await authorModel.findOneAndUpdate({}, { $pull: { authorBooks: req.params.bookId } })
-        console.log("Author updated successfully - book deleted")
-    }
-    catch(e)
-    {
-        //next(new Error("Updating author failed - book was not deleted"))
-        next(ResponseCode.SERVER_ERROR)
-    }
-    // delete book from category collection
-    try
-    {
-        await categoryModel.findOneAndUpdate({}, { $pull: { categoryBooks: req.params.bookId } })
-        console.log("Category updated successfully - book deleted")
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-        //next(new Error("Updating category failed - book was not deleted"))
-    }
-    // delete book from review collection
-    try
-    {
-        await reviewModel.deleteOne({reviewedBook: req.params.bookId});
-        console.log("Reviews updated successfully - book deleted")
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-        //next(new Error("Updating reviews failed - book was not deleted"))
-    }
-    // // delete book from rating collection
-    try
-    {
-        await ratingModel.deleteOne({ratedBook: req.params.bookId});
-        console.log("Ratings updated successfully - book deleted")
-    }
-    catch(e)
-    {
-        next(ResponseCode.SERVER_ERROR)
-        //next(new Error("Updating ratings failed - book was not deleted"))
-    }
+
 }
 
 async function update(request, response, next) 
 {
-    
+    const { id } = request.params
+    const bookRequest = request.body
+
     const bookInstance = {
-        ...(request.body.bookName) ? {bookName: request.body.bookName} : {},
-        ...(request.body.bookDescription) ? {bookDescription: request.body.bookDescription} : {},
-        ...(request.body.bookImage) ? {bookImage: request.body.bpostookImage} : {},
-        ...(request.body.bookCategory) ? {bookCategory: request.body.bookCategory} : {},
-        ...(request.body.bookAuthor) ? {bookAuthor: request.body.bookAuthor} : {},
-        // the fellowing two may never be used
-        ...(request.body.bookReviews) ? {bookReviews: request.body.bookReviews} : {},
-        ...(request.body.bookRatings) ? {bookRatings: request.body.bookRatings} : {},
+        ...(bookRequest.name) ? {bookName: bookRequest.name} : {},
+        ...(bookRequest.description) ? {bookDescription: bookRequest.description} : {},
+        ...(bookRequest.image) ? {bookImage: bookRequest.image} : {},
     }
+
     try
     {
-        await bookModel.findOneAndUpdate({_id: request.params.bookId}, bookInstance);
-        response.json({message: ResponseMessage.UPDATE_MESSAGE})
-        //res.send("book updated successfully")
+        let bookDoc = await bookModel.findById({ _id: id });
+        await bookModel.updateOne({_id: id}, bookInstance);
+
+        // check if category or author changed and update it
+        if (bookRequest.category && bookRequest.author) {
+            bookDoc.bookCategory = bookRequest.category;
+            bookDoc.bookAuthor = bookRequest.author;            
+        }else if (bookRequest.category){
+            bookDoc.bookCategory = bookRequest.category;
+        }else if (bookRequest.category){
+            bookDoc.bookAuthor = bookRequest.author;            
+        }
+        bookDoc.save()
+
+        response.json({
+            status : ResponseCode.SUCCESS,
+            message: ResponseMessage.UPDATE_MESSAGE
+        });
     }
     catch(e)
     {
-        next(ResponseCode.SERVER_ERROR)
-        //next(new Error("Updating book failed"))
+        next(e)
     }
 }
 
 module.exports = {
     index,
     store,
+    search,
     show,
     destroy,
-    update
+    update,
+    pagination
 }

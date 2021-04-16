@@ -18,5 +18,22 @@ const categorySchema = mongoose.Schema({
     }
 })
 
+categorySchema.pre('deleteOne',async function(next){
+    // book book-user book-rating book-review book-auther rating-user review-user
+    const Book = require('../../book/models/Book')
+    try
+    {
+        console.log(this._conditions._id);
+        const other = await Category.findOne({categoryName: "Other"});
+        await Book.updateMany({bookCategory: this._conditions._id} , {bookCategory: other._id})
+        next()
+    }
+    catch(e)
+    {
+        console.log(e);
+        next(e)
+    }
+})
+
 const Category = mongoose.model("Category" , categorySchema);
 module.exports = Category;

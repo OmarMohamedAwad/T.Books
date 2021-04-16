@@ -1,0 +1,19 @@
+<div class="content">
+  <div class="form-modal">
+      <div class="form-toggle">
+          <button id="login-toggle" onclick="toggleLogin()" disabled >Login as admin</button>
+      </div>
+
+      <div id="login-form">
+          <img src="assets/icon.ico">
+          <form [formGroup]=myForm>
+              <input type="text" formControlName="adminName" class="w-100" placeholder="Username" required />
+              <input class="w-100" formControlName="adminPassword" [type]="!show ? 'password' : 'text'" id="l_pass" placeholder="Password" required minlength="8" />
+              <input type="checkbox" id='l_box' class="m-1" (click)="togglePassword()"> <b class="m-2">Show Password</b>
+              <p *ngIf="userPassStatus;" class="mb-1 mt-1" style="color: red;">Wrong username or password </p>
+              <input id="submitBtn" type="submit"  [disabled]="myForm.invalid" class="btn mt-4 login" (click)="login()" value="login" />
+          </form>
+      </div>
+
+  </div>
+</div>

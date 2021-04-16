@@ -1,0 +1,55 @@
+<div class="content-page">
+  <div class="container" *ngIf="indexFlag == false; else navigateToIndexLayout">
+    <div class="row p-5">
+      <div class="update-form p-3">
+        <form class="" id="form" [formGroup]="bookForm" (ngSubmit)="submitAddForm()">
+          <i class="fas fa-book-open fa-5x d-block m-auto"></i>
+            <div class="mb-3 field w-75">
+              <label class="form-label" for="title">Title</label>
+              <input class="form-control input-field" id="title" placeholder="book title" type="text" formControlName="name">
+              <p class="alert-danger p-1 mt-2" *ngIf="!getNameStatus() && incorrectData">The name is invalid must be at least 2 character</p>
+            </div>
+
+            <div class="mb-3 field w-75">
+              <label class="form-label" for="description">Description</label>
+              <textarea class="form-control input-field" id="description" formControlName="description"></textarea>
+              <p class="alert-danger p-1 mt-2" *ngIf="!getDescriptionStatus() && incorrectData">The description is invalid must be at least 10 character</p>
+            </div>
+
+            <div class="mb-3 field w-75">
+              <label class="form-label" for="author">Author</label>
+              <select class="form-select input-field" aria-label="Default select example" id="author" formControlName="author">
+                  <option selected>Select the author</option>
+                  <option  *ngFor="let author of authors; " value="{{author.id}}" >{{author.name}}</option>
+              </select>
+              <p class="alert-danger p-1 mt-2" *ngIf="!getAuthorStatus() && incorrectData">The author is invalid</p>
+
+            </div>
+            <div class="mb-3 field w-75">
+              <label class="form-label" for="category">Category</label>
+              <select class="form-select input-field" aria-label="Default select example" id="category" formControlName="category">
+                  <option selected>Select the category</option>
+                  <option  *ngFor="let category of categories; " value="{{category.id}}" >{{category.name}}</option>
+              </select>
+              <p class="alert-danger p-1 mt-2 w-100" *ngIf="!getAuthorStatus() && incorrectData">The category is invalid</p>
+            </div>
+
+            <div class="mb-3 field w-75">
+              <label class="form-label" for="image">Image</label>
+              <input class="form-control input-field" id="image" type="file">
+            </div>
+
+            <div class="actions text-center mt-3">
+              <button class="btn btn-secondary w-25 m-1" (click)="backToIndex()" type="button">Back</button>
+              <button class="btn btn-danger w-25 m-1" type="submit">Add Book</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- </div> -->
+
+<ng-template #navigateToIndexLayout>
+  <app-book-index></app-book-index>
+</ng-template>

@@ -1,14 +1,13 @@
 require("./boot/requires");
 require('./boot/dbConnection');
-
+const cors = require('cors');
 const express = require('express');
 const errorHandler = require('./middlewares/error');
 const jwt = require('jsonwebtoken');
 
+const Home = require("./modules/home/routes/HomeRoute")
 const Admin = require("./modules/admin/routes/AdminRoute");
 const Author = require("./modules/author/routes/AuthorRoute");
-const ResponseCode = require("./responses-code")
-const ResponseMessage = require("./responses-message")
 
 const booksRouter = require('./modules/book/routes/BookRoutes')
 const Access = require("./modules/access/routes/AccessRoutes");
@@ -18,37 +17,60 @@ const UserRouter = require("./modules/user/routes/UserRoute");
 
 const categoryRouter = require('./modules/category/routes/CategoryRoute')
 
+const settingRouter = require('./modules/setting/routes/settingRoutes');
+const ratingRouter = require('./modules/rating/routes/RatingRoute');
+const dashboardRouter = require('./modules/dashboard/routes/dasboardRoute')
 const app = express();
+//app.use(cors());
 
 app.use(express.json());
-app.use(express.urlencoded( { extended: true } ));
+app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+
+app.use((req,res,next)=>{
+    console.log(new Date(), req.url, req.method)
+    next()
+})
+
+//end point for home
+app.use("/home" , Home);
 
 //end point for book
-app.use("/BookRoutes", booksRouter);
+app.use("/book", booksRouter);
+
+//end Point for seeting
+app.use("/settings", settingRouter);
+
+//end point for Admin Dashboard
+app.use("/dashboard",dashboardRouter)
 
 //end point for admin
-app.use("/admin" , Admin);
+app.use("/admin", Admin);
 
 //end point for author
-app.use("/author" , Author);
+app.use("/author", Author);
 
 //end point for user
-app.use("/users" , UserRouter);
+app.use("/users", UserRouter);
 
 //end point for access
-app.use("/access" , Access);
+app.use("/access", Access);
+
 
 //end point for review
-app.use("/review" , reviewRouter);
+app.use("/review", reviewRouter);
 
 //end point for category
-app.use("/category" , categoryRouter);
+app.use("/category", categoryRouter);
+
+//end point for rating
+app.use("/rating" , ratingRouter);
 
 app.listen(process.env.PORT , (err) => {
     if(err)
         console.log("the port " + process.env.PORT  + " is busy");
     else
-        console.log("the server started correcttly on port " + process.env.PORT );
+        console.log("the server started correcttly on port " + process.env.PORT);
 });
 
 // error handeler middleware

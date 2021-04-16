@@ -13,13 +13,13 @@ const userSchema = mongoose.Schema({
     },
     fName: { 
         type: String,
-        minLength:[3,minLength(5,"First Name ")], 
+        minLength:[3,minLength(3,"First Name ")], 
         required: [true, required("First Name")],
         maxLength: [10,maxLength(10,"First Name ")],
     },
     lName: {
         type: String,
-        minLength:[3,minLength(5,"First Name ")], 
+        minLength:[3,minLength(3,"First Name ")], 
         required: [true, required("First Name")],
         maxLength: [10,maxLength(10,"First Name ")],
     },
@@ -55,6 +55,9 @@ const userSchema = mongoose.Schema({
     userRatings: [{ 
         type:mongoose.Schema.Types.ObjectId, 
         ref: 'Rating'
+    }],
+    refreshToken: [{
+        type:String
     }]
 })
 userSchema.pre('save', async function(next){
@@ -68,6 +71,32 @@ userSchema.pre('save', async function(next){
         return next(error);
     }
     next();
+})
+
+userSchema.pre('deleteOne',async function(){
+    const Review = require('../../review/models/Review')
+    const ratingModel = require('../../rating/models/Rating')
+    try
+    {
+        const deletedUser = await User.findById(this._conditions._id)
+        for (const index in deletedUser.userReviews)
+        {
+            //console.log(deletedUser.userReviews[index])
+            await Review.findOneAndDelete({_id: deletedUser.userReviews[index]})
+        }
+        console.log("Reviews deleted successfully")
+
+        for (const index in deletedUser.userRatings)
+        {
+            //console.log(deletedUser.userRatings[index])
+            await ratingModel.findOneAndDelete({_id: deletedUser.userRatings[index]})
+        }
+        console.log("Ratings deleted successfully")
+    }
+    catch(e)
+    {
+        next(new Error("Deleting user dependencies failed"))
+    }
 })
 
 async function hashPassword(password)

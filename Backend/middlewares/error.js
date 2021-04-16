@@ -1,46 +1,59 @@
 const ErrorResponse = require('../helpers/errorResponse');
+const ResponseMessage = require('../response-messages');
+const ResponseCode = require('../response-codes');
+
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
 
+  console.log(error);
   error.message = err.message;
 
-  // Log to console for dev
-  console.log(err);
+  let errorName = err.name;
+  if (errorName != undefined) {
+    switch (errorName) 
+    {
+      // Mongoose bad ObjectId
+      case 'CastError':
+        error = new ErrorResponse(ResponseCode.NOT_FOUND, ResponseMessage.RESOURSE_NOT_FOUND_MESSAGE)
+        res.json(error);
+        break;
 
-  // Mongoose bad ObjectId
-  if (err.name === 'CastError') {
-    const message = `Resource not found`;
-    error = new ErrorResponse(message, 404);
+      case 'ValidationError':
+        let errorsMessage = {};
+        Object.keys(error.errors).forEach((key) => {
+          errorsMessage[key] = error.errors[key].message;
+        });
+        error = new ErrorResponse(ResponseCode.VALIDATION_ERROR, errorsMessage)
+        res.json(error);
+        break;
+
+      case 'TypeError':
+          error = new ErrorResponse(ResponseCode.TYPE_ERROR, err.message +" "+ ResponseMessage.TYPE_ERROR_MESSAGE)
+          res.json(error);
+          break;
+
+      case 'MongoError':
+          if (err.code === ResponseCode.DUBLICATE_KEY) {
+            error = new ErrorResponse(ResponseCode.DUBLICATE_KEY, ResponseMessage.DUBLICATE_KEY_MESSAGE)
+            res.json(error);
+          }
+          break;
+
+      default:
+        console.log(err);
+        break;
+    }
   }
 
-  // Mongoose duplicate key
-  if (err.code === 11000) {
-    const message = 'Duplicate field value entered';
-    error = new ErrorResponse(message, 400);
+  else if (error == ResponseCode.SERVER_ERROR) {
+    error = new ErrorResponse(ResponseCode.SERVER_ERROR, ResponseMessage.SERVER_ERROR_MESSAGE)
+    res.json(error);
+  }else{
+    error = new ErrorResponse(403, "Wrong username or password")
+    res.json(error);
+    console.log(err);
   }
 
-  // Mongoose validation error
-  if (err.name === 'ValidationError') {
-    // const message = Object.values(err.errors).map(val => val.message);
-    // error = new ErrorResponse(message, 400);
-
-    let errorsMessage = {};
-
-    Object.keys(error.errors).forEach((key) => {
-      errorsMessage[key] = error.errors[key].message;
-    });
-
-    res.json({
-      status: ResponseCode.VALIDATION_ERROR,
-      message: errorsMessage
-    });
-  }
-
-  res.status(error.statusCode || err == 500).json({
-      status: ResponseCode.SERVER_ERROR,
-      message: ResponseMessage.SERVER_ERROR_MESSAGE
-  });
-  
 };
 
 module.exports = errorHandler;

@@ -1,13 +1,14 @@
 const Review = require("../models/Review");
-const ResponseCode = require("../../../responses-code")
-const ResponseMessage = require("../../../responses-message")
+const ResponseCode = require("../../../response-codes")
+const ResponseMessage = require("../../../response-messages")
+const reviewPresenter = require("../presenter/reviewPresenter")
 
 const show = async function (request, response, next){
     const { id } = request.params
     try{
 
         const review = await Review.findById(id).populate("reviwer").populate("reviewedBook");
-        response.json(review);
+        response.json(reviewPresenter.present(review));
     }
     catch(error)
     {
@@ -19,13 +20,13 @@ const store = async function (request, response, next){
     const reviewRequest = request.body
     const review = new Review({
         reviwer: reviewRequest.reviwer,
-        reviewedBook: reviewRequest.reviewedBook,
-        reviewBody: reviewRequest.reviewBody,
+        reviewedBook: reviewRequest.book,
+        reviewBody: reviewRequest.body,
     }) 
 
     try{
         const savedReview = await review.save();
-        response.json(savedReview);
+        response.json(reviewPresenter.present(savedReview))
     }catch(error){
         next(error)
     }
@@ -34,11 +35,9 @@ const store = async function (request, response, next){
 const update = async function (request, response, next){
     const { id } = request.params;
     const review = request.body
-    const updatedReview = new Review({
-        ...(review.reviwer) ? {reviwer: review.reviwer} : {},
-        ...(review.reviewedBook) ? {reviewedBook: review.reviewedBook} : {},
+    const updatedReview = {
         ...(review.reviewBody) ? {reviewBody: review.reviewBody} : {},
-    }) 
+    } 
     
     try{
         const updatedState = await Review.updateOne({ _id: id } , updatedReview) //findByIdAndUpdate
@@ -67,10 +66,35 @@ const destroy = async function (request, response, next){
     }
 }
 
+const pagination = async function (request, response, next){
+     try{
+        const { id } = request.params
+        let { page=1,limit=2} = request.query;
+        page < 0 ? page = 1 : page;
+        limit < 2 ? limit = 2 : limit;
+        
+        const reviews = await Review.find({reviewedBook: id})
+        .limit(limit)
+        .skip((page-1) * limit).exec();  
+        
+        const numberOfPages = Math.ceil(authers.length / limit)
+        const presentedReviews = reviews.map((rev)=>{
+            return reviewPresenter.present(rev);
+        });
+        response.json({
+            presentedReviews,
+            pages: numberOfPages
+        });
+    }
+    catch(err){
+        next(err);
+    }
+}
 
 module.exports = {
     show,
     store,
     destroy,
-    update
+    update,
+    pagination
 };

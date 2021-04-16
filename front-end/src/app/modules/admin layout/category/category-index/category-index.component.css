@@ -1,0 +1,30 @@
+.content-page {
+  background-color: #f7f7f7;
+  margin-top: 0 !important;
+  min-height: 90vh;
+}
+
+.category {
+  margin-left: 19%;
+}
+.category .card img {
+  height: 200px;
+}
+.custom-txt {
+  color: #24324a;
+}
+.add {
+  background-color: #24324a;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 15px 25px;
+  float: right;
+  margin-right: 20px;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgb(0 0 0 / 30%), 0 4px 5px 0 rgb(0 0 0 / 30%);
+}
+.add:hover {
+  background-color: #de3242;
+}
+

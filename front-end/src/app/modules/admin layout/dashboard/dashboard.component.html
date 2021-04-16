@@ -1,0 +1,60 @@
+<app-navbar-admin></app-navbar-admin>
+<app-admin-sidebar></app-admin-sidebar>
+
+<div class="page-content">
+  <section class="dashboard">
+    <div class="container">
+      <div class="row w-100">
+        <div class="col">
+          <div class="content pt-5">
+            <h2>Welcome Admin</h2>
+            <p>We are glad to see you again!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--this loader is be hidden when the data come with response -->
+    <div *ngIf="!isLoad; else displayContent" class="row w-100">
+      <div class="col-md-12 text-center loader">
+        <i class="fas fa-spinner fa-spin fa-5x text-info"></i>
+      </div>
+    </div>
+    <ng-template #displayContent>
+      <div class="row w-100">
+        <div class="col-md-6 col-lg-4 col-xl-4 ">
+          <div class="item my-5">
+            <div class="icons d-flex align-items-center justify-content-center">
+              <i class="fas fa-users icon"></i>
+            </div>
+            <div class="details text-center">
+              <p class="mt-4 mb-2">Number of Authors :</p>
+              <h4>{{data.authors}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-4 ">
+          <div class="item my-5">
+            <div class="icons d-flex align-items-center justify-content-center">
+              <i class="fas fa-book-open icon"></i>
+            </div>
+            <div class="details text-center">
+              <p class="mt-4 mb-2">Number of Books:</p>
+              <h4>{{data.books}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-4 ">
+          <div class="item my-5">
+            <div class="icons d-flex align-items-center justify-content-center">
+              <i class="fas fa-newspaper icon"></i>
+            </div>
+            <div class="details text-center">
+              <p class="mt-4 mb-2">Number of Categories:</p>
+              <h4>{{data.categories}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </section>
+</div>

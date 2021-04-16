@@ -1,0 +1,41 @@
+
+.books .row {
+  padding-left: 15%;
+}
+
+.books {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  height: 60%;
+}
+
+.book {
+  position: relative;
+}
+
+.book:hover {
+  cursor: pointer;
+}
+
+.book-image {
+  width: 70%;
+  height: 250px;
+  border-radius: 20px;
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2), 0 1px 7px 0 rgba(0,0,0,0.2), 0 3px 2px -2px rgba(0,0,0,0.2);
+}
+
+.book-image:hover{
+  transform: scale(1.2);
+  transition: all 0.3s linear;
+}
+
+.pagination-section {
+  margin-top: 10%;
+  justify-content: right;
+}
+
+@media only screen and (max-width: 700px) {
+  .books .row {
+    padding-left: 20%;
+  }
+}

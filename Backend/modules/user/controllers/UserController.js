@@ -1,16 +1,21 @@
 const ErrorResponse = require('../../../helpers/errorResponse');
-const User = require("../../user/models/User")
+const User = require("../../user/models/User");
 const bcrypt = require('bcrypt');
 const bookModel = require('../../book/models/Book');
 const reviewModel = require('../../review/models/Review');
 const ratingModel = require('../../rating/models/Rating');
+const userPresenter = require("../presenter/userPresenter");
+
+const Author = require("../../author/models/Author");
 
 async function index(request, response,next) {
 
     try {
         const users = await User.find();
-        console.log(users)
-        response.status(200).json(users);
+        console.log(users);
+        response.json(users.map((user)=>{
+            return userPresenter.present(user);
+        }))
 
     } catch (err) {
         next(err);
@@ -23,21 +28,79 @@ async function show(request, response, next) {
         console.log(id)
         const user = await User.findById(id);   
         response.status(200)
-        .json(
-            {
-                "user Name ":user.userName,
-                "Email ":user.email,
-                "First Name":user.fName, 
-                "Last Name":user.lName,
-                "avatar":user.userImage 
-            }
-        );
+        response.json(userPresenter.present(user));data
+    }
+    catch(err){
 
-    } catch (err) {
-        next(err);
     }
    
 }
+
+async function pagination(request, response, next){
+    try{
+        //page and limit are default value 
+        const { page=1,limit=2} = request.query;
+       
+        const users = await User.find()
+        .sort('userName')
+        .limit(limit *1)
+        .skip((page-1) * limit).exec();   
+        response.send(users);
+    }
+    catch(err){
+        next(err);
+    }
+}
+async function paginationBooks(request, response, next){
+    try{
+        //page and limit are default value 
+        const { userId,booktype,page=1,limit=4,bookName} = request.query;
+        console.log("userId = " , userId)
+        let res = [];
+        switch(booktype){
+            case 'All':
+                console.log(booktype)
+                arrayOfData = await getProfileData("readBooks" , userId)
+                res = await userPresenter.profilePresenter(arrayOfData , 'read' , userId)
+                arrayOfData = await getProfileData("currentlyReadedBooks" , userId)
+                res = res.concat(await userPresenter.profilePresenter(arrayOfData , 'CurrentReading' , userId))
+                arrayOfData = await getProfileData("wantToReadedBooks" , userId)
+                res = res.concat(await userPresenter.profilePresenter(arrayOfData , 'WantToRead' , userId))
+                break;
+            case "Read":
+                arrayOfData = await getProfileData("readBooks" , userId)
+                res = await userPresenter.profilePresenter(arrayOfData , 'read' , userId)
+                break;
+            case 'CurrentReading':
+                arrayOfData = await getProfileData("currentlyReadedBooks" , userId)
+                res = await userPresenter.profilePresenter(arrayOfData , 'CurrentReading' , userId)
+                break;
+            case 'WantToRead':
+                arrayOfData = await getProfileData("wantToReadedBooks" , userId)
+                res = await userPresenter.profilePresenter(arrayOfData , 'WantToRead' , userId)
+                break;
+        }
+        //serach part
+        if(bookName){
+            let searchArray = []
+            for(let i = 0; i < res.length ; i++){
+                if(res[i].name.includes(bookName))
+                    searchArray.push(res[i])
+            }
+            res = searchArray;
+        }
+        //pagination part
+        responsePage  = {}
+        responsePage.bookNumbers = res.length
+        responsePage.pagebooks = []
+        for(let i = (page - 1) * limit; i < page * limit && i < res.length ; i++)
+            responsePage.pagebooks.push(res[i])
+        response.send(responsePage) 
+    }
+    catch(err){
+    }
+}
+
 
 
 async function store(request, response, next) {
@@ -73,7 +136,7 @@ async function store(request, response, next) {
         })
         await newUser.save();
         response.status(200)
-        .json(newUser);
+        .json(userPresenter.present(newUser));
     } catch (err) {
        next(err);
     }
@@ -108,37 +171,32 @@ async function destroy(req, res,next){
       res.json("User deleted successfully!");
     } catch (err) {
         next(err);
-    }
-     try
-     {
-         const res = await bookModel.deleteOne({currentlyReadedBooks: req.params.userId});
-     } catch(e) {
-         next(err)
-     }
-     
-     try{
-         const res = await bookModel.deleteOne({wantToReadedBooks: req.params.userId});
-     } catch(e) {
-         next(err)
-     }
+    }        
+}
 
-      try
-      {
-          const res = await reviewModel.deleteOne({userReviews: req.params.userId});
-      }catch(e) {
-          next(err)
-      }
-      try
-      {
-          const res = await ratingModel.deleteOne({userRatings: req.params.bookId})     
-      }catch(e) {
-          next(err)
-      }        
+async function getProfileData(typeOfArray , userId){
+    const User = require("../../user/models/User");
+    var books = await User.find({_id: userId} , {typeOfArray: 1}).populate(typeOfArray).populate({ 
+        path: typeOfArray,
+        populate: {
+          path: 'bookAuthor',
+          model: 'Author'
+        }
+     }).populate({ 
+        path: typeOfArray,
+        populate: {
+          path: 'bookRatings',
+          model: 'Rating'
+        }
+     })
+     return books[0][typeOfArray];
 }
 
 module.exports = {
     index,
     show,
+    pagination,
+    paginationBooks,
     store,
     update,
     destroy

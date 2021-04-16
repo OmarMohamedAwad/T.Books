@@ -1,0 +1,48 @@
+
+.page_content{
+    width: 20%;
+    height: 80vh;
+    padding: 1px 0;
+    font-size: 1vw;
+    margin: 90px 0 0 10%;
+    background: #DE3241;
+    box-sizing: border-box;
+}
+.terms{
+    width: 60%;
+    height: 80vh;
+    margin: 90px 0 0 30.5%;
+    background: rgba(255,255,255,0.9);
+    overflow: auto; 
+    text-align:justify; 
+    padding: 7px 20px;
+    border-top: 1vh solid rgba(255,255,255,0.9);
+    border-bottom: 1vh solid rgba(255,255,255,0.9);
+}
+h4{
+    font-family: 'Playfair Display';
+    color: #DE3241;
+    font-weight: 700;
+}
+p, .licence_ul li{
+    font-size: 15px;
+    margin: 10px 15px;
+    font-weight: 500;
+    color: rgb(0,0,0);
+}
+section{
+    margin-top: 15px;
+    padding: 5px;
+}
+section:target{
+    border: 1px solid #DE3241;
+}
+.btn{
+    font-size: 25px;
+    font-weight: 900;
+    width: 100%
+}
+.sidebar{
+    list-style: none;
+    padding-left: 0;
+}

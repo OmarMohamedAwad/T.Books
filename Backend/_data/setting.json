@@ -1,0 +1,68 @@
+[
+    {
+        "_id": "605cb17e93f06d1d93fae068",
+        "sectionName": "contact-info",
+        "sectionContent": {
+            "header": "Made with love By Team"
+        },
+        "__v": 0
+    },
+    {
+        "_id": "605cb293a0eb0a1dcfc9135a",
+        "sectionName": "find",
+        "sectionContent": {
+            "about-link": "about.html",
+            "terms-and-conditions": "terms-and-conditions.html",
+            "social-links": "book/facebook.com , book/linkedin.com , book/twitter.com"
+        },
+        "__v": 0
+    },
+    {
+        "_id": "605cb2eaa0eb0a1dcfc9135b",
+        "sectionName": "footer",
+        "sectionContent": {
+            "header": "Made with love By TeamName"
+        },
+        "__v": 0
+    },
+    {
+        "_id": "605cc68545692427b4a791ae",
+        "sectionName": "test",
+        "sectionContent": {
+            "test-link": "test.html"
+        },
+        "__v": 0
+    },
+    {
+        "_id": "605cc975782e1d292f1d4293",
+        "sectionName": "home",
+        "sectionContent": {
+            "title": "travel to your dream world",
+            "sub_title": "isolate yourself about the world across your favourite book",
+            "button": "Discover Book"
+        },
+        "__v": 0
+    },
+    {
+        "_id": "605cc9fd782e1d292f1d4294",
+        "sectionName": "titles",
+        "sectionContent": {
+            "book": "Popular Books",
+            "author": "Popular Authors",
+            "category": "The Top Category"
+        },
+        "__v": 0
+    },
+    {
+        "_id": "605cca74782e1d292f1d4295",
+        "sectionName": "footer-info",
+        "sectionContent": {
+            "email": "book@mail.com",
+            "phone": "011 011 011 01",
+            "fax": "1234-4567-48344",
+            "title": "Book Trending",
+            "capation": "Our mission to give the customers opportunity to enjoy high-quality services to Choose thier favorite book with us. "
+        },
+        "__v": 0
+    }
+]

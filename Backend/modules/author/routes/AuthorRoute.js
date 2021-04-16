@@ -5,6 +5,14 @@ const autherRouter = express.Router()
 
 autherRouter.get("/", (request, response, next)=> {
     AutherController.index(request, response, next);   
+})
+
+autherRouter.get("/search/:keyword",(request, response, next)=> {
+    AutherController.search(request, response, next);   
+})
+
+autherRouter.get("/pages", (request, response, next)=> {
+    AutherController.pagination(request, response, next);   
 }) 
 
 autherRouter.get("/:id", (request, response, next)=> {
