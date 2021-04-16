@@ -55,13 +55,10 @@ async function paginationBooks(request, response, next){
     try{
         //page and limit are default value 
         const { userId,booktype,page=1,limit=4,bookName} = request.query;
-        console.log("userId = " , userId)
         let res = [];
         switch(booktype){
             case 'All':
-                console.log(booktype)
                 arrayOfData = await getProfileData("readBooks" , userId)
-                response.send(arrayOfData) 
                 res = await userPresenter.profilePresenter(arrayOfData , 'read' , userId)
                 arrayOfData = await getProfileData("currentlyReadedBooks" , userId)
                 res = res.concat(await userPresenter.profilePresenter(arrayOfData , 'CurrentReading' , userId))
@@ -97,6 +94,8 @@ async function paginationBooks(request, response, next){
         for(let i = (page - 1) * limit; i < page * limit && i < res.length ; i++)
             responsePage.pagebooks.push(res[i])
         console.log(responsePage)
+
+        console.log("before response")
         response.send(responsePage) 
     }
     catch(err){
@@ -178,22 +177,27 @@ async function destroy(req, res,next){
 
 async function getProfileData(typeOfArray , userId){
     const User = require("../../user/models/User")
-    return await User.find({_id: userId} , {typeOfArray: 1})
-    var books = await User.find({_id: userId} , {typeOfArray: 1}).populate(typeOfArray).populate({ 
-        path: typeOfArray,
-        populate: {
-          path: 'bookAuthor',
-          model: 'Author'
-        }
-     }).populate({ 
-        path: typeOfArray,
-        populate: {
-          path: 'bookRatings',
-          model: 'Rating'
-        }
-     })
-     console.log(typeOfArray, books)
-     return books[0][typeOfArray];
+    var books;
+    let check = await User.find({_id: userId});
+    if(check[0][typeOfArray].length){
+        books = await User.find({_id: userId} , {typeOfArray: 1}).populate(typeOfArray).populate({ 
+            path: typeOfArray,
+            populate: {
+              path: 'bookAuthor',
+              model: 'Author'
+            }
+         }).populate({ 
+            path: typeOfArray,
+            populate: {
+              path: 'bookRatings',
+              model: 'Rating'
+            }
+         })
+        return books[0][typeOfArray];
+    }
+    else {
+        return check[0][typeOfArray] = [];
+    }
 }
 
 module.exports = {
