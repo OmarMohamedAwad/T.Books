@@ -66,6 +66,7 @@ import { UserRoutingModule } from './modules/user layout/user-routing/user-routi
 import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
 import { AveragePipe } from './pipes/average.pipe';
 import { SumPipe } from './pipes/sum.pipe';
+import { EmptyComponent } from './modules/shared/empty/empty.component';
 
 
 //  const appRoutes:Routes=[
@@ -134,7 +135,8 @@ import { SumPipe } from './pipes/sum.pipe';
     ConcateNamePipe,
     AdminLoginComponent,
     AveragePipe,
-    SumPipe
+    SumPipe,
+    EmptyComponent
   ],
   exports:[
     ConcateNamePipe
