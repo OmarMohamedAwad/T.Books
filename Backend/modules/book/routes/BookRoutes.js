@@ -1,11 +1,13 @@
 const express = require('express');
 const bookModel = require('../models/Book');
 const bookController = require('../controllers/BookController')
+const checkAccessToken = require('../../../middlewares/middleware')
 
 
 const booksRouter = express.Router()
 
 booksRouter.get('/', (request, response, next)=>{
+    console.log("hi")
     bookController.index(request, response, next);
 })
 

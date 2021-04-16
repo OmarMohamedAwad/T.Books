@@ -3,6 +3,7 @@ const ResponseMessage = require('../response-messages');
 const ResponseCode = require('../response-codes');
 
 const errorHandler = (err, req, res, next) => {
+  console.log("I am in error")
   let error = { ...err };
 
   console.log(error);

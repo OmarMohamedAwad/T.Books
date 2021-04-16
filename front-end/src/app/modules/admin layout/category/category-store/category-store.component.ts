@@ -31,13 +31,13 @@ export class CategoryStoreComponent implements OnInit {
     this.isClicked = true;
     if (this.categoryForm.valid) {
         this._categoryService.categoryStore(this.categoryForm.value).subscribe(response => {
-          if (response.message == 'success') {
+          //if (response.message == 'success') {
             this.isClicked = false;
             this.isSucess = true;
             this.responseMessage = 'Added Successfully.';
             this.categoryForm.reset();
             this.router.navigate(['/admin/category']);
-          }
+         // }
         },(err)=>{
           Swal.fire({
             icon: 'error',
@@ -47,6 +47,7 @@ export class CategoryStoreComponent implements OnInit {
           })
         });
         console.log(this.categoryForm);
+
     }
   }
 }

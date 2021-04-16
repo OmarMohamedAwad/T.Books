@@ -156,8 +156,8 @@ reviews:Array<{reviewBody: string,
     }
   }
   ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
-    this.rateSubscriber.unsubscribe();
-    this.reviewSubscriber.unsubscribe();
+    // this.subscriber.unsubscribe();
+    // this.rateSubscriber.unsubscribe();
+    // this.reviewSubscriber.unsubscribe();
   }
 }
