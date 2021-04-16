@@ -28,20 +28,22 @@ async function profilePresenter(books , type , userId)
          returnData.author = book.bookAuthor.autherFirstName + ' ' + book.bookAuthor.autherLastName;
          returnData.state = type;
          let avg = 0;
+         console.log("rated books" , book.bookRatings)
          for(let i = 0; i < book.bookRatings.length; i++)
          {
+             console.log(book.bookRatings[i].rater)
+             console.log(userId)
+             console.log(book.bookName)
             avg += book.bookRatings[i].rate;
-            // console.log(userId)
-            // console.log(book.bookRatings[i].rater)
             if(book.bookRatings[i].rater == userId){
-                //console.log(book.bookRatings[i].rater)
                 returnData.myRating = book.bookRatings[i].rate;
                 returnData.myRatingId = book.bookRatings[i]._id;
+                console.log(i)
             }
          }
-         returnData.bookRating = avg / book.bookRatings.length;
-         returnData.myRating = returnData.myRating ? returnData.myRating : 0;
-         returnData.bookRating = returnData.bookRating ? returnData.bookRating : 0;
+         returnData.bookRating = Math.round(avg / book.bookRatings.length);
+         returnData.myRating = returnData.myRating ? Math.round(returnData.myRating) : 0;
+         returnData.bookRating = returnData.bookRating ? Math.round(returnData.bookRating) : 0;
          returnData.myRatingId = returnData.myRatingId ? returnData.myRatingId : "";
          returnDataArray.push(returnData);
     })

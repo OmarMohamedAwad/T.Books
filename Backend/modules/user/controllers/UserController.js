@@ -61,6 +61,7 @@ async function paginationBooks(request, response, next){
             case 'All':
                 console.log(booktype)
                 arrayOfData = await getProfileData("readBooks" , userId)
+                response.send(arrayOfData) 
                 res = await userPresenter.profilePresenter(arrayOfData , 'read' , userId)
                 arrayOfData = await getProfileData("currentlyReadedBooks" , userId)
                 res = res.concat(await userPresenter.profilePresenter(arrayOfData , 'CurrentReading' , userId))
@@ -95,6 +96,7 @@ async function paginationBooks(request, response, next){
         responsePage.pagebooks = []
         for(let i = (page - 1) * limit; i < page * limit && i < res.length ; i++)
             responsePage.pagebooks.push(res[i])
+        console.log(responsePage)
         response.send(responsePage) 
     }
     catch(err){
@@ -175,7 +177,8 @@ async function destroy(req, res,next){
 }
 
 async function getProfileData(typeOfArray , userId){
-    const User = require("../../user/models/User");
+    const User = require("../../user/models/User")
+    return await User.find({_id: userId} , {typeOfArray: 1})
     var books = await User.find({_id: userId} , {typeOfArray: 1}).populate(typeOfArray).populate({ 
         path: typeOfArray,
         populate: {
@@ -189,6 +192,7 @@ async function getProfileData(typeOfArray , userId){
           model: 'Rating'
         }
      })
+     console.log(typeOfArray, books)
      return books[0][typeOfArray];
 }
 

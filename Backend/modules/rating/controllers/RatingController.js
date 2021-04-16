@@ -49,13 +49,17 @@ async function store(req, res, next) {
 
 async function update(req, res, next) {
 
-    console.log("jdsj")
+    console.log("")
     const {id} = req.params;
     const rating = req.body
     const newRating = {
-        ...(rating.rate ? { rate: rating.rate } : {})
+        ...(rating.rate ? { rate: rating.rate } : {}),
+        ...(rating.rater ? { rater: rating.rater } : {}),
+        ...(rating.book ? { ratedBook: rating.book } : {}),
+        ...(id ? { _id: id } : {}),
+        ...(rating._v ? { _v: rating._v } : {})
     }
-
+    console.log(id , rating)
     try{
         await Rating.findByIdAndUpdate({ _id: id }, newRating)
         res.json({

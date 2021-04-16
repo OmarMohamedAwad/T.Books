@@ -50,7 +50,7 @@ export class UserProfileCardsComponent implements OnInit {
   }
 
   submitRate(event:Event , index:number , ratingId:string , bookId:string){
-    console.log("submit" , index)
+    console.log("submit" , index , "book " , bookId , "rating: ", ratingId )
     if(ratingId){
       this.subscriber = this.userProfileService.updateRate(this.userId,index)
       .subscribe((response:any)=>{
@@ -94,7 +94,7 @@ export class UserProfileCardsComponent implements OnInit {
     this.bookRate = [];
     this.bookOverallRate = [];
     this.bookUserType = [];
-    this.subscriber = this.userProfileService.getCategoryPage(this.userId,booktype,page,book)
+    this.subscriber = this.userProfileService.getUserProfilePage(this.userId,booktype,page,book)
     .subscribe((response:any)=>{
       console.log(response.body)
       this.maxPages = Math.ceil(response.body.bookNumbers / 4);
@@ -108,11 +108,13 @@ export class UserProfileCardsComponent implements OnInit {
           this.bookNames.push(book.name)
           this.bookImages.push(book.image)
           this.bookIAuthor.push(book.author)
-          this.bookRate.push(Math.round(book.myRating))
-          this.bookOverallRate.push(Math.round(book.bookRating))
+          this.bookRate.push(book.myRating)
+          console.log("this is" , typeof(book.bookRating))
+          this.bookOverallRate.push(book.bookRating)
           this.bookUserType.push(book.state)
           this.bookIds.push(book.bookId)
           this.myRatingIds.push(book.myRatingId)
+          console.log(this)
         }
       })
       this.calculatePagination();
