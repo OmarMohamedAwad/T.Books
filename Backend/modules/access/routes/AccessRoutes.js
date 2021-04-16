@@ -23,5 +23,9 @@ AccessRouter.post("/userLogout" , async (request, response, next) => {
     await AccessController.userLogout(request, response, next);
 })
 
+AccessRouter.post("/getNewToken" , async (request, response, next) => {
+    await AccessController.getNewToken(request, response, next);
+})
+
 
 module.exports = AccessRouter;

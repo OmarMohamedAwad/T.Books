@@ -32,13 +32,15 @@ export class CategoryStoreComponent implements OnInit {
     if (this.categoryForm.valid) {
       // console.log(this.categoryForm.value)
       this._categoryService.categoryStore(this.categoryForm.value).subscribe(response => {
-        if (response.message == 'success') {
+        console.log(response.message)
+        // if (response.message == 'success') {
+          console.log("helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
           this.isClicked = false;
           this.isSucess = true;
           this.responseMessage = 'Added Successfully.';
           this.categoryForm.reset();
           this.router.navigate(['/admin/category']);
-        }
+        // }
         console.log(response);
       });
       console.log(this.categoryForm);
