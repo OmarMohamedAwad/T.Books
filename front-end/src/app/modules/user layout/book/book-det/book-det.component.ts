@@ -7,6 +7,7 @@ import { ReviewsService } from 'src/app/services/reviews.service';
 import { RatingServiceService } from '../../../../services/rating-service.service';
 import { Router } from '@angular/router';
 import {UserService} from '../../../../services/user.service';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-book-det',
@@ -39,7 +40,8 @@ export class BookDetComponent implements OnInit {
 
   favsNum:number =215;
   userRate=-1;
-  userReview:string="";
+  userReview: string ="";
+  bookStatus: string = "";
 
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService, private userService: UserService,
               private ratingService: RatingServiceService,
@@ -58,7 +60,10 @@ export class BookDetComponent implements OnInit {
       categoryName: "",
       authorName: "",
       bookReviews:[],
-      bookRatings:[]
+      bookRatings:[],
+      currantReader:[],
+      finishReadUsers:[],
+      wantToReadeUsers:[],
     }
 
   subscriber:any;
@@ -86,6 +91,7 @@ export class BookDetComponent implements OnInit {
       this.reviews = this.book.bookReviews;
       this.ratings = this.book.bookRatings;
       this.ratesNum = this.book.bookRatings.length;
+      this.readeBookStatus(response.body.currantReader, response.body.wantToReadeUsers, response.body.finishReadUsers);
       this.favsNum = 0
       this.avgRate=0
       for(let i=0;i<this.ratings.length;i++)
@@ -103,6 +109,7 @@ export class BookDetComponent implements OnInit {
   setRate(bookRate:any){
     this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/})
   }
+
   drawMyRating(ratingsArr:any){
     this.stars_Arr=[this.star1,this.star2,this.star3,this.star4,this.star5];
     for(let i=0;i<ratingsArr.length;i++){
@@ -111,7 +118,6 @@ export class BookDetComponent implements OnInit {
       }
     }
   }
-
 
   reloadComponent(){
     let currentUrl = this.router.url;
@@ -152,13 +158,29 @@ export class BookDetComponent implements OnInit {
     this.userSubscriber = this.userService.updateUserBookList({userId:this.reviewerId, bookId:this.book.id, type:type})
       .subscribe((response:any)=>
         {
+          if(type == "1") this.bookStatus = "Is currant read"
+          else if(type == "2") this.bookStatus = "Want to read"
+          else if(type == "3") this.bookStatus = "Finished reading"
           console.log(response)
-          this.reloadComponent()
+          // this.reloadComponent()
 
         },
         (err)=>{
           console.log(err)
         }
       )
+  }
+
+  readeBookStatus(currantReader: [], wantToRead: [], finishRead: []){
+    this.userId = "605a0532ba76f47a7793e130"
+    const currant = currantReader.find(element => element == this.userId)
+    const want = wantToRead.find(element => element == this.userId)
+    const finish = finishRead.find(element => element == this.userId)
+
+    if (currant) this.bookStatus = "Is currant read"
+    else if (want) this.bookStatus = "Want to read"
+    else if(finish) this.bookStatus = "Finished reading"
+    else this.bookStatus = "Add to my list"
+
   }
 }

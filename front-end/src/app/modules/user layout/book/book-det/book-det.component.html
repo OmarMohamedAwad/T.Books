@@ -7,7 +7,9 @@
           <!-- Content here -->
           <ul class="nav nav-pills mt-2">
             <li class="nav-item dropdown m-0 w-100 btn-danger">
-              <a class="nav-link dropdown-toggle btn w-100 p-0 text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add to favourites</a>
+              <a class="nav-link dropdown-toggle btn w-100 p-0 text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                {{bookStatus}}
+              </a>
               <div class="dropdown-menu">
                 <a class="dropdown-item" (click)="changeBookStatus('1')">Is currently reading</a>
                 <a class="dropdown-item" (click)="changeBookStatus('2')">Want to read</a>

@@ -41,7 +41,10 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
     categoryName:"",
     authorName:"",
     bookReviews:[],
-    bookRatings:[]
+    bookRatings:[],
+    currantReader:[],
+    finishReadUsers:[],
+    wantToReadeUsers:[],
   };
 
   @Output() deletedBook:EventEmitter<Book> = new EventEmitter<Book>()

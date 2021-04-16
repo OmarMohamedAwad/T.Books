@@ -172,18 +172,24 @@ async function updateBookList(req, res, next) {
 
     if (type && bookId) {
         try {
+            await bookModel.updateOne({ _id: bookId }, { $pull: { currentlyReader: id,
+                wantToReadeUsers: id,
+                finishReadUsers: id} })
             await User.updateOne({ _id: id }, { $pull: { wantToReadedBooks: bookId,
-                 currentlyReadedBooks: bookId,
-                 readBooks: bookId} })
+                currentlyReadedBooks: bookId,
+                readBooks: bookId} })
             switch (type) {
                 case Type.WANT_TO_READ:
                     await User.updateOne({ _id: id }, { $push: { wantToReadedBooks: bookId } })
+                    await bookModel.updateOne({ _id: bookId }, { $push: { wantToReadeUsers: id } })
                     break;
                 case Type.CURRANT_READ:
                     await User.updateOne({ _id: id }, { $push: { currentlyReadedBooks: bookId } })
+                    await bookModel.updateOne({ _id: bookId }, { $push: { currentlyReader: id } })
                     break;
                 case Type.READ:
                     await User.updateOne({ _id: id }, { $push: { readBooks: bookId } })
+                    await bookModel.updateOne({ _id: bookId }, { $push: { finishReadUsers: id } })
                     break;
                 default:
                     break;

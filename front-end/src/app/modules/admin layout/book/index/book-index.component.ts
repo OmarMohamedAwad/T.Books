@@ -30,7 +30,10 @@ export class BookIndexComponent implements OnInit, OnDestroy {
       categoryName:"",
       authorName:"",
       bookReviews:[],
-      bookRatings:[]
+      bookRatings:[],
+      currantReader:[],
+      finishReadUsers:[],
+      wantToReadeUsers:[],
   };
 
   constructor(private bookService: BookServiceService, private authorService: AuthorsServiceService, private categoryService: CategoryService) {
@@ -68,7 +71,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
             category:"605cd2adc5c1be45441514e6",
             author:"605cc012292ba3558c650ada",
             categoryName:"",
-            authorName:"",      
+            authorName:"",
             bookReviews:[],
             bookRatings:[]
         },
@@ -80,7 +83,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
           category:"605cd2adc5c1be45441514e6",
           author:"605cc012292ba3558c650ada",
           categoryName:"",
-          authorName:"",    
+          authorName:"",
           bookReviews:[],
           bookRatings:[]
       }]

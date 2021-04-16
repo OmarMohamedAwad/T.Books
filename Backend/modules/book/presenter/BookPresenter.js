@@ -9,8 +9,10 @@ function present(book) {
         authorName: book.bookAuthor.autherFirstName +" "+  book.bookAuthor.autherLastName,
         categoryName: book.bookCategory.categoryName,
         bookReviews: book.bookReviews,
-        bookRatings: book.bookRatings
-
+        bookRatings: book.bookRatings,
+        currantReader: book.currentlyReader,
+        wantToReadeUsers: book.wantToReadeUsers,
+        finishReadUsers: book.finishReadUsers,
     }
 }
 
