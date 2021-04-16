@@ -55,7 +55,7 @@ export class BookDetComponent implements OnInit {
   subscriber:any;
   rateSubscriber:any;
   reviewSubscriber:any;
-    
+
   ratesNum:number =112585
   avgRate:number = 3.1;
   ratings:any;
@@ -69,12 +69,12 @@ reviews:Array<{reviewBody: string,
     __v: any,
     _id: string}>=[]
 
-  
+
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService,
     private ratingService: RatingServiceService, private myActivatedRoute:ActivatedRoute, private router: Router) {
       this.userId=sessionStorage.getItem("userId")!;
     }
-  
+
   ngOnInit(): void {
     this.subscriber = this.bookService.show(this.myActivatedRoute.snapshot.params.id)
     .subscribe((response:any)=>{
@@ -102,13 +102,13 @@ reviews:Array<{reviewBody: string,
         console.log(err)
       }
     )
-    
+
   }
 
   setRate(bookRate:any){
     this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:this.userId, book:this.book.id})
   }
-  
+
   drawMyRating(rate:number){
   }
 

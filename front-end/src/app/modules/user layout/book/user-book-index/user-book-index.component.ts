@@ -13,7 +13,7 @@ import {any} from 'codelyzer/util/function';
   styleUrls: ['./user-book-index.component.css']
 })
 export class UserBookIndexComponent implements OnInit, OnDestroy {
-  
+
   @ViewChild('search_box')searchBox!:ElementRef<HTMLInputElement>;
   keywords:string = "";
   lastSearchContent:string="";
@@ -60,8 +60,8 @@ export class UserBookIndexComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
-    this.searchSubscriber.unsubscribe();
+    // this.subscriber.unsubscribe();
+    // this.searchSubscriber.unsubscribe();
   }
 
   navigateBetweenPages(index: number){

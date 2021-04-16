@@ -137,7 +137,7 @@ import { SumPipe } from './pipes/sum.pipe';
     NotFoundComponent,
     ConcateNamePipe,
     AdminLoginComponent,
-    RatingDetComponent
+    RatingDetComponent,
     AveragePipe,
     SumPipe
   ],
