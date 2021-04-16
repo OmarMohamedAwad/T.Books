@@ -16,15 +16,15 @@ export class RatingDetComponent implements OnInit, OnChanges {
   subscriber:any;
   constructor(){}
   
-  ngOnChanges(changes: SimpleChanges): void {}
-  
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     for(let i=0;i<this.ratingsArr.length;i++)
       this.ratingFreq[this.ratingsArr[i].rate-1]++;
     for(let i=0;i<5;i++)
       this.chartData[i]=Math.ceil((this.ratingFreq[i]*100)/this.ratingsArr.length)
-    console.log(this.chartData);
     this.setFill();
+  }
+  
+  ngOnInit(): void {
   }
   setFill(){
     this.progressFill1.nativeElement.setAttribute('style', `width: ${this.chartData[0]}%;`);

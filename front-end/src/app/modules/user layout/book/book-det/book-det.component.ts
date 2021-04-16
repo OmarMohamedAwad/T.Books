@@ -23,12 +23,13 @@ import { Router } from '@angular/router';
 })
 
 export class BookDetComponent implements OnInit {
-  @ViewChild("star1")star1!:ElementRef<HTMLLabelElement>;
-  @ViewChild("star2")star2!:ElementRef<HTMLLabelElement>;
-  @ViewChild("star3")star3!:ElementRef<HTMLLabelElement>;
-  @ViewChild("star4")star4!:ElementRef<HTMLLabelElement>;
-  @ViewChild("star5")star5!:ElementRef<HTMLLabelElement>;
-  stars_Arr=[this.star1,this.star2,this.star3,this.star4,this.star5];
+  @ViewChild("star1")star1!:ElementRef<HTMLInputElement>;
+  @ViewChild("star2")star2!:ElementRef<HTMLInputElement>;
+  @ViewChild("star3")star3!:ElementRef<HTMLInputElement>;
+  @ViewChild("star4")star4!:ElementRef<HTMLInputElement>;
+  @ViewChild("star5")star5!:ElementRef<HTMLInputElement>;
+  @ViewChild("reviewArea")reviewArea!:ElementRef<HTMLInputElement>;
+  stars_Arr:any;
   selected:any = 'option2';
   userId:string = "";
   bookId:string="";
@@ -59,7 +60,7 @@ export class BookDetComponent implements OnInit {
   ratesNum:number =112585
   avgRate:number = 3.1;
   ratings:any;
-  myRating:any;
+  myRating=-1;
   text:string = '';
   reviewerId:any = '';
 
@@ -76,46 +77,38 @@ reviews:Array<{reviewBody: string,
     }
 
   ngOnInit(): void {
-    this.subscriber = this.bookService.show(this.myActivatedRoute.snapshot.params.id)
+    this.subscriber = this.bookService.show(/*this.myActivatedRoute.snapshot.params.id*/"605cdd9d22d5b83d40ada5e5")
     .subscribe((response:any)=>{
       this.book = response.body
-      console.log(this.book)
       this.reviews = this.book.bookReviews;
       this.ratings = this.book.bookRatings;
       this.ratesNum = this.book.bookRatings.length;
       this.favsNum = 0
       this.avgRate=0
-      for(let i=0;i<this.ratings.length;i++){
-        if(this.ratings[i].rater==this.userId){
-          this.myRating=this.ratings[i].rate;
-          this.drawMyRating(this.myRating);
-        }
+      for(let i=0;i<this.ratings.length;i++)
         this.avgRate+=this.ratings[i].rate;
-        if(this.ratings[i].rate>=3)
-          this.favsNum++;
-      }
       if(this.ratesNum)
         this.avgRate/=this.ratesNum;
-      console.log(this.reviews[0].reviewBody)
+      this.drawMyRating(this.ratings);
       },
       (err)=>{
         console.log(err)
       }
     )
-
   }
 
   setRate(bookRate:any){
-    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:this.userId, book:this.book.id})
+    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/})
+  }
+  drawMyRating(ratingsArr:any){
+    this.stars_Arr=[this.star1,this.star2,this.star3,this.star4,this.star5];
+    for(let i=0;i<ratingsArr.length;i++){
+      if(ratingsArr[i].rater=="605cde6e22d5b83d40ada5e6"/*this.userId*/){
+        this.stars_Arr[ratingsArr[i].rate-1].nativeElement.checked=true;
+      }
+    }
   }
 
-  drawMyRating(rate:number){
-  }
-
-  textChanged(e:any)
-  {
-    this.text = e.target.value;
-  }
 
   reloadComponent(){
     let currentUrl = this.router.url;
@@ -125,9 +118,9 @@ reviews:Array<{reviewBody: string,
   }
 
   publishClicked(e:any){
-    if(this.text.length > 8)
+    this.text=this.reviewArea.nativeElement.value;
+    if(this.text.length >= 1 && this.text.length <=300)
     {
-      console.log(this.text)
       console.log(this.book.id)
       this.reviewerId = sessionStorage.getItem("userId");
       this.reviewSubscriber = this.reviewsService.store({reviwer:this.reviewerId, book:this.book.id, body:this.text})
