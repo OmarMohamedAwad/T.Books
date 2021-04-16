@@ -29,15 +29,19 @@ async function show(req, res, next) {
 }
 
 async function store(req, res, next) {
+    console.log("enter Post")
     const ratingSavingRequest = req.body
     const rating = new Rating ({
         rate: ratingSavingRequest.rate,
         rater: ratingSavingRequest.rater,
         ratedBook: ratingSavingRequest.book
     })
+    await Rating.deleteMany({ $and: [{rater: rating.rater },{ratedBook: rating.ratedBook}] })
+    console.log("before post")
     try {
         const newRating = await rating.save()
-        res.json(RatingPresenter.present(newRating))
+        res.json(200)
+        console.log("after post")
     }catch (err){
         console.log(err)
         next(err)
@@ -45,6 +49,8 @@ async function store(req, res, next) {
 }
 
 async function update(req, res, next) {
+
+    console.log("jdsj")
     const {id} = req.params;
     const rating = req.body
     const newRating = {

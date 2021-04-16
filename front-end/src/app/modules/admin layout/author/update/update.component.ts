@@ -31,7 +31,7 @@ export class UpdateComponent implements OnInit, OnChanges {
     image:"",
     books:[]
   };
-
+  incorrectData = false;
   myForm = new FormGroup({
 
     fName:new FormControl('',[Validators.required,Validators.maxLength(50),Validators.minLength(2),
@@ -43,9 +43,7 @@ export class UpdateComponent implements OnInit, OnChanges {
     dob:new FormControl('',[Validators.required]),
   })
 
-  goToAuthorsList()
-  {
-    console.log("asa")
+  goToAuthorsList() {
     this.router.navigate(['/admin/author']);
   }
 
@@ -54,13 +52,13 @@ export class UpdateComponent implements OnInit, OnChanges {
     this.author.firstName = this.myForm.controls.fName.value;
     this.author.lastName = this.myForm.controls.lName.value;
     this.author.birthDay = this.myForm.controls.dob.value;
-    console.log(this.author);
-    this.myService.updateAuthor(this.author.id,this.author)
-      .subscribe((data)=>{
+    this.myService.updateAuthor(this.author.id, this.author)
+      .subscribe((data) => {
         console.log(data)
         this.goToAuthorsList()
-      },(err)=>{
+      }, (err) => {
         console.log("post error")
       })
+
   }
 }

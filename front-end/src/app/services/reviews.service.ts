@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 export class ReviewsService {
 
   constructor(private client:HttpClient) { }
+  accessToken = localStorage.getItem('TOKEN');
 
   readonly BASE_URL: string = "http://localhost:3000/review";
 

@@ -35,6 +35,38 @@ async function pagination(request, response, next){
     }
 }
 
+async function search(request, response, next) {
+    const { keyword } = request.params;
+    const { page } = request.query;
+    console.log("search");
+    //trim
+    var refactoredKeyword = keyword.replace(/^\s*|\s*$/g, '');
+    page < 0 ? page = 1 : page;
+    let regex = new RegExp();
+    if(refactoredKeyword.length)
+        regex= new RegExp(refactoredKeyword,'i');
+    try{
+        const filterCount = await bookModel.find( {bookName: regex } ) .count(); 
+        const filtered = await bookModel.find( {bookName: regex } )
+            .sort('bookName')
+            .limit(8)
+            .skip((page-1) * 8)
+            .exec();
+        const numberOfPages = Math.ceil(filterCount / 8)
+        const presentedBooks = filtered.map((book)=>{
+            return BookPresenter.present(book);
+        });
+        response.json({
+            books: presentedBooks,
+            pages: numberOfPages
+        });
+    }
+    catch{
+        next(ResponseCode.SERVER_ERROR);
+    }
+}
+
+
 async function index(request, response, next) 
 {
     try
@@ -42,14 +74,12 @@ async function index(request, response, next)
         const bookGetAllResults = await bookModel.find()
             .populate("bookCategory").populate("bookAuthor").exec();        
 
-        
         response.json(bookGetAllResults.map((book)=>{
             return BookPresenter.present(book);
         }))
     }
     catch(e)
     {
-        console.log(e);
         next(ResponseCode.SERVER_ERROR)
         //return next(new Error("Listing all book failed"))
     } 
@@ -82,8 +112,7 @@ async function show(request, response, next)
     const { id } = request.params
     try
     {
-        const bookGetOneResults = await bookModel.findById(id)
-                    .populate("bookCategory").populate("bookAuthor").populate("bookReviews").populate("bookRatings").exec();
+        const bookGetOneResults = await bookModel.findById(id).populate("bookCategory").populate("bookAuthor").populate("bookReviews").populate("bookRatings").exec();
         response.json(BookPresenter.present(bookGetOneResults));
     }
     catch(e)
@@ -153,6 +182,7 @@ async function update(request, response, next)
 module.exports = {
     index,
     store,
+    search,
     show,
     destroy,
     update,

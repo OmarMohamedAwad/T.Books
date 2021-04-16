@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-user-profile-header',
@@ -11,5 +11,12 @@ export class UserProfileHeaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  searchBook(event:any){
+    console.log(event.target.value);
+    this.searchEmitter.emit(event.target.value);  
+  }
+
+  @Output() searchEmitter:EventEmitter<string> = new EventEmitter()
 
 }

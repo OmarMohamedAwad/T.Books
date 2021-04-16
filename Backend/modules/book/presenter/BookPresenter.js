@@ -1,5 +1,4 @@
 function present(book) {
-    console.log(book);
     return {
         id: book._id,
         name: book.bookName,

@@ -19,6 +19,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   categories : Array<Book> = []
   keywords:string = ""
   allBooks:Array<Book> = []
+  bookID:string="";
   clickedBook: Book = {
       id:"",
       name:"",

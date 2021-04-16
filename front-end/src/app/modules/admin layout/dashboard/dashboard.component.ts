@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit {
     this._dashboard.index().subscribe((res) => {
       this.data = res;
       this.isLoad = true
-      console.log(this.data);
     });
   }
 

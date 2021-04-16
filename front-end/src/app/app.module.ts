@@ -9,10 +9,10 @@ import { DeleteComponent } from './modules/admin layout/author/delete/delete.com
 import { UpdateComponent } from './modules/admin layout/author/update/update.component';
 import { NavbarAdminComponent } from './modules/admin layout/shared/navbar-admin/navbar-admin.component';
 import { SettingComponent } from './modules/admin layout/setting/setting.component';
-import { ShowAuthorComponent } from './modules/user layout/shared/author/show/show-author/show-author.component';
-import { AuthorCardComponent } from './modules/user layout/shared/author/show/author-card/author-card.component';
-import { AuthorBookslistComponent } from './modules/user layout/shared/author/show/author-bookslist/author-bookslist.component';
-import { AuthorBookComponent } from './modules/user layout/shared/author/show/author-book/author-book.component';
+import { ShowAuthorComponent } from  './modules/user layout/author/show/show-author/show-author.component';
+import { AuthorCardComponent } from  './modules/user layout/author/show/author-card/author-card.component';
+import { AuthorBookslistComponent } from  './modules/user layout/author/show/author-bookslist/author-bookslist.component';
+import { AuthorBookComponent } from  './modules/user layout/author/show/author-book/author-book.component';
 import { UserAuthorIndexComponent } from './modules/user layout/author/user-author-index/user-author-index.component';
 import { BookIndexComponent } from './modules/admin layout/book/index/book-index.component';
 import { BookDeleteComponent } from './modules/admin layout/book/delete/book-delete.component';
@@ -32,7 +32,7 @@ import { CategoryDeleteComponent } from './modules/admin layout/category/categor
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthorsListForAdminComponent } from './modules/admin layout/author/authors-list-for-admin/authors-list-for-admin.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
 import { AdminMainBookComponent } from './modules/admin layout/book/main/admin-main-book.component';
 import { FooterComponent } from './modules/user layout/shared/footer/footer.component';
@@ -60,12 +60,24 @@ import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
+import { RatingDetComponent } from './modules/user layout/book/rating-det/rating-det.component';
 import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
+import { UserRoutingModule } from './modules/user layout/user-routing/user-routing.module';
 
+import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
+import { AveragePipe } from './pipes/average.pipe';
+import { SumPipe } from './pipes/sum.pipe';
 
 // const appRoutes:Routes=[
 //   {path:"",redirectTo:"",pathMatch:"full"},
 // ]
+
+//  const appRoutes:Routes=[
+//    {path:"",redirectTo:"",pathMatch:"full"},
+//    {path:"login",component:LoginRegisterComponent},
+//    //we can put guard in all url which we neeeeed to protect by CanActivate
+//    {path:"user/home",canActivate:[UserAuthGaurdGuard],component:HomeAllComponent}
+//  ]
 
 @NgModule({
   declarations: [
@@ -124,7 +136,10 @@ import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/a
     TermsComponent,
     NotFoundComponent,
     ConcateNamePipe,
-    AdminLoginComponent
+    AdminLoginComponent,
+    RatingDetComponent,
+    AveragePipe,
+    SumPipe
   ],
   exports:[
     ConcateNamePipe
@@ -135,9 +150,9 @@ import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/a
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,
     NgbModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    UserRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
