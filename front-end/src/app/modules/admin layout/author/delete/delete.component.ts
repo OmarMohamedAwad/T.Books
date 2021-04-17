@@ -39,7 +39,9 @@ export class DeleteComponent implements OnInit {
   deleteFun(){
     //send request to backend to delete this author from the authors list
     this.myService.deleteAuthor(this.author.id)
-      .subscribe((data)=>{
+      .subscribe((data:any)=>{
+        console.log(data.status)
+        this.deleted();
         this.goToAuthorsList()
       },(err)=>{
         //erro while removing in backend
@@ -48,9 +50,16 @@ export class DeleteComponent implements OnInit {
           title: 'Oops...',
           text: "Error Deleting Author, Try again!",
           footer: ''
+
         })      
       }
     )
   }
-
+  deleted(){
+    Swal.fire(
+      'Good job!',
+      'Author deleted Successfully!',
+      'success'
+    )
+  }
 }

@@ -46,5 +46,8 @@ dashboard() {
 
   ngOnInit(): void {
   }
+emptyData(){
 
+  return Object.keys(this.data).length === 0 && this.data.constructor === Object;
+}
 }

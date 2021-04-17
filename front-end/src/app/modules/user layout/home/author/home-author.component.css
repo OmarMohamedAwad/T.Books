@@ -1,9 +1,9 @@
-.author{
+.author {
     font-family: 'PT Sans', sans-serif;
     background-color: #F5F5F5;
 }
 
-.italic{
+.italic {
     font-style: italic;
     font-family: 'Playfair Display';
 }
@@ -17,16 +17,16 @@ button {
     line-height: 2;
 }
 
-h2{
+h2 {
     font-size: 48px;
 }
 
 .btn-custom {
     font-size: 20px;
-    font-weight:700;
+    font-weight: 700;
 }
 
-button:hover{
+button:hover {
     background-color: transparent;
     border: 1px solid #000 !important;
     color: #000 !important;
@@ -34,18 +34,21 @@ button:hover{
     font-weight: bold;
 }
 
-.author a{
+.author a {
     color: #88807C;
     text-decoration: none;
-    margin-top: 10px  !important;
+    margin-top: 10px !important;
 }
 
-.border{
+.border {
     background-color: #121212;
     width: 100px;
     height: 2px;
 }
 
-
-
-
+img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    transition: .5s;
+}

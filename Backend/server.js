@@ -19,7 +19,8 @@ const categoryRouter = require('./modules/category/routes/CategoryRoute')
 
 const settingRouter = require('./modules/setting/routes/settingRoutes');
 const ratingRouter = require('./modules/rating/routes/RatingRoute');
-const dashboardRouter = require('./modules/dashboard/routes/dasboardRoute')
+const dashboardRouter = require('./modules/dashboard/routes/dasboardRoute');
+const fileUploadRouter = require('./modules/shared/fileUpload.js')
 const app = express();
 //app.use(cors());
 
@@ -27,13 +28,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     console.log(new Date(), req.url, req.method)
     next()
 })
 
 //end point for home
-app.use("/home" , Home);
+app.use("/home", Home);
 
 //end point for book
 app.use("/book", booksRouter);
@@ -42,7 +43,7 @@ app.use("/book", booksRouter);
 app.use("/settings", settingRouter);
 
 //end point for Admin Dashboard
-app.use("/dashboard",dashboardRouter)
+app.use("/dashboard", dashboardRouter)
 
 //end point for admin
 app.use("/admin", Admin);
@@ -56,6 +57,8 @@ app.use("/users", UserRouter);
 //end point for access
 app.use("/access", Access);
 
+//file upload
+app.use('/file', fileUploadRouter)
 
 //end point for review
 app.use("/review", reviewRouter);
@@ -64,11 +67,11 @@ app.use("/review", reviewRouter);
 app.use("/category", categoryRouter);
 
 //end point for rating
-app.use("/rating" , ratingRouter);
+app.use("/rating", ratingRouter);
 
-app.listen(process.env.PORT , (err) => {
-    if(err)
-        console.log("the port " + process.env.PORT  + " is busy");
+app.listen(process.env.PORT, (err) => {
+    if (err)
+        console.log("the port " + process.env.PORT + " is busy");
     else
         console.log("the server started correcttly on port " + process.env.PORT);
 });
