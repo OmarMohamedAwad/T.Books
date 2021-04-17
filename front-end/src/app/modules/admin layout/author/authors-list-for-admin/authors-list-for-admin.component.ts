@@ -8,27 +8,29 @@ import Swal from 'sweetalert2'
   templateUrl: './authors-list-for-admin.component.html',
   styleUrls: ['./authors-list-for-admin.component.css','../../shared/style/dashboard.css']
 })
-export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
-  @Input('keywords')  keywords:string = "";
 
+export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
+  //properties
+  @Input('keywords')  keywords:string = "";
+  subscriber:any;
+  allAuthors:Array<Author> = [];
+  mAuthor:Author =
+  {
+    id: "",
+    firstName: "",
+    lastName: "",
+    name: "",
+    birthDay: "",
+    image: "",
+    books: []
+  };
+
+  //constructor
   constructor(private myService:AuthorsServiceService) { }
   authors:Array<Author> = []
   isLoad= false;
 
-  //authors:Array<Author> = []
-  allAuthors:Array<Author> = []
-  mAuthor:Author =
-  {
-    id:"",
-    firstName:"",
-    lastName:"",
-    name:"",
-    birthDay:"",
-    image:"",
-    books:[]
-  };
-
-  subscriber:any;
+  //start the component
   ngOnInit(): void {
     this.subscriber = this.myService.getAuthors()
     .subscribe((response:any)=>{
