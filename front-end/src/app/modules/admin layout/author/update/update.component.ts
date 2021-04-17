@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthorsServiceService} from 'src/app/services/authors-service.service';
+import {AuthorsServiceService} from '../../../../services/authors-service.service';
 import {Router} from '@angular/router';
 import {Author} from '../models/author';
 import Swal from 'sweetalert2';
