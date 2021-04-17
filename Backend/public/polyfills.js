@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /media/hossam/Local Disk/workspaces/gitHub/T.Books/front-end/src/polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! D:\New foldert\T.Books\front-end\src\polyfills.ts */"hN/g");
 
 
 /***/ }),

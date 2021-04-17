@@ -68,6 +68,21 @@ import { AveragePipe } from './pipes/average.pipe';
 import { SumPipe } from './pipes/sum.pipe';
 import { EmptyComponent } from './modules/shared/empty/empty.component';
 import { UserLoadingComponent } from './modules/user layout/shared/user-loading/user-loading.component';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+
+//import {  AuthServiceConfig } from 'angular-6-social-login';
+//import { SocialLoginModule, GoogleLoginProvider } from 'angular-6-social-login';
+
+// const config = new AuthServiceConfig([
+//   {
+//     id:GoogleLoginProvider.PROVIDER_ID,
+//     provider: new GoogleLoginProvider("1077731222680-epvlr6bqovq88fi7jbfi08anvd5iu315.apps.googleusercontent.com")
+//   }
+// ])
+// export function provideConfig(){
+//   return config;
+// }
 
 // const appRoutes:Routes=[
 //   {path:"",redirectTo:"",pathMatch:"full"},
@@ -155,9 +170,33 @@ import { UserLoadingComponent } from './modules/user layout/shared/user-loading/
     ReactiveFormsModule,
     NgbModule,
     AdminRoutingModule,
-    UserRoutingModule
+    UserRoutingModule,
+    SocialLoginModule
+    /*AngularFireModule.initializeApp({
+      apiKey: "AIzaSyD0i1yATiiDS4BxkMiPlvYJ8qy0T1Ai6Co",
+      authDomain: "tbooks-9e855.firebaseapp.com",
+      projectId: "tbooks-9e855",
+      storageBucket: "tbooks-9e855.appspot.com",
+      messagingSenderId: "43736950350",
+      appId: "1:43736950350:web:bb29d541a23df55f64851f"
+    })*/
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              "464610881896-l2coufs0u4oe7i5rll63k833ijf2o3rt.apps.googleusercontent.com"
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
