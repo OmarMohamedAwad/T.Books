@@ -94,9 +94,9 @@ export class StoreComponent implements OnInit {
             footer: ''
           })      
         })
-    //invalidation data for the new book  
     }else {
       this.incorrectData = true;
+      //invalidation data for the new book  
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
