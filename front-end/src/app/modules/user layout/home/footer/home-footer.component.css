@@ -1,89 +1,104 @@
-
 footer {
     font-family: 'PT Sans', sans-serif;
     background-color: #EEEEEE;
 }
 
-.italic{ 
-    font-style: italic; 
+.italic {
+    font-style: italic;
     font-family: 'Playfair Display';
 }
 
-h2{
+h2 {
     font-size: 48px;
 }
 
-p{
+p {
     font-size: 20px;
-} 
+}
 
-footer h2{
+footer h2 {
     font-size: 38px;
 }
 
-footer h2 span{
-    color: #DE3241; 
+footer h2 span {
+    color: #DE3241;
     font-weight: 700;
 }
 
-footer h5{
-    color: #121212; 
-    font-weight: 700; 
-    text-transform: capitalize; 
-    font-size: 23px;
+footer h5 {
+    color: #121212;
+    font-weight: 700;
+    text-transform: capitalize;
+    font-size: 25px;
 }
 
-footer  p{
-    color: #797980; 
+footer h5:first-of-type {
+    font-size: 30px;
 }
 
-.mission{
-    font-size: 15px; 
+footer p {
+    color: #797980;
+}
+
+.mission {
+    font-size: 18px;
     line-height: 1.7;
-} 
+}
 
-.mission i{
+.mission i {
     font-size: 24px;
 }
 
 .social-icons i {
     color: #DE3241;
-} 
+}
 
-.social-icons i:hover{
-    color: #797980 ; 
+.social-icons .icon {
+    font-size: 18px;
+}
+
+.social-icons .icon:hover {
+    color: #DE3241;
     cursor: pointer;
 }
 
-.find p{
+.find p {
     line-height: 1;
 }
 
-.contact p{
-    font-size: 15px;
+.contact p {
+    font-size: 18px;
     line-height: 1.2;
 }
 
-.find a{ 
-    color: #121212; 
-    font-size: 14px; 
-    text-decoration: underline;  
+.find a {
+    color: #121212;
+    font-size: 18px;
+    text-decoration: underline;
 }
 
-.find a:hover{
-    color: #DE3241; 
+.find a:hover {
+    color: #DE3241;
     cursor: pointer;
 }
 
-footer .contact span{
-    color: #121212; 
-    font-weight: 700;
+footer .contact span {
+    color: #121212;
+    font-weight: 900;
 }
 
-.custom-background{
-    background-color:  #121212;
- }
+.custom-background {
+    background-color: #121212;
+}
 
- .text-bink{
-     color: #DE3241;
+.text-bink {
+    color: #DE3241;
+}
+
+@media screen and (max-width: 700px) {
+    .find,
+    .contact,
+    .image {
+        display: none;
+    }
 }
