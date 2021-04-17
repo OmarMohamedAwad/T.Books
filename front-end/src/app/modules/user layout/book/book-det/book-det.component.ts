@@ -47,7 +47,7 @@ export class BookDetComponent implements OnInit {
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService, private userService: UserService,
               private ratingService: RatingServiceService,
               private myActivatedRoute:ActivatedRoute, private router: Router) {
-    this.userId=sessionStorage.getItem("userId")!;
+    this.userId = "" /*sessionStorage.getItem("userId")! */ /*"605a0532ba76f47a7793e130"*/;
   }
 
   book : Book =
@@ -113,22 +113,30 @@ export class BookDetComponent implements OnInit {
   }
 
   setRate(bookRate:any){
-    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/}).subscribe((response:any)=>{},
-    (err)=>{
+    if(this.userId){
+      this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:this.userId, book:this.userId}).subscribe((response:any)=>{},
+      (err)=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error, your rate hasn't been saved !",
+          footer: ''
+        })
+      }
+    )}  else {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: "Error, your rate hasn't been saved !",
-        footer: ''
+        text: 'You need to login first!',
+        footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
       })
     }
-  )
   }
 
   drawMyRating(ratingsArr:any){
     this.stars_Arr=[this.star1,this.star2,this.star3,this.star4,this.star5];
     for(let i=0;i<ratingsArr.length;i++){
-      if(ratingsArr[i].rater=="605cde6e22d5b83d40ada5e6"/*this.userId*/){
+      if(ratingsArr[i].rater==this.userId){
         this.stars_Arr[ratingsArr[i].rate-1].nativeElement.checked=true;
       }
     }
@@ -142,7 +150,8 @@ export class BookDetComponent implements OnInit {
   }
 
   publishClicked(e:any){
-    this.text=this.reviewArea.nativeElement.value;
+    if(this.userId){    
+      this.text=this.reviewArea.nativeElement.value;
     if(this.text.length >= 1 && this.text.length <=300)
     {
       console.log(this.book.id)
@@ -162,12 +171,20 @@ export class BookDetComponent implements OnInit {
           })
         }
       )
+    }} else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You need to login first!',
+        footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
+      })
     }
   }
 
   changeBookStatus(type: string){
-    this.reviewerId = "605a0532ba76f47a7793e130"
-    this.userSubscriber = this.userService.updateUserBookList({userId:this.reviewerId, bookId:this.book.id, type:type})
+    if(this.userId){    
+      this.reviewerId = this.userId
+      this.userSubscriber = this.userService.updateUserBookList({userId:this.reviewerId, bookId:this.book.id, type:type})
       .subscribe((response:any)=>
         {
           if(type == "1") this.bookStatus = "Want to read"
@@ -180,11 +197,18 @@ export class BookDetComponent implements OnInit {
         (err)=>{
           console.log(err)
         }
-      )
+      )} else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You need to login first!',
+            footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
+          })
+      }
   }
 
   readBookStatus(currantReader: [], wantToRead: [], finishRead: []) {
-    this.userId = "605a0532ba76f47a7793e130"
+    // this.userId = "605a0532ba76f47a7793e130"
     const currant = currantReader.find(element => element == this.userId)
     const want = wantToRead.find(element => element == this.userId)
     const finish = finishRead.find(element => element == this.userId)

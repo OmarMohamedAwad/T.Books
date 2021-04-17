@@ -10,66 +10,11 @@ import Swal from 'sweetalert2'
 })
 export class BookUpdateComponent implements OnInit, OnChanges {
 
+  //properties
   @ViewChild('closebutton') closebutton: any;
-  constructor(private bookService: BookServiceService) {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-      this.bookForm.controls.name.setValue(this.book.name)
-      this.bookForm.controls.description.setValue(this.book.description)
-      this.bookForm.controls.author.setValue(this.book.author._id)
-      this.bookForm.controls.category.setValue(this.book.category._id)
-  }
-
-  ngOnInit(): void {
-  }
-
-  bookForm = new FormGroup({
-    name: new FormControl("",[Validators.required,Validators.min(2),Validators.maxLength(50),Validators.pattern('[a-zA-Z0-9 ]*')]),
-    description: new FormControl("",[Validators.required,Validators.min(10),Validators.max(250),Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
-    author: new FormControl("",[Validators.required]),
-    category: new FormControl("",[Validators.required]),
-  })
-
-  getNameStatus(){
-    return this.bookForm.controls.name.valid
-  }
-
-  getDescriptionStatus(){
-    return this.bookForm.controls.description.valid
-  }
-
-  getAuthorStatus(){
-    return this.bookForm.controls.author.valid
-  }
-
-  getCategoryStatus(){
-    return this.bookForm.controls.category.valid
-  }
-
-  submitUpdateForm(){
-    if (this.getNameStatus() && this.getDescriptionStatus() && this.getAuthorStatus() && this.getCategoryStatus()){
-      this.book.name = this.bookForm.controls.name.value;
-      this.book.description = this.bookForm.controls.description.value;
-      this.book.author = this.bookForm.controls.author.value;
-      this.book.category = this.bookForm.controls.category.value;
-      // this.book.image = "https://i.morioh.com/210563673d812/4b482f8e.webp";
-
-      this.bookService.update(this.book).subscribe((response)=>{
-        this.bookForm.reset();
-        this.updatedBook.emit(this.book);
-        this.closebutton.nativeElement.click();
-      }, error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: "Error updating book, changes havn't been saved!",
-          footer: ''
-        })
-      })
-    }
-  }
-
+  @Input('authorsInfo') authors: any;
+  @Input('categoriesInfo') categories: any;
+  @Output() updatedBook:EventEmitter<Book> = new EventEmitter<Book>();
   @Input('bookInfo') book: Book = {
     id:"",
     name:"",
@@ -86,8 +31,87 @@ export class BookUpdateComponent implements OnInit, OnChanges {
     wantToReadeUsers:[],
   };
 
-  @Input('authorsInfo') authors: any;
-  @Input('categoriesInfo') categories: any;
+  //constructor
+  constructor(private bookService: BookServiceService) {}
 
-  @Output() updatedBook:EventEmitter<Book> = new EventEmitter<Book>()
+  //start the component
+  ngOnInit(): void {}
+
+  //update the list after any edit
+  ngOnChanges(changes: SimpleChanges): void {
+    this.bookForm.controls.name.setValue(this.book.name)
+    this.bookForm.controls.description.setValue(this.book.description)
+    this.bookForm.controls.author.setValue(this.book.author)
+    this.bookForm.controls.category.setValue(this.book.category)
+    this.bookForm.controls.image.setValue(this.book.image)
+  }
+
+  //get book data with validation tests
+  bookForm = new FormGroup({
+    name: new FormControl("",[Validators.required,Validators.min(2),Validators.maxLength(50),Validators.pattern('[a-zA-Z0-9 ]*')]),
+    description: new FormControl("",[Validators.required,Validators.min(10),Validators.max(250),Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
+    author: new FormControl("",[Validators.required]),
+    category: new FormControl("",[Validators.required]),
+    image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
+  })
+
+    
+  //get the name of the book from the form
+  getNameStatus(){
+    return this.bookForm.controls.name.valid
+  }
+
+  //get the discribtion of the book from the form
+  getDescriptionStatus(){
+    return this.bookForm.controls.description.valid
+  }
+
+  //get the author of the book from the form
+  getAuthorStatus(){
+    return this.bookForm.controls.author.valid
+  }
+
+  //get the category of the book from the form
+  getCategoryStatus(){
+    return this.bookForm.controls.category.valid
+  }
+
+  //get book's image
+  getImageStatus(){
+    return this.bookForm.controls.image.valid
+  }
+
+  //update the data of exist book
+  submitUpdateForm(){
+    //check if the all data are valid
+    if (this.getNameStatus() && this.getDescriptionStatus() && this.getAuthorStatus() && this.getCategoryStatus() && this.getImageStatus()){
+      this.book.name = this.bookForm.controls.name.value;
+      this.book.description = this.bookForm.controls.description.value;
+      this.book.author = this.bookForm.controls.author.value;
+      this.book.category = this.bookForm.controls.category.value;
+      this.book.image = this.bookForm.controls.image.value;
+      //send the updated book to the backend
+      this.bookService.update(this.book).subscribe((response)=>{
+        this.bookForm.reset();
+        this.updatedBook.emit(this.book);
+        this.closebutton.nativeElement.click();
+      }, error => {
+        //error to add new book to database
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating book, changes havn't been saved!",
+          footer: ''
+        })
+      })
+    } else {
+      //invalidation data for the new book  
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Invalid data !",
+        footer: ''
+      })
+    }
+  }
 }
