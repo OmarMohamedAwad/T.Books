@@ -38,7 +38,7 @@ userRouter.patch("/:id", checkAccessToken(Role.ADMIN) , async (request, response
     update(request, response, next);
 })
 
-userRouter.post("/:id/update-books", checkAccessToken(Role.USER),async (request, response, next)=> {
+userRouter.post("/:id/update-books", async (request, response, next)=> {
     updateBookList(request, response, next);
 })
 
