@@ -1,67 +1,71 @@
-.top-category{ 
+.top-category {
     font-family: 'PT Sans', sans-serif;
 }
 
-.italic{ 
-    font-style: italic; 
+.italic {
+    font-style: italic;
     font-family: 'Playfair Display';
 }
 
-h2{
+h2 {
     font-size: 48px;
 }
 
-p{
+p {
     font-size: 20px;
 }
 
-.border{
+.border {
     background-color: #121212;
-    width: 100px; 
+    width: 100px;
     height: 2px;
 }
 
-.top-category img { 
-    height: 230px; 
+.top-category img {
+    height: 230px;
     width: 100%;
 }
 
-.top-category .overlay{
-    background-color: rgba(0, 0, 0, .4); 
-    position: absolute; 
-    width: 100%; 
+.top-category .overlay {
+    background-color: rgba(0, 0, 0, .4);
+    position: absolute;
+    width: 100%;
     height: 230px
 }
 
-.top-category .card-body::after{
+.top-category .card-body::after {
     content: "";
     position: absolute;
-    bottom: 40%;
+    bottom: 148px;
     left: 43%;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
 }
 
-.top-category .card-body::after{ 
+.top-category .card-body::after {
     border-bottom: 25px solid #DE3241;
 }
 
-.top-category .two::after{
+.top-category .two::after {
     border-bottom: 25px solid #53877A
 }
 
-.top-category .three::after{
+.card-body {
+    height: 150px;
+}
+
+.top-category .three::after {
     border-bottom: 25px solid #F5BF56
 }
 
-.bg-bink{
+.bg-bink {
     background-color: #DE3241;
 }
 
-.bg-blue{
+.bg-blue {
     background-color: #53877A;
 }
 
-.bg-yellow{ 
+.bg-yellow {
     background-color: #F5BF56;
 }

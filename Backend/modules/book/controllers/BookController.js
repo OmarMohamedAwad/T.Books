@@ -47,7 +47,7 @@ async function search(request, response, next) {
         regex= new RegExp(refactoredKeyword,'i');
     try{
         const filterCount = await bookModel.find( {bookName: regex } ) .count(); 
-        const filtered = await bookModel.find( {bookName: regex } )
+        const filtered = await bookModel.find( {bookName: regex } ).populate("bookCategory").populate("bookAuthor")
             .sort('bookName')
             .limit(8)
             .skip((page-1) * 8)
@@ -56,6 +56,7 @@ async function search(request, response, next) {
         const presentedBooks = filtered.map((book)=>{
             return BookPresenter.present(book);
         });
+        console.log(presentedBooks);
         response.json({
             books: presentedBooks,
             pages: numberOfPages

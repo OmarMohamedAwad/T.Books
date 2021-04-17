@@ -10,16 +10,17 @@ import {AdminMainBookComponent} from '../../book/main/admin-main-book.component'
 import {SettingComponent} from '../../setting/setting.component';
 import {NotFoundComponent} from '../../../not-found/not-found.component';
 import {AdminLoginComponent} from '../../admin-login/admin-login.component';
+import { AdminAuthGuard } from '../../../../Guards/admin-auth.guard'
 
 const routes:Routes = [
   {path:"admin/login",component:AdminLoginComponent},
-  {path:'admin/author',component:IndexComponent},
-  {path:'admin/author/store',component:StoreComponent},
-  {path:'admin/category',component:CategoryIndexComponent},
-  {path:'admin/category/store',component:CategoryStoreComponent},
-  {path:'admin/dashboard',component:DashboardComponent},
-  {path:'admin/book',component:AdminMainBookComponent},
-  {path:'admin/setting',component:SettingComponent},
+  {path:'admin/author', canActivate:[AdminAuthGuard], component:IndexComponent},
+  {path:'admin/author/store', canActivate:[AdminAuthGuard], component:StoreComponent},
+  {path:'admin/category', canActivate:[AdminAuthGuard], component:CategoryIndexComponent},
+  {path:'admin/category/store', canActivate:[AdminAuthGuard], component:CategoryStoreComponent},
+  {path:'admin/dashboard', canActivate:[AdminAuthGuard], component:DashboardComponent},
+  {path:'admin/book', canActivate:[AdminAuthGuard],component:AdminMainBookComponent},
+  {path:'admin/setting',canActivate:[AdminAuthGuard],component:SettingComponent},
   {path:'*',component:NotFoundComponent}
 ]
 

@@ -9,6 +9,7 @@ import { CategoryService } from '../service/category.service'
 })
 export class UserCategorySidebarComponent implements OnInit {
 
+  loading = false
   subscriber:any;
   lastActivelink:any;
   firstCategory:any;
@@ -31,6 +32,7 @@ export class UserCategorySidebarComponent implements OnInit {
   ngOnInit(): void {
     this.subscriber = this.categoryService.getCategories()
     .subscribe((response:any)=>{
+      this.loading = true
       console.log(response.body)
       this.categories = response.body
       this.categoriesName = this.categories.map((category) => {

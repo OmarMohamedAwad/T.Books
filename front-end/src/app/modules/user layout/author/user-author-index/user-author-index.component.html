@@ -1,3 +1,4 @@
+<app-user-loading *ngIf="!loading"></app-user-loading>
 <app-nav-user></app-nav-user>
 <div class="author-search">
   <div class="input-group m-auto w-40">
@@ -15,7 +16,7 @@
         <div *ngIf="isLoad" class="row">
             <div class="col-lg-3 col-sm-6 col-8 col-xxs-10" *ngFor="let author of authors; let i=index">
                 <div class="author text-center p-3">
-                    <img src="/assets/user/author/{{author.image}}" class="author-image" [alt]="author.authorName">
+                    <img src="/assets/user/author/{{author.image}}" onerror="this.onerror=null; this.src='/assets/user/author/author-1.jpg'" class="author-image" [alt]="author.authorName">
                     <div class="big-cir">
                         <div class="small-cir"></div>
                         <div class="small-cir2"></div>

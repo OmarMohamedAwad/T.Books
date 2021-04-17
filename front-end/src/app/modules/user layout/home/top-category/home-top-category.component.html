@@ -1,16 +1,17 @@
+<!--<app-user-loading *ngIf="!loading"></app-user-loading>-->
 <section class="top-category my-5 py-5">
     <h2 class="text-center">The Top<span class="italic"> Category</span></h2>
     <div class="border m-auto"></div>
     <div class="container">
-        <div class="row mt-5" >
+        <div class="row mt-5 w-100">
             <div class="col-md-4 " *ngFor="let categoryCol of topCategories; index as i">
-                <div class="card mb-3" >
-                    <img class="card-img-top" [src]="categoryCol" alt="Card image cap">
+                <div class="card mb-3">
+                    <img class="card-img-top" onerror="this.onerror=null; this.src='/assets/user/category/Health.png'" src="/assets/admin/category/{{categoryCol}}" alt="Card image cap" />
                     <div class="overlay"></div>
                     <div class="card-body text-center text-white " [class]="coleredBackground[i]">
-                        <h3 class=" italic">30 Books</h3>
-                        <p> see your favourite books in art category</p>
-                     </div>
+                        <h3 class=" italic">{{categoriesName[i]}}</h3>
+                        <p> see your favourite books in <span class="fw-bold">{{categoriesName[i]}}</span> category</p>
+                    </div>
                 </div>
             </div>
         </div>
