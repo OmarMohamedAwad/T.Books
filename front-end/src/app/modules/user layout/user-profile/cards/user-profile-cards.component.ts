@@ -14,28 +14,27 @@ import Swal from 'sweetalert2';
 })
 export class UserProfileCardsComponent implements OnInit {
 
-  subscriber: any;
-  toggleFlag: boolean = false;
-  userId: string = '605a0532ba76f47a7793e130';
-  currentBooksType: string = 'All';
-  currentPage: number = 1;
-  maxPages: number = 1;
-  @Output() paginationPages: { paginationPages: number[], currentPage: number } = {paginationPages: [], currentPage: 1};
-  bookImages: string[] = [];
-  bookNames: string[] = [];
-  bookIAuthor: string[] = [];
-  bookRate: number[] = [];
-  bookOverallRate: number[] = [];
-  bookUserType: string[] = [];
-  bookIds: string[] = [];
-  myRatingIds: string[] = [];
-  starsHover: number = 0;
-  cardHover: number = 0;
-  // bookStatus: Array<String> = [];
+
+  subscriber:any;
+  toggleFlag:boolean = false;
+  userId:string = sessionStorage.getItem("userId")!; /*"6075b79ea7c3f52f7904ec09";*/
+  currentBooksType:string = "All";
+  currentPage:number = 1;
+  maxPages:number = 1;
+  @Output() paginationPages:{paginationPages:number[], currentPage:number} = {paginationPages: [] , currentPage: 1}
+  bookImages:string[] = [];
+  bookNames:string[] = [];
+  bookIAuthor:string[] = [];
+  bookRate:number[] = [];
+  bookOverallRate:number[] = [];
+  bookUserType:string[] = [];
+  bookIds:string[] = [];
+  myRatingIds:string[] = [];
+  starsHover:number = 0;
+  cardHover:number = 0; 
   userSubscriber:any;
 
-  constructor(private userProfileService: UserProfileService, private userService: UserService) {
-  }
+  constructor(private userProfileService: UserProfileService, private userService: UserService) {}
 
   ngOnInit(): void {
     this.getPage(this.currentBooksType, this.currentPage);
@@ -59,10 +58,11 @@ export class UserProfileCardsComponent implements OnInit {
 
 
   submitRate(event:Event , index:number , ratingId:string , bookId:string){
-    console.log("submit" , index)
+    console.log("submit" , index , "book " , bookId , "rating: ", ratingId )
     if(ratingId){
-      this.subscriber = this.userProfileService.updateRate(this.userId,index)
+      this.subscriber = this.userProfileService.updateRate(ratingId, index)
       .subscribe((response:any)=>{
+      this.getPage(this.currentBooksType , this.currentPage);
         console.log(response.body)
         },
       (err)=>{
@@ -75,8 +75,9 @@ export class UserProfileCardsComponent implements OnInit {
       })
     }
     else{
-      this.subscriber = this.userProfileService.postRate(this.userId,bookId,index)
+      this.subscriber = this.userProfileService.postRate(this.userId, bookId, index)
       .subscribe((response:any)=>{
+      this.getPage(this.currentBooksType , this.currentPage);
         console.log(response.body)
         },
       (err)=>{
@@ -111,22 +112,20 @@ export class UserProfileCardsComponent implements OnInit {
     this.bookOverallRate = [];
     this.bookUserType = [];
     this.bookIds = [];
-    this.subscriber = this.userProfileService.getCategoryPage(this.userId,booktype,page,book)
+
+    this.myRatingIds = [];
+    this.subscriber = this.userProfileService.getUserProfilePage(this.userId,booktype,page,book)
     .subscribe((response:any)=>{
-      console.log(response.body)
       this.maxPages = Math.ceil(response.body.bookNumbers / 4);
-      console.log(this.maxPages)
       let books = response.body.pagebooks;
-      console.log("this are the books",books)
       books.find((book:BookObj , index:number) => {
-        console.log("this index is ",index)
         if(index < 4 && index < books.length)
         {
           this.bookNames.push(book.name)
           this.bookImages.push(book.image)
           this.bookIAuthor.push(book.author)
-          this.bookRate.push(Math.round(book.myRating))
-          this.bookOverallRate.push(Math.round(book.bookRating))
+          this.bookRate.push(book.myRating)
+          this.bookOverallRate.push(book.bookRating)
           this.bookUserType.push(book.state)
           this.bookIds.push(book.bookId)
           this.myRatingIds.push(book.myRatingId)
@@ -144,9 +143,9 @@ export class UserProfileCardsComponent implements OnInit {
     })
   }
 
-  calculatePagination() {
-    console.log(this.maxPages);
-    switch (this.maxPages) {
+  calculatePagination(){
+    switch(this.maxPages)
+    {
       case 0:
         this.paginationPages.paginationPages = [0];
         break;

@@ -11,7 +11,7 @@ export class UserProfileService {
 
   constructor(private userProfileClient: HttpClient) { }
 
-    getCategoryPage(userId:string , booktype:string , page:number , book:string="") {
+    getUserProfilePage(userId:string , booktype:string , page:number , book:string="") {
       console.log(booktype , page , (book ==""))
       if(book == "")
         return this.userProfileClient.get(`${this.baseURL}/pages?userId=${userId}&booktype=${booktype}&page=${page}`,{observe:'response'})
