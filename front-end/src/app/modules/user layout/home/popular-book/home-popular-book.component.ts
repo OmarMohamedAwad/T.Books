@@ -47,6 +47,7 @@ export class HomePopularBookComponent implements OnInit {
       this.popularbooks = [ this.row1 , this.row2 ];
       this.popularbooksNames = [ this.bookNameRow1 , this.bookNameRow2 ];
       this.popularbooksAuthors = [ this.bookAuthorRow1 , this.bookAuthorRow2 ];
+     console.log("Booooooooooooooooooks");
       console.log(this.popularbooks)
       console.log(this.popularbooksNames)
       console.log(this.popularbooksAuthors)
