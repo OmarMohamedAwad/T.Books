@@ -5,7 +5,7 @@
       <div class="col-2"></div>
       <div class="book-search col-7">
         <div class="input-group w-100 m-auto">
-          <div class="form-outline w-75 ">
+          <div class="form-outline w-75">
             <input type="search" class="form-control" placeholder="Search" (keyup)="searchBook($event)"/>
           </div>
           <button id="search-button" type="button" class="btn search-btn">
@@ -13,14 +13,14 @@
           </button>
         </div>
       </div>
-      <div class="filter col-3">
+      <div class="filter col-2">
         <div class="dropdown">
           <button class="w-75 btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Filter
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#">Sort By Name</a>
-            <a class="dropdown-item" href="#">Top Rate</a>
+            <a class="dropdown-item" (click)="futureWork()">Top Rate</a>
           </div>
         </div>
       </div>

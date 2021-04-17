@@ -9,20 +9,28 @@ import { CategoryService } from '../service/category.service'
 })
 export class UserCategorySidebarComponent implements OnInit {
 
-  loading = false
   subscriber:any;
+  lastActivelink:any;
+  firstCategory:any;
   selectedCategory:string = "";
   categories:{name:string , image:string} [] = [];
   categoriesName:string[] = [];
   constructor(private categoryService: CategoryService) { }
   selectCategory(event:Event  , category:string): void{
     console.log(category);
-    this.selectCategoryEmitter.emit(category);
+    if(this.lastActivelink)
+      this.selectCategoryEmitter.emit(category);
+    else
+    this.lastActivelink=document.getElementsByClassName("mylink")[0];
+    if(this.lastActivelink){
+      this.lastActivelink.setAttribute('style','font-weight: 500; font-size: 1.0em;')
+    }
+    this.lastActivelink=event.target;
+    this.lastActivelink.setAttribute('style','font-weight: 900; font-size: 1.05em;')
   }
   ngOnInit(): void {
     this.subscriber = this.categoryService.getCategories()
     .subscribe((response:any)=>{
-      this.loading = true
       console.log(response.body)
       this.categories = response.body
       this.categoriesName = this.categories.map((category) => {
@@ -37,11 +45,10 @@ export class UserCategorySidebarComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: "Something went wrong!",
+        text: "Can't load categories!",
         footer: ''
       })
     })
-
   }
 
 @Output() selectCategoryEmitter:EventEmitter<string> = new EventEmitter()
