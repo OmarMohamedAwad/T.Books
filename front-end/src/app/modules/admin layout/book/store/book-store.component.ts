@@ -44,7 +44,7 @@ export class BookStoreComponent implements OnInit {
     description: new FormControl("",[Validators.required , Validators.min(10) , Validators.max(250) , Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
     author: new FormControl("",[Validators.required]),
     category: new FormControl("",[Validators.required]),
-    image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
+    image: new FormControl('' , [Validators.required])
 
   })
 
@@ -81,7 +81,7 @@ export class BookStoreComponent implements OnInit {
       this.book.description = this.bookForm.controls.description.value;
       this.book.author = this.bookForm.controls.author.value;
       this.book.category = this.bookForm.controls.category.value;
-      this.book.image = "https://i.morio421hjkeewh.com/21056da3fv32436456787812/4b482f8e.webp";
+      this.book.image = this.bookForm.controls.image.value;
       this.bookService.store(this.book).subscribe((response:any)=>{
         console.log(response.body);
         this.indexFlag = true;

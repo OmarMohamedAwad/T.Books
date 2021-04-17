@@ -149,7 +149,8 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
           this.user = response.user;
           try {
             if (this.userAccessToken != undefined) {
-              this.setSessionData(this.userAccessToken, this.userRefreshToken, this.user)
+              this.setSessionData(this.userAccessToken,this.userRefreshToken,this.user)
+              this.setLocalStorageData(this.userAccessToken,this.userRefreshToken,this.user);
               this.enterSite();
             }
           } catch {

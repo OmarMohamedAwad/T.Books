@@ -4,8 +4,8 @@ const checkAccessToken = require('../../../middlewares/middleware')
 const Role = require("../../../helpers/Role")
 
 const adminRouter = express.Router()
-
-adminRouter.post("/",checkAccessToken(Role.ADMIN), (request, response, next)=> {
+// checkAccessToken(Role.ADMIN)
+adminRouter.post("/", (request, response, next)=> {
     AdminController.store(request, response, next);
 })
 

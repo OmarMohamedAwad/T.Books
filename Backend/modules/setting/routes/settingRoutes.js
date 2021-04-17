@@ -14,14 +14,18 @@ settingRouter.get("/", (request, response, next)=> {
 settingRouter.get("/:id",async (request, response, next)=> {
     show(request, response, next);
 })
-settingRouter.post("/", checkAccessToken(Role.ADMIN), (request, response, next)=> {
+// , checkAccessToken(Role.ADMIN)
+settingRouter.post("/", (request, response, next)=> {
     store(request, response, next);
 })
-settingRouter.patch("/:id", checkAccessToken(Role.ADMIN), async (request, response, next)=> {
+
+// , checkAccessToken(Role.ADMIN)
+settingRouter.patch("/:id", async (request, response, next)=> {
     update(request, response, next);
 })
 
-settingRouter.delete("/:id", checkAccessToken(Role.ADMIN), async (request, response, next)=> {
+// , checkAccessToken(Role.ADMIN)
+settingRouter.delete("/:id", async (request, response, next)=> {
     destroy(request, response, next);
 })
 checkAccessToken(Role.ADMIN)
