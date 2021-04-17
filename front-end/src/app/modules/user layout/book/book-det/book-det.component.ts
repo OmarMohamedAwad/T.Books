@@ -152,7 +152,7 @@ export class BookDetComponent implements OnInit {
   }
 
   publishClicked(e:any){
-    if(this.userId){    
+    if(this.userId){
       this.text=this.reviewArea.nativeElement.value;
     if(this.text.length >= 1 && this.text.length <=300)
     {
@@ -184,7 +184,8 @@ export class BookDetComponent implements OnInit {
   }
 
   changeBookStatus(type: string){
-    if(this.userId){    
+    this.loading=false
+    if(this.userId){
       this.reviewerId = this.userId
       this.userSubscriber = this.userService.updateUserBookList({userId:this.reviewerId, bookId:this.book.id, type:type})
       .subscribe((response:any)=>
@@ -193,7 +194,8 @@ export class BookDetComponent implements OnInit {
           else if(type == "2") this.bookStatus = "Is currant read"
           else if(type == "3") this.bookStatus = "Finished reading"
           console.log(response)
-          // this.reloadComponent()
+          this.loading = true
+          this.reloadComponent()
 
         },
         (err)=>{

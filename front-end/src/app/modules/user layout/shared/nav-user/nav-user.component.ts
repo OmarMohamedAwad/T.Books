@@ -14,6 +14,7 @@ import {Router} from '@angular/router';
 export class NavUserComponent implements OnInit {
   srcWidth = 0;
   is_open: boolean;
+  refreshToken:any = "";
   userName: string | null = ""
   @ViewChild('toggle_btn') toggle_btn!: ElementRef<HTMLButtonElement>;
   @ViewChild('collapseList') collapseList!: ElementRef<HTMLDivElement>;
@@ -52,8 +53,7 @@ export class NavUserComponent implements OnInit {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("userName");
     localStorage.removeItem("userId");
-    refreashToken:any = "";
- 
+
   }
 
   @HostListener('window:scroll', ['$event'])
