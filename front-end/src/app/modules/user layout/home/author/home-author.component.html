@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row mt-4 pt-4 w-100">
             <div class="col" *ngFor="let authorCol of authorsImages; let i = index">
-                <img src="/assets/user/author/{{authorCol}}" class="w-100">
+                <img src="/assets/user/author/{{authorCol}}" onerror="this.onerror=null; this.src='/assets/user/author/author-1.jpg'" class="w-100">
                 <a class="d-block text-center" [routerLink]="['/authors', authorsId[i]]">{{authorsNames[i]}}</a>
             </div>
         </div>

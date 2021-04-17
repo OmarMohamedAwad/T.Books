@@ -5,7 +5,7 @@
         <div class="row mt-5 w-100">
             <div class="col-md-4 " *ngFor="let categoryCol of topCategories; index as i">
                 <div class="card mb-3">
-                    <img class="card-img-top" src="/assets/admin/category/{{categoryCol}}" alt="Card image cap" />
+                    <img class="card-img-top" onerror="this.onerror=null; this.src='/assets/user/category/Health.png'" src="/assets/admin/category/{{categoryCol}}" alt="Card image cap" />
                     <div class="overlay"></div>
                     <div class="card-body text-center text-white " [class]="coleredBackground[i]">
                         <h3 class=" italic">{{categoriesName[i]}}</h3>
