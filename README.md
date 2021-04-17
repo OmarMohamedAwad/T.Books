@@ -67,7 +67,8 @@ Two pages, one to show all Authors and the second one for the details for each o
 
 ## Books menu and Book details.
 Two pages, one to Two pages, one to show all Books and the second one for the details for each of them.
-
+![GitHub in an image](ReadMe-photos/book updated.png)
+![GitHub in an image](ReadMe-photos/book-details.png)
 ## Profile Page.
 This page is available when the user login to the site to show his books (read - currently reading - want to read).
 
