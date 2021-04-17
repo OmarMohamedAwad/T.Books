@@ -67,7 +67,7 @@ export class BookStoreComponent implements OnInit {
   getCategoryStatus(){
     return this.bookForm.controls.category.valid
   }
-  
+
   //get book's image
   getImageStatus(){
     return this.bookForm.controls.image.valid
@@ -97,9 +97,9 @@ export class BookStoreComponent implements OnInit {
           footer: ''
         })
       })
-    
+
     }else {
-      //invalidation data for the new book   
+      //invalidation data for the new book
       this.incorrectData = true
       Swal.fire({
         icon: 'error',
@@ -121,8 +121,4 @@ export class BookStoreComponent implements OnInit {
       'success'
     )
   }
-  @Input('authorsInfo') authors: any;
-  @Input('categoriesInfo') categories: any;
-
-  @Output() addedBook: EventEmitter<Book> = new EventEmitter<Book>()
 }

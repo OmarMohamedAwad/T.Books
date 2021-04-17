@@ -29,9 +29,7 @@ export class HomeAuthorComponent implements OnInit {
         this.authorsNames.push(home[i].autherFirstName)
         this.authorsId.push(response.body.authors[i]._id)
       }
-     // console.log(this.authorsImages)
-     // console.log(this.authorsNames)
-      console.log(this.authorsId)
+
     },
     (err)=>{
       Swal.fire({
