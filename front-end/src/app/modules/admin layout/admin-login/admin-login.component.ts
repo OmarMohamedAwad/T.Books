@@ -51,11 +51,13 @@ export class AdminLoginComponent implements OnInit {
 
   //login function
   login() {
+    //send user name and password to backend to check.
     this.myService.postAdmin({
       adminName: this.myForm.controls.adminName.value,
       adminPassword: this.myForm.controls.adminPassword.value
     })
     .subscribe((data) => {
+      //save tokens in session storage to use it for every next request 
       this.tokens = data;
       try {
         if (this.tokens.token.accessToken != undefined) {
@@ -66,11 +68,12 @@ export class AdminLoginComponent implements OnInit {
       } catch {
         this.userPassStatus = true;
       }
+      //
     }, (err) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: "Session Expired, Login again",
+            text: "Invalid name or password or both, try again",
             footer: ''
           })
        }

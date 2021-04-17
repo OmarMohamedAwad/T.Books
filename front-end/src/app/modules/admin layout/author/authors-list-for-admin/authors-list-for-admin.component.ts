@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import {Author} from '../models/author';
 import Swal from 'sweetalert2'
@@ -32,6 +32,7 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
 
   //start the component
   ngOnInit(): void {
+    //get all data of authors from backend to display them
     this.subscriber = this.myService.getAuthors()
     .subscribe((response:any)=>{
         this.authors = response.body
@@ -39,6 +40,7 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
         this.authors=this.allAuthors = response.body
     },
     (err)=>{
+      //wrong massage 
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -48,19 +50,22 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
     }
     )
   }
+
+  //with every change of the component
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes)
     this.filterList(this.keywords)
   }
-  // authors:any = this.allAuthors
+
+  //search about author in the list of authors
   filterList(keywords:string){
     this.authors= this.allAuthors.filter((item)=>{
       return item.name.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())
     })
   }
 
-  getAuthor(a:any)
-  {
+  //get the details for specifc author 
+  getAuthor(a:any){
     this.mAuthor = a;
   }
 

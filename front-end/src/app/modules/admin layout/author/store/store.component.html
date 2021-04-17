@@ -17,6 +17,7 @@
             <input formControlName="lName" class="form-control" id="last-name" placeholder="Enter last name..." type="text">
             <p class="alert-danger p-1 mt-2" *ngIf="!getLNameStatus() && incorrectData">The last name is invalid must be at least 2 character</p>
           </div>
+
           <div class="mb-3 field">
             <label class="form-label" for="dob">Date Of Birth</label>
             <input formControlName="dob"  class="form-control" id="dob" placeholder="Enter date..." type="date">
@@ -30,8 +31,7 @@
 
           <div class="actions text-center mt-3">
             <button class="btn btn-secondary w-25 m-1" type="button" routerLink="../../author">Close</button>
-            <button class="btn btn-danger w-25 m-1" type="button"
-            (click)="submitForm($event)">Add Author</button>
+            <button class="btn btn-danger w-25 m-1" type="button" (click)="submitForm($event)">Add Author</button>
           </div>
         </form>
       </div>
