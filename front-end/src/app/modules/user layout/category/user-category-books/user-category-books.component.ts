@@ -56,11 +56,11 @@ export class UserCategoryBooksComponent implements OnInit {
 
   getPage(category:string , page:number , book:string="")
   {
+    this.loading = false
     this.row2 = [];
     this.row1 = [];
     this.subscriber = this.categoryService.getCategoryPage(category,page,book)
     .subscribe((response:any)=>{
-      console.log(response.body)
       this.maxPages = Math.ceil(response.body.bookNumbers / 8);
       console.log(this.maxPages)
       this.loading = true
