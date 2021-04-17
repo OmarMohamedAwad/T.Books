@@ -38,6 +38,7 @@ export class StoreComponent implements OnInit {
       Validators.pattern('[a-zA-Z]*')]),
 
     dob:new FormControl('',[Validators.required]),
+    image: new FormControl('')
 
   })
 
@@ -63,6 +64,7 @@ export class StoreComponent implements OnInit {
     this.newAuth.firstName = this.myForm.controls.fName.value;
     this.newAuth.lastName = this.myForm.controls.lName.value;
     this.newAuth.birthDay = this.myForm.controls.dob.value;
+    this.newAuth.image = this.myForm.controls.image.value;
 
     if (this.getDOBStatus() && this.getFNameStatus(), this.getLNameStatus()){
       this.myService.postAuthor(this.newAuth)
