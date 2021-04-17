@@ -20,6 +20,7 @@ export class ShowAuthorComponent implements OnInit {
   ratings = [1, 2, 3, 4, 5, 3];
   userSubscriber: any;
   bookStatus: Array<String> = [];
+  loading=false;
 
   constructor(private authorService: AuthorsServiceService,
               private myActivatedRoute: ActivatedRoute, private router: Router, private userService: UserService) {
@@ -36,6 +37,7 @@ export class ShowAuthorComponent implements OnInit {
       (res) => {
         console.log(this.authorID);
         this.author = res;
+        this.loading = true;
         console.log(this.author);
         console.log(this.author.books.length);
         console.log(this.author.books[0].bookName);
@@ -86,5 +88,5 @@ export class ShowAuthorComponent implements OnInit {
       console.log("here", this.bookStatus[i]);
     }
   }
-  
+
 }

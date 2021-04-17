@@ -38,7 +38,7 @@ export class BookDetComponent implements OnInit {
   userId:string = "";
   bookId:string="";
   user_img="assets/user/author/author-1.jpg";
-
+  loading =false;
   favsNum:number=100;
   userRate=-1;
   userReview: string ="";
@@ -95,6 +95,8 @@ export class BookDetComponent implements OnInit {
       this.readBookStatus(response.body.currantReader, response.body.wantToReadeUsers, response.body.finishReadUsers);
       this.favsNum = 0
       this.avgRate=0
+
+      this.loading=true
       for(let i=0;i<this.ratings.length;i++)
         this.avgRate+=this.ratings[i].rate;
       if(this.ratesNum)
