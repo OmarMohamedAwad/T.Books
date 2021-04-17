@@ -2,7 +2,7 @@
 <app-nav-user></app-nav-user>
 <section class="book_show">
     <div class="book_cover">
-        <img @fade src="assets/user/book/memories.jpg"><br>
+        <img @fade src="assets/user/book/{{book.image}}" onerror="this.onerror=null; this.src='/assets/user/book/memories.jpg'"><br>
 
         <!--        <button class="btn btn-danger w-75 mt-4">Add to favourites</button>-->
         <!-- Content here -->

@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row" *ngFor="let bookRow of books">
       <div class="col-lg-3 col-sm-6 col-8 col-xxs-9 book text-center" *ngFor="let book of bookRow">
-        <img [src]="book" class="book-image mt-3">
+        <img src="assets/user/book/{{book}}" class="book-image mt-3">
       </div>
     </div>
   </div>

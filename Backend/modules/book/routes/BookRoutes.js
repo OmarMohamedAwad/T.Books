@@ -24,15 +24,18 @@ booksRouter.get('/:id', (request,response, next)=>{
     bookController.show(request, response, next);
 })
 
-booksRouter.post('/', checkAccessToken(Role.ADMIN), (request, response, next)=>{
+// , checkAccessToken(Role.ADMIN)
+booksRouter.post('/', (request, response, next)=>{
     bookController.store(request, response, next);
 })
 
-booksRouter.patch('/:id', checkAccessToken(Role.ADMIN), (request,response,next)=>{
+// , checkAccessToken(Role.ADMIN)
+booksRouter.patch('/:id', (request,response,next)=>{
     bookController.update(request, response, next); 
 })
 
-booksRouter.delete('/:id', checkAccessToken(Role.ADMIN), (request, response, next)=>{
+// , checkAccessToken(Role.ADMIN)
+booksRouter.delete('/:id', (request, response, next)=>{
     bookController.destroy(request, response, next);
 })
 
