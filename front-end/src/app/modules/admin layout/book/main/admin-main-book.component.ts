@@ -8,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminMainBookComponent implements OnInit {
 
-  constructor() { }
+  //costructor
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  //start the component
+  ngOnInit(): void {}
 
 }

@@ -11,7 +11,7 @@ export class HomeAuthorComponent implements OnInit {
 
   subscriber:any;
 
-
+  loading =false;
   authorsImages:string[] = [];
   authorsNames:string[] = [];
   authorsId:string [] = [];
@@ -22,7 +22,7 @@ export class HomeAuthorComponent implements OnInit {
     this.subscriber = this.homeService.getHome()
     .subscribe((response:any)=>{
       home = response.body.authors;
-      console.log(home)
+      this.loading = true
       for(let i = 0 ;  i < home.length && i < 6 ; i++)
       {
         this.authorsImages.push(home[i].authorImage)

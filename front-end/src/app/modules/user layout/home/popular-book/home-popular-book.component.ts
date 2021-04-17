@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { HomeService } from 'src/app/services/home.service'
+import {Component, OnInit} from '@angular/core';
+import {HomeService} from 'src/app/services/home.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,21 +9,23 @@ import Swal from 'sweetalert2';
 })
 export class HomePopularBookComponent implements OnInit {
 
-  row1:string[] = []
-  row2:string[] = []
-  popularbooks:string[][] = [ [] , [] ];
+  row1: string[] = [];
+  row2: string[] = [];
+  popularbooks: string[][] = [[], []];
+  loading = false
 
-  bookNameRow1:string[] = [];
-  bookNameRow2:string[] = [];
-  popularbooksNames:string[][] = [ [] , [] ];
+  bookNameRow1: string[] = [];
+  bookNameRow2: string[] = [];
+  popularbooksNames: string[][] = [[], []];
 
-  bookAuthorRow1:string[] = [];
-  bookAuthorRow2:string[] = [];
-  popularbooksAuthors:string[][] = [ [] , [] ];
+  bookAuthorRow1: string[] = [];
+  bookAuthorRow2: string[] = [];
+  popularbooksAuthors: string[][] = [[], []];
 
-  subscriber:any;
+  subscriber: any;
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService) {
+  }
 
   ngOnInit(): void {
     let home;

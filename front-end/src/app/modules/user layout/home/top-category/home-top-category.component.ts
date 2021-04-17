@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 export class HomeTopCategoryComponent implements OnInit {
 
   subscriber:any;
-
+  loading = false
   topCategories:string[] = [];
   coleredBackground:string[] = ["bg-bink one" , "bg-blue two" , "bg-yellow three"]
   categoriesName:string [] = [];
@@ -21,7 +21,7 @@ export class HomeTopCategoryComponent implements OnInit {
     this.subscriber = this.homeService.getHome()
     .subscribe((response:any)=>{
       home = response.body.categories;
-      console.log(home)
+      this.loading = true
       for(let i = 0; i < home.length && i < 3; i++)
       {
         this.topCategories.push(home[i].categoryImage)

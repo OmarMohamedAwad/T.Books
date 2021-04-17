@@ -10,33 +10,9 @@ import Swal from 'sweetalert2';
 })
 export class BookDeleteComponent implements OnInit, OnDestroy {
 
+  //properties
   @ViewChild('closebutton') closebutton: any;
   subscriber:any;
-  constructor(private bookService:BookServiceService) { }
-
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy(): void {
-    //this.subscriber.unsubscribe();
-  }
-
-  deleteBook(){
-    this.subscriber = this.bookService.destroy(this.book.id)
-      .subscribe((data)=>{
-        console.log(data);
-        this.deletedBook.emit(this.book);
-        this.closebutton.nativeElement.click();
-      },(err)=>{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: "Error Deleting Book, Try again!",
-          footer: ''
-        })
-      })
-  }
-
   @Input('bookInfo') book: Book = {
     id:"",
     name:"",
@@ -52,6 +28,34 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
     finishReadUsers:[],
     wantToReadeUsers:[],
   };
-
   @Output() deletedBook:EventEmitter<Book> = new EventEmitter<Book>()
+
+  //constructor
+  constructor(private bookService:BookServiceService) { }
+
+  //start the component
+  ngOnInit(): void {}
+
+  //delete book from database
+  deleteBook(){
+    //send the request to the backend to remove the book
+    this.subscriber = this.bookService.destroy(this.book.id)
+      .subscribe((data)=>{
+        this.deletedBook.emit(this.book);
+        this.closebutton.nativeElement.click();
+      },(err)=>{
+        //error message about failure of deleting 
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error Deleting Book, Try again!",
+          footer: ''
+        })
+      })
+  }
+
+  //at the end of component
+  ngOnDestroy(): void {
+    //this.subscriber.unsubscribe();
+  }
 }

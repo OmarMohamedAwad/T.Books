@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="exampleFormControlFile1">Category Image</label>
-                    <input type="file" formControlName="image"  class="form-control-file" id="exampleFormControlFile1">
+                    <input type="text" formControlName="image"  class="form-control-file" id="exampleFormControlFile1">
                     <div class="alert alert-danger mt-3" role="alert" *ngIf="categoryForm.controls.image.errors&&categoryForm.controls.image.touched">
                         The Category Image is Required
                     </div>
