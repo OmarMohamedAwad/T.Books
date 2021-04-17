@@ -35,8 +35,9 @@
             </div>
 
             <div class="mb-3 field w-75">
-              <label class="form-label" for="image">Image</label>
-              <input class="form-control input-field" id="image" type="file">
+              <label class="form-label" for="image">Image URL</label>
+              <input class="form-control input-field" id="image" type="text" formControlName="image">
+              <p class="alert-danger p-1 mt-2" *ngIf="!getImageStatus() && incorrectData">Image is required</p>
             </div>
 
             <div class="actions text-center mt-3">

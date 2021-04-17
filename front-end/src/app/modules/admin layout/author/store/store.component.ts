@@ -43,7 +43,7 @@ export class StoreComponent implements OnInit {
 
     dob:new FormControl('' , [Validators.required]),
 
-    image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
+    image: new FormControl('' , [(Validators.pattern('[a-zA-Z0-9]*')])
 
   })
 
@@ -80,8 +80,8 @@ export class StoreComponent implements OnInit {
     this.newAuth.birthDay = this.myForm.controls.dob.value;
     this.newAuth.image = this.myForm.controls.image.value;
     //check on the data is valid or invalid
-    if (this.getDOBStatus() && this.getFNameStatus() && this.getLNameStatus() && this.getImageStatus()){
-      //send the data to backend
+    if (this.getDOBStatus() && this.getFNameStatus(), this.getLNameStatus()){
+      //send the data to backen
       this.myService.postAuthor(this.newAuth)
         .subscribe((data)=>{
           this.goToAuthorsList()

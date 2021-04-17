@@ -45,6 +45,7 @@ export class BookStoreComponent implements OnInit {
     author: new FormControl("",[Validators.required]),
     category: new FormControl("",[Validators.required]),
     image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
+
   })
 
   //get the name of the book from the form
@@ -66,11 +67,11 @@ export class BookStoreComponent implements OnInit {
   getCategoryStatus(){
     return this.bookForm.controls.category.valid
   }
-
-    //get book's image
-    getImageStatus(){
-      return this.bookForm.controls.image.valid
-    }
+  
+  //get book's image
+  getImageStatus(){
+    return this.bookForm.controls.image.valid
+  }
 
   //add new book to the database
   submitAddForm(){
@@ -82,6 +83,7 @@ export class BookStoreComponent implements OnInit {
       this.book.category = this.bookForm.controls.category.value;
       this.book.image = this.bookForm.controls.image.value;
       //send the new book to the backend
+      // this.book.image = "https://i.morio421hjkeewh.com/21056da3fv32436456787812/4b482f8e.webp";
       this.bookService.store(this.book).subscribe((response)=>{
         this.indexFlag = true;
         this.bookForm.reset();
