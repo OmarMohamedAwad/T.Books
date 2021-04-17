@@ -46,7 +46,7 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
         title: 'Oops...',
         text: "Server error, Can't load page content !",
         footer: ''
-      })      
+      })
     }
     )
   }
@@ -68,5 +68,6 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
   getAuthor(a:any){
     this.mAuthor = a;
   }
+
 
 }

@@ -91,17 +91,15 @@ export class UpdateComponent implements OnInit, OnChanges {
       //send updated data to backend
       this.myService.updateAuthor(this.author.id, this.author)
       .subscribe((data) => {
-          this.goToAuthorsList()
-        }, (err) => {
-          //error to update data in database
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: "Error, Author hasn't been updated !",
-            footer: ''
-          })      
-        }
-      )
+        this.updated();
+        this.goToAuthorsList()
+      }, (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error, Author hasn't been updated !",
+          footer: ''
+        })
     }else {
       this.incorrectData = true;
       //invalidation data for the new book  
@@ -112,5 +110,12 @@ export class UpdateComponent implements OnInit, OnChanges {
         footer: ''
       })
     }
+  }
+  updated(){
+    Swal.fire(
+      'Good job!',
+      'Author updated Successfully!',
+      'success'
+    )
   }
 }

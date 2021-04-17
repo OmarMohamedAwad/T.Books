@@ -1,5 +1,4 @@
-[
-    {  
+[{
         "currentlyReadedBooks": [],
         "wantToReadedBooks": [],
         "readBooks": [],
@@ -10,7 +9,7 @@
         "fName": "Aalaa",
         "lName": "Habib",
         "email": "aalaahabib.ah@gmail.com",
-        "userPassword": "$2b$10$eGMG2GTiwzazh8jSVj9NXe5/2OKzjzwY/UTUiRa7S7V5Hu.hAY.Vy",
+        "userPassword": "12345678",
         "__v": 0
     },
     {
@@ -24,7 +23,7 @@
         "fName": "may",
         "lName": "esmail",
         "email": "may@gmail.com",
-        "userPassword": "$2b$10$eGMG2GTiwzazh8jSVj9NXe5/2OKzjzwY/UTUiRa7S7V5Hu.hAY.Vy",
+        "userPassword": "12345678",
         "__v": 0
     },
     {
@@ -38,7 +37,7 @@
         "fName": "ahmed",
         "lName": "abdallah",
         "email": "ahmed@gmail.com",
-        "userPassword": "$2b$10$eGMG2GTiwzazh8jSVj9NXe5/2OKzjzwY/UTUiRa7S7V5Hu.hAY.Vy",
+        "userPassword": "12345678",
         "__v": 0
     },
     {
@@ -52,7 +51,7 @@
         "fName": "omar",
         "lName": "mohamed",
         "email": "omar@gmail.com",
-        "userPassword": "$2b$10$eGMG2GTiwzazh8jSVj9NXe5/2OKzjzwY/UTUiRa7S7V5Hu.hAY.Vy",
+        "userPassword": "12345678",
         "__v": 0
     },
     {
@@ -66,7 +65,7 @@
         "fName": "hossam",
         "lName": "radwan",
         "email": "hossam@gmail.com",
-        "userPassword": "$2b$10$eGMG2GTiwzazh8jSVj9NXe5/2OKzjzwY/UTUiRa7S7V5Hu.hAY.Vy",
+        "userPassword": "12345678",
         "__v": 0
     },
     {
@@ -80,7 +79,7 @@
         "fName": "taha",
         "lName": "habib",
         "email": "taha@gmail.com",
-        "userPassword": "$2b$10$eGMG2GTiwzazh8jSVj9NXe5/2OKzjzwY/UTUiRa7S7V5Hu.hAY.Vy",
+        "userPassword": "12345678",
         "__v": 0
     },
     {
@@ -94,8 +93,8 @@
         "fName": "ahmed",
         "lName": "habib",
         "email": "ahmedhabib@gmail.com",
-        "userPassword": "$2b$10$eGMG2GTiwzazh8jSVj9NXe5/2OKzjzwY/UTUiRa7S7V5Hu.hAY.Vy",
+        "userPassword": "12345678",
         "__v": 0
     }
-    
+
 ]

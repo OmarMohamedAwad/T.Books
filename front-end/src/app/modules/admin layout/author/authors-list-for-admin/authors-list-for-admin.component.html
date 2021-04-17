@@ -1,40 +1,45 @@
 <!--this loader is be hidden when the data come with response -->
 <div *ngIf="!isLoad; else displayContent" class="row w-100 mt-5 pt-5">
-  <div class="col-md-12 text-center loader">
-    <i class="fas fa-spinner fa-spin fa-5x text-info"></i>
-  </div>
+    <div class="col-md-12 text-center loader">
+        <i class="fas fa-spinner fa-spin fa-5x text-info"></i>
+    </div>
+</div>
+<!-- present this empty comp in case the response come with empty data-->
+<div *ngIf="!authors.length">
+    <app-empty></app-empty>
 </div>
 <ng-template #displayContent>
-  <div class="content-page mt-4">
-      <div class="row mt-5">
-        <div class="col-2"></div>
-        <table class="table col-8">
-          <thead class=" custom-bg text-white">
-              <tr>
-              <th scope="col">#</th>
-              <th scope="col">Image</th>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Date Of Birth</th>
-              <th scope="col">Action</th>
-              </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let author of authors; index as i;">
-              <th scope="row">{{i+1}}</th>
-              <td><img src="assets/admin/author/author.svg" class="author-imag"></td>
-              <td>{{author.firstName}} </td>
-              <td>{{author.lastName}}</td>
-              <td>{{author.birthDay |date:'dd-mm-yyyy'}}</td>
-              <td>
-                  <button (click)="getAuthor(author)" class="btn custom-txt" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
-                  <button (click)="getAuthor(author)" class="btn text-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  </div>
+    <div class="content-page mt-4">
+        <div class="row mt-5">
+            <div class="col-2"></div>
+            <table class="table col-8">
+                <thead class=" custom-bg text-white">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Date Of Birth</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let author of authors; index as i;">
+                        <th scope="row">{{i+1}}</th>
+                        <td><img src="assets/admin/author/author.svg" class="author-imag"></td>
+                        <td>{{author.firstName}} </td>
+                        <td>{{author.lastName}}</td>
+                        <td>{{author.birthDay |date:'dd-mm-yyyy'}}</td>
+                        <td>
+                            <button (click)="getAuthor(author)" class="btn custom-txt" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="fas fa-edit"></i></button>
+                            <button (click)="getAuthor(author)" class="btn text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </ng-template>
-<app-admin-delete  [authorInfo]="mAuthor"></app-admin-delete>
-<app-admin-update  [authorInfo]="mAuthor"></app-admin-update>
+<app-admin-delete [authorInfo]="mAuthor"></app-admin-delete>
+<app-admin-update [authorInfo]="mAuthor"></app-admin-update>

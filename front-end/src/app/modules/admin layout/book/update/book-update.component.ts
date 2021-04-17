@@ -89,9 +89,14 @@ export class BookUpdateComponent implements OnInit, OnChanges {
       this.book.description = this.bookForm.controls.description.value;
       this.book.author = this.bookForm.controls.author.value;
       this.book.category = this.bookForm.controls.category.value;
+
       this.book.image = this.bookForm.controls.image.value;
       //send the updated book to the backend
+
       this.bookService.update(this.book).subscribe((response)=>{
+       // console.log(response.body.status);
+       console.log(response);
+        this.updated();
         this.bookForm.reset();
         this.updatedBook.emit(this.book);
         this.closebutton.nativeElement.click();
@@ -114,4 +119,33 @@ export class BookUpdateComponent implements OnInit, OnChanges {
       })
     }
   }
+  updated(){
+    Swal.fire(
+      'Good job!',
+      'Author Updated Successfully!',
+      'success'
+    )
+  }
+
+  @Input('bookInfo') book: Book = {
+    id:"",
+    name:"",
+    description:"",
+    image:"",
+    category:"",
+    author:"",
+    categoryName:"",
+    authorName:"",
+    bookReviews:[],
+    bookRatings:[],
+    currantReader:[],
+    finishReadUsers:[],
+    wantToReadeUsers:[],
+  };
+
+  @Input('authorsInfo') authors: any;
+  @Input('categoriesInfo') categories: any;
+
+  @Output() updatedBook:EventEmitter<Book> = new EventEmitter<Book>()
+
 }

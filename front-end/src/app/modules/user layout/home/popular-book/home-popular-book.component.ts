@@ -30,36 +30,39 @@ export class HomePopularBookComponent implements OnInit {
   ngOnInit(): void {
     let home;
     this.subscriber = this.homeService.getHome()
-      .subscribe((response: any) => {
-          this.loading = true;
-          home = response.body.books;
-          for (let i = 0; i < home.length && i < 4; i++) {
-            this.row1.push(home[i].bookImage);
-            console.log(home);
-            this.bookNameRow1.push(home[i].bookName);
-            this.bookAuthorRow1.push(home[i].bookAuthor.autherFirstName);
-          }
-          for (let i = 4; i < home.length && i < 8; i++) {
-            this.row2.push(home[i].bookImage);
-            this.bookNameRow2.push(home[i].bookName);
-            this.bookAuthorRow2.push(home[i].bookAuthor.autherFirstName);
-          }
-          this.popularbooks = [this.row1, this.row2];
-          this.popularbooksNames = [this.bookNameRow1, this.bookNameRow2];
-          this.popularbooksAuthors = [this.bookAuthorRow1, this.bookAuthorRow2];
-          console.log(this.popularbooks);
-          console.log(this.popularbooksNames);
-          console.log(this.popularbooksAuthors);
-        },
-        (err) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error loading Home content',
-            footer: ''
-          });
-        }
-      );
+    .subscribe((response:any)=>{
+        console.log(response);
+      home = response.body.books;
+      console.log(home)
+      for(let i = 0; i < home.length && i < 4; i++)
+      {
+        this.row1.push(home[i].bookImage);
+        this.bookNameRow1.push(home[i].bookName);
+        this.bookAuthorRow1.push(home[i].bookAuthor.autherFirstName);
+      }
+      for(let i = 4; i < home.length && i < 8; i++)
+      {
+        this.row2.push(home[i].bookImage)
+        this.bookNameRow2.push(home[i].bookName)
+        this.bookAuthorRow2.push(home[i].bookAuthor.autherFirstName)
+      }
+      this.popularbooks = [ this.row1 , this.row2 ];
+      this.popularbooksNames = [ this.bookNameRow1 , this.bookNameRow2 ];
+      this.popularbooksAuthors = [ this.bookAuthorRow1 , this.bookAuthorRow2 ];
+    
+      console.log(this.popularbooks)
+      console.log(this.popularbooksNames)
+      console.log(this.popularbooksAuthors)
+    },
+    (err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error loading Home content",
+        footer: ''
+      })
+    }
+    )
   }
 
 }
