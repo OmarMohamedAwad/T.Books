@@ -35,6 +35,7 @@ export class HomePopularBookComponent implements OnInit {
           home = response.body.books;
           for (let i = 0; i < home.length && i < 4; i++) {
             this.row1.push(home[i].bookImage);
+            console.log(home);
             this.bookNameRow1.push(home[i].bookName);
             this.bookAuthorRow1.push(home[i].bookAuthor.autherFirstName);
           }

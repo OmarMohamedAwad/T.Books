@@ -2,22 +2,24 @@
 .page_content{
     width: 20%;
     height: 80vh;
-    padding: 1px 0;
+    padding: 50px 0;
     font-size: 1vw;
     margin: 90px 0 0 10%;
     background: #DE3241;
     box-sizing: border-box;
+    display: inline-block;
 }
 .terms{
     width: 60%;
     height: 80vh;
     margin: 90px 0 0 30.5%;
     background: rgba(255,255,255,0.9);
-    overflow: auto; 
-    text-align:justify; 
+    overflow: auto;
+    text-align:justify;
     padding: 7px 20px;
     border-top: 1vh solid rgba(255,255,255,0.9);
     border-bottom: 1vh solid rgba(255,255,255,0.9);
+    display: inline-block;
 }
 h4{
     font-family: 'Playfair Display';
@@ -45,4 +47,15 @@ section:target{
 .sidebar{
     list-style: none;
     padding-left: 0;
+}
+
+@media only screen and (max-width: 750px) {
+  .page_content{
+    display: none;
+  }
+  .terms{
+    width: 80%;
+    display: block;
+    margin: 90px 0 0 10%;
+  }
 }
