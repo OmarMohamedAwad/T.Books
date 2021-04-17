@@ -1,105 +1,108 @@
-
 .back {
-  position: fixed;
-  right: -5%;
-  bottom: 0;
+    position: fixed;
+    right: -5%;
+    bottom: 0;
 }
 
 .book-search {
-  margin-top: 7%;
+    margin-top: 7%;
 }
-.w-40{ width:40% }
-.w-90{ width:90% }
+
+.w-40 {
+    width: 40%
+}
+
+.w-90 {
+    width: 90%
+}
+
 .book-search input,
 .book-search button {
-  box-shadow: 0 2px 2px 0 rgba(66, 66, 66, 0.2),
-    0 4px 5px 0 rgba(66, 66, 66, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(66, 66, 66, 0.2), 0 4px 5px 0 rgba(66, 66, 66, 0.2);
 }
 
 .book-search button {
-  background-color: #de3242;
-  color: white;
+    background-color: #de3242;
+    color: white;
 }
 
-
 .books {
-  margin-top: 2%;
-  margin-bottom: 20px;
+    margin-top: 2%;
+    margin-bottom: 20px;
 }
 
 .book {
-  position: relative;
-  background-color: #F5F5F5;
-  padding: 10px;
-  min-height: 440px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2), 0 1px 7px 0 rgba(0,0,0,0.2), 0 3px 2px -2px rgba(0,0,0,0.2);
+    position: relative;
+    background-color: #F5F5F5;
+    padding: 10px;
+    min-height: 440px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 7px 0 rgba(0, 0, 0, 0.2), 0 3px 2px -2px rgba(0, 0, 0, 0.2);
 }
 
 .books .col-lg-3 {
-  padding: 20px;
+    padding: 20px;
 }
 
 .book:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
-.book-title p{
-  font-size: 1.2em;
-  font-weight: bold;
-  margin: 10px auto;
+.book-title p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px auto;
 }
 
 .book-image {
-  width: 60%;
-  height: 55%;
-  border-radius: 20px;
+    width: 60%;
+    height: 250px;
+    border-radius: 20px;
 }
 
-.book-image:hover{
-  transform: scale(1.2);
-  transition: all 0.3s linear;
+.book-image:hover {
+    transform: scale(1.2);
+    transition: all 0.3s linear;
 }
 
-.book-info p{
-  font-size: 1.1em;
+.book-info p {
+    font-size: 1.1em;
 }
 
 .book-info a:hover {
-  background-color: transparent;
-  color: black;
-  border: 1px black solid;
-  transition: all 0.5s ease-in-out;
+    background-color: transparent;
+    color: black;
+    border: 1px black solid;
+    transition: all 0.5s ease-in-out;
 }
 
 .category {
-  transform: rotate(90deg);
-  position: absolute;
-  top: 12%;
-  background-color: rgba(222, 50, 66, 0.8);
-  left: -18%;
-  padding: 10px;
-  height: 40px;
-  width: 150px;
-  color: white;
-  border-radius: 0 20px 20px 5px;
-  overflow: hidden;
+    transform: rotate(90deg);
+    position: absolute;
+    top: 12%;
+    background-color: rgba(222, 50, 66, 0.8);
+    left: -18%;
+    padding: 10px;
+    height: 40px;
+    width: 150px;
+    color: white;
+    border-radius: 0 20px 20px 5px;
+    overflow: hidden;
 }
 
 .category:hover {
-  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2), 0 1px 7px 0 rgba(0,0,0,0.2), 0 3px 2px -2px rgba(0,0,0,0.2);
-  background-color: rgba(222, 50, 66, 1);
-  transition: all 0.5s ease-in-out;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 7px 0 rgba(0, 0, 0, 0.2), 0 3px 2px -2px rgba(0, 0, 0, 0.2);
+    background-color: rgba(222, 50, 66, 1);
+    transition: all 0.5s ease-in-out;
 }
 
-.category p{
-  margin-bottom: 0;
+.category p {
+    margin-bottom: 0;
 }
 
 @media only screen and (max-width: 600px) {
-  .category {
-    left: -12%;
-  }
+    .category {
+        left: -12%;
+    }
 }
-
