@@ -6,10 +6,7 @@
         <div class="row mt-5 w-100" *ngFor="let bookRow of popularbooks; let i = index;">
             <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let bookCol of bookRow; let j = index;">
                 <div class="card mb-3 mt-3">
-                    <!-- src="/assets/user/book/{{bookCol}}
-                      https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1484242356l/33844576._SX318_.jpg
-                      "-->
-                    <img class="card-img-top " src="/assets/user/book/{{bookCol}}" onerror="this.onerror=null; this.src='/assets/user/book/book-1.jpg.jpg'" [alt]="bookCol">
+                    <img class="card-img-top " src="{{bookCol}}" onerror="this.onerror=null; this.src='/assets/user/book/book-1.jpg.jpg'" [alt]="bookCol">
                     <div class="card-body d-flex align-items-center justify-content-between ">
                         <p class="card-link">{{popularbooksNames[i][j]}}</p>
                         <p class="card-link">{{popularbooksAuthors[i][j]}}</p>
@@ -20,4 +17,3 @@
         </div>
     </div>
 </section>
-
