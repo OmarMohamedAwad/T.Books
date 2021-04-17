@@ -1,7 +1,7 @@
 import {UserService} from '../../../../services/user.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { UserProfileService } from '../services/user-profile.service'
-import { BookObj } from '../models/book'
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {UserProfileService} from '../services/user-profile.service';
+import {BookObj} from '../models/book';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,27 +11,28 @@ import Swal from 'sweetalert2';
 })
 export class UserProfileCardsComponent implements OnInit {
 
+  loading = false;
+  subscriber: any;
+  toggleFlag: boolean = false;
+  userId: string = sessionStorage.getItem('userId') || "";
+  currentBooksType: string = 'All';
+  currentPage: number = 1;
+  maxPages: number = 1;
+  @Output() paginationPages: { paginationPages: number[], currentPage: number } = {paginationPages: [], currentPage: 1};
+  bookImages: string[] = [];
+  bookNames: string[] = [];
+  bookIAuthor: string[] = [];
+  bookRate: number[] = [];
+  bookOverallRate: number[] = [];
+  bookUserType: string[] = [];
+  bookIds: string[] = [];
+  myRatingIds: string[] = [];
+  starsHover: number = 0;
+  cardHover: number = 0;
+  userSubscriber: any;
 
-  subscriber:any;
-  toggleFlag:boolean = false;
-  userId:string = sessionStorage.getItem("userId")!; /*"6075b79ea7c3f52f7904ec09";*/
-  currentBooksType:string = "All";
-  currentPage:number = 1;
-  maxPages:number = 1;
-  @Output() paginationPages:{paginationPages:number[], currentPage:number} = {paginationPages: [] , currentPage: 1}
-  bookImages:string[] = [];
-  bookNames:string[] = [];
-  bookIAuthor:string[] = [];
-  bookRate:number[] = [];
-  bookOverallRate:number[] = [];
-  bookUserType:string[] = [];
-  bookIds:string[] = [];
-  myRatingIds:string[] = [];
-  starsHover:number = 0;
-  cardHover:number = 0;
-  userSubscriber:any;
-
-  constructor(private userProfileService: UserProfileService, private userService: UserService) {}
+  constructor(private userProfileService: UserProfileService, private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.getPage(this.currentBooksType, this.currentPage);
@@ -44,51 +45,50 @@ export class UserProfileCardsComponent implements OnInit {
   selectBooksType(booksType: string) {
     this.currentBooksType = booksType;
     this.currentPage = 1;
+    this.loading = false
     this.getPage(this.currentBooksType, this.currentPage);
   }
 
   searchBook(book: string) {
-    console.log('we are in search part');
     this.currentPage = 1;
+    this.loading = false
     this.getPage(this.currentBooksType, this.currentPage, book);
   }
 
 
-  submitRate(event:Event , index:number , ratingId:string , bookId:string){
-    console.log("submit" , index , "book " , bookId , "rating: ", ratingId )
-    if(ratingId){
+  submitRate(event: Event, index: number, ratingId: string, bookId: string) {
+    this.loading = false
+    if (ratingId) {
       this.subscriber = this.userProfileService.updateRate(ratingId, index)
-      .subscribe((response:any)=>{
-      this.getPage(this.currentBooksType , this.currentPage);
-        console.log(response.body)
-        },
-      (err)=>{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: "Error updating rate!",
-          footer: ''
-        })
-      })
-    }
-    else{
+        .subscribe((response: any) => {
+            this.getPage(this.currentBooksType, this.currentPage);
+          },
+          (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Error updating rate!',
+              footer: ''
+            });
+          });
+    } else {
       this.subscriber = this.userProfileService.postRate(this.userId, bookId, index)
-      .subscribe((response:any)=>{
-      this.getPage(this.currentBooksType , this.currentPage);
-        console.log(response.body)
-        },
-      (err)=>{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: "Your rate hasn't been saved!",
-          footer: ''
-        })
-      })
+        .subscribe((response: any) => {
+            this.getPage(this.currentBooksType, this.currentPage);
+          },
+          (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Your rate hasn\'t been saved!',
+              footer: ''
+            });
+          });
     }
   }
 
   changePagination(type: any) {
+    this.loading = false
     if (type == 'back' && this.currentPage > 1) {
       this.currentPage--;
       this.getPage(this.currentBooksType, this.currentPage);
@@ -111,38 +111,37 @@ export class UserProfileCardsComponent implements OnInit {
     this.bookIds = [];
 
     this.myRatingIds = [];
-    this.subscriber = this.userProfileService.getUserProfilePage(this.userId,booktype,page,book)
-    .subscribe((response:any)=>{
-      this.maxPages = Math.ceil(response.body.bookNumbers / 4);
-      let books = response.body.pagebooks;
-      books.find((book:BookObj , index:number) => {
-        if(index < 4 && index < books.length)
-        {
-          this.bookNames.push(book.name)
-          this.bookImages.push(book.image)
-          this.bookIAuthor.push(book.author)
-          this.bookRate.push(book.myRating)
-          this.bookOverallRate.push(book.bookRating)
-          this.bookUserType.push(book.state)
-          this.bookIds.push(book.bookId)
-          this.myRatingIds.push(book.myRatingId)
-        }
-      })
-      this.calculatePagination();
-    },
-    (err)=>{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: "Error getting categories information !",
-        footer: ''
-      })
-    })
+    this.subscriber = this.userProfileService.getUserProfilePage(this.userId, booktype, page, book)
+      .subscribe((response: any) => {
+          this.maxPages = Math.ceil(response.body.bookNumbers / 4);
+          let books = response.body.pagebooks;
+          this.loading =true
+          books.find((book: BookObj, index: number) => {
+            if (index < 4 && index < books.length) {
+              this.bookNames.push(book.name);
+              this.bookImages.push(book.image);
+              this.bookIAuthor.push(book.author);
+              this.bookRate.push(book.myRating);
+              this.bookOverallRate.push(book.bookRating);
+              this.bookUserType.push(book.state);
+              this.bookIds.push(book.bookId);
+              this.myRatingIds.push(book.myRatingId);
+            }
+          });
+          this.calculatePagination();
+        },
+        (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error getting categories information !',
+            footer: ''
+          });
+        });
   }
 
-  calculatePagination(){
-    switch(this.maxPages)
-    {
+  calculatePagination() {
+    switch (this.maxPages) {
       case 0:
         this.paginationPages.paginationPages = [0];
         break;
@@ -167,10 +166,9 @@ export class UserProfileCardsComponent implements OnInit {
   }
 
   changeBookStatus(type: string, bookId: any, index: number) {
-    console.log(type, bookId);
+    this.loading =false
     this.userSubscriber = this.userService.updateUserBookList({userId: this.userId, bookId: bookId, type: type})
       .subscribe((response: any) => {
-          console.log(response);
           if (type == '1') {
             this.bookUserType[index] = 'Want to read';
           } else if (type == '2') {
@@ -184,9 +182,9 @@ export class UserProfileCardsComponent implements OnInit {
         (err) => {
           console.log(err);
         }
-      )
+      );
   }
 
-  @Output() setPaginationEmitter: EventEmitter<{ paginationPages: number[], currentPage: number }> = new EventEmitter()
+  @Output() setPaginationEmitter: EventEmitter<{ paginationPages: number[], currentPage: number }> = new EventEmitter();
 }
 

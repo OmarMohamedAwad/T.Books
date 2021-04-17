@@ -10,8 +10,7 @@ import { UserProfileService } from '../services/user-profile.service'
 export class UserProfileSideComponent implements OnInit {
 
   subscriber: any;
-
-  userId:string = sessionStorage.getItem("userId")!; /*"6075b79ea7c3f52f7904ec09" /*"6075b7d5a7c3f52f7904ec0a"*/;
+  userId:string | null = sessionStorage.getItem("userId") || "605a1a4922c6ca862b8658d6";
   selectedBooksType:string = "All";
   userImage:string = "assets/user/profile/author-4.jpg";
   userName:string = "";
@@ -19,15 +18,16 @@ export class UserProfileSideComponent implements OnInit {
   constructor(private userProfileService: UserProfileService) { }
 
   selectBooksType(event:Event , BooksType:string): void{
-    console.log("hi");
-    console.log(event);
-    console.log(BooksType);
     this.selectedBooksTypeEmitter.emit(BooksType);
   }
+
   ngOnInit(): void {
-    this.subscriber = this.userProfileService.getuserById(this.userId)
+    this.subscriber = this.userProfileService.getuserById(this.userId!)
     .subscribe((response:any)=>{
-      this.userName = response.firstName;
+      if (response.avatar){
+        this.userImage = response.avatar
+      }
+      this.userName = response.userName;
 
     },
     (err)=>{

@@ -18,7 +18,7 @@ export class UserCategoryBooksComponent implements OnInit {
   row2:string[] = []
   books:string[][] = [ this.row1 , this.row2 ];
   paginationPages:number[] = [4,5,6];
-
+  loading =false
   constructor(private categoryService: CategoryService) { }
 
   getDefaultCategory(category:string){
@@ -56,13 +56,14 @@ export class UserCategoryBooksComponent implements OnInit {
 
   getPage(category:string , page:number , book:string="")
   {
+    this.loading = false
     this.row2 = [];
     this.row1 = [];
     this.subscriber = this.categoryService.getCategoryPage(category,page,book)
     .subscribe((response:any)=>{
-      console.log(response.body)
       this.maxPages = Math.ceil(response.body.bookNumbers / 8);
       console.log(this.maxPages)
+      this.loading = true
       let books = response.body.pagebooks;
       books.find((book:string , index:number) => {
         if(index < 4)

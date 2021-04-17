@@ -1,56 +1,61 @@
 
+
+<app-user-loading *ngIf="!loading"></app-user-loading>
 <app-nav-user></app-nav-user>
 <div class="back">
-  <img src="assets/user/book/book-gif.gif">
+    <img src="assets/user/book/book-gif.gif">
 </div>
 
 <div class="book-search">
-  <div class="input-group m-auto w-40">
-    <div class="form-outline w-90">
-      <input type="search" class="form-control" placeholder="Search" #search_box/>
-    </div>
-    <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
+    <div class="input-group m-auto w-40">
+        <div class="form-outline w-90">
+            <input type="search" class="form-control" placeholder="Search" #search_box/>
+        </div>
+        <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
       <i class="fas fa-search"></i>
     </button>
-  </div>
+    </div>
 </div>
 
 <section class="books">
-  <div class="container">
-    <div class="row justify-content-around">
-      <div class="col-lg-3 col-sm-6 col-xxs-6 text-center" *ngFor="let book of books;">
-        <div class="book">
-          <div class="book-title text-center">
-            <p class="w-75">{{book.name}} </p>
-            <hr class="text-danger w-75 m-auto">
-          </div>
-          <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
-          <div class="book-info">
-              <p class="mb-2 mt-4">{{book.authorName}}</p>
-              <a class="btn btn-dark" [routerLink]="book.id.toString()">View More</a>
-          </div>
-          <div class="category">
-            <p>{{book.categoryName}}</p>
-          </div>
+    <div class="container">
+        <div class="row justify-content-around">
+            <div class="col-lg-3 col-sm-6 col-xxs-6 text-center" *ngFor="let book of books;">
+                <div class="book">
+                    <div class="book-title text-center">
+                        <p class="w-75">{{book.name | slice :0:15}}.. </p>
+                        <hr class="text-danger w-75 m-auto">
+                    </div>
+                    <img src="assets/user/book/{{book.image}}" onerror="this.onerror=null; this.src='/assets/user/book/book-1.jpg.jpg'" class="book-image mt-3">
+                    <div class="book-info">
+                        <p class="mb-2 mt-4">{{book.authorName}}</p>
+                        <a class="btn btn-dark" [routerLink]="book.id.toString()">View More</a>
+                    </div>
+                    <div class="category">
+                        <p>{{book.categoryName}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <section class="pagination-section" *ngIf="pageNumbers > 1">
-  <div class="container">
-    <div class="row">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination w-50">
-          <li class="page-item" (click)="previous()"><a class=""><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
+    <div class="container">
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination w-50">
+                    <li class="page-item" (click)="previous()"><a class=""><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
 
-          <ng-container *ngFor="let page of pages; index as i">
-            <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="" >{{i+1}}</a></li>
-          </ng-container>
-          <li class="page-item" (click)="next()"><a class=""><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
-        </ul>
-      </nav>
+                    <ng-container *ngFor="let page of pages; index as i">
+                        <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="">{{i+1}}</a></li>
+                    </ng-container>
+                    <li class="page-item" (click)="next()"><a class=""><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
-  </div>
 </section>
+
+
+<app-home-footer></app-home-footer>
