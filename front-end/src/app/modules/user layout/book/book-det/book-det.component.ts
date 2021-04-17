@@ -47,7 +47,7 @@ export class BookDetComponent implements OnInit {
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService, private userService: UserService,
               private ratingService: RatingServiceService,
               private myActivatedRoute:ActivatedRoute, private router: Router) {
-    this.userId = "" /*sessionStorage.getItem("userId")! */ /*"605a0532ba76f47a7793e130"*/;
+    this.userId = sessionStorage.getItem("userId") || ""/*"605a0532ba76f47a7793e130"*/;
   }
 
   book : Book =
@@ -155,7 +155,7 @@ export class BookDetComponent implements OnInit {
     if(this.text.length >= 1 && this.text.length <=300)
     {
       console.log(this.book.id)
-      this.reviewerId = sessionStorage.getItem("userId");
+      this.reviewerId = /*sessionStorage.getItem("userId");*/ this.userId
       this.reviewSubscriber = this.reviewsService.store({reviwer:this.reviewerId, book:this.book.id, body:this.text})
       .subscribe((response:any)=>
         {

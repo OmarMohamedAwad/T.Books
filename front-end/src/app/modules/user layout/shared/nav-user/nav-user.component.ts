@@ -52,6 +52,11 @@ export class NavUserComponent implements OnInit {
     sessionStorage.removeItem("userName");
     sessionStorage.removeItem("userId");
 
+    localStorage.removeItem("TOKEN");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userId");
+
     
   }
   @HostListener('window:scroll', ['$event'])
