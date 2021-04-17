@@ -101,7 +101,8 @@ export class BookDetComponent implements OnInit {
         this.avgRate+=this.ratings[i].rate;
       if(this.ratesNum)
         this.avgRate/=this.ratesNum;
-        this.drawMyRating(this.ratings);
+
+        //this.drawMyRating(this.ratings);
       },
       (err)=>{
         Swal.fire({

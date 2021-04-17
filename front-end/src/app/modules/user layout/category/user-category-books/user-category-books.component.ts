@@ -65,6 +65,7 @@ export class UserCategoryBooksComponent implements OnInit {
       console.log(this.maxPages)
       this.loading = true
       let books = response.body.pagebooks;
+        console.log(response);
       books.find((book:string , index:number) => {
         if(index < 4)
           this.row1.push(book)
@@ -72,9 +73,7 @@ export class UserCategoryBooksComponent implements OnInit {
           this.row2.push(book)
         console.log(this.row1[0] , this.row2[0])
       })
-      console.log(this.row1 , this.row2)
       this.books = [this.row1 , this.row2 ]
-      console.log(this.books)
       this.calculatePagination();
     },
     (err)=>{
@@ -88,7 +87,6 @@ export class UserCategoryBooksComponent implements OnInit {
   }
 
   calculatePagination(){
-    console.log(this.maxPages)
     switch(this.maxPages)
     {
       case 0:
