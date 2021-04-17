@@ -83,7 +83,7 @@ export class BookStoreComponent implements OnInit {
       this.book.category = this.bookForm.controls.category.value;
       this.book.image = this.bookForm.controls.image.value;
       this.bookService.store(this.book).subscribe((response:any)=>{
-        console.log(response.body);
+        console.log(response.body.status);
         this.indexFlag = true;
         this.added();
         this.bookForm.reset();
