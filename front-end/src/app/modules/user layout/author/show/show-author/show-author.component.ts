@@ -51,8 +51,9 @@ export class ShowAuthorComponent implements OnInit {
 
   changeBookStatus(type: string, bookId: any, index: number) {
     console.log(type, bookId);
-    this.userId = '605a0532ba76f47a7793e130';
-    this.userSubscriber = this.userService.updateUserBookList({userId: this.userId, bookId: bookId, type: type})
+    //this.userId = '605a0532ba76f47a7793e130';
+    if(this.userId){
+      this.userSubscriber = this.userService.updateUserBookList({userId: this.userId, bookId: bookId, type: type})
       .subscribe((response: any) => {
           if (type == '1') {
             this.bookStatus[index] = 'Is currant read';
@@ -68,6 +69,14 @@ export class ShowAuthorComponent implements OnInit {
           console.log(err);
         }
       );
+    } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'You need to login first!',
+          footer: "" /*'<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'*/
+        })
+    }
   }
 
   readBookStatus(books: any) {

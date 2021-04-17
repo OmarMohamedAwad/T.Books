@@ -128,7 +128,7 @@ export class BookDetComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'You need to login first!',
-        footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
+        footer: '' /*'<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'*/
       })
     }
   }
@@ -176,7 +176,7 @@ export class BookDetComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'You need to login first!',
-        footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
+        footer: '' /*'<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'*/
       })
     }
   }
@@ -202,7 +202,7 @@ export class BookDetComponent implements OnInit {
             icon: 'error',
             title: 'Oops...',
             text: 'You need to login first!',
-            footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
+            footer: '' /*'<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'*/
           })
       }
   }
