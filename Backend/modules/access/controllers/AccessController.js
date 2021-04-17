@@ -158,70 +158,7 @@ async function userLogout (request, responce, next)
     responce.sendStatus(204)
 }
 
-async function getNewToken (req, res, next)
-{
-    console.log("refresh")
-    console.log("refresh2")
-    const bearerHeader = req.headers.authorization;
-    const bearer = bearerHeader.split(' ')[1];
-    // req.token = bearer;
-    switch (role) {
-        case Role.ADMIN:
-            console.log("admin")
-            try {
-                console.log("1", bearer, process.env.ADMIN_REFRESH_TOKEN_SECRET)
-                res = await jwt.verify(bearer, process.env.ADMIN_REFRESH_TOKEN_SECRET);
-                console.log("2")
-                var token = tokenGeneration(bearer, Role.ADMIN);
-                console.log("3")
-                response.status(200).json({token});
-                console.log("4")
-                //const admin = await Admin.findOne({ adminName: accessRequest.adminName })
-                //hossam
-                await Admin.findOneAndUpdate({refreshToken: bearer}, {refreshToken: tokenGeneration.token})
-            } catch (error) {
-                console.log("going to error from check refreash token")
-                next(ResponseCode.AUTHENTICATION_ERROR);
-            }
-            break;
-        case Role.USER:
-            try {
-                res = await jwt.verify(req.token, process.env.USER_REFRESH_TOKEN_SECRET);
-                var token = tokenGeneration(req.token, Role.USER);
-                response.status(200).json({token});
-                //const user = await User.findOne({ userName: accessRequest.userName })
-                //hossam
-                //await User.findOneAndUpdate({userName: user.userName}, {refreshToken: tokenGeneration.refreshToken})
-            } catch (error) {
-                next(ResponseCode.AUTHENTICATION_ERROR);
-            }
-            break;
-        case Role.ADMIN_USER:
-            try {
-                res = await jwt.verify(req.token, process.env.USER_REFRESH_TOKEN_SECRET);
-                var token = tokenGeneration(req.token, Role.USER);
-                response.status(200).json({token});
-                //const user = await User.findOne({ userName: accessRequest.userName })
-                //hossam
-                //await User.findOneAndUpdate({userName: user.userName}, {refreshToken: tokenGeneration.refreshToken})
-            } catch (error) {
-                try {
-                    res = await jwt.verify(req.token, process.env.ADMIN_REFRESH_TOKEN_SECRET);
-                    var token = tokenGeneration(req.token, Role.ADMIN);
-                    response.status(200).json({token});
-                    //cconst admin = await Admin.findOne({ adminName: accessRequest.adminName })
-                    //hossam
-                    //await Admin.findOneAndUpdate({adminName: admin.adminName}, {refreshToken: tokenGeneration.refreshToken})
-                } catch (error) {
-                    next(ResponseCode.AUTHENTICATION_ERROR);
-                }
-            }
-            break;
-        default:
-        //Do Nothing
-    }
 
-}
 
 
 
@@ -231,5 +168,5 @@ module.exports = {
     adminLogout,
     userLogout,
     userRegister,
-    getNewToken
+    
 }
