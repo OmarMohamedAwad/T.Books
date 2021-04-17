@@ -1,4 +1,3 @@
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import { Router } from '@angular/router';
@@ -11,13 +10,10 @@ import Swal from 'sweetalert2'
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.css']
 })
+
 export class DeleteComponent implements OnInit {
 
-  constructor(private myService:AuthorsServiceService,  private router: Router) { }
-
-  ngOnInit(): void {
-  }
-
+  //properties
   @Input('authorInfo') author:Author = {
     id:"",
     firstName:"",
@@ -28,27 +24,33 @@ export class DeleteComponent implements OnInit {
     books:[]
   };
 
-  goToAuthorsList()
-  {
+  //constructor
+  constructor(private myService:AuthorsServiceService,  private router: Router) { }
+
+  //start the component
+  ngOnInit(): void {}
+
+  //navigate to the author list
+  goToAuthorsList(){
     this.router.navigate(['/admin/author']);
   }
 
-  deleteFun()
-  {
-    console.log("delete")
-    console.log(this.author.id)
+  //delete author from the list
+  deleteFun(){
+    //send request to backend to delete this author from the authors list
     this.myService.deleteAuthor(this.author.id)
       .subscribe((data)=>{
-        console.log(data)
         this.goToAuthorsList()
       },(err)=>{
+        //erro while removing in backend
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: "Error Deleting Author, Try again!",
           footer: ''
         })      
-      })
+      }
+    )
   }
 
 }

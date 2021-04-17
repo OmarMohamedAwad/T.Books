@@ -31,8 +31,6 @@ export class NavUserComponent implements OnInit {
     this.userName = sessionStorage.getItem("userName") ? sessionStorage.getItem("userName") : ""
   }
 
-  refreshToken: any = '';
-
   userLogout() {
     console.log('out');
 
@@ -50,6 +48,12 @@ export class NavUserComponent implements OnInit {
     sessionStorage.removeItem('userName');
     sessionStorage.removeItem('userId');
 
+    localStorage.removeItem("TOKEN");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userId");
+    refreashToken:any = "";
+ 
   }
 
   @HostListener('window:scroll', ['$event'])
