@@ -8,6 +8,7 @@ import { RatingServiceService } from '../../../../services/rating-service.servic
 import { Router } from '@angular/router';
 import {UserService} from '../../../../services/user.service';
 import {element} from 'protractor';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-det',
@@ -38,7 +39,7 @@ export class BookDetComponent implements OnInit {
   bookId:string="";
   user_img="assets/user/author/author-1.jpg";
 
-  favsNum:number =215;
+  favsNum:number=100;
   userRate=-1;
   userReview: string ="";
   bookStatus: string = "";
@@ -71,8 +72,8 @@ export class BookDetComponent implements OnInit {
   reviewSubscriber:any;
   userSubscriber:any;
 
-  ratesNum:number =112585
-  avgRate:number = 3.1;
+  ratesNum:number =0
+  avgRate:number = 0;
   ratings:any;
   myRating=-1;
   text:string = '';
@@ -101,13 +102,27 @@ export class BookDetComponent implements OnInit {
         this.drawMyRating(this.ratings);
       },
       (err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error getting book details!",
+          footer: ''
+        })
       }
     )
   }
 
   setRate(bookRate:any){
-    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/})
+    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/}).subscribe((response:any)=>{},
+    (err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error, your rate hasn't been saved !",
+        footer: ''
+      })
+    }
+  )
   }
 
   drawMyRating(ratingsArr:any){
@@ -138,20 +153,17 @@ export class BookDetComponent implements OnInit {
           console.log(response)
           // this.router.navigate([`/book/${this.myActivatedRoute.snapshot.params.id}`]);
           this.reloadComponent()
-
-          },
-          (err)=>{
-            console.log(err)
+        },(err)=>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Error, your review hasn't been saved !",
+            footer: ''
+          })
         }
       )
     }
   }
-
-  // ngOnDestroy(): void {
-  //   this.subscriber.unsubscribe();
-  //   this.rateSubscriber.unsubscribe();
-  //   this.reviewSubscriber.unsubscribe();
-  // }
 
   changeBookStatus(type: string){
     this.reviewerId = "605a0532ba76f47a7793e130"
@@ -182,5 +194,9 @@ export class BookDetComponent implements OnInit {
     else if(finish) this.bookStatus = "Finished reading"
     else this.bookStatus = "Add to my list"
 
-  }
+//   ngOnDestroy(): void {
+    // this.subscriber.unsubscribe();
+    // this.rateSubscriber.unsubscribe();
+    // this.reviewSubscriber.unsubscribe();
+//   }
 }

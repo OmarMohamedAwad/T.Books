@@ -24,7 +24,7 @@ categorySchema.pre('deleteOne',async function(next){
     try
     {
         console.log(this._conditions._id);
-        const other = await Category.findOne({categoryName: "Other"});
+        const other = await Category.findOne({categoryName: "others"});
         await Book.updateMany({bookCategory: this._conditions._id} , {bookCategory: other._id})
         next()
     }

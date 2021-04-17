@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild,ElementRef } from '@angular/core';
+import Swal from 'sweetalert2';
 import { AuthorsServiceService} from '../../../../services/authors-service.service'
 
 
@@ -32,7 +33,14 @@ export class UserAuthorIndexComponent implements OnInit, OnDestroy {
           this.allPagesCount = res.body.pages;
           console.log(this.allPagesCount );
           this.pages = new Array(this.allPagesCount)
-        },(err)=>{console.log(err)})
+        },(err)=>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Error getting authors information !",
+            footer: ''
+          })
+        })
   }
   captureSearchContent(page=1){
     this.pageNumber=page;
@@ -44,7 +52,14 @@ export class UserAuthorIndexComponent implements OnInit, OnDestroy {
     this.subscriber = this.authorService.search(searchContent,page).subscribe((res:any)=>{
       this.authors=res.body.authors;
       this.allPagesCount= res.body.pages;
-    },(err)=>{console.log(err)})
+    },(err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error, Can't get search results",
+        footer: ''
+      })
+    })
   }
   sendID(id:any){
     this.authorService.sendID(id);

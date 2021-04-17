@@ -22,6 +22,7 @@ function tokenGeneration (message , role){
     {
         throw new Error(new ErrorResponse(ResponseCode.ROLE_ERROR , "Invalid Role of Authentication, use Role.USER or Role.ADMIN."));
     }
+    console.log("leaving token generation")
     return token;
 }
 

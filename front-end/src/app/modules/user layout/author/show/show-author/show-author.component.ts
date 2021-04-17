@@ -5,6 +5,7 @@ import {Author} from 'src/app/modules/admin layout/author/models/author';
 import {AuthorsServiceService} from 'src/app/services/authors-service.service';
 import {ReviewsService} from '../../../../../services/reviews.service';
 import {UserService} from '../../../../../services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-show-author',
@@ -32,14 +33,20 @@ export class ShowAuthorComponent implements OnInit {
 
   getAuthorById() {
     this.authorService.show(this.authorID).subscribe(
-      (res) => {
-        console.log(this.authorID);
-        this.author = res;
-        console.log(this.author);
-        this.readBookStatus(this.author.books);
-        console.log(this.author.books[0].bookName);
-      }
-    );
+    (res)=>{
+      console.log(this.authorID);
+      this.author=res;
+      console.log(this.author);
+      console.log(this.author.books.length)
+      console.log(this.author.books[0].bookName);
+    },(err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error getting Author information !",
+        footer: ''
+      })
+    }
   }
 
   changeBookStatus(type: string, bookId: any, index: number){
@@ -74,8 +81,6 @@ export class ShowAuthorComponent implements OnInit {
         this.bookStatus[i] = "Add to my list"
       }
       console.log("here",this.bookStatus[i]);
-    }
-
-  }
+   }
 
 }

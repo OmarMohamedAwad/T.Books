@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home-author',
@@ -31,7 +32,12 @@ export class HomeAuthorComponent implements OnInit {
       console.log(this.authorsNames)
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error, Can't get authors information !",
+        footer: ''
+      })
     }
     )
   }

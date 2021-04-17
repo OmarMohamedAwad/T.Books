@@ -6,6 +6,7 @@ import {AuthorsServiceService} from '../../../../services/authors-service.servic
 import {CategoryService }from '../../../../services/category.service';
 
 import {any} from 'codelyzer/util/function';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-book-index',
@@ -39,7 +40,12 @@ export class UserBookIndexComponent implements OnInit, OnDestroy {
           this.pages = new Array(this.pageNumbers)
         },
         (err)=>{
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Server Error, can't get books information !",
+            footer: ''
+          })
         }
       )
   }
@@ -49,7 +55,14 @@ export class UserBookIndexComponent implements OnInit, OnDestroy {
       this.books=res.body.books;
       console.log(this.books);
       this.pageNumbers= res.body.pages;
-    },(err)=>{console.log(err)})
+    },(err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error, Can't get search results",
+        footer: ''
+      })
+    })
   }
 
   captureSearchContent(){

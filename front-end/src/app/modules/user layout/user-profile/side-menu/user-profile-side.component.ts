@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import Swal from 'sweetalert2';
 import { UserProfileService } from '../services/user-profile.service'
 
 @Component({
@@ -30,7 +31,12 @@ export class UserProfileSideComponent implements OnInit {
 
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error getting your information !",
+        footer: ''
+      })
     })
   }
   @Output() selectedBooksTypeEmitter:EventEmitter<string> = new EventEmitter()

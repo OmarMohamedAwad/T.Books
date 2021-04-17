@@ -4,10 +4,14 @@ const { json } = require('express');
 
 //list all section in the website and it's content
 async function index(request, response, next){
+
+    // console.log("hello")
     try {
         const settings = await Setting.find();
+        // const toBeSent =  {...settings,hi:"hello"}
         console.log(`listed successfully`.green.inverse)
-        response.status(200).json(settings);
+        response.json(settings );
+        // console.log(response)
 
     } catch (err) {
         next(err);

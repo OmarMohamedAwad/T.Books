@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../../../services/category.service';
 import {Category} from '../models/category';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-category-update',
   templateUrl: './category-update.component.html',
@@ -38,13 +38,17 @@ export class CategoryUpdateComponent implements OnInit {
   updateCategory() {
       this.updatedCategory.name = this.categoryForm.value.name;
       this.updatedCategory.image= this.categoryForm.value.image
-
-    this._categoryService.categoryUpdate(this.updatedCategory.id, this.updatedCategory).subscribe((res) => {
-      this.refreshCategories.emit();
-      this.closebutton.nativeElement.click();
-      // console.log(this.updatedCategory);
-      // console.log(res);
-    });
+      this._categoryService.categoryUpdate(this.updatedCategory.id, this.updatedCategory).subscribe((res) => {
+        this.refreshCategories.emit();
+        this.closebutton.nativeElement.click();
+      },(err)=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating category. Try again !",
+          footer: ''
+        })
+      });
   }
 
   @Output() refreshCategories:EventEmitter<Category> = new EventEmitter<Category>()

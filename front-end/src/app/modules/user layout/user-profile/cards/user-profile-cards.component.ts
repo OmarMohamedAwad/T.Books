@@ -2,6 +2,10 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {UserProfileService} from '../services/user-profile.service';
 import {BookObj} from '../models/book';
 import {UserService} from '../../../../services/user.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { UserProfileService } from '../services/user-profile.service'
+import { BookObj } from '../models/book'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-profile-cards',
@@ -53,24 +57,36 @@ export class UserProfileCardsComponent implements OnInit {
     this.getPage(this.currentBooksType, this.currentPage, book);
   }
 
-  submitRate(event: Event, index: number, ratingId: string, bookId: string) {
-    console.log('submit', index);
-    if (ratingId) {
-      this.subscriber = this.userProfileService.updateRate(this.userId, index)
-        .subscribe((response: any) => {
-            console.log(response.body);
-          },
-          (err) => {
-            console.log(err);
-          });
-    } else {
-      this.subscriber = this.userProfileService.postRate(this.userId, bookId, index)
-        .subscribe((response: any) => {
-            console.log(response.body);
-          },
-          (err) => {
-            console.log(err);
-          });
+
+  submitRate(event:Event , index:number , ratingId:string , bookId:string){
+    console.log("submit" , index)
+    if(ratingId){
+      this.subscriber = this.userProfileService.updateRate(this.userId,index)
+      .subscribe((response:any)=>{
+        console.log(response.body)
+        },
+      (err)=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating rate!",
+          footer: ''
+        })
+      })
+    }
+    else{
+      this.subscriber = this.userProfileService.postRate(this.userId,bookId,index)
+      .subscribe((response:any)=>{
+        console.log(response.body)
+        },
+      (err)=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Your rate hasn't been saved!",
+          footer: ''
+        })
+      })
     }
   }
 
@@ -95,31 +111,37 @@ export class UserProfileCardsComponent implements OnInit {
     this.bookOverallRate = [];
     this.bookUserType = [];
     this.bookIds = [];
-    this.subscriber = this.userProfileService.getCategoryPage(this.userId, booktype, page, book)
-      .subscribe((response: any) => {
-          console.log(response.body);
-          this.maxPages = Math.ceil(response.body.bookNumbers / 4);
-          console.log(this.maxPages);
-          let books = response.body.pagebooks;
-          console.log('this are the books', books);
-          books.find((book: BookObj, index: number) => {
-            console.log('this index is ', index);
-            if (index < 4 && index < books.length) {
-              this.bookNames.push(book.name);
-              this.bookImages.push(book.image);
-              this.bookIAuthor.push(book.author);
-              this.bookRate.push(Math.round(book.myRating));
-              this.bookOverallRate.push(Math.round(book.bookRating));
-              this.bookUserType.push(book.state);
-              this.bookIds.push(book.bookId);
-              this.myRatingIds.push(book.myRatingId);
-            }
-          });
-          this.calculatePagination();
-        },
-        (err) => {
-          console.log(err);
-        });
+    this.subscriber = this.userProfileService.getCategoryPage(this.userId,booktype,page,book)
+    .subscribe((response:any)=>{
+      console.log(response.body)
+      this.maxPages = Math.ceil(response.body.bookNumbers / 4);
+      console.log(this.maxPages)
+      let books = response.body.pagebooks;
+      console.log("this are the books",books)
+      books.find((book:BookObj , index:number) => {
+        console.log("this index is ",index)
+        if(index < 4 && index < books.length)
+        {
+          this.bookNames.push(book.name)
+          this.bookImages.push(book.image)
+          this.bookIAuthor.push(book.author)
+          this.bookRate.push(Math.round(book.myRating))
+          this.bookOverallRate.push(Math.round(book.bookRating))
+          this.bookUserType.push(book.state)
+          this.bookIds.push(book.bookId)
+          this.myRatingIds.push(book.myRatingId)
+        }
+      })
+      this.calculatePagination();
+    },
+    (err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error getting categories information !",
+        footer: ''
+      })
+    })
   }
 
   calculatePagination() {

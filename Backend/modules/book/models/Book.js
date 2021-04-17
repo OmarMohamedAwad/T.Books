@@ -5,6 +5,7 @@ const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
 const ratingModel = require('../../rating/models/Rating')
 const reviewModel = require('../../review/models/Review')
+const ResponseCode = require("../../../response-codes")
 
 const ValidationMessage = require("../../../validation-messages")
 
@@ -86,16 +87,18 @@ bookSchema.pre('remove', async function (next) {
 
         // // delete book from category collection
         // await categoryModel.updateMany({}, { $pull: { categoryBooks: this._id } })
-
-        await users.updateMany({}, { $pull: { currentlyReadedBooks: this._id } })
+        
+        await users.updateMany({} , {$pull: {currentlyReadedBooks: this._id}})
         console.log(("removed the book from user(current read) correctly"))
         await users.updateMany({}, { $pull: { wantToReadedBooks: this._id } })
         console.log("removed the book from user(want to read) correctly")
         await users.updateMany({}, { $pull: { readBooks: this._id } })
         console.log(("removed the book from user(read books) correctly"))
     }
-    catch (e) {
-        next(ResponseCode.SERVER_ERROR)
+    catch(e)
+    {
+        console.log(e)
+        // next(ResponseCode.SERVER_ERROR)
     }
 
 
@@ -112,7 +115,6 @@ bookSchema.pre('remove', async function (next) {
         }
     }
     catch (e) {
-        console.log(e);
         next(ResponseCode.SERVER_ERROR)
     }
 
