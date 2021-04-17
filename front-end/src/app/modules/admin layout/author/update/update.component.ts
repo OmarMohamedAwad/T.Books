@@ -40,6 +40,26 @@ export class UpdateComponent implements OnInit, OnChanges {
     this.myForm.controls.image.setValue(this.author.image)
   }
 
+  //get author's first name
+  getFNameStatus(){
+    return this.myForm.controls.fName.valid
+  }
+
+  //get author's last name
+  getLNameStatus(){
+    return this.myForm.controls.lName.valid
+  }
+
+  //get author's date of birth 
+  getDOBStatus(){
+    return this.myForm.controls.dob.valid
+  }
+
+  //get author's image
+  getImageStatus(){
+    return this.myForm.controls.image.valid
+  }
+
   //get author data from user using form and make validation test with specific requirement
   myForm = new FormGroup({
 
@@ -51,7 +71,7 @@ export class UpdateComponent implements OnInit, OnChanges {
 
     dob:new FormControl('',[Validators.required]),
 
-    image: new FormControl('' , [Validators.required])
+    image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
   })
 
   //navigate to author page
@@ -66,19 +86,31 @@ export class UpdateComponent implements OnInit, OnChanges {
     this.author.lastName = this.myForm.controls.lName.value;
     this.author.birthDay = this.myForm.controls.dob.value;
     this.author.image = this.myForm.controls.image.value;
-    //send updated data to backend
-    this.myService.updateAuthor(this.author.id, this.author)
+    //check on the data is valid or invalid
+    if (this.getDOBStatus() && this.getFNameStatus() && this.getLNameStatus() && this.getImageStatus()){
+      //send updated data to backend
+      this.myService.updateAuthor(this.author.id, this.author)
       .subscribe((data) => {
-        this.goToAuthorsList()
-      }, (err) => {
-        //error to update data in database
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: "Error, Author hasn't been updated !",
-          footer: ''
-        })      
-      }
-    )
+          this.goToAuthorsList()
+        }, (err) => {
+          //error to update data in database
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Error, Author hasn't been updated !",
+            footer: ''
+          })      
+        }
+      )
+    }else {
+      this.incorrectData = true;
+      //invalidation data for the new book  
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Invalid data !",
+        footer: ''
+      })
+    }
   }
 }

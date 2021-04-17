@@ -43,7 +43,7 @@ export class StoreComponent implements OnInit {
 
     dob:new FormControl('' , [Validators.required]),
 
-    image: new FormControl('' , [Validators.required])
+    image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
 
   })
 
@@ -80,7 +80,7 @@ export class StoreComponent implements OnInit {
     this.newAuth.birthDay = this.myForm.controls.dob.value;
     this.newAuth.image = this.myForm.controls.image.value;
     //check on the data is valid or invalid
-    if (this.getDOBStatus() && this.getFNameStatus(), this.getLNameStatus()){
+    if (this.getDOBStatus() && this.getFNameStatus() && this.getLNameStatus() && this.getImageStatus()){
       //send the data to backend
       this.myService.postAuthor(this.newAuth)
         .subscribe((data)=>{
@@ -100,7 +100,7 @@ export class StoreComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: "Invalidation data !",
+        text: "Invalid data !",
         footer: ''
       })
     }

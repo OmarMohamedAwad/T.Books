@@ -52,7 +52,7 @@ export class BookUpdateComponent implements OnInit, OnChanges {
     description: new FormControl("",[Validators.required,Validators.min(10),Validators.max(250),Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
     author: new FormControl("",[Validators.required]),
     category: new FormControl("",[Validators.required]),
-    image: new FormControl('' , [Validators.required])
+    image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
   })
 
     
@@ -84,7 +84,7 @@ export class BookUpdateComponent implements OnInit, OnChanges {
   //update the data of exist book
   submitUpdateForm(){
     //check if the all data are valid
-    if (this.getNameStatus() && this.getDescriptionStatus() && this.getAuthorStatus() && this.getCategoryStatus()){
+    if (this.getNameStatus() && this.getDescriptionStatus() && this.getAuthorStatus() && this.getCategoryStatus() && this.getImageStatus()){
       this.book.name = this.bookForm.controls.name.value;
       this.book.description = this.bookForm.controls.description.value;
       this.book.author = this.bookForm.controls.author.value;
@@ -109,7 +109,7 @@ export class BookUpdateComponent implements OnInit, OnChanges {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: "Invalidation data !",
+        text: "Invalid data !",
         footer: ''
       })
     }

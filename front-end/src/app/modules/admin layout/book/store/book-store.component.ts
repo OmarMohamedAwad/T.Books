@@ -44,7 +44,7 @@ export class BookStoreComponent implements OnInit {
     description: new FormControl("",[Validators.required , Validators.min(10) , Validators.max(250) , Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
     author: new FormControl("",[Validators.required]),
     category: new FormControl("",[Validators.required]),
-    image: new FormControl('' , [Validators.required])
+    image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
   })
 
   //get the name of the book from the form
@@ -75,7 +75,7 @@ export class BookStoreComponent implements OnInit {
   //add new book to the database
   submitAddForm(){
     //check if the all data are valid
-    if (this.getNameStatus() && this.getDescriptionStatus() && this.getAuthorStatus() && this.getCategoryStatus()){
+    if (this.getNameStatus() && this.getDescriptionStatus() && this.getAuthorStatus() && this.getCategoryStatus() && this.getImageStatus()){
       this.book.name = this.bookForm.controls.name.value;
       this.book.description = this.bookForm.controls.description.value;
       this.book.author = this.bookForm.controls.author.value;
@@ -102,13 +102,13 @@ export class BookStoreComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: "Invalidation data !",
+        text: "Invalid data !",
         footer: ''
       })
     }
   }
 
-  //
+  //to return to index component
   backToIndex(){
     this.indexFlag = true;
   }
