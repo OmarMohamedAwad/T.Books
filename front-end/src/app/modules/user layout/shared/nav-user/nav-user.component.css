@@ -17,6 +17,7 @@ button:active {
 
 .toggle {
   height: 30px;
+  color: white;
 }
 
 ul:first-child {
@@ -61,6 +62,11 @@ nav.navbar-default.affix {
   transition: all 0.3s ease-in-out;
 }
 
+.login {
+  padding-right: 20px;
+  justify-content: flex-end;
+}
+
 .login-anchor {
   padding: 0 10px;
 }
@@ -103,6 +109,11 @@ nav.navbar-default .navbar-nav li a.active:hover {
   background-color: transparent;
 }
 
+.navbar-toggler-icon, .navbar-toggler{
+  border-color: transparent;
+  background-color: transparent;
+}
+
 @media (max-width: 991px) {
   .navbar-collapse {
     background-color: rgba(0, 0, 0, 0.8);
@@ -115,7 +126,7 @@ nav.navbar-default .navbar-nav li a.active:hover {
   }
 
   .navbar-toggler-icon, .navbar-toggler {
-    border: #fff;
+    border: transparent !important;
   }
 }
 
@@ -125,6 +136,20 @@ nav.navbar-default .navbar-nav li a.active:hover {
 
 .active {
   color: #DE3241;
+}
+
+.mr {
+  margin-right: 15px;
+}
+
+.user-image {
+  border-radius: 50%;
+  border: 1px solid #DE3241;
+  cursor: pointer;
+}
+
+.logout{
+  cursor: pointer;
 }
 
 @keyframes rotation {
