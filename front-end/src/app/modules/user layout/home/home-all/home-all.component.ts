@@ -11,12 +11,14 @@ import Swal from 'sweetalert2';
 export class HomeAllComponent implements OnInit {
 
   constructor(private myService:HomeService) { }
+  loading = false;
 
   subscriber:any;
   ngOnInit(): void {
     this.subscriber = this.myService.getHome()
     .subscribe((response:any)=>{
       console.log(response.body)
+      this.loading = true
     },
     (err)=>{
       Swal.fire({
