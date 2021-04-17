@@ -43,7 +43,7 @@ export class StoreComponent implements OnInit {
 
     dob:new FormControl('' , [Validators.required]),
 
-    image: new FormControl('' , [(Validators.pattern('[a-zA-Z0-9]*')])
+    image: new FormControl('' , [(Validators.pattern('[a-zA-Z0-9]*'))])
 
   })
 
