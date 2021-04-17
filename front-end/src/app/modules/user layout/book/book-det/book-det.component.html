@@ -31,9 +31,9 @@
     <section class="details">
         <h2 class="fontPink">{{book.name}}</h2>
         <div class="font20 align-self-center">
-            <span>Authors: <a class="fontPink" href="">
+            <span>Authors: <a class="fontPink" >
                 {{book.author.autherFirstName}} {{book.author.autherLastName}}</a></span> <br>
-            <span>Category: <a class="fontPink" href="">{{book.category.categoryName}}</a></span> <br>
+            <span>Category: <a class="fontPink" >{{book.category.categoryName}}</a></span> <br>
             <span class="d-inline-block col-3 font17">
                 <span >Rate: </span>
                 <ngb-rating style="color: rgb(250, 225, 0); font-size: large;"  [max]="5" [(rate)]="avgRate" [readonly]="true">
@@ -42,7 +42,7 @@
             <span class="d-inline-block col-3 font17">
                 <img src="assets/user/book/book_details.jpg" style="width: 22px;">
                 <pre class="d-inline-block"> </pre>
-                <a class="colorBlack" href="#" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating details</a>
+                <a class="colorBlack" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating details</a>
             </span>
             <span class="d-inline-block col-3 font17">
                 Number of rates: {{ratesNum}}

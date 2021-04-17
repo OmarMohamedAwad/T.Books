@@ -139,7 +139,7 @@ import { SumPipe } from './pipes/sum.pipe';
     AdminLoginComponent,
     RatingDetComponent,
     AveragePipe,
-    SumPipe
+    SumPipe,
   ],
   exports:[
     ConcateNamePipe
