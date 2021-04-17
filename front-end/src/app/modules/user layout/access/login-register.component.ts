@@ -1,10 +1,10 @@
-import {AfterViewInit, ElementRef, Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserAccessServiceService} from './services/user-access-service.service';
-import {Router} from '@angular/router';
-import {User} from './models/user';
+import { AfterViewInit, ElementRef, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserAccessServiceService } from './services/user-access-service.service';
+import { Router } from '@angular/router';
+import { User } from './models/user';
 import Swal from 'sweetalert2';
-
+import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
@@ -18,28 +18,30 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
   @ViewChild('signup_toggle') signup_toggle!: ElementRef<HTMLButtonElement>;
   @ViewChild('login_form') login_form!: ElementRef<HTMLButtonElement>;
   @ViewChild('signup_form') signup_form!: ElementRef<HTMLButtonElement>;
-  subscriber:any;
-  userPassStatus= false
+  subscriber: any;
+  userPassStatus = false
   userAccessToken: any;
   userRefreshToken: any;
-  user: User ={
-    id:"",
-    firstName:"",
-    lastName:"",
-    avatar:"",
-    userName:"",
-    fullName:"",
-    email:"",
-    password:"",
-    currentlyReadBooks:[],
-    wantToReadBooks:[],
-    readBooks:[],
-    userRating:[],
-    userReviews:[],
-    token:"",
+  user: User = {
+    id: "",
+    firstName: "",
+    lastName: "",
+    avatar: "",
+    userName: "",
+    fullName: "",
+    email: "",
+    password: "",
+    currentlyReadBooks: [],
+    wantToReadBooks: [],
+    readBooks: [],
+    userRating: [],
+    userReviews: [],
+    token: "",
   };
+  socialUser: any;
+  isLoggedin: any;
 
-  constructor(private userService: UserAccessServiceService, private router: Router) {
+  constructor(private socialAuthService: SocialAuthService, private userService: UserAccessServiceService, private router: Router) {
   }
 
   toggleLogin() {
@@ -78,8 +80,7 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
 
   }
 
-  enterSite()
-  {
+  enterSite() {
 
     this.router.navigate(['/profile']);
 
@@ -91,20 +92,20 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
   });
 
   login() {
-    this.subscriber =this.userService.login({userName: this.loginForm.controls.userName.value, password: this.loginForm.controls.password.value})
-      .subscribe((response:any) => {
+    this.subscriber = this.userService.login({ userName: this.loginForm.controls.userName.value, password: this.loginForm.controls.password.value })
+      .subscribe((response: any) => {
         this.userAccessToken = response.accessToken;
         this.userRefreshToken = response.refreshToken;
         this.user = response.user;
         try {
           if (this.userAccessToken != undefined) {
 
-            this.setSessionData(this.userAccessToken,this.userRefreshToken,this.user)
+            this.setSessionData(this.userAccessToken, this.userRefreshToken, this.user)
 
-            this.setLocalStorageData(this.userAccessToken,this.userRefreshToken,this.user);
+            this.setLocalStorageData(this.userAccessToken, this.userRefreshToken, this.user);
             this.enterSite();//navigate to user profile isa
 
-          }else {
+          } else {
             this.userPassStatus = true
             console.log(this.userPassStatus);
           }
@@ -126,7 +127,7 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
     fName: new FormControl('', [Validators.required]),
     lName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required,
-      Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     ]),
     avatar: new FormControl('', []),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -140,15 +141,15 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
     this.user.lastName = this.registerForm.controls.lName.value;
     this.user.email = this.registerForm.controls.email.value;
 
-    if (!this.registerForm.invalid && this.user.password == this.registerForm.controls.confirmPassword.value){
-      this.subscriber =this.userService.register(this.user)
-        .subscribe((response:any) => {
+    if (!this.registerForm.invalid && this.user.password == this.registerForm.controls.confirmPassword.value) {
+      this.subscriber = this.userService.register(this.user)
+        .subscribe((response: any) => {
           this.userAccessToken = response.accessToken;
           this.userRefreshToken = response.refreshToken;
           this.user = response.user;
           try {
             if (this.userAccessToken != undefined) {
-              this.setSessionData(this.userAccessToken,this.userRefreshToken,this.user)
+              this.setSessionData(this.userAccessToken, this.userRefreshToken, this.user)
               this.enterSite();
             }
           } catch {
@@ -165,22 +166,36 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setSessionData(access:string, refresh:string, user:User){
+  setSessionData(access: string, refresh: string, user: User) {
     localStorage.setItem('TOKEN', access);
     localStorage.setItem('refreshToken', refresh);
     localStorage.setItem('userName', user.userName);
     localStorage.setItem('userId', user.id);
   }
- setLocalStorageData(access:string, refresh:string, user:User){
-  sessionStorage.setItem('accessToken', access);
-  sessionStorage.setItem('refreshToken', refresh);
-  sessionStorage.setItem('userName', user.userName);
-  sessionStorage.setItem('userId', user.id);
-}
-  ngOnInit(): void {
-    document.body.className = 'app-access';
+  setLocalStorageData(access: string, refresh: string, user: User) {
+    sessionStorage.setItem('accessToken', access);
+    sessionStorage.setItem('refreshToken', refresh);
+    sessionStorage.setItem('userName', user.userName);
+    sessionStorage.setItem('userId', user.id);
   }
 
+  ngOnInit(): void {
+    document.body.className = 'app-access';
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.isLoggedin = (user != null);
+      console.log(this.socialUser);
+    });
+  }
+
+  loginWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+  signUpWithGoogle():void{
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+  //to logout: this.authService.signOut();
+  //socialuser.photoUrl , .name, .email
   ngOnDestroy() {
     document.body.className = "";
   }

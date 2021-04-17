@@ -1,12 +1,14 @@
 
 .header {
-  margin-top: 8%;
+  margin-top: 7%;
 }
 
-.header .book-search .input-group {
+.header .input-group {
   margin: auto;
 }
-
+.book-search{
+  margin-left: 7%;
+}
 .header .book-search input,
 .header .book-search button {
   box-shadow: 0 2px 2px 0 rgba(66, 66, 66, 0.2),
@@ -16,4 +18,7 @@
 .header .book-search button {
   background-color: #de3242;
   color: white;
+}
+.filter{
+  text-align: end;
 }
