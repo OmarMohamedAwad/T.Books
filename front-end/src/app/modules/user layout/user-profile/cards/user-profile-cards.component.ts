@@ -1,6 +1,3 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {UserProfileService} from '../services/user-profile.service';
-import {BookObj} from '../models/book';
 import {UserService} from '../../../../services/user.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserProfileService } from '../services/user-profile.service'
@@ -31,7 +28,7 @@ export class UserProfileCardsComponent implements OnInit {
   bookIds:string[] = [];
   myRatingIds:string[] = [];
   starsHover:number = 0;
-  cardHover:number = 0; 
+  cardHover:number = 0;
   userSubscriber:any;
 
   constructor(private userProfileService: UserProfileService, private userService: UserService) {}

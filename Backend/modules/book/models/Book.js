@@ -1,6 +1,4 @@
 const mongoos = require('mongoose')
-
-const ResponseCode = require("../../../response-codes")
 const authorModel = require('../../author/models/Author')
 const categoryModel = require('../../category/models/Category')
 const ratingModel = require('../../rating/models/Rating')

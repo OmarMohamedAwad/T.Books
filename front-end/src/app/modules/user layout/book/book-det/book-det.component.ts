@@ -183,7 +183,7 @@ export class BookDetComponent implements OnInit {
       )
   }
 
-  readBookStatus(currantReader: [], wantToRead: [], finishRead: []){
+  readBookStatus(currantReader: [], wantToRead: [], finishRead: []) {
     this.userId = "605a0532ba76f47a7793e130"
     const currant = currantReader.find(element => element == this.userId)
     const want = wantToRead.find(element => element == this.userId)
@@ -191,9 +191,9 @@ export class BookDetComponent implements OnInit {
 
     if (currant) this.bookStatus = "Is currant read"
     else if (want) this.bookStatus = "Want to read"
-    else if(finish) this.bookStatus = "Finished reading"
+    else if (finish) this.bookStatus = "Finished reading"
     else this.bookStatus = "Add to my list"
-
+  }
 //   ngOnDestroy(): void {
     // this.subscriber.unsubscribe();
     // this.rateSubscriber.unsubscribe();
