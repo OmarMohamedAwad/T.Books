@@ -12,7 +12,7 @@ export class UserProfileCardsComponent implements OnInit {
 
   subscriber: any;
   toggleFlag: boolean = false;
-  userId: string = '6075b7d5a7c3f52f7904ec0a';
+  userId: string = '605a0532ba76f47a7793e130';
   currentBooksType: string = 'All';
   currentPage: number = 1;
   maxPages: number = 1;
@@ -27,7 +27,7 @@ export class UserProfileCardsComponent implements OnInit {
   myRatingIds: string[] = [];
   starsHover: number = 0;
   cardHover: number = 0;
-  bookStatus: Array<String> = [];
+  // bookStatus: Array<String> = [];
   userSubscriber:any;
 
   constructor(private userProfileService: UserProfileService, private userService: UserService) {
@@ -94,6 +94,7 @@ export class UserProfileCardsComponent implements OnInit {
     this.bookRate = [];
     this.bookOverallRate = [];
     this.bookUserType = [];
+    this.bookIds = [];
     this.subscriber = this.userProfileService.getCategoryPage(this.userId, booktype, page, book)
       .subscribe((response: any) => {
           console.log(response.body);
@@ -149,17 +150,17 @@ export class UserProfileCardsComponent implements OnInit {
 
   changeBookStatus(type: string, bookId: any, index: number) {
     console.log(type, bookId);
-    this.userId = '605a0532ba76f47a7793e130';
     this.userSubscriber = this.userService.updateUserBookList({userId: this.userId, bookId: bookId, type: type})
       .subscribe((response: any) => {
+          console.log(response);
           if (type == '1') {
-            this.bookStatus[index] = 'Is currant read';
+            this.bookUserType[index] = 'Want to read';
           } else if (type == '2') {
-            this.bookStatus[index] = 'Want to read';
+            this.bookUserType[index] = 'Is currant read';
           } else if (type == '3') {
-            this.bookStatus[index] = 'Finished reading';
+            this.bookUserType[index] = 'Finished reading';
           }
-          this.ngOnInit();
+          this.getPage(this.currentBooksType, this.currentPage);
 
         },
         (err) => {

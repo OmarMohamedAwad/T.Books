@@ -158,8 +158,8 @@ export class BookDetComponent implements OnInit {
     this.userSubscriber = this.userService.updateUserBookList({userId:this.reviewerId, bookId:this.book.id, type:type})
       .subscribe((response:any)=>
         {
-          if(type == "1") this.bookStatus = "Is currant read"
-          else if(type == "2") this.bookStatus = "Want to read"
+          if(type == "1") this.bookStatus = "Want to read"
+          else if(type == "2") this.bookStatus = "Is currant read"
           else if(type == "3") this.bookStatus = "Finished reading"
           console.log(response)
           // this.reloadComponent()

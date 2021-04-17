@@ -44,9 +44,9 @@
                   {{bookStatus[i]}}
               </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" (click)="changeBookStatus('1',authorBook._id, i)">Is currently reading</a>
-                    <a class="dropdown-item" (click)="changeBookStatus('2',authorBook._id, i)">Want to read</a>
-                    <a class="dropdown-item" (click)="changeBookStatus('3',authorBook._id, i)">Finished reading</a>
+                  <a class="dropdown-item" (click)="changeBookStatus('1',authorBook._id, i)">Want to read</a>
+                  <a class="dropdown-item" (click)="changeBookStatus('2',authorBook._id, i)">Is currently reading</a>
+                  <a class="dropdown-item" (click)="changeBookStatus('3',authorBook._id, i)">Finished reading</a>
                 </div>
             </div>
         </div>

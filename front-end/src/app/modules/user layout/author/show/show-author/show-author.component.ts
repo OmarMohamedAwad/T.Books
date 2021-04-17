@@ -64,7 +64,7 @@ export class ShowAuthorComponent implements OnInit {
     this.userId = "605a0532ba76f47a7793e130"
     console.log(books);
     for(let i =0; i< books.length; i++){
-      if (books[i].currantReader && books[i].currantReader.find((element: any) => element == this.userId)){
+      if (books[i].currentlyReader && books[i].currentlyReader.find((element: any) => element == this.userId)){
         this.bookStatus[i] = "Is currant read"
       }else if(books[i].wantToReadeUsers && books[i].wantToReadeUsers.find((element: any) => element == this.userId)){
         this.bookStatus[i] = "Want to read"

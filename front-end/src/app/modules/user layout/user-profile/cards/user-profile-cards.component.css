@@ -46,6 +46,10 @@ select{
     margin-top: 2%;
 }
 
+.dropdown-item {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1000px) {
     .card-container{
         margin-left: 40%;
