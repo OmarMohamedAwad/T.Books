@@ -2,7 +2,7 @@
 <app-nav-user></app-nav-user>
 <section class="book_show">
     <div class="book_cover">
-        <img @fade src="assets/user/book/{{book.image}}" onerror="this.onerror=null; this.src='/assets/user/book/memories.jpg'"><br>
+        <img @fade src="{{book.image}}" height="280" onerror="this.onerror=null; this.src='/assets/user/book/memories.jpg'"><br>
 
         <!--        <button class="btn btn-danger w-75 mt-4">Add to favourites</button>-->
         <!-- Content here -->
@@ -42,7 +42,7 @@
                 </ngb-rating> {{avgRate}}
                 </span>
                 <span class="d-inline-block col-3 font17">
-                <img src="assets/user/book/book_details.jpg" style="width: 22px;">
+                <img src="{{book.image}}"  style="width: 22px;">
                 <pre class="d-inline-block"> </pre>
                 <a class="colorBlack" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating details</a>
             </span>
