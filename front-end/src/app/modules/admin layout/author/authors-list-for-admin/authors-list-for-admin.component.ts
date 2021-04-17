@@ -1,6 +1,8 @@
 import { Component, DoCheck, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import {Author} from '../models/author';
+import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-authors-list-for-admin',
   templateUrl: './authors-list-for-admin.component.html',
@@ -35,7 +37,12 @@ export class AuthorsListForAdminComponent implements OnInit ,OnChanges{
         this.authors=this.allAuthors = response.body
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Server error, Can't load page content !",
+        footer: ''
+      })
     }
     )
   }

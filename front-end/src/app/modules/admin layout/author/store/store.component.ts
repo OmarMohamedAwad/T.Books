@@ -3,7 +3,12 @@ import { AuthorsServiceService } from 'src/app/services/authors-service.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {Author} from '../models/author';
+<<<<<<< HEAD
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+=======
+import Swal from 'sweetalert2'
+
+>>>>>>> aa9b5eefdf4346080c90eeef21449f1c2d883a84
 
 @Component({
   selector: 'app-admin-store',
@@ -70,7 +75,12 @@ export class StoreComponent implements OnInit {
           this.added();
           this.goToAuthorsList()
         },(err)=>{
-          console.log("post error")
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Server Error, Author hasn't been saved !",
+            footer: ''
+          })      
         })
     }else {
       this.incorrectData = true

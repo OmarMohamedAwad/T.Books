@@ -5,8 +5,25 @@
   bottom: 0;
 }
 
+.book-search {
+  margin-top: 7%;
+}
+.w-40{ width:40% }
+.w-90{ width:90% }
+.book-search input,
+.book-search button {
+  box-shadow: 0 2px 2px 0 rgba(66, 66, 66, 0.2),
+    0 4px 5px 0 rgba(66, 66, 66, 0.2);
+}
+
+.book-search button {
+  background-color: #de3242;
+  color: white;
+}
+
+
 .books {
-  margin-top: 5%;
+  margin-top: 2%;
   margin-bottom: 20px;
 }
 

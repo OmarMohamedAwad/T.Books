@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import Swal from 'sweetalert2';
 import { CategoryService } from '../service/category.service'
 
 @Component({
@@ -28,11 +29,15 @@ export class UserCategorySidebarComponent implements OnInit {
       if(this.categories.length > 0)
       {
         this.setDefaultCategoryEmitter.emit(this.categories[0].name);
-        console.log("i am here Ahmed")
       }
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something went wrong!",
+        footer: ''
+      })
     })
 
   }

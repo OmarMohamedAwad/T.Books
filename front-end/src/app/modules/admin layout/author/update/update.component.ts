@@ -3,7 +3,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthorsServiceService } from 'src/app/services/authors-service.service';
 import { Router } from '@angular/router';
 import {Author} from '../models/author';
+<<<<<<< HEAD
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+=======
+import Swal from 'sweetalert2'
+
+>>>>>>> aa9b5eefdf4346080c90eeef21449f1c2d883a84
 
 @Component({
   selector: 'app-admin-update',
@@ -58,7 +63,12 @@ export class UpdateComponent implements OnInit, OnChanges {
         this.updated();
         this.goToAuthorsList()
       }, (err) => {
-        console.log("post error")
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error, Author hasn't been updated !",
+          footer: ''
+        })      
       })
 
   }

@@ -27,6 +27,10 @@ export class BookServiceService {
     });
   }
 
+  search(keyword:string,page:number){
+    return this.client.get(`${this.BASE_URL}/search/${keyword} ?page=${page}`,{observe:"response"})
+  }
+
   show(id: string){
     return this.client.get(`${this.BASE_URL}/${id}`,{
       observe:"response"

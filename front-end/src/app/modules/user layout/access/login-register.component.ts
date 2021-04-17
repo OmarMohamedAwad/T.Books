@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserAccessServiceService} from './services/user-access-service.service';
 import {Router} from '@angular/router';
 import {User} from './models/user';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login-register',
@@ -110,7 +111,12 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
           this.userPassStatus = true
         }
       }, (err) => {
-        console.log('post error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Server error, Can't create the session!",
+          footer: ''
+        })
       });
   }
 
@@ -148,7 +154,12 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
             console.log("");
           }
         }, (err) => {
-          console.log('post error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Server error, your data haven't been saved !",
+            footer: ''
+          })
         });
     }
   }

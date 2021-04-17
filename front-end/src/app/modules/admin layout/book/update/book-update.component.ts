@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {Book} from '../models/book';
 import {BookServiceService} from '../services/book-service.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-book-update',
   templateUrl: './book-update.component.html',
@@ -62,7 +62,12 @@ export class BookUpdateComponent implements OnInit, OnChanges {
         this.updatedBook.emit(this.book);
         this.closebutton.nativeElement.click();
       }, error => {
-        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating book, changes havn't been saved!",
+          footer: ''
+        })
       })
     }
   }
@@ -84,7 +89,10 @@ export class BookUpdateComponent implements OnInit, OnChanges {
     categoryName:"",
     authorName:"",
     bookReviews:[],
-    bookRatings:[]
+    bookRatings:[],
+    currantReader:[],
+    finishReadUsers:[],
+    wantToReadeUsers:[],
   };
 
   @Input('authorsInfo') authors: any;

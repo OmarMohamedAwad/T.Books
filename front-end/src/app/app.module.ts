@@ -60,6 +60,7 @@ import { Observable } from 'rxjs';
 import { AdminLoginComponent } from './modules/admin layout/admin-login/admin-login.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ConcateNamePipe } from './pipes/concate-name.pipe';
+import { RatingDetComponent } from './modules/user layout/book/rating-det/rating-det.component';
 import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
 import { UserRoutingModule } from './modules/user layout/user-routing/user-routing.module';
 
@@ -68,6 +69,9 @@ import { AveragePipe } from './pipes/average.pipe';
 import { SumPipe } from './pipes/sum.pipe';
 import { EmptyComponent } from './modules/shared/empty/empty.component';
 
+// const appRoutes:Routes=[
+//   {path:"",redirectTo:"",pathMatch:"full"},
+// ]
 
 //  const appRoutes:Routes=[
 //    {path:"",redirectTo:"",pathMatch:"full"},
@@ -134,6 +138,7 @@ import { EmptyComponent } from './modules/shared/empty/empty.component';
     NotFoundComponent,
     ConcateNamePipe,
     AdminLoginComponent,
+    RatingDetComponent,
     AveragePipe,
     SumPipe,
     EmptyComponent

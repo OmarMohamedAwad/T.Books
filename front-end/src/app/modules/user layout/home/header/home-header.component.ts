@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home-header',
@@ -23,7 +24,12 @@ ngOnInit(): void {
     this.headerParagraphValue = this.settings.sectionContent.sub_title;
     },
   (err)=>{
-    console.log(err)
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "Error, Can't get header content !",
+      footer: ''
+    })
   }
   )
 }

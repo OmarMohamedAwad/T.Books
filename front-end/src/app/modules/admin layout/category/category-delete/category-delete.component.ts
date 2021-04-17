@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import { CategoryService } from '../../../../services/category.service';
 import {Category} from '../models/category';
 import {Book} from '../../book/models/book';
+import Swal from 'sweetalert2'
 declare var $:any;
 @Component({
   selector: 'app-category-delete',
@@ -29,18 +30,22 @@ export class CategoryDeleteComponent implements OnInit {
     )
   }
   getid(){
-    console.log("from delete "+this.deletedCategory);
     return this.deletedCategory;
   }
 
   deleteCategory(){
     this._categoryService.categoryDelete(this.deletedCategory.id).subscribe((res)=>{
-      console.log(res);
       if(res.message=="Deleted Correctly"){
         this.closebutton.nativeElement.click();
         this.refreshCategories.emit()
-        console.log("deleted")
       }
+    },(err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error deleting category, Try again !",
+        footer: ''
+      })
     })
   }
 

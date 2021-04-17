@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -18,7 +19,12 @@ export class HomeAllComponent implements OnInit {
       console.log(response.body)
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error loading Home content !",
+        footer: ''
+      })
     }
     )
   }

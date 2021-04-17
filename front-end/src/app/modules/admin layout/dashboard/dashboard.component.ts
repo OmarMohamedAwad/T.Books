@@ -1,5 +1,6 @@
 import {trigger, state, transition, animate, style} from '@angular/animations';
 import {Component, OnInit} from '@angular/core';
+import Swal from 'sweetalert2';
 import {DashboardService} from '../../../services/dashboard.service';
 
 @Component({
@@ -29,12 +30,19 @@ export class DashboardComponent implements OnInit {
     this.dashboard();
   }
 
-  dashboard() {
+dashboard() {
     this._dashboard.index().subscribe((res) => {
       this.data = res;
       this.isLoad = true
+    },(err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Can't get required Info from the server!",
+        footer: ''
     });
-  }
+  })
+}
 
   ngOnInit(): void {
   }

@@ -36,6 +36,7 @@ async function store(req, res, next) {
         rater: ratingSavingRequest.rater,
         ratedBook: ratingSavingRequest.book
     })
+    await Rating.deleteMany({ $and: [{rater: rating.rater },{ratedBook: rating.ratedBook}] })
     console.log("before post")
     try {
         const newRating = await rating.save()
@@ -49,13 +50,13 @@ async function store(req, res, next) {
 
 async function update(req, res, next) {
 
-    console.log("jdsj")
+    console.log(" i am update ")
     const {id} = req.params;
     const rating = req.body
     const newRating = {
-        ...(rating.rate ? { rate: rating.rate } : {})
+        ...(rating.rate ? { rate: rating.rate } : {}),
     }
-
+    console.log(id , rating)
     try{
         await Rating.findByIdAndUpdate({ _id: id }, newRating)
         res.json({

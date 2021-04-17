@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home-popular-book',
@@ -11,7 +12,7 @@ export class HomePopularBookComponent implements OnInit {
   row1:string[] = []
   row2:string[] = []
   popularbooks:string[][] = [ [] , [] ];
-  
+
   bookNameRow1:string[] = [];
   bookNameRow2:string[] = [];
   popularbooksNames:string[][] = [ [] , [] ];
@@ -23,11 +24,12 @@ export class HomePopularBookComponent implements OnInit {
   subscriber:any;
 
   constructor(private homeService: HomeService) { }
-  
+
   ngOnInit(): void {
     let home;
     this.subscriber = this.homeService.getHome()
     .subscribe((response:any)=>{
+        console.log(response);
       home = response.body.books;
       console.log(home)
       for(let i = 0; i < home.length && i < 4; i++)
@@ -50,7 +52,12 @@ export class HomePopularBookComponent implements OnInit {
       console.log(this.popularbooksAuthors)
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error loading Home content",
+        footer: ''
+      })
     }
     )
   }
