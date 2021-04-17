@@ -11,12 +11,12 @@ export class HomeAuthorComponent implements OnInit {
 
   subscriber:any;
 
- 
+
   authorsImages:string[] = [];
   authorsNames:string[] = [];
-
+  authorsId:string [] = [];
   constructor(private homeService: HomeService) { }
-  
+
   ngOnInit(): void {
     let home;
     this.subscriber = this.homeService.getHome()
@@ -27,9 +27,11 @@ export class HomeAuthorComponent implements OnInit {
       {
         this.authorsImages.push(home[i].authorImage)
         this.authorsNames.push(home[i].autherFirstName)
+        this.authorsId.push(response.body.authors[i]._id)
       }
-      console.log(this.authorsImages)
-      console.log(this.authorsNames)
+     // console.log(this.authorsImages)
+     // console.log(this.authorsNames)
+      console.log(this.authorsId)
     },
     (err)=>{
       Swal.fire({
