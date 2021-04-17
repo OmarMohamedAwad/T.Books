@@ -3,12 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../../../services/category.service';
 import {Router} from '@angular/router';
-<<<<<<< HEAD
 import Swal from 'sweetalert2';
 
-=======
-import Swal from 'sweetalert2'
->>>>>>> aa9b5eefdf4346080c90eeef21449f1c2d883a84
 @Component({
   selector: 'app-category-store',
   templateUrl: './category-store.component.html',

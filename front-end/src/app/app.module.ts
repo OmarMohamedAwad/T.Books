@@ -63,7 +63,6 @@ import { ConcateNamePipe } from './pipes/concate-name.pipe';
 import { RatingDetComponent } from './modules/user layout/book/rating-det/rating-det.component';
 import { AdminRoutingModule } from './modules/admin layout/route/admin-routing/admin-routing.module';
 import { UserRoutingModule } from './modules/user layout/user-routing/user-routing.module';
-
 import { UserAuthGaurdGuard } from './Guards/user-auth-gaurd.guard';
 import { AveragePipe } from './pipes/average.pipe';
 import { SumPipe } from './pipes/sum.pipe';
