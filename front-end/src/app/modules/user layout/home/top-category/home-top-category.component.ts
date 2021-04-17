@@ -13,9 +13,9 @@ export class HomeTopCategoryComponent implements OnInit {
 
   topCategories:string[] = [];
   coleredBackground:string[] = ["bg-bink one" , "bg-blue two" , "bg-yellow three"]
-
+  categoriesName:string [] = [];
   constructor(private homeService: HomeService) { }
-  
+
   ngOnInit(): void {
     let home;
     this.subscriber = this.homeService.getHome()
@@ -25,6 +25,7 @@ export class HomeTopCategoryComponent implements OnInit {
       for(let i = 0; i < home.length && i < 3; i++)
       {
         this.topCategories.push(home[i].categoryImage)
+        this.categoriesName.push(response.body.categories[i].categoryName)
       }
       console.log(this.topCategories)
     },
