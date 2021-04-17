@@ -23,7 +23,7 @@ export class CategoryStoreComponent implements OnInit {
   }
 
   categoryForm = new FormGroup({
-    'name': new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z]+$/)]),
+    'name': new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]),
     'image': new FormControl('', [Validators.required])
   });
 
