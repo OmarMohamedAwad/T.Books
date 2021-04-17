@@ -1,19 +1,19 @@
 <app-nav-user></app-nav-user>
-<div class="fixed d-inline-block page_content position-absolute">
+<div class="fixed page_content position-absolute">
     <ul class="sidebar">
-        <li><a class="intro btn btn-danger mt-1" href="#intro">Introduction</a></li>
-        <li><a class="cookies btn btn-danger mt-2" href="#cookies">Cookies</a></li>
-        <li><a class="licence btn btn-danger mt-2" href="#licence">License</a></li>
-        <li><a class="iframes btn btn-danger mt-2" href="#iframes">iFrames</a></li>
-        <li><a class="accessData btn btn-danger mt-2" href="#accessData">Access Data</a></li>
-        <li><a class="reports_and_reviews btn btn-danger mt-2" href="#reports_and_reviews">Reports and Reviews</a>
+        <li><a class="intro btn btn-danger mt-1" (click)="goToSection('intro')">Introduction</a></li>
+        <li><a class="cookies btn btn-danger mt-2" (click)="goToSection('cookies')">Cookies</a></li>
+        <li><a class="licence btn btn-danger mt-2" (click)="goToSection('licence')">License</a></li>
+        <li><a class="iframes btn btn-danger mt-2" (click)="goToSection('iframes')">iFrames</a></li>
+        <li><a class="accessData btn btn-danger mt-2" (click)="goToSection('access')">Access Data</a></li>
+        <li><a class="reports_and_reviews btn btn-danger mt-2" (click)="goToSection('reports_and_reviews')">Reports and Reviews</a>
         </li>
-        <li><a class="termination btn btn-danger mt-2" href="#termination">Termination</a></li>
-        <li><a class="ack btn btn-danger mt-2" href="#ack">Acknowledgement</a></li>
-        <li><a class="contact btn btn-danger mt-2" href="#contact">Contact Us</a></li>
+        <li><a class="termination btn btn-danger mt-2" (click)="goToSection('termination')">Termination</a></li>
+        <li><a class="ack btn btn-danger mt-2" (click)="goToSection('ack')">Acknowledgement</a></li>
+        <li><a class="contact btn btn-danger mt-2" (click)="goToSection('contact')">Contact Us</a></li>
     </ul>
 </div>
-<div class="terms d-inline-block">
+<div class="terms">
     <section id="intro">
         <h4>Introduction</h4>
         <p>Welcome to Trending Books.</p>

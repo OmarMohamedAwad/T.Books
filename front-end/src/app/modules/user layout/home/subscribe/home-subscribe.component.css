@@ -1,35 +1,32 @@
-.subscribe{
+.subscribe {
     font-family: 'PT Sans', sans-serif;
     background-color: #DE3242;
 }
 
-.italic{ 
-    font-style: italic; 
+.italic {
+    font-style: italic;
     font-family: 'Playfair Display';
 }
 
 button {
     padding: 12px 24px !important;
-    color: #fff; 
-    background-color: #000; 
-    border-radius: 10px; 
-    font-size: 17px; 
+    color: #fff;
+    background-color: #000;
+    border-radius: 10px;
+    font-size: 17px;
     line-height: 2;
-    width: 10%;
-} 
+    width: 140px;
+}
 
 .btn-custom {
-    font-size: 20px ; 
-    font-weight:700;
+    font-size: 20px;
+    font-weight: 700;
 }
 
-
-button:hover{
-    background-color: transparent; 
+button:hover {
+    background-color: transparent;
     border: 1px solid #000 !important;
-    color: #000 !important; 
-    font-size: 20px; 
+    color: #000 !important;
+    font-size: 20px;
     font-weight: bold;
 }
-
-
