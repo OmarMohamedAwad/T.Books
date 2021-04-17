@@ -2,7 +2,7 @@ body {
   overflow: hidden;
 }
 .author-search {
-  margin-top: 7%;
+  margin-top: 6%;
 }
 .w-40{ width:40% }
 .w-90{ width:90% }
@@ -181,6 +181,13 @@ body {
   .t-top-left {left: 7%;}
 
   .author p {font-size: 1.2em;}
+
+  .author-search {
+    width: 100%;
+    margin-top: 10%;
+  }
+
+  .author-search .input-group{width: 60%;}
 }
 
 @media only screen and (max-width: 990px) {
@@ -202,6 +209,10 @@ body {
   .t-bottom-right{right: 7%;}
 
   .t-top-left {left: 7%;}
+
+  .author-search {margin-top: 12%;}
+
+  .author-search .input-group{width: 95%;}
 }
 
 @media only screen and (max-width: 575px) {
@@ -212,6 +223,14 @@ body {
   .t-bottom-right{right: 7%;}
 
   .t-top-left {left: 7%;}
+
+  .author-search {margin-top: 18%;}
+
+  .author-search .input-group{width: 100%;justify-content: center}
+
+  .author-search .input-group .form-outline{
+    width: 70%;
+  }
 }
 
 @media only screen and (max-width: 400px) {

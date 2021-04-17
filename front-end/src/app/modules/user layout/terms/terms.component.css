@@ -8,7 +8,9 @@
     background: #DE3241;
     box-sizing: border-box;
     display: inline-block;
+    border-radius: 5px;
 }
+
 .terms{
     width: 60%;
     height: 80vh;
@@ -20,6 +22,7 @@
     border-top: 1vh solid rgba(255,255,255,0.9);
     border-bottom: 1vh solid rgba(255,255,255,0.9);
     display: inline-block;
+    border-radius: 5px;
 }
 h4{
     font-family: 'Playfair Display';

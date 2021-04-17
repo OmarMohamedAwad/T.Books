@@ -1,9 +1,6 @@
-import {Book} from './../../../../admin layout/book/models/book';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Author} from 'src/app/modules/admin layout/author/models/author';
 import {AuthorsServiceService} from 'src/app/services/authors-service.service';
-import {ReviewsService} from '../../../../../services/reviews.service';
 import {UserService} from '../../../../../services/user.service';
 import Swal from 'sweetalert2';
 
@@ -25,7 +22,7 @@ export class ShowAuthorComponent implements OnInit {
   constructor(private authorService: AuthorsServiceService,
               private myActivatedRoute: ActivatedRoute, private router: Router, private userService: UserService) {
     this.authorID = this.myActivatedRoute.snapshot.params.id;
-    this.userId = sessionStorage.getItem('userId') ? sessionStorage.getItem('userId') : '';
+    this.userId = sessionStorage.getItem('userId') ? sessionStorage.getItem('userId') : '605a0532ba76f47a7793e130';
   }
 
   ngOnInit(): void {
@@ -35,12 +32,9 @@ export class ShowAuthorComponent implements OnInit {
   getAuthorById() {
     this.authorService.show(this.authorID).subscribe(
       (res) => {
-        console.log(this.authorID);
         this.author = res;
         this.loading = true;
-        console.log(this.author);
-        console.log(this.author.books.length);
-        console.log(this.author.books[0].bookName);
+        this.readBookStatus(this.author.books);
       }, (err) => {
         Swal.fire({
           icon: 'error',
@@ -52,8 +46,7 @@ export class ShowAuthorComponent implements OnInit {
   }
 
   changeBookStatus(type: string, bookId: any, index: number) {
-    console.log(type, bookId);
-    this.userId = '605a0532ba76f47a7793e130';
+    this.loading = false
     this.userSubscriber = this.userService.updateUserBookList({userId: this.userId, bookId: bookId, type: type})
       .subscribe((response: any) => {
           if (type == '1') {
@@ -64,7 +57,7 @@ export class ShowAuthorComponent implements OnInit {
             this.bookStatus[index] = 'Finished reading';
           }
           this.ngOnInit();
-
+          this.loading = true
         },
         (err) => {
           console.log(err);
@@ -73,8 +66,6 @@ export class ShowAuthorComponent implements OnInit {
   }
 
   readBookStatus(books: any) {
-    this.userId = '605a0532ba76f47a7793e130';
-    console.log(books);
     for (let i = 0; i < books.length; i++) {
       if (books[i].currentlyReader && books[i].currentlyReader.find((element: any) => element == this.userId)) {
         this.bookStatus[i] = 'Is currant read';
@@ -85,7 +76,6 @@ export class ShowAuthorComponent implements OnInit {
       } else {
         this.bookStatus[i] = "Add to my list"
       }
-      console.log("here", this.bookStatus[i]);
     }
   }
 
