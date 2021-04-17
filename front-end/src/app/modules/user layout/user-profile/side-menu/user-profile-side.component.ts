@@ -10,7 +10,8 @@ import { UserProfileService } from '../services/user-profile.service'
 export class UserProfileSideComponent implements OnInit {
 
   subscriber: any;
-  userId:string = "6075b51aa7c3f52f7904ec06" /*"6075b7d5a7c3f52f7904ec0a"*/;
+
+  userId:string = sessionStorage.getItem("userId")!; /*"6075b79ea7c3f52f7904ec09" /*"6075b7d5a7c3f52f7904ec0a"*/;
   selectedBooksType:string = "All";
   userImage:string = "assets/user/profile/author-4.jpg";
   userName:string = "";
@@ -26,9 +27,8 @@ export class UserProfileSideComponent implements OnInit {
   ngOnInit(): void {
     this.subscriber = this.userProfileService.getuserById(this.userId)
     .subscribe((response:any)=>{
-      console.log(response)
       this.userName = response.firstName;
-      
+
     },
     (err)=>{
       Swal.fire({

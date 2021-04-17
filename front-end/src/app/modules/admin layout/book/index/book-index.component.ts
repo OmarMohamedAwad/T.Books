@@ -30,7 +30,10 @@ export class BookIndexComponent implements OnInit, OnDestroy {
       categoryName:"",
       authorName:"",
       bookReviews:[],
-      bookRatings:[]
+      bookRatings:[],
+      currantReader:[],
+      finishReadUsers:[],
+      wantToReadeUsers:[],
   };
 
   constructor(private bookService: BookServiceService, private authorService: AuthorsServiceService, private categoryService: CategoryService) {
@@ -65,31 +68,6 @@ export class BookIndexComponent implements OnInit, OnDestroy {
       .subscribe((response:any)=>{
           this.books = response.body
           this.isLoad = true
-          /*this.books=this.allBooks = [{
-            id:"605cdd9d22d5b83d40ada5e5",
-            name:"mybook",
-            description:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            image:"kk.png",
-            category:"605cd2adc5c1be45441514e6",
-            author:"605cc012292ba3558c650ada",
-            categoryName:"",
-            authorName:"",      
-            bookReviews:[],
-            bookRatings:[]
-        },
-        {
-          id:"605cvd9d22d5b83d40ada5e5",
-          name:"ag",
-          description:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          image:"kk.png",
-          category:"605cd2adc5c1be45441514e6",
-          author:"605cc012292ba3558c650ada",
-          categoryName:"",
-          authorName:"",    
-          bookReviews:[],
-          bookRatings:[]
-      }]
-      */
           this.books=this.allBooks =response.body
           //console.log(response.body);
         },
@@ -108,11 +86,13 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     this.keywords = this.search_box.nativeElement.value;
     this.filterList(this.keywords);
   }
+
   filterList(keywords:string){
     this.books= this.allBooks.filter((item)=>{
       return item.name.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())
     })
   }
+
   getCategories(){
     this.subscriber = this.categoryService.categoryIndex()
       .subscribe((response)=>{

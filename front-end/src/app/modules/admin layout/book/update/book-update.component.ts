@@ -80,7 +80,10 @@ export class BookUpdateComponent implements OnInit, OnChanges {
     categoryName:"",
     authorName:"",
     bookReviews:[],
-    bookRatings:[]
+    bookRatings:[],
+    currantReader:[],
+    finishReadUsers:[],
+    wantToReadeUsers:[],
   };
 
   @Input('authorsInfo') authors: any;

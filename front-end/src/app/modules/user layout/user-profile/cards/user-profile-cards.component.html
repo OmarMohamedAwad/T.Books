@@ -11,27 +11,37 @@
                         <div class="col-8">{{book}}</div>
                         <div class="col-4">{{bookOverallRate[i]}} <i class="fas fa-star first-star"></i> </div>
                     </div>
-                    <div class="row" class="author">
+                    <div class="row author">
                         <div class="col-12">{{bookIAuthor[i]}}</div>
                     </div>
-                    <div class="row" class="ratingStars"> 
+                    <div class="row ratingStars">
                         <!-- <ngb-rating style="color: rgb(250, 225, 0);" [max]="5" [(rate)]="userRate" [readonly]="false"></ngb-rating> -->
                         <div class="col-12">
                             <span *ngFor="let star of [1,2,3,4,5]; let j = index" (click)="submitRate($event , j+1 , myRatingIds[i] , bookIds[i])">
-                                <i class="fas fa-star ratingstar1" *ngIf="(j+1)<bookRate[i] || (j+1)==bookRate[i]; else noStar" style="color:  #de3242"></i> 
+                                <i class="fas fa-star ratingstar1" *ngIf="(j+1)<bookRate[i] || (j+1)==bookRate[i]; else noStar" style="color:  #de3242"></i>
                                 <ng-template #noStar>
-                                    <i class="fas fa-star ratingstar1"></i> 
+                                    <i class="fas fa-star ratingstar1"></i>
                                 </ng-template>
                             </span>
                         </div>
                     </div>
                     <div class="row">
-                        <select class="form-select" aria-label="Default select example" id="category">
-                            <option selected class="selectHeader">{{bookUserType[i]}}</option>
-                            <option value="1">Read</option>
-                            <option value="2">Current reading</option>
-                            <option value="3">Want to read</option>
-                        </select>
+                      <div class="dropdown" style="margin-top: 90px; margin-left: 35px;">
+                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          {{bookUserType[i]}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" (click)="changeBookStatus('1',bookIds[i], i)">Want to read</a>
+                          <a class="dropdown-item" (click)="changeBookStatus('2',bookIds[i], i)">Is currant read</a>
+                          <a class="dropdown-item" (click)="changeBookStatus('3',bookIds[i], i)">Finished reading</a>
+                        </div>
+                      </div>
+<!--                        <select class="form-select" aria-label="Default select example" id="category">-->
+<!--                            <option selected class="selectHeader">{{bookUserType[i]}}</option>-->
+<!--                            <option value="1">Read</option>-->
+<!--                            <option value="2">Current reading</option>-->
+<!--                            <option value="3">Want to read</option>-->
+<!--                        </select>-->
                     </div>
                 </div>
             </div>

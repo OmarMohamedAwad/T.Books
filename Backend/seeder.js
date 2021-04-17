@@ -6,7 +6,7 @@ const colors = require('colors');
 'use strict';
 //load env 
 const PORT=3000
-const MONGODB_URL="mongodb://localhost:27017/trending_books"
+const MONGODB_URL="mongodb+srv://T-Book:T-Book@t-book.qsljh.mongodb.net/trending_books?retryWrites=true&w=majority"
 
 //load user model 
 const Admin = require('./modules/admin/models/Admin');

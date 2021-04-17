@@ -27,7 +27,7 @@
           <img src="assets/user/book/book-1.jpg" class="book-image mt-3">
           <div class="book-info">
               <p class="mb-2 mt-4">{{book.authorName}}</p>
-              <a href="#" class="btn btn-dark" [routerLink]="book.id.toString()">View More</a>
+              <a class="btn btn-dark" [routerLink]="book.id.toString()">View More</a>
           </div>
           <div class="category">
             <p>{{book.categoryName}}</p>
@@ -43,12 +43,12 @@
     <div class="row">
       <nav aria-label="Page navigation example">
         <ul class="pagination w-50">
-          <li class="page-item" (click)="previous()"><a class="" href="#" ><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
+          <li class="page-item" (click)="previous()"><a class=""><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
 
           <ng-container *ngFor="let page of pages; index as i">
-            <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="" href="#">{{i+1}}</a></li>
+            <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="" >{{i+1}}</a></li>
           </ng-container>
-          <li class="page-item" (click)="next()"><a class="" href="#" ><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
+          <li class="page-item" (click)="next()"><a class=""><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
         </ul>
       </nav>
     </div>

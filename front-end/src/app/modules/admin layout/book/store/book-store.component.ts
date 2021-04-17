@@ -20,7 +20,10 @@ export class BookStoreComponent implements OnInit {
     categoryName:"",
     authorName:"",
     bookReviews:[],
-    bookRatings:[]
+    bookRatings:[],
+    currantReader:[],
+    finishReadUsers:[],
+    wantToReadeUsers:[],
   };
 
   incorrectData = false;
