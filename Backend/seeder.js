@@ -14,8 +14,8 @@ const Setting = require('./modules/setting/models/setting');
 const Author = require('./modules/author/models/Author');
 const Book = require('./modules/book/models/Book');
 const Category = require('./modules/category/models/Category');
-const { setting } = require('cluster');
-const { Rating } = require('../modules/rating/models/Ratting');
+const { settings } = require('cluster');
+const { Rating } = require('./modules/rating/models/Rating');
 /***You Can add Your Model Link here please ***/
 
 //conect to DataBase 
@@ -49,7 +49,7 @@ const importData = async() => {
             await Author.create(authors);
             await Category.create(catgories);
             await Book.create(books);
-            await Rating.create(ratings);
+            //await Rating.create(ratings);
             console.log('Data Imported Into DB....'.green.inverse);
             process.exit();
         } catch (err) {
@@ -65,7 +65,7 @@ const deleteData = async() => {
         await Author.deleteMany();
         await Category.deleteMany();
         await Book.deleteMany();
-        await Rating.deleteMany();
+        // await Rating.deleteMany();
         /*** Create Your Model.deleteMany(fileJsonVariabe) ***/
         console.log('Data Destoryed...'.red.inverse);
         process.exit();
