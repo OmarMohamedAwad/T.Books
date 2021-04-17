@@ -2,7 +2,7 @@
 
 <p align="center">
 
-<img src="ReadMe-photos/CoverPhoto.jpeg">
+<img src="ReadMe-photos/home updates.png">
 
 </p>
 
