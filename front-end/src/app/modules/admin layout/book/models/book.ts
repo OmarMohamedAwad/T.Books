@@ -5,8 +5,11 @@ export interface Book {
   image: string,
   category: any,
   author: any,
-  categoryName: string, 
+  categoryName: string,
   authorName: string,
   bookReviews:Array<any>,
-  bookRatings:Array<any>
+  bookRatings:Array<any>,
+  currantReader:[],
+  wantToReadeUsers: [],
+  finishReadUsers: [],
 }

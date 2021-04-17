@@ -1,11 +1,13 @@
 const express = require('express');
 const {index,store,show,update,destroy} = require('../controllers/settingController');
+const checkAccessToken = require('../../../middlewares/middleware')
+
 
 const Setting = require('../models/setting');
 const settingRouter = express.Router()
 
 
-settingRouter.get("/", (request, response, next)=> {
+settingRouter.get("/", checkAccessToken(1), (request, response, next)=> {
     index(request, response, next);   
 }) 
 settingRouter.get("/:id",async (request, response, next)=> {

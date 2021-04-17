@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from 'src/app/services/settings.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home-footer',
@@ -28,7 +29,12 @@ export class HomeFooterComponent implements OnInit {
       this.footerDescriptionValue = this.settings.sectionContent.capation;
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error, can't get footer content !",
+        footer: ''
+      })
     }
     )
   }

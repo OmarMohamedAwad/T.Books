@@ -25,7 +25,10 @@ async function profilePresenter(books , type , userId)
          returnData.bookId = book._id;
          returnData.image = book.bookImage;
          returnData.author = book.bookAuthor.autherFirstName + ' ' + book.bookAuthor.autherLastName;
-         returnData.state = type;
+         if(type == "CurrentReading") returnData.state = "Is current reading"
+         else if(type == "WantToRead") returnData.state = "Want to reading"
+         else if(type == "read") returnData.state = "Finished reading"
+        //  returnData.state = type;
          let avg = 0;
          for(let i = 0; i < book.bookRatings.length; i++)
          {

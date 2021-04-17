@@ -9,6 +9,7 @@ export class RatingServiceService {
   readonly BASE_URL: string = "http://localhost:3000/rating";
   
   store(rating_det: { rate:number, rater:string, book:string}){
+    console.log(rating_det);
     return this.client.post(this.BASE_URL,rating_det);
   }
 }

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Book} from '../models/book';
 import {BookServiceService} from '../services/book-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-delete',
@@ -27,7 +28,12 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
         this.deletedBook.emit(this.book);
         this.closebutton.nativeElement.click();
       },(err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error Deleting Book, Try again!",
+          footer: ''
+        })
       })
   }
 
@@ -41,7 +47,10 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
     categoryName:"",
     authorName:"",
     bookReviews:[],
-    bookRatings:[]
+    bookRatings:[],
+    currantReader:[],
+    finishReadUsers:[],
+    wantToReadeUsers:[],
   };
 
   @Output() deletedBook:EventEmitter<Book> = new EventEmitter<Book>()

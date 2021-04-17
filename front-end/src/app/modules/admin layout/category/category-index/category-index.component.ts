@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from '../../../../services/category.service';
 import {Category} from '../models/category';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-category-index',
   templateUrl: './category-index.component.html',
@@ -22,6 +22,13 @@ export class CategoryIndexComponent implements OnInit {
     this._categoryService.categoryIndex().subscribe((res) => {
       this.categories = res;
       this.isLoad = true;
+    },(err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error loading books",
+        footer: ''
+      })
     });
   }
 

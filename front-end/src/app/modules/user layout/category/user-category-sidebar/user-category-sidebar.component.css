@@ -28,6 +28,7 @@ body {
 
 .sidebar-wrapper a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 /*Category content*/

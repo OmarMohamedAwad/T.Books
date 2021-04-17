@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import Swal from 'sweetalert2';
 import { CategoryService } from '../service/category.service'
 
 @Component({
@@ -76,7 +77,12 @@ export class UserCategoryBooksComponent implements OnInit {
       this.calculatePagination();
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something went wrong, can't get page content!",
+        footer: ''
+      })
     })
   }
 

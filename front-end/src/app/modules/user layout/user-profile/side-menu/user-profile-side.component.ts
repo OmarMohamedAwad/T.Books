@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import Swal from 'sweetalert2';
 import { UserProfileService } from '../services/user-profile.service'
 
 @Component({
@@ -9,6 +10,7 @@ import { UserProfileService } from '../services/user-profile.service'
 export class UserProfileSideComponent implements OnInit {
 
   subscriber: any;
+
   userId:string = sessionStorage.getItem("userId")!; /*"6075b79ea7c3f52f7904ec09" /*"6075b7d5a7c3f52f7904ec0a"*/;
   selectedBooksType:string = "All";
   userImage:string = "assets/user/profile/author-4.jpg";
@@ -26,10 +28,15 @@ export class UserProfileSideComponent implements OnInit {
     this.subscriber = this.userProfileService.getuserById(this.userId)
     .subscribe((response:any)=>{
       this.userName = response.firstName;
-      
+
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error getting your information !",
+        footer: ''
+      })
     })
   }
   @Output() selectedBooksTypeEmitter:EventEmitter<string> = new EventEmitter()

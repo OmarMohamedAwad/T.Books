@@ -3,7 +3,7 @@ import {BookServiceService} from '../services/book-service.service';
 import {Book} from '../models/book';
 import {AuthorsServiceService} from '../../../../services/authors-service.service';
 import {CategoryService} from '../../../../services/category.service';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-book-index',
   templateUrl: './book-index.component.html',
@@ -30,7 +30,10 @@ export class BookIndexComponent implements OnInit, OnDestroy {
       categoryName:"",
       authorName:"",
       bookReviews:[],
-      bookRatings:[]
+      bookRatings:[],
+      currantReader:[],
+      finishReadUsers:[],
+      wantToReadeUsers:[],
   };
 
   constructor(private bookService: BookServiceService, private authorService: AuthorsServiceService, private categoryService: CategoryService) {
@@ -50,7 +53,12 @@ export class BookIndexComponent implements OnInit, OnDestroy {
           this.authors = response.body
         },
         (err)=>{
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Loading authors failed !",
+            footer: ''
+          })
         }
       )
   }
@@ -60,36 +68,16 @@ export class BookIndexComponent implements OnInit, OnDestroy {
       .subscribe((response:any)=>{
           this.books = response.body
           this.isLoad = true
-          /*this.books=this.allBooks = [{
-            id:"605cdd9d22d5b83d40ada5e5",
-            name:"mybook",
-            description:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            image:"kk.png",
-            category:"605cd2adc5c1be45441514e6",
-            author:"605cc012292ba3558c650ada",
-            categoryName:"",
-            authorName:"",      
-            bookReviews:[],
-            bookRatings:[]
-        },
-        {
-          id:"605cvd9d22d5b83d40ada5e5",
-          name:"ag",
-          description:"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          image:"kk.png",
-          category:"605cd2adc5c1be45441514e6",
-          author:"605cc012292ba3558c650ada",
-          categoryName:"",
-          authorName:"",    
-          bookReviews:[],
-          bookRatings:[]
-      }]
-      */
           this.books=this.allBooks =response.body
           //console.log(response.body);
         },
         (err)=>{
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Loading Books failed !",
+            footer: ''
+          })
         }
       )
   }
@@ -98,19 +86,25 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     this.keywords = this.search_box.nativeElement.value;
     this.filterList(this.keywords);
   }
+
   filterList(keywords:string){
-    console.log(keywords)
     this.books= this.allBooks.filter((item)=>{
       return item.name.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())
     })
   }
+
   getCategories(){
     this.subscriber = this.categoryService.categoryIndex()
       .subscribe((response)=>{
           this.categories = response
         },
         (err)=>{
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Loading categories failed !",
+            footer: ''
+          })
         }
       )
   }
@@ -121,7 +115,6 @@ export class BookIndexComponent implements OnInit, OnDestroy {
 
   getBook(book:Book) {
     this.clickedBook = book;
-    console.log(book);
   }
 
   navigateToAdd(){
@@ -129,7 +122,6 @@ export class BookIndexComponent implements OnInit, OnDestroy {
   }
 
   deleteBook(book: any){
-    console.log(book);
     this.ngOnInit();
   }
 

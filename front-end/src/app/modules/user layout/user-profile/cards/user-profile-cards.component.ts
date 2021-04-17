@@ -1,6 +1,11 @@
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {UserProfileService} from '../services/user-profile.service';
+import {BookObj} from '../models/book';
+import {UserService} from '../../../../services/user.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserProfileService } from '../services/user-profile.service'
 import { BookObj } from '../models/book'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-profile-cards',
@@ -8,6 +13,7 @@ import { BookObj } from '../models/book'
   styleUrls: ['./user-profile-cards.component.css']
 })
 export class UserProfileCardsComponent implements OnInit {
+
 
   subscriber:any;
   toggleFlag:boolean = false;
@@ -26,28 +32,30 @@ export class UserProfileCardsComponent implements OnInit {
   myRatingIds:string[] = [];
   starsHover:number = 0;
   cardHover:number = 0; 
+  userSubscriber:any;
 
-  constructor(private userProfileService: UserProfileService) { }
+  constructor(private userProfileService: UserProfileService, private userService: UserService) {}
 
   ngOnInit(): void {
-    this.getPage(this.currentBooksType , this.currentPage);
+    this.getPage(this.currentBooksType, this.currentPage);
   }
 
-  showDropList(event:any){
-      this.toggleFlag = !this.toggleFlag;
+  showDropList(event: any) {
+    this.toggleFlag = !this.toggleFlag;
   }
 
-  selectBooksType(booksType:string){
+  selectBooksType(booksType: string) {
     this.currentBooksType = booksType;
     this.currentPage = 1;
-    this.getPage(this.currentBooksType , this.currentPage);
+    this.getPage(this.currentBooksType, this.currentPage);
   }
 
-  searchBook(book:string){
-    console.log("we are in search part")
+  searchBook(book: string) {
+    console.log('we are in search part');
     this.currentPage = 1;
-    this.getPage(this.currentBooksType , this.currentPage , book);
+    this.getPage(this.currentBooksType, this.currentPage, book);
   }
+
 
   submitRate(event:Event , index:number , ratingId:string , bookId:string){
     console.log("submit" , index , "book " , bookId , "rating: ", ratingId )
@@ -58,7 +66,12 @@ export class UserProfileCardsComponent implements OnInit {
         console.log(response.body)
         },
       (err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error updating rate!",
+          footer: ''
+        })
       })
     }
     else{
@@ -68,28 +81,30 @@ export class UserProfileCardsComponent implements OnInit {
         console.log(response.body)
         },
       (err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Your rate hasn't been saved!",
+          footer: ''
+        })
       })
     }
   }
 
-  changePagination(type:any){
-    if(type == "back" && this.currentPage > 1){
+  changePagination(type: any) {
+    if (type == 'back' && this.currentPage > 1) {
       this.currentPage--;
-      this.getPage(this.currentBooksType , this.currentPage);
-    }
-    else if(type == "next" && this.currentPage < this.maxPages){
+      this.getPage(this.currentBooksType, this.currentPage);
+    } else if (type == 'next' && this.currentPage < this.maxPages) {
       this.currentPage++;
-      this.getPage(this.currentBooksType , this.currentPage);
-    }
-    else if (type != "back" && type != "next"){
+      this.getPage(this.currentBooksType, this.currentPage);
+    } else if (type != 'back' && type != 'next') {
       this.currentPage = type;
-      this.getPage(this.currentBooksType , this.currentPage);
+      this.getPage(this.currentBooksType, this.currentPage);
     }
   }
 
-  getPage(booktype:string , page:number , book:string="")
-  {
+  getPage(booktype: string, page: number, book: string = '') {
     this.bookImages = [];
     this.bookNames = [];
     this.bookIAuthor = [];
@@ -97,6 +112,7 @@ export class UserProfileCardsComponent implements OnInit {
     this.bookOverallRate = [];
     this.bookUserType = [];
     this.bookIds = [];
+
     this.myRatingIds = [];
     this.subscriber = this.userProfileService.getUserProfilePage(this.userId,booktype,page,book)
     .subscribe((response:any)=>{
@@ -118,7 +134,12 @@ export class UserProfileCardsComponent implements OnInit {
       this.calculatePagination();
     },
     (err)=>{
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error getting categories information !",
+        footer: ''
+      })
     })
   }
 
@@ -132,21 +153,43 @@ export class UserProfileCardsComponent implements OnInit {
         this.paginationPages.paginationPages = [1];
         break;
       case 2:
-        this.paginationPages.paginationPages = [1,2];
+        this.paginationPages.paginationPages = [1, 2];
         break;
       default:
-        if(this.currentPage == 1 || this.currentPage == 2) 
-          this.paginationPages.paginationPages = [1,2,3];
-        else if (this.currentPage == this.maxPages)
-          this.paginationPages.paginationPages = [this.maxPages - 2 , this.maxPages - 1 , this.maxPages]; 
-        else
-          this.paginationPages.paginationPages = [this.maxPages - 1 , this.maxPages , this.maxPages + 1];
+        if (this.currentPage == 1 || this.currentPage == 2) {
+          this.paginationPages.paginationPages = [1, 2, 3];
+        } else if (this.currentPage == this.maxPages) {
+          this.paginationPages.paginationPages = [this.maxPages - 2, this.maxPages - 1, this.maxPages];
+        } else {
+          this.paginationPages.paginationPages = [this.maxPages - 1, this.maxPages, this.maxPages + 1];
+        }
         break;
     }
     this.paginationPages.currentPage = this.currentPage;
-    this.setPaginationEmitter.emit(this.paginationPages)
+    this.setPaginationEmitter.emit(this.paginationPages);
   }
 
-  @Output() setPaginationEmitter:EventEmitter<{paginationPages:number[] , currentPage:number}> = new EventEmitter()
+  changeBookStatus(type: string, bookId: any, index: number) {
+    console.log(type, bookId);
+    this.userSubscriber = this.userService.updateUserBookList({userId: this.userId, bookId: bookId, type: type})
+      .subscribe((response: any) => {
+          console.log(response);
+          if (type == '1') {
+            this.bookUserType[index] = 'Want to read';
+          } else if (type == '2') {
+            this.bookUserType[index] = 'Is currant read';
+          } else if (type == '3') {
+            this.bookUserType[index] = 'Finished reading';
+          }
+          this.getPage(this.currentBooksType, this.currentPage);
+
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+  }
+
+  @Output() setPaginationEmitter: EventEmitter<{ paginationPages: number[], currentPage: number }> = new EventEmitter()
 }
 

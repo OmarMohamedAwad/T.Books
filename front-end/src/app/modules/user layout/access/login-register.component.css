@@ -1,9 +1,18 @@
+.content {
+  padding-top: 15vh;
+  background-image: url("/assets/user/login/back.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 
 .form-modal{
     position:relative;
     width:50%;
-    height:80vh;
-    margin-top:15vh;
+    height:580px;
     font-size: 14px;
     left:50%;
     transform:translateX(-50%);
@@ -12,7 +21,7 @@
     /*border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    */box-shadow:0 5px 25px 0px rgb(0, 0, 0)
+    */box-shadow:0 5px 15px 0px rgba(0, 0, 0,0.4)
 }
 
 .form-modal button{
@@ -209,4 +218,9 @@ img:hover{
     i{
         display: none!important;
     }
+}
+@media only screen and (max-width:960px){
+  .content{
+    overflow: auto;
+  }
 }

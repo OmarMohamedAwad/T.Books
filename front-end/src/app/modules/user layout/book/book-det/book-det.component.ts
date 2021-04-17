@@ -6,6 +6,9 @@ import {BookServiceService} from '../../../admin layout/book/services/book-servi
 import { ReviewsService } from 'src/app/services/reviews.service';
 import { RatingServiceService } from '../../../../services/rating-service.service';
 import { Router } from '@angular/router';
+import {UserService} from '../../../../services/user.service';
+import {element} from 'protractor';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-det',
@@ -23,6 +26,7 @@ import { Router } from '@angular/router';
 })
 
 export class BookDetComponent implements OnInit {
+
   @ViewChild("star1")star1!:ElementRef<HTMLInputElement>;
   @ViewChild("star2")star2!:ElementRef<HTMLInputElement>;
   @ViewChild("star3")star3!:ElementRef<HTMLInputElement>;
@@ -35,9 +39,16 @@ export class BookDetComponent implements OnInit {
   bookId:string="";
   user_img="assets/user/author/author-1.jpg";
 
-  favsNum:number =215;
+  favsNum:number=100;
   userRate=-1;
-  userReview:string="";
+  userReview: string ="";
+  bookStatus: string = "";
+
+  constructor(private bookService: BookServiceService, private reviewsService: ReviewsService, private userService: UserService,
+              private ratingService: RatingServiceService,
+              private myActivatedRoute:ActivatedRoute, private router: Router) {
+    this.userId=sessionStorage.getItem("userId")!;
+  }
 
   book : Book =
     {
@@ -50,56 +61,70 @@ export class BookDetComponent implements OnInit {
       categoryName: "",
       authorName: "",
       bookReviews:[],
-      bookRatings:[]
+      bookRatings:[],
+      currantReader:[],
+      finishReadUsers:[],
+      wantToReadeUsers:[],
     }
 
   subscriber:any;
   rateSubscriber:any;
   reviewSubscriber:any;
+  userSubscriber:any;
 
-  ratesNum:number =112585
-  avgRate:number = 3.1;
+  ratesNum:number =0
+  avgRate:number = 0;
   ratings:any;
   myRating=-1;
   text:string = '';
   reviewerId:any = '';
 
-reviews:Array<{reviewBody: string,
-    reviewedBook: string,
-    reviwer: string,
-    __v: any,
-    _id: string}>=[]
-
-
-  constructor(private bookService: BookServiceService, private reviewsService: ReviewsService,
-    private ratingService: RatingServiceService, private myActivatedRoute:ActivatedRoute, private router: Router) {
-      this.userId=sessionStorage.getItem("userId")!;
-    }
+  reviews:Array<{reviewBody: string,
+  reviewedBook: string,
+  reviwer: string,
+  __v: any,
+  _id: string}>=[]
 
   ngOnInit(): void {
-    this.subscriber = this.bookService.show(/*this.myActivatedRoute.snapshot.params.id*/"605cdd9d22d5b83d40ada5e5")
+    this.subscriber = this.bookService.show(this.myActivatedRoute.snapshot.params.id)
     .subscribe((response:any)=>{
       this.book = response.body
       this.reviews = this.book.bookReviews;
       this.ratings = this.book.bookRatings;
       this.ratesNum = this.book.bookRatings.length;
+      this.readBookStatus(response.body.currantReader, response.body.wantToReadeUsers, response.body.finishReadUsers);
       this.favsNum = 0
       this.avgRate=0
       for(let i=0;i<this.ratings.length;i++)
         this.avgRate+=this.ratings[i].rate;
       if(this.ratesNum)
         this.avgRate/=this.ratesNum;
-      this.drawMyRating(this.ratings);
+        this.drawMyRating(this.ratings);
       },
       (err)=>{
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Error getting book details!",
+          footer: ''
+        })
       }
     )
   }
 
   setRate(bookRate:any){
-    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/})
+    this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:"605cde6e22d5b83d40ada5e6"/*this.userId*/, book:"605cdd9d22d5b83d40ada5e5"/*this.book.id*/}).subscribe((response:any)=>{},
+    (err)=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Error, your rate hasn't been saved !",
+        footer: ''
+      })
+    }
+  )
   }
+
   drawMyRating(ratingsArr:any){
     this.stars_Arr=[this.star1,this.star2,this.star3,this.star4,this.star5];
     for(let i=0;i<ratingsArr.length;i++){
@@ -108,7 +133,6 @@ reviews:Array<{reviewBody: string,
       }
     }
   }
-
 
   reloadComponent(){
     let currentUrl = this.router.url;
@@ -129,17 +153,50 @@ reviews:Array<{reviewBody: string,
           console.log(response)
           // this.router.navigate([`/book/${this.myActivatedRoute.snapshot.params.id}`]);
           this.reloadComponent()
-
-          },
-          (err)=>{
-            console.log(err)
+        },(err)=>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Error, your review hasn't been saved !",
+            footer: ''
+          })
         }
       )
     }
   }
-  ngOnDestroy(): void {
-    this.subscriber.unsubscribe();
-    this.rateSubscriber.unsubscribe();
-    this.reviewSubscriber.unsubscribe();
+
+  changeBookStatus(type: string){
+    this.reviewerId = "605a0532ba76f47a7793e130"
+    this.userSubscriber = this.userService.updateUserBookList({userId:this.reviewerId, bookId:this.book.id, type:type})
+      .subscribe((response:any)=>
+        {
+          if(type == "1") this.bookStatus = "Want to read"
+          else if(type == "2") this.bookStatus = "Is currant read"
+          else if(type == "3") this.bookStatus = "Finished reading"
+          console.log(response)
+          // this.reloadComponent()
+
+        },
+        (err)=>{
+          console.log(err)
+        }
+      )
   }
+
+  readBookStatus(currantReader: [], wantToRead: [], finishRead: []){
+    this.userId = "605a0532ba76f47a7793e130"
+    const currant = currantReader.find(element => element == this.userId)
+    const want = wantToRead.find(element => element == this.userId)
+    const finish = finishRead.find(element => element == this.userId)
+
+    if (currant) this.bookStatus = "Is currant read"
+    else if (want) this.bookStatus = "Want to read"
+    else if(finish) this.bookStatus = "Finished reading"
+    else this.bookStatus = "Add to my list"
+
+//   ngOnDestroy(): void {
+    // this.subscriber.unsubscribe();
+    // this.rateSubscriber.unsubscribe();
+    // this.reviewSubscriber.unsubscribe();
+//   }
 }

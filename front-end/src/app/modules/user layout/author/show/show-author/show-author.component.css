@@ -95,3 +95,7 @@ img {
     font-style: normal;
     font-weight: normal;
 }
+
+.dropdown-menu a{
+  cursor: pointer;
+}
