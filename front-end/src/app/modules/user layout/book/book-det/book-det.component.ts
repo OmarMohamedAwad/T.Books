@@ -102,7 +102,7 @@ export class BookDetComponent implements OnInit {
       if(this.ratesNum)
         this.avgRate/=this.ratesNum;
 
-        //this.drawMyRating(this.ratings);
+        this.drawMyRating(this.ratings);
       },
       (err)=>{
         Swal.fire({
@@ -117,7 +117,7 @@ export class BookDetComponent implements OnInit {
 
   setRate(bookRate:any){
     if(this.userId){
-      this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:this.userId, book:this.userId}).subscribe((response:any)=>{},
+      this.rateSubscriber = this.ratingService.store({rate:bookRate, rater:this.userId, book:this.book.id}).subscribe((response:any)=>{},
       (err)=>{
         Swal.fire({
           icon: 'error',

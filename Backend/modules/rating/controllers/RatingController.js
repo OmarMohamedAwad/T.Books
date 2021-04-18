@@ -36,10 +36,12 @@ async function store(req, res, next) {
         rater: ratingSavingRequest.rater,
         ratedBook: ratingSavingRequest.book
     })
-    await Rating.deleteMany({ $and: [{rater: rating.rater },{ratedBook: rating.ratedBook}] })
+    await Rating.deleteMany({ $and: [{rater: rating.rater },{ratedBook: rating.ratedBook}] });
+
     console.log("before post")
     try {
         const newRating = await rating.save()
+        console.log(newRating);
         res.json(200)
         console.log("after post")
     }catch (err){
@@ -51,14 +53,15 @@ async function store(req, res, next) {
 async function update(req, res, next) {
 
     console.log(" i am update ")
-    const {id} = req.params;
+    const { bookId, userId } = req.params;
+    const prevRating = await Rating.findOne({ $and: [{rater: userId },{ratedBook: bookId }] });
     const rating = req.body
     const newRating = {
         ...(rating.rate ? { rate: rating.rate } : {}),
     }
     console.log(id , rating)
     try{
-        await Rating.findByIdAndUpdate({ _id: id }, newRating)
+        await Rating.findByIdAndUpdate({ _id: prevRating._id }, newRating)
         res.json({
             status : Response_Code.SUCCESS,
             message: Response_Msg.UPDATE_MESSAGE

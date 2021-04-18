@@ -12,4 +12,9 @@ export class RatingServiceService {
     console.log(rating_det);
     return this.client.post(this.BASE_URL,rating_det);
   }
+  /*
+  update(userId:any,bookId:any){
+    return this.client.patch(`${this.BASE_URL}/`)
+  }
+  */
 }
