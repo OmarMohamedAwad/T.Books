@@ -20,7 +20,7 @@ ratingRouter.post("/", (request, response, next)=> {
 })
 
 // , checkAccessToken(Role.USER)
-ratingRouter.patch("/:id", (request, response, next)=> {
+ratingRouter.patch("/:bookId/:userId", (request, response, next)=> {
     RatingController.update(request, response, next);
 })
 

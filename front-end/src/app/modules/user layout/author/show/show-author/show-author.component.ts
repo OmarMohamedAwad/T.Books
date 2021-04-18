@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthorsServiceService} from 'src/app/services/authors-service.service';
 import {UserService} from '../../../../../services/user.service';
+import { BookServiceService } from '../../../../admin layout/book/services/book-service.service'
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,10 +17,12 @@ export class ShowAuthorComponent implements OnInit {
   authorID: any;
   ratings = [1, 2, 3, 4, 5, 3];
   userSubscriber: any;
+  bookSubscriber:any;
+  booksNum:number = 0;
   bookStatus: Array<String> = [];
   loading=false;
 
-  constructor(private authorService: AuthorsServiceService,
+  constructor(private bookService:BookServiceService,private authorService: AuthorsServiceService,
               private myActivatedRoute: ActivatedRoute, private router: Router, private userService: UserService) {
     this.authorID = this.myActivatedRoute.snapshot.params.id;
     this.userId = sessionStorage.getItem('userId') ? sessionStorage.getItem('userId') : '605a0532ba76f47a7793e130';
@@ -35,6 +38,8 @@ export class ShowAuthorComponent implements OnInit {
         this.author = res;
         this.loading = true;
         this.readBookStatus(this.author.books);
+        console.log(this.author.books)
+        this.booksNum=this.author.books.length;
       }, (err) => {
         Swal.fire({
           icon: 'error',
@@ -66,7 +71,7 @@ export class ShowAuthorComponent implements OnInit {
   }
 
   readBookStatus(books: any) {
-    for (let i = 0; i < books.length; i++) {
+    for (let i = 0; i < books.length; i++){
       if (books[i].currentlyReader && books[i].currentlyReader.find((element: any) => element == this.userId)) {
         this.bookStatus[i] = 'Is currant read';
       } else if (books[i].wantToReadeUsers && books[i].wantToReadeUsers.find((element: any) => element == this.userId)) {
