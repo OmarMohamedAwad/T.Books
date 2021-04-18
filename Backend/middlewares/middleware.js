@@ -9,7 +9,7 @@ const { response } = require('express');
 function checkAccessToken(role) {
 
     return  function (req, res, next) {
-        // console.log(req.headers)
+        console.log(req.headers)
         const bearerHeader = req.headers.authorization;
         if (typeof bearerHeader !== "undefined") {
             const bearer = bearerHeader.split(' ')[1];
