@@ -14,15 +14,18 @@ ratingRouter.get("/:id", (request, response, next)=> {
     RatingController.show(request, response, next);   
 }) 
 
-ratingRouter.post("/", checkAccessToken(Role.USER), (request, response, next)=> {
+// , checkAccessToken(Role.USER)
+ratingRouter.post("/", (request, response, next)=> {
     RatingController.store(request, response, next);
 })
 
-ratingRouter.patch("/:id", checkAccessToken(Role.USER), (request, response, next)=> {
+// , checkAccessToken(Role.USER)
+ratingRouter.patch("/:bookId/:userId", (request, response, next)=> {
     RatingController.update(request, response, next);
 })
 
-ratingRouter.delete("/:id", checkAccessToken(Role.ADMIN), (request, response, next)=> {
+// , checkAccessToken(Role.ADMIN)
+ratingRouter.delete("/:id", (request, response, next)=> {
     RatingController.destroy(request, response, next);
 })
 

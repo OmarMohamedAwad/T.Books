@@ -44,6 +44,7 @@ async function index(request, response, next) {
             { $lookup: {from: "books" , localField: "userId" , foreignField: "_id" , as: "bookDetails" }}, 
             { $group : {_id: "$ratedBook", 
                         avg: {$avg: {$toInt: '$rate'}}, 
+                        bookId: { $first:  {$last: '$bookDetails._id'} }, 
                         bookName: { $first:  {$last: '$bookDetails.bookName'} }, 
                         bookImage: { $first:  {$last: "$bookDetails.bookImage"} }, 
                         bookCategory: { $first: {$last: "$bookDetails.bookCategory"} }, 
@@ -51,9 +52,12 @@ async function index(request, response, next) {
             { $sort: { avg: -1 } }, 
             { $limit: NUMBER_OF_BOOK_ITEMS } ]
         );
+        console.log("to get book id" , books)
         //more books if the rated books aren't enough
         if(books.length < NUMBER_OF_BOOK_ITEMS){
-            const moreBooks = await Book.find({ bookRatings: [] }, {bookRatings: false , bookDescription: false , bookReviews: false }).limit(NUMBER_OF_BOOK_ITEMS - books.length)
+            const moreBooks = await Book.find({ bookRatings: [] }, {bookRatings: false , bookDescription: false , bookReviews: false}).limit(NUMBER_OF_BOOK_ITEMS - books.length)
+            for(let i = 0; i < moreBooks.length; i++)
+                moreBooks[i].bookId = moreBooks[i]._id;
             if(moreBooks.length > 0){
                 books = books.concat(moreBooks);
                 console.log("Books: ", books)

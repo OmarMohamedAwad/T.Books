@@ -30894,6 +30894,887 @@ function switchMapTo(innerObservable, resultSelector) {
 
 /***/ }),
 
+/***/ "ahC7":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/angularx-social-login/__ivy_ngcc__/fesm2015/angularx-social-login.js ***!
+  \*******************************************************************************************/
+/*! exports provided: AmazonLoginProvider, BaseLoginProvider, DummyLoginProvider, FacebookLoginProvider, GoogleLoginProvider, MicrosoftLoginProvider, SocialAuthService, SocialLoginModule, SocialUser, VKLoginProvider */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AmazonLoginProvider", function() { return AmazonLoginProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseLoginProvider", function() { return BaseLoginProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DummyLoginProvider", function() { return DummyLoginProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FacebookLoginProvider", function() { return FacebookLoginProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GoogleLoginProvider", function() { return GoogleLoginProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MicrosoftLoginProvider", function() { return MicrosoftLoginProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SocialAuthService", function() { return SocialAuthService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SocialLoginModule", function() { return SocialLoginModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SocialUser", function() { return SocialUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VKLoginProvider", function() { return VKLoginProvider; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "mrSG");
+
+
+
+
+
+
+class BaseLoginProvider {
+    constructor() { }
+    loadScript(id, src, onload, parentElement = null) {
+        // get document if platform is only browser
+        if (typeof document !== 'undefined' && !document.getElementById(id)) {
+            let signInJS = document.createElement('script');
+            signInJS.async = true;
+            signInJS.src = src;
+            signInJS.onload = onload;
+            if (!parentElement) {
+                parentElement = document.head;
+            }
+            parentElement.appendChild(signInJS);
+        }
+    }
+}
+
+class SocialUser {
+}
+
+class GoogleLoginProvider extends BaseLoginProvider {
+    constructor(clientId, initOptions = { scope: 'email' }) {
+        super();
+        this.clientId = clientId;
+        this.initOptions = initOptions;
+    }
+    initialize() {
+        return new Promise((resolve, reject) => {
+            try {
+                this.loadScript(GoogleLoginProvider.PROVIDER_ID, 'https://apis.google.com/js/platform.js', () => {
+                    gapi.load('auth2', () => {
+                        this.auth2 = gapi.auth2.init(Object.assign(Object.assign({}, this.initOptions), { client_id: this.clientId }));
+                        this.auth2
+                            .then(() => {
+                            resolve();
+                        })
+                            .catch((err) => {
+                            reject(err);
+                        });
+                    });
+                });
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
+    }
+    getLoginStatus(loginStatusOptions) {
+        const options = Object.assign(Object.assign({}, this.initOptions), loginStatusOptions);
+        return new Promise((resolve, reject) => {
+            if (this.auth2.isSignedIn.get()) {
+                let user = new SocialUser();
+                const profile = this.auth2.currentUser.get().getBasicProfile();
+                const authResponse = this.auth2.currentUser.get().getAuthResponse(true); // get complete authResponse object
+                user.id = profile.getId();
+                user.name = profile.getName();
+                user.email = profile.getEmail();
+                user.photoUrl = profile.getImageUrl();
+                user.firstName = profile.getGivenName();
+                user.lastName = profile.getFamilyName();
+                user.response = authResponse;
+                const resolveUser = authResponse => {
+                    user.authToken = authResponse.access_token;
+                    user.idToken = authResponse.id_token;
+                    resolve(user);
+                };
+                if (options.refreshToken) {
+                    this.auth2.currentUser.get().reloadAuthResponse().then(resolveUser);
+                }
+                else {
+                    const authResponse = this.auth2.currentUser.get().getAuthResponse(true);
+                    resolveUser(authResponse);
+                }
+            }
+            else {
+                reject(`No user is currently logged in with ${GoogleLoginProvider.PROVIDER_ID}`);
+            }
+        });
+    }
+    signIn(signInOptions) {
+        const options = Object.assign(Object.assign({}, this.initOptions), signInOptions);
+        return new Promise((resolve, reject) => {
+            const offlineAccess = options && options.offline_access;
+            let promise = !offlineAccess
+                ? this.auth2.signIn(signInOptions)
+                : this.auth2.grantOfflineAccess(signInOptions);
+            promise
+                .then((response) => {
+                let user = new SocialUser();
+                if (response && response.code) {
+                    user.authorizationCode = response.code;
+                }
+                else {
+                    let profile = this.auth2.currentUser.get().getBasicProfile();
+                    let authResponse = this.auth2.currentUser.get().getAuthResponse(true);
+                    let token = authResponse.access_token;
+                    let backendToken = authResponse.id_token;
+                    user.id = profile.getId();
+                    user.name = profile.getName();
+                    user.email = profile.getEmail();
+                    user.photoUrl = profile.getImageUrl();
+                    user.firstName = profile.getGivenName();
+                    user.lastName = profile.getFamilyName();
+                    user.authToken = token;
+                    user.idToken = backendToken;
+                    user.response = authResponse;
+                }
+                resolve(user);
+            }, (closed) => {
+                reject(closed);
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        });
+    }
+    signOut(revoke) {
+        return new Promise((resolve, reject) => {
+            let signOutPromise;
+            if (revoke) {
+                signOutPromise = this.auth2.disconnect();
+            }
+            else {
+                signOutPromise = this.auth2.signOut();
+            }
+            signOutPromise
+                .then((err) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve();
+                }
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        });
+    }
+}
+GoogleLoginProvider.PROVIDER_ID = 'GOOGLE';
+
+/** @dynamic */
+class SocialAuthService {
+    constructor(config) {
+        this.providers = new Map();
+        this.autoLogin = false;
+        this._user = null;
+        this._authState = new rxjs__WEBPACK_IMPORTED_MODULE_1__["ReplaySubject"](1);
+        /* Consider making this an enum comprising LOADING, LOADED, FAILED etc. */
+        this.initialized = false;
+        this._initState = new rxjs__WEBPACK_IMPORTED_MODULE_1__["AsyncSubject"]();
+        if (config instanceof Promise) {
+            config.then((config) => {
+                this.initialize(config);
+            });
+        }
+        else {
+            this.initialize(config);
+        }
+    }
+    get authState() {
+        return this._authState.asObservable();
+    }
+    get initState() {
+        return this._initState.asObservable();
+    }
+    initialize(config) {
+        this.autoLogin = config.autoLogin !== undefined ? config.autoLogin : false;
+        const { onError = console.error } = config;
+        config.providers.forEach((item) => {
+            this.providers.set(item.id, item.provider);
+        });
+        Promise.all(Array.from(this.providers.values()).map((provider) => provider.initialize()))
+            .then(() => {
+            if (this.autoLogin) {
+                const loginStatusPromises = [];
+                let loggedIn = false;
+                this.providers.forEach((provider, key) => {
+                    let promise = provider.getLoginStatus();
+                    loginStatusPromises.push(promise);
+                    promise
+                        .then((user) => {
+                        user.provider = key;
+                        this._user = user;
+                        this._authState.next(user);
+                        loggedIn = true;
+                    })
+                        .catch(console.debug);
+                });
+                Promise.all(loginStatusPromises).catch(() => {
+                    if (!loggedIn) {
+                        this._user = null;
+                        this._authState.next(null);
+                    }
+                });
+            }
+        })
+            .catch((error) => {
+            onError(error);
+        })
+            .finally(() => {
+            this.initialized = true;
+            this._initState.next(this.initialized);
+            this._initState.complete();
+        });
+    }
+    refreshAuthToken(providerId) {
+        return new Promise((resolve, reject) => {
+            if (!this.initialized) {
+                reject(SocialAuthService.ERR_NOT_INITIALIZED);
+            }
+            else if (providerId !== GoogleLoginProvider.PROVIDER_ID) {
+                reject(SocialAuthService.ERR_NOT_SUPPORTED_FOR_REFRESH_TOKEN);
+            }
+            else {
+                const providerObject = this.providers.get(providerId);
+                if (providerObject) {
+                    providerObject
+                        .getLoginStatus({ refreshToken: true })
+                        .then((user) => {
+                        user.provider = providerId;
+                        this._user = user;
+                        this._authState.next(user);
+                        resolve();
+                    })
+                        .catch((err) => {
+                        reject(err);
+                    });
+                }
+                else {
+                    reject(SocialAuthService.ERR_LOGIN_PROVIDER_NOT_FOUND);
+                }
+            }
+        });
+    }
+    signIn(providerId, signInOptions) {
+        return new Promise((resolve, reject) => {
+            if (!this.initialized) {
+                reject(SocialAuthService.ERR_NOT_INITIALIZED);
+            }
+            else {
+                let providerObject = this.providers.get(providerId);
+                if (providerObject) {
+                    providerObject
+                        .signIn(signInOptions)
+                        .then((user) => {
+                        user.provider = providerId;
+                        resolve(user);
+                        this._user = user;
+                        this._authState.next(user);
+                    })
+                        .catch((err) => {
+                        reject(err);
+                    });
+                }
+                else {
+                    reject(SocialAuthService.ERR_LOGIN_PROVIDER_NOT_FOUND);
+                }
+            }
+        });
+    }
+    signOut(revoke = false) {
+        return new Promise((resolve, reject) => {
+            if (!this.initialized) {
+                reject(SocialAuthService.ERR_NOT_INITIALIZED);
+            }
+            else if (!this._user) {
+                reject(SocialAuthService.ERR_NOT_LOGGED_IN);
+            }
+            else {
+                let providerId = this._user.provider;
+                let providerObject = this.providers.get(providerId);
+                if (providerObject) {
+                    providerObject
+                        .signOut(revoke)
+                        .then(() => {
+                        resolve();
+                        this._user = null;
+                        this._authState.next(null);
+                    })
+                        .catch((err) => {
+                        reject(err);
+                    });
+                }
+                else {
+                    reject(SocialAuthService.ERR_LOGIN_PROVIDER_NOT_FOUND);
+                }
+            }
+        });
+    }
+}
+SocialAuthService.ɵfac = function SocialAuthService_Factory(t) { return new (t || SocialAuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"]('SocialAuthServiceConfig')); };
+SocialAuthService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SocialAuthService, factory: SocialAuthService.ɵfac });
+SocialAuthService.ERR_LOGIN_PROVIDER_NOT_FOUND = 'Login provider not found';
+SocialAuthService.ERR_NOT_LOGGED_IN = 'Not logged in';
+SocialAuthService.ERR_NOT_INITIALIZED = 'Login providers not ready yet. Are there errors on your console?';
+SocialAuthService.ERR_NOT_SUPPORTED_FOR_REFRESH_TOKEN = 'Chosen login provider is not supported for refreshing a token';
+SocialAuthService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: ['SocialAuthServiceConfig',] }] }
+];
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SocialAuthService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], function () { return [{ type: undefined, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"],
+                args: ['SocialAuthServiceConfig']
+            }] }]; }, null); })();
+
+class SocialLoginModule {
+    constructor(parentModule) {
+        if (parentModule) {
+            throw new Error('SocialLoginModule is already loaded. Import it in the AppModule only');
+        }
+    }
+    static initialize(config) {
+        return {
+            ngModule: SocialLoginModule,
+            providers: [
+                SocialAuthService,
+                {
+                    provide: 'SocialAuthServiceConfig',
+                    useValue: config
+                }
+            ]
+        };
+    }
+}
+SocialLoginModule.ɵfac = function SocialLoginModule_Factory(t) { return new (t || SocialLoginModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](SocialLoginModule, 12)); };
+SocialLoginModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SocialLoginModule });
+SocialLoginModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ providers: [
+        SocialAuthService
+    ], imports: [[
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
+        ]] });
+SocialLoginModule.ctorParameters = () => [
+    { type: SocialLoginModule, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["SkipSelf"] }] }
+];
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](SocialLoginModule, { imports: function () { return [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]]; } }); })();
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SocialLoginModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+        args: [{
+                imports: [
+                    _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
+                ],
+                providers: [
+                    SocialAuthService
+                ]
+            }]
+    }], function () { return [{ type: SocialLoginModule, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"]
+            }, {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["SkipSelf"]
+            }] }]; }, null); })();
+
+// Simulates login / logout without actually requiring an Internet connection.
+//
+// Useful for certain development situations.
+//
+// For example, if you want to simulate the greatest football referee England has ever produced:
+//
+//  const dummyUser: SocialUser = {
+//     id: '0123456789',
+//     name: 'Howard Webb',
+//     email: 'howard@webb.com',
+//     firstName: 'Howard',
+//     lastName: 'Webb',
+//     authToken: 'dummyAuthToken',
+//     photoUrl: 'https://en.wikipedia.org/wiki/Howard_Webb#/media/File:Howard_Webb_march11.jpg',
+//     provider: 'DUMMY',
+//     idToken: 'dummyIdToken',
+//     authorizationCode: 'dummyAuthCode'
+// };
+//
+//  let config = new AuthServiceConfig([
+//  { ... },
+//  {
+//       id: DummyLoginProvider.PROVIDER_ID,
+//       provider: new DummyLoginProvider(dummyUser)  // Pass your user into the constructor
+//   },
+//  { ... }
+//  ]);
+class DummyLoginProvider extends BaseLoginProvider {
+    constructor(dummy) {
+        super();
+        if (dummy) {
+            this.dummy = dummy;
+        }
+        else {
+            this.dummy = DummyLoginProvider.DEFAULT_USER;
+        }
+        // Start not logged in
+        this.loggedIn = false;
+    }
+    getLoginStatus() {
+        return new Promise((resolve, reject) => {
+            if (this.loggedIn) {
+                resolve(this.dummy);
+            }
+            else {
+                reject('No user is currently logged in.');
+            }
+        });
+    }
+    initialize() {
+        return new Promise((resolve, reject) => {
+            resolve();
+        });
+    }
+    signIn() {
+        return new Promise((resolve, reject) => {
+            this.loggedIn = true;
+            resolve(this.dummy);
+        });
+    }
+    signOut(revoke) {
+        return new Promise((resolve, reject) => {
+            this.loggedIn = false;
+            resolve();
+        });
+    }
+}
+DummyLoginProvider.PROVIDER_ID = 'DUMMY';
+DummyLoginProvider.DEFAULT_USER = {
+    id: '1234567890',
+    name: 'Mickey Mouse',
+    email: 'mickey@mouse.com',
+    firstName: 'Mickey',
+    lastName: 'Mouse',
+    authToken: 'dummyAuthToken',
+    photoUrl: 'https://en.wikipedia.org/wiki/File:Mickey_Mouse.png',
+    provider: 'DUMMY',
+    idToken: 'dummyIdToken',
+    authorizationCode: 'dummyAuthCode',
+    response: {}
+};
+
+class FacebookLoginProvider extends BaseLoginProvider {
+    constructor(clientId, initOptions = {
+        scope: 'email,public_profile',
+        locale: 'en_US',
+        fields: 'name,email,picture,first_name,last_name',
+        version: 'v4.0',
+    }) {
+        super();
+        this.clientId = clientId;
+        this.initOptions = initOptions;
+    }
+    initialize() {
+        return new Promise((resolve, reject) => {
+            try {
+                this.loadScript(FacebookLoginProvider.PROVIDER_ID, `//connect.facebook.net/${this.initOptions.locale}/sdk.js`, () => {
+                    FB.init({
+                        appId: this.clientId,
+                        autoLogAppEvents: true,
+                        cookie: true,
+                        xfbml: true,
+                        version: this.initOptions.version,
+                    });
+                    resolve();
+                });
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
+    }
+    getLoginStatus() {
+        return new Promise((resolve, reject) => {
+            FB.getLoginStatus((response) => {
+                if (response.status === 'connected') {
+                    let authResponse = response.authResponse;
+                    FB.api(`/me?fields=${this.initOptions.fields}`, (fbUser) => {
+                        let user = new SocialUser();
+                        user.id = fbUser.id;
+                        user.name = fbUser.name;
+                        user.email = fbUser.email;
+                        user.photoUrl =
+                            'https://graph.facebook.com/' +
+                                fbUser.id +
+                                '/picture?type=normal';
+                        user.firstName = fbUser.first_name;
+                        user.lastName = fbUser.last_name;
+                        user.authToken = authResponse.accessToken;
+                        user.response = fbUser;
+                        resolve(user);
+                    });
+                }
+                else {
+                    reject(`No user is currently logged in with ${FacebookLoginProvider.PROVIDER_ID}`);
+                }
+            });
+        });
+    }
+    signIn(signInOptions) {
+        const options = Object.assign(Object.assign({}, this.initOptions), signInOptions);
+        return new Promise((resolve, reject) => {
+            FB.login((response) => {
+                if (response.authResponse) {
+                    let authResponse = response.authResponse;
+                    FB.api(`/me?fields=${options.fields}`, (fbUser) => {
+                        let user = new SocialUser();
+                        user.id = fbUser.id;
+                        user.name = fbUser.name;
+                        user.email = fbUser.email;
+                        user.photoUrl =
+                            'https://graph.facebook.com/' +
+                                fbUser.id +
+                                '/picture?type=normal';
+                        user.firstName = fbUser.first_name;
+                        user.lastName = fbUser.last_name;
+                        user.authToken = authResponse.accessToken;
+                        user.response = fbUser;
+                        resolve(user);
+                    });
+                }
+                else {
+                    reject('User cancelled login or did not fully authorize.');
+                }
+            }, options);
+        });
+    }
+    signOut() {
+        return new Promise((resolve, reject) => {
+            FB.logout((response) => {
+                resolve();
+            });
+        });
+    }
+}
+FacebookLoginProvider.PROVIDER_ID = 'FACEBOOK';
+
+class AmazonLoginProvider extends BaseLoginProvider {
+    constructor(clientId, initOptions = {
+        scope: 'profile',
+        scope_data: {
+            profile: { essential: false },
+        },
+        redirect_uri: location.origin,
+    }) {
+        super();
+        this.clientId = clientId;
+        this.initOptions = initOptions;
+    }
+    initialize() {
+        let amazonRoot = null;
+        if (document) {
+            amazonRoot = document.createElement('div');
+            amazonRoot.id = 'amazon-root';
+            document.body.appendChild(amazonRoot);
+        }
+        window.onAmazonLoginReady = () => {
+            amazon.Login.setClientId(this.clientId);
+        };
+        return new Promise((resolve, reject) => {
+            try {
+                this.loadScript('amazon-login-sdk', 'https://assets.loginwithamazon.com/sdk/na/login1.js', () => {
+                    resolve();
+                }, amazonRoot);
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
+    }
+    getLoginStatus() {
+        return new Promise((resolve, reject) => {
+            let token = this.retrieveToken();
+            if (token) {
+                amazon.Login.retrieveProfile(token, (response) => {
+                    if (response.success) {
+                        let user = new SocialUser();
+                        user.id = response.profile.CustomerId;
+                        user.name = response.profile.Name;
+                        user.email = response.profile.PrimaryEmail;
+                        user.response = response.profile;
+                        resolve(user);
+                    }
+                    else {
+                        reject(response.error);
+                    }
+                });
+            }
+            else {
+                reject(`No user is currently logged in with ${AmazonLoginProvider.PROVIDER_ID}`);
+            }
+        });
+    }
+    signIn(signInOptions) {
+        const options = Object.assign(Object.assign({}, this.initOptions), signInOptions);
+        return new Promise((resolve, reject) => {
+            amazon.Login.authorize(options, (authResponse) => {
+                if (authResponse.error) {
+                    reject(authResponse.error);
+                }
+                else {
+                    amazon.Login.retrieveProfile(authResponse.access_token, (response) => {
+                        let user = new SocialUser();
+                        user.id = response.profile.CustomerId;
+                        user.name = response.profile.Name;
+                        user.email = response.profile.PrimaryEmail;
+                        user.authToken = authResponse.access_token;
+                        user.response = response.profile;
+                        this.persistToken(authResponse.access_token);
+                        resolve(user);
+                    });
+                }
+            });
+        });
+    }
+    signOut(revoke) {
+        return new Promise((resolve, reject) => {
+            try {
+                amazon.Login.logout();
+                this.clearToken();
+                resolve();
+            }
+            catch (err) {
+                reject(err.message);
+            }
+        });
+    }
+    persistToken(token) {
+        localStorage.setItem(`${AmazonLoginProvider.PROVIDER_ID}_token`, token);
+    }
+    retrieveToken() {
+        return localStorage.getItem(`${AmazonLoginProvider.PROVIDER_ID}_token`);
+    }
+    clearToken() {
+        localStorage.removeItem(`${AmazonLoginProvider.PROVIDER_ID}_token`);
+    }
+}
+AmazonLoginProvider.PROVIDER_ID = 'AMAZON';
+
+class VKLoginProvider extends BaseLoginProvider {
+    constructor(clientId, initOptions = {
+        fields: 'photo_max,contacts',
+        version: '5.124',
+    }) {
+        super();
+        this.clientId = clientId;
+        this.initOptions = initOptions;
+        this.VK_API_URL = '//vk.com/js/api/openapi.js';
+        this.VK_API_GET_USER = 'users.get';
+    }
+    initialize() {
+        return new Promise((resolve, reject) => {
+            try {
+                this.loadScript(VKLoginProvider.PROVIDER_ID, this.VK_API_URL, () => {
+                    VK.init({
+                        apiId: this.clientId,
+                    });
+                    resolve();
+                });
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
+    }
+    getLoginStatus() {
+        return new Promise((resolve, reject) => this.getLoginStatusInternal(resolve, reject));
+    }
+    signIn() {
+        return new Promise((resolve, reject) => this.signInInternal(resolve, reject));
+    }
+    signOut() {
+        return new Promise((resolve, reject) => {
+            VK.Auth.logout((response) => {
+                resolve();
+            });
+        });
+    }
+    signInInternal(resolve, reject) {
+        VK.Auth.login((loginResponse) => {
+            if (loginResponse.status === 'connected') {
+                this.getUser(loginResponse.session.mid, loginResponse.session.sid, resolve);
+            }
+        });
+    }
+    getUser(userId, token, resolve) {
+        VK.Api.call(this.VK_API_GET_USER, {
+            user_id: userId,
+            fields: this.initOptions.fields,
+            v: this.initOptions.version,
+        }, (userResponse) => {
+            resolve(this.createUser(Object.assign({}, { token }, userResponse.response[0])));
+        });
+    }
+    getLoginStatusInternal(resolve, reject) {
+        VK.Auth.getLoginStatus((loginResponse) => {
+            if (loginResponse.status === 'connected') {
+                this.getUser(loginResponse.session.mid, loginResponse.session.sid, resolve);
+            }
+        });
+    }
+    createUser(response) {
+        const user = new SocialUser();
+        user.id = response.id;
+        user.name = `${response.first_name} ${response.last_name}`;
+        user.photoUrl = response.photo_max;
+        user.authToken = response.token;
+        return user;
+    }
+}
+VKLoginProvider.PROVIDER_ID = 'VK';
+
+/**
+ * Protocol modes supported by MSAL.
+ */
+var ProtocolMode;
+(function (ProtocolMode) {
+    ProtocolMode["AAD"] = "AAD";
+    ProtocolMode["OIDC"] = "OIDC";
+})(ProtocolMode || (ProtocolMode = {}));
+const COMMON_AUTHORITY = 'https://login.microsoftonline.com/common/';
+/**
+ * Microsoft Authentication using MSAL v2: https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-browser
+ */
+class MicrosoftLoginProvider extends BaseLoginProvider {
+    constructor(clientId, initOptions) {
+        super();
+        this.clientId = clientId;
+        this.initOptions = {
+            authority: COMMON_AUTHORITY,
+            scopes: ['openid', 'email', 'profile', 'User.Read'],
+            knownAuthorities: [],
+            protocolMode: ProtocolMode.AAD,
+            clientCapabilities: [],
+            cacheLocation: 'sessionStorage'
+        };
+        this.initOptions = Object.assign(Object.assign({}, this.initOptions), initOptions);
+    }
+    initialize() {
+        return new Promise((resolve, reject) => {
+            this.loadScript(MicrosoftLoginProvider.PROVIDER_ID, 'https://alcdn.msauth.net/browser/2.1.0/js/msal-browser.js', () => {
+                var _a;
+                try {
+                    const config = {
+                        auth: {
+                            clientId: this.clientId,
+                            redirectUri: (_a = this.initOptions.redirect_uri) !== null && _a !== void 0 ? _a : location.origin,
+                            authority: this.initOptions.authority,
+                            knownAuthorities: this.initOptions.knownAuthorities,
+                            protocolMode: this.initOptions.protocolMode,
+                            clientCapabilities: this.initOptions.clientCapabilities
+                        },
+                        cache: !this.initOptions.cacheLocation ? null : {
+                            cacheLocation: this.initOptions.cacheLocation
+                        }
+                    };
+                    this._instance = new msal.PublicClientApplication(config);
+                    resolve();
+                }
+                catch (e) {
+                    reject(e);
+                }
+            });
+        });
+    }
+    getSocialUser(loginResponse) {
+        return new Promise((resolve, reject) => {
+            //After login, use Microsoft Graph API to get user info
+            let meRequest = new XMLHttpRequest();
+            meRequest.onreadystatechange = () => {
+                if (meRequest.readyState == 4) {
+                    try {
+                        if (meRequest.status == 200) {
+                            let userInfo = JSON.parse(meRequest.responseText);
+                            let user = new SocialUser();
+                            user.provider = MicrosoftLoginProvider.PROVIDER_ID;
+                            user.id = loginResponse.idToken;
+                            user.authToken = loginResponse.accessToken;
+                            user.name = loginResponse.idTokenClaims.name;
+                            user.email = loginResponse.account.username;
+                            user.idToken = loginResponse.idToken;
+                            user.response = loginResponse;
+                            user.firstName = userInfo.givenName;
+                            user.lastName = userInfo.surname;
+                            resolve(user);
+                        }
+                        else {
+                            reject(`Error retrieving user info: ${meRequest.status}`);
+                        }
+                    }
+                    catch (err) {
+                        reject(err);
+                    }
+                }
+            };
+            //Microsoft Graph ME Endpoint: https://docs.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http
+            meRequest.open('GET', 'https://graph.microsoft.com/v1.0/me');
+            meRequest.setRequestHeader('Authorization', `Bearer ${loginResponse.accessToken}`);
+            try {
+                meRequest.send();
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
+    }
+    getLoginStatus() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_3__["__awaiter"])(this, void 0, void 0, function* () {
+            const accounts = this._instance.getAllAccounts();
+            if ((accounts === null || accounts === void 0 ? void 0 : accounts.length) > 0) {
+                const loginResponse = yield this._instance.ssoSilent({
+                    scopes: this.initOptions.scopes,
+                    loginHint: accounts[0].username
+                });
+                return yield this.getSocialUser(loginResponse);
+            }
+            else {
+                throw `No user is currently logged in with ${MicrosoftLoginProvider.PROVIDER_ID}`;
+            }
+        });
+    }
+    signIn() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_3__["__awaiter"])(this, void 0, void 0, function* () {
+            const loginResponse = yield this._instance.loginPopup({
+                scopes: this.initOptions.scopes
+            });
+            return yield this.getSocialUser(loginResponse);
+        });
+    }
+    signOut(revoke) {
+        var _a, _b;
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_3__["__awaiter"])(this, void 0, void 0, function* () {
+            const accounts = this._instance.getAllAccounts();
+            if ((accounts === null || accounts === void 0 ? void 0 : accounts.length) > 0) {
+                //TODO: This redirects to a Microsoft page, then sends us back to redirect_uri... this doesn't seem to match other providers
+                //Open issues:
+                // https://github.com/abacritt/angularx-social-login/issues/306
+                // https://github.com/AzureAD/microsoft-authentication-library-for-js/issues/2563
+                yield this._instance.logout({
+                    account: accounts[0],
+                    postLogoutRedirectUri: (_b = (_a = this.initOptions.logout_redirect_uri) !== null && _a !== void 0 ? _a : this.initOptions.redirect_uri) !== null && _b !== void 0 ? _b : location.href
+                });
+            }
+        });
+    }
+}
+MicrosoftLoginProvider.PROVIDER_ID = 'MICROSOFT';
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+
+
+//# sourceMappingURL=angularx-social-login.js.map
+
+/***/ }),
+
 /***/ "bHdf":
 /*!*******************************************************************!*\
   !*** ./node_modules/rxjs/_esm2015/internal/operators/mergeAll.js ***!
@@ -68701,6 +69582,280 @@ function isDate(value) {
     return value instanceof Date && !isNaN(+value);
 }
 //# sourceMappingURL=isDate.js.map
+
+/***/ }),
+
+/***/ "mrSG":
+/*!*****************************************!*\
+  !*** ./node_modules/tslib/tslib.es6.js ***!
+  \*****************************************/
+/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __createBinding, __exportStar, __values, __read, __spread, __spreadArrays, __spreadArray, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__extends", function() { return __extends; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__assign", function() { return __assign; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__rest", function() { return __rest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__decorate", function() { return __decorate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__param", function() { return __param; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__metadata", function() { return __metadata; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__awaiter", function() { return __awaiter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__generator", function() { return __generator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__createBinding", function() { return __createBinding; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__exportStar", function() { return __exportStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__values", function() { return __values; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__read", function() { return __read; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spread", function() { return __spread; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spreadArrays", function() { return __spreadArrays; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spreadArray", function() { return __spreadArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__await", function() { return __await; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncGenerator", function() { return __asyncGenerator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncDelegator", function() { return __asyncDelegator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncValues", function() { return __asyncValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__makeTemplateObject", function() { return __makeTemplateObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importStar", function() { return __importStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importDefault", function() { return __importDefault; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__classPrivateFieldGet", function() { return __classPrivateFieldGet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__classPrivateFieldSet", function() { return __classPrivateFieldSet; });
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var __createBinding = Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+});
+
+function __exportStar(m, o) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) __createBinding(o, m, p);
+}
+
+function __values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+/** @deprecated */
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+/** @deprecated */
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+}
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+var __setModuleDefault = Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+function __classPrivateFieldGet(receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+}
+
+function __classPrivateFieldSet(receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+}
+
 
 /***/ }),
 

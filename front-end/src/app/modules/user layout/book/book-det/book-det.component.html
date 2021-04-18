@@ -2,7 +2,7 @@
 <app-nav-user></app-nav-user>
 <section class="book_show">
     <div class="book_cover">
-        <img @fade src="assets/user/book/memories.jpg"><br>
+        <img @fade src="{{book.image}}" height="280" onerror="this.onerror=null; this.src='/assets/user/book/memories.jpg'"><br>
 
         <!--        <button class="btn btn-danger w-75 mt-4">Add to favourites</button>-->
         <!-- Content here -->
@@ -29,35 +29,37 @@
             <input type="radio" id="star1" name="rating" value="1" (click)="setRate(1)" #star1/><label class="full" for="star1" title="bad - 1 star" (click)="setRate(1)"></label>
         </fieldset>
     </div>
-    <section class="details">
-        <h2 class="fontPink">{{book.name}}</h2>
-        <div class="font20 align-self-center">
-            <span>Authors: <a class="fontPink" >
+    <div class="container">
+        <section class="details">
+            <h2 class="fontPink"><span class="text-dark">Book : </span>{{book.name}}</h2>
+            <div class="font20 align-self-center ">
+                <span> Written By The Author : <a class="fontPink" >
                 {{book.author.autherFirstName}} {{book.author.autherLastName}}</a></span> <br>
-            <span>Category: <a class="fontPink" >{{book.category.categoryName}}</a></span> <br>
-            <span class="d-inline-block col-3 font17">
-                <span >Rate: </span>
-            <ngb-rating style="color: rgb(250, 225, 0); font-size: large;" [max]="5" [(rate)]="avgRate" [readonly]="true">
-            </ngb-rating> {{avgRate}}
-            </span>
-            <span class="d-inline-block col-3 font17">
-                <img src="assets/user/book/book_details.jpg" style="width: 22px;">
+                <span>In Category: <a class="fontPink" >{{book.category.categoryName}}</a></span> <br>
+                <span class="d-inline-block col-3 font17">
+                <span  >Rate: </span>
+                <ngb-rating style="color: rgb(250, 225, 0); font-size: large;" [max]="5" [(rate)]="avgRate" [readonly]="true">
+                </ngb-rating> {{avgRate}}
+                </span>
+                <span class="d-inline-block col-3 font17">
+                <img src="{{book.image}}"  style="width: 22px;">
                 <pre class="d-inline-block"> </pre>
                 <a class="colorBlack" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating details</a>
             </span>
-            <span class="d-inline-block col-3 font17">
+                <span class="d-inline-block col-3 font17 my-3">
                 Number of rates: {{ratesNum}}
             </span>
-            <span class="d-inline-block col-3 font17">
+                <span class="d-inline-block col-3 font17 mt-3">
                 Number of reviews: {{reviews.length}}
             </span><br>
-            <span class="d-inline-block font15">
-                {{favsNum}} people have added this book to there favourite books list, join them now.
-            </span>
-        </div>
-        <hr>
-        <p class="desc">{{book.description}}</p>
-    </section>
+                <span class="d-inline-block font15 my-3">
+               <p> <span class="text-danger">{{favsNum}} </span> people have added this book to there favourite books list, join them now.</p>
+                </span>
+            </div>
+            <hr>
+            <p class="desc">{{book.description}}.</p>
+        </section>
+    </div>
 </section>
 
 <section class="reviews">

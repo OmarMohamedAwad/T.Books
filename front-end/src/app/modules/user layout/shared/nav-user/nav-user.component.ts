@@ -29,7 +29,7 @@ export class NavUserComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('status', this.userIsLoggedIn);
-    this.userName = sessionStorage.getItem("userName") ? sessionStorage.getItem("userName") : ""
+    this.userName = sessionStorage.getItem("userName") ? sessionStorage.getItem("userName") : localStorage.getItem("userName")
   }
 
   userLogout() {

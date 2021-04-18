@@ -16,15 +16,18 @@ reviewRouter.get("/:id/pages", (request, response, next)=> {
     await ReviewController.pagination(request, response, next);   
 })*/ 
 
-reviewRouter.post("/", checkAccessToken(Role.USER), (request, response, next) => {
+//checkAccessToken(Role.USER),
+reviewRouter.post("/", (request, response, next) => {
     ReviewController.store(request, response, next);
 })
 
-reviewRouter.patch("/:id", checkAccessToken(Role.USER), (request, response, next) => {
+// , checkAccessToken(Role.USER)
+reviewRouter.patch("/:id", (request, response, next) => {
     ReviewController.update(request, response, next);
 })
 
-reviewRouter.delete("/:id", checkAccessToken(Role.ADMIN), (request, response, next) => {
+// , checkAccessToken(Role.ADMIN)
+reviewRouter.delete("/:id", (request, response, next) => {
     ReviewController.destroy(request, response, next);
 })
 
