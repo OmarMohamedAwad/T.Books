@@ -12,7 +12,7 @@ export class UserCategoryBooksComponent implements OnInit {
   subscriber:any;
   currentPage:number = 1;
   currentCategory:string = "";
-
+  loading = false;
   maxPages:number = 1;
   row1:string[] = []
   row2:string[] = []
@@ -22,10 +22,12 @@ export class UserCategoryBooksComponent implements OnInit {
   constructor(private categoryService: CategoryService) { }
 
   getDefaultCategory(category:string){
+    this.loading = false
     this.currentCategory = category;
     this.getPage(this.currentCategory , this.currentPage);
   }
   selectCategory(name:string){
+    this.loading = false
     this.currentCategory = name;
     this.currentPage = 1;
     this.getPage(this.currentCategory , this.currentPage);
@@ -60,17 +62,14 @@ export class UserCategoryBooksComponent implements OnInit {
     this.row1 = [];
     this.subscriber = this.categoryService.getCategoryPage(category,page,book)
     .subscribe((response:any)=>{
-      console.log(response.body)
-      this.maxPages = Math.ceil(response.body.bookNumbers / 8);
-      console.log(this.maxPages)
+        this.loading = true
+        this.maxPages = Math.ceil(response.body.bookNumbers / 8);
       let books = response.body.pagebooks;
-        console.log(response);
       books.find((book:string , index:number) => {
         if(index < 4)
           this.row1.push(book)
         else
           this.row2.push(book)
-        console.log(this.row1[0] , this.row2[0])
       })
       this.books = [this.row1 , this.row2 ]
       this.calculatePagination();
