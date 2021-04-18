@@ -2,31 +2,30 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <div class="logo d-inline navbar-brand ml-lg-5">
-                <img class="icon mr" src="assets/icon.ico">
+                <img class="icon mr" src="assets/icon.ico" s>
                 <span class="trending d-inline-block mt-1" style="font-size:25px;">T <span class="books"style="font-size:25px;">Books</span></span>
             </div>
             <div class="collapse navbar-collapse fixed-top p-2" id="myNavbar" #collapseList>
-                <ul class="navbar-nav col-6 ml-5" >
+                <ul class="navbar-nav col-6 ml-5">
                     <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/books">Books</a></li>
                     <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/authors">Authors</a></li>
                     <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/categories">Categories</a></li>
                     <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/aboutUs">About</a></li>
 
-                    <li *ngIf="userIsLoggedIn; else falseBlock1 "
-                        class="nav-item d-lg-none d-md-block d-sm-block">
+                    <li *ngIf="userIsLoggedIn; else falseBlock1 " class="nav-item d-lg-none d-md-block d-sm-block">
                         <a class="nav-link" href="" (click)="userLogout()">
-                          <i class="fas fa-sign-out-alt fa-1x text-white" ></i>
-                        </a></li>
-                    <ng-template #falseBlock1 >
+                            <i class="fas fa-sign-out-alt fa-1x text-white"></i>
+                        </a>
+                    </li>
+                    <ng-template #falseBlock1>
                         <li class="nav-item d-lg-none d-md-block d-sm-block" routerLinkActive="active" routerLink="/login"><a class="nav-link">Login</a></li>
                         <li class="nav-item d-lg-none d-md-block d-sm-block" routerLinkActive="active" routerLink="/login"><a class="nav-link">Register</a></li>
                     </ng-template>
 
                 </ul>
 
-                <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5"
-                    *ngIf="userIsLoggedIn; else falseBlock " >
+                <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5" *ngIf="userIsLoggedIn; else falseBlock ">
                     <img src="https://www.flaticon.com/svg/vstatic/svg/3011/3011478.svg?token=exp=1618634236~hmac=7e9248dd6b3015891f86be698334ca59" class="mr user-image" width="30" height="30" alt="user image" routerLink="/profile">
                     <a class="user-name mr" routerLinkActive="active" routerLink="/profile">{{this.userName ? this.userName : "user"}}</a>
                     <a (click)="userLogout()">
@@ -34,7 +33,7 @@
                     </a>
                   <pre class="bg-transparent border-0">  </pre>
                 </span>
-                <ng-template #falseBlock >
+                <ng-template #falseBlock>
                     <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5">
                         <a class="login-anchor" routerLinkActive="active" routerLink="/login">Login |</a>
                         <a routerLinkActive="active" routerLink="/login">Register</a>

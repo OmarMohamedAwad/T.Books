@@ -4,6 +4,10 @@
      padding: 0;
  }
  
+ .popular-book {
+     background-color: #F5F5F5;
+ }
+ 
  .container-home {
      max-width: 90%;
      margin: auto;
@@ -38,6 +42,10 @@
      position: relative;
      transition: all 0.3s ease;
      box-sizing: border-box;
+ }
+ 
+ .book:hover {
+     box-shadow: 0px 0px 30px 0px rgb(19 19 28 / 12%);
  }
  
  .pointer-cursor {

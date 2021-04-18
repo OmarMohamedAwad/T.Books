@@ -1,12 +1,13 @@
 <!------------------------------Start  Author Section--------------------->
 <!--<app-user-loading *ngIf="!loading"></app-user-loading>-->
 <section class="author py-5">
-    <h2 class=" text-center pt-4">Popular<span class="italic"> Authors </span> </h2>
-    <div class="border m-auto"></div>
-    <div class="container">
+    <h2 class=" text-center pt-4">Popular<span class=""> Authors </span> </h2>
+    <!--<div class="border m-auto"></div>-->
+    <p class="main-title text-center">Most Popular Author and you can find more</p>
+    <div class="container-author">
         <div class="row mt-4 pt-4 w-100">
             <div class="col" *ngFor="let authorCol of authorsImages; let i = index">
-                <img src="/assets/user/author/{{authorCol}}" onerror="this.onerror=null; this.src='/assets/user/author/author-1.jpg'" class="w-100">
+                <img src="/assets/user/author/{{authorCol}}" [routerLink]="['/authors', authorsId[i]]" onerror="this.onerror=null; this.src='/assets/user/author/author-1.jpg'" class="w-100">
                 <a class="d-block text-center" [routerLink]="['/authors', authorsId[i]]">{{authorsNames[i]}}</a>
             </div>
         </div>

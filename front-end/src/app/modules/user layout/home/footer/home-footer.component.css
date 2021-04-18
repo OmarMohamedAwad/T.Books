@@ -1,5 +1,5 @@
 footer {
-    font-family: 'PT Sans', sans-serif;
+    font-family: Nunito, sans-serif;
     background-color: #EEEEEE;
 }
 
@@ -55,11 +55,13 @@ footer p {
 
 .social-icons .icon {
     font-size: 18px;
+    transition: all 0.3s ease;
 }
 
 .social-icons .icon:hover {
     color: #DE3241;
     cursor: pointer;
+    padding-left: 8px;
 }
 
 .find p {
@@ -67,19 +69,21 @@ footer p {
 }
 
 .contact p {
-    font-size: 18px;
-    line-height: 1.2;
+    font-size: 15px;
+    line-height: 1.4;
 }
 
 .find a {
     color: #121212;
     font-size: 18px;
     text-decoration: underline;
+    transition: all 0.3s ease;
 }
 
 .find a:hover {
     color: #DE3241;
     cursor: pointer;
+    padding-left: 8px;
 }
 
 footer .contact span {
@@ -97,6 +101,8 @@ footer .contact span {
 
 .footer-container {
     max-width: 90%;
+    margin: auto;
+    padding: 0 20px !important;
 }
 
 @media screen and (max-width: 700px) {
