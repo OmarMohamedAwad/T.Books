@@ -1,10 +1,11 @@
+<app-user-loading *ngIf="!loading"></app-user-loading>
 <app-nav-user></app-nav-user>
 <div class="parentContainer justify-content-center ">
     <div class="row">
         <div class=" card-container col-lg-4 col-md-5 col-sm-10 col-xxs-12 " *ngFor="let book of bookNames; let i = index">
             <div class="row">
                 <div class="book-img col-3">
-                    <img [src]="bookImages[i]" alt="" class="w-100">
+                    <img src="{{bookImages[i]}}" alt="" class="w-100">
                 </div>
                 <div class="col-9">
                     <div class="row">
@@ -26,7 +27,7 @@
                         </div>
                     </div>
                     <div class="row">
-                      <div class="dropdown" style="margin-top: 90px; margin-left: 35px;">
+                      <div class="dropdown" style="margin-top: 50px; margin-left: 5px;">
                         <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           {{bookUserType[i]}}
                         </button>
@@ -36,12 +37,6 @@
                           <a class="dropdown-item" (click)="changeBookStatus('3',bookIds[i], i)">Finished reading</a>
                         </div>
                       </div>
-<!--                        <select class="form-select" aria-label="Default select example" id="category">-->
-<!--                            <option selected class="selectHeader">{{bookUserType[i]}}</option>-->
-<!--                            <option value="1">Read</option>-->
-<!--                            <option value="2">Current reading</option>-->
-<!--                            <option value="3">Want to read</option>-->
-<!--                        </select>-->
                     </div>
                 </div>
             </div>

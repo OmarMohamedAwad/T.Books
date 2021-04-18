@@ -4,13 +4,12 @@
       <div class="category-content">
 
         <div class="category-header">
-          <a class="btn btn-danger w-100">Category</a>
+          <a class="btn btn-danger w-100" href="#">Category</a>
         </div>
-
         <div class="category">
           <ul>
             <li *ngFor="let category of categoriesName">
-              <a class="active" (click)="selectCategory($event , category)"><i class="fas fa-chevron-right"></i><span>{{category}}</span></a>
+              <a class="active mylink" (click)="selectCategory($event , category)"><i class="fas fa-chevron-right"></i><span>{{category}}</span></a>
             </li>
           </ul>
         </div>

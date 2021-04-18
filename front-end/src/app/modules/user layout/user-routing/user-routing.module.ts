@@ -26,7 +26,7 @@ const routes:Routes = [
   {path:'categories', component:UserCategoryIndexComponent},
   {path:'home', component:HomeAllComponent},
   {path:'terms', component:TermsComponent},
-  {path:'profile', component:UserProfileIndexComponent},
+  {path:'profile', canActivate:[UserAuthGaurdGuard], component:UserProfileIndexComponent},
   {path:'login', component:LoginRegisterComponent},
   {path:'users',canActivate:[UserAuthGaurdGuard],component:UserProfileIndexComponent}
 
