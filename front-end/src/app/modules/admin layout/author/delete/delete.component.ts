@@ -40,7 +40,6 @@ export class DeleteComponent implements OnInit {
     //send request to backend to delete this author from the authors list
     this.myService.deleteAuthor(this.author.id)
       .subscribe((data:any)=>{
-        console.log(data.status)
         this.deleted();
         this.goToAuthorsList()
       },(err)=>{
@@ -51,7 +50,7 @@ export class DeleteComponent implements OnInit {
           text: "Error Deleting Author, Try again!",
           footer: ''
 
-        })      
+        })
       }
     )
   }

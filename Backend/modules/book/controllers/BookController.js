@@ -100,7 +100,9 @@ async function store(request, response, next)
     try
     {
         const bookPosted = await bookInstance.save()
-        response.json(BookPresenter.present(bookPosted))
+        response.json({
+            status : ResponseCode.SUCCESS,
+            books:BookPresenter.present(bookPosted)})
     }
     catch(e)
     {
@@ -136,7 +138,6 @@ async function destroy(request, response, next)
     }
     catch(e)
     {
-        console.log(e);
         next(ResponseCode.SERVER_ERROR)
     }
 
