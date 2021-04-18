@@ -1,42 +1,98 @@
-/*popular Book Section*/
-
-.container-home {
-    max-width: 90%;
-    margin: auto;
-    padding: 0 20px !important;
-}
-
-.popular-book {
-    font-family: 'PT Sans', sans-serif;
-}
-
-.popular-book img {
-    height: 280px !important;
-}
-
-.popular-book p {
-    color: #88807C;
-}
-
-.popular-book p:last-of-type {
-    color: #DE3241;
-    font-weight: bold;
-}
-
-.popular-book i {
-    color: #DE3241;
-    font-size: 20px;
-}
-
-
-/*stay in touch section*/
-
-.subscribe {
-    background-color: #DE3242;
-}
-
-.border {
-    background-color: #121212;
-    width: 100px;
-    height: 2px;
-}
+ p,
+ h4 {
+     margin: 0;
+     padding: 0;
+ }
+ 
+ .container-home {
+     max-width: 90%;
+     margin: auto;
+     padding: 0 20px !important;
+ }
+ 
+ .popular-book img {
+     height: 200px !important;
+ }
+ 
+ .popular-book h2 {
+     color: #484848;
+     font-family: "Nunito";
+     line-height: 1.2;
+     margin-bottom: 10px;
+     margin-top: 0;
+     font-size: 30px;
+     font-weight: bold;
+ }
+ 
+ .border {
+     background-color: #121212;
+     width: 100px;
+     height: 2px;
+ }
+ 
+ .book {
+     background-color: #fff;
+     border: 1px solid #ebebeb;
+     border-radius: 8px;
+     overflow: hidden;
+     position: relative;
+     transition: all 0.3s ease;
+     box-sizing: border-box;
+ }
+ 
+ .pointer-cursor {
+     cursor: pointer
+ }
+ 
+ .book img {
+     width: 90%;
+     border-radius: 8px;
+     margin: 10px 5% 15px;
+     -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+     -ms-border-radius: 8px;
+     -o-border-radius: 8px;
+ }
+ 
+ .img-catpation {
+     position: absolute;
+     left: 20px;
+     top: 20px;
+     background-color: #DE3242;
+     border-radius: 3px;
+     height: 25px;
+     line-height: 25px;
+     text-align: center;
+     font-size: 14px;
+     font-family: "Nunito";
+     color: #fefefe;
+     line-height: 1.2;
+     padding: 5px
+ }
+ 
+ .book-details-top {
+     padding: 20px;
+     border-top: 1px solid #eeeeee;
+     font-family: "Nunito";
+     color: #484848;
+     line-height: 1.2;
+ }
+ 
+ .book-details-top p:first-of-type {
+     color: #DE3242;
+ }
+ 
+ .book-details-top h4 {
+     font-size: 18px;
+     font-family: "Nunito";
+     color: #484848;
+     font-weight: bold;
+     line-height: 1.2;
+ }
+ 
+ .main-title {
+     font-size: 13px;
+     font-family: "Nunito";
+     color: rgb(119, 119, 119);
+     margin-bottom: 0;
+ }
