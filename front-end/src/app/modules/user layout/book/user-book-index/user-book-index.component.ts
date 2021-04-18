@@ -25,6 +25,7 @@ export class UserBookIndexComponent implements OnInit, OnDestroy {
   pageNumbers: number = 1;
   currantPage: number = 1;
   pages = new Array(1)
+  loading = false;
 
   constructor(private bookService: BookServiceService, private router: Router) {
     this.getBooks();
@@ -38,6 +39,7 @@ export class UserBookIndexComponent implements OnInit, OnDestroy {
           this.books = response.body.books;
           this.pageNumbers = response.body.pages;
           this.pages = new Array(this.pageNumbers)
+          this.loading = true
         },
         (err)=>{
           Swal.fire({

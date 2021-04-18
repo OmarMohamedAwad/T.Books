@@ -21,7 +21,8 @@ categoryRouter.get("/pages", (request, response, next)=> {
 categoryRouter.get("/search", (request, response, next)=> {
 })
 
-categoryRouter.post("/", checkAccessToken(Role.ADMIN), (request, response, next)=> {
+// , checkAccessToken(Role.ADMIN)
+categoryRouter.post("/", (request, response, next)=> {
     CategoryController.store(request, response, next);
 })
 
@@ -33,11 +34,13 @@ categoryRouter.get("/:path", (request, response, next)=> {
         CategoryController.search(request, response, next);
 })
 
-categoryRouter.patch("/:id", checkAccessToken(Role.ADMIN), (request, response, next)=> {
+//  checkAccessToken(Role.ADMIN),
+categoryRouter.patch("/:id", (request, response, next)=> {
     CategoryController.update(request, response, next);
 })
 
-categoryRouter.delete("/:id", checkAccessToken(Role.ADMIN), (request, response, next)=> {
+// , checkAccessToken(Role.ADMIN)
+categoryRouter.delete("/:id", (request, response, next)=> {
     CategoryController.destroy(request, response, next);
 })
 

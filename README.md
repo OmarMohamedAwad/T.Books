@@ -2,7 +2,7 @@
 
 <p align="center">
 
-<img src="ReadMe-photos/CoverPhoto.jpeg">
+<img src="ReadMe-photos/home updates.png">
 
 </p>
 
@@ -68,8 +68,13 @@ Two pages, one to show all Authors and the second one for the details for each o
 ## Books menu and Book details.
 Two pages, one to Two pages, one to show all Books and the second one for the details for each of them.
 
+<<<<<<< HEAD
 ![GitHub in an image](ReadMe-photos/book-menu.jpeg)
 ![GitHub in an image](ReadMe-photos/book-details.jpeg)
+=======
+![GitHub in an image](ReadMe-photos/Book.png)
+![GitHub in an image](ReadMe-photos/book-details.png)
+>>>>>>> ab7b31b71f793b11658f71cfbfc55db3b37b0089
 
 ## Profile Page.
 This page is available when the user login to the site to show his books (read - currently reading - want to read).

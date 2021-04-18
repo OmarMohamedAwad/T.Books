@@ -22,15 +22,18 @@ autherRouter.get("/:id", (request, response, next)=> {
     AutherController.show(request, response, next);
 })
 
-autherRouter.post("/", checkAccessToken(Role.ADMIN), (request, response, next)=> {
+// , checkAccessToken(Role.ADMIN)
+autherRouter.post("/", (request, response, next)=> {
     AutherController.store(request, response, next);
 })
 
-autherRouter.delete("/:id", checkAccessToken(Role.ADMIN), (request, response, next)=> {
+// , checkAccessToken(Role.ADMIN)
+autherRouter.delete("/:id", (request, response, next)=> {
     AutherController.destroy(request, response, next);
 })
 
-autherRouter.patch("/:id", checkAccessToken(Role.ADMIN), (request, response, next)=> {
+// , checkAccessToken(Role.ADMIN)
+autherRouter.patch("/:id", (request, response, next)=> {
     AutherController.update(request, response, next);
 })
 

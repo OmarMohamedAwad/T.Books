@@ -84,6 +84,8 @@ export class StoreComponent implements OnInit {
       //send the data to backen
       this.myService.postAuthor(this.newAuth)
         .subscribe((data)=>{
+          this.added();
+
           this.goToAuthorsList()
         },(err)=>{
           //the data didn't add to the database in the backend
@@ -92,7 +94,7 @@ export class StoreComponent implements OnInit {
             title: 'Oops...',
             text: "Server Error, Author hasn't been saved !",
             footer: ''
-          })      
+          })
         })
     }else {
       this.incorrectData = true;
@@ -105,4 +107,12 @@ export class StoreComponent implements OnInit {
       })
     }
   }
+  added(){
+    Swal.fire(
+      'Good job!',
+      'Author Added Successfully!',
+      'success'
+    )
+  }
+
 }

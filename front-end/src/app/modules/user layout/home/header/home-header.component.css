@@ -1,39 +1,39 @@
-header{ 
+header {
     font-family: 'PT Sans', sans-serif;
 }
 
 button {
     padding: 12px 24px !important;
-    color: #fff; 
-    background-color: #000; 
-    border-radius: 10px; 
-    font-size: 17px; 
+    color: #fff;
+    background-color: #000;
+    border-radius: 10px;
+    font-size: 17px;
     line-height: 2;
 }
 
-header .carousel-item img{
-    height: 450px;
+header .carousel-item img {
+    height: 85vh;
 }
 
-header h2{
-    font-family: 'Playfair Display', serif; 
+header h2 {
+    font-family: 'Playfair Display', serif;
     font-size: 49px;
     font-size: 48px;
 }
 
-.btn-custom{
-    font-size: 20px; 
-    font-weight:700;
+.btn-custom {
+    font-size: 20px;
+    font-weight: 700;
 }
 
-button:hover{
-    background-color: transparent; 
+button:hover {
+    background-color: transparent;
     border: 1px solid #000 !important;
-    color: #000 !important; 
-    font-size: 20px; 
+    color: #000 !important;
+    font-size: 20px;
     font-weight: bold;
 }
 
-p{
+p {
     font-size: 20px;
 }

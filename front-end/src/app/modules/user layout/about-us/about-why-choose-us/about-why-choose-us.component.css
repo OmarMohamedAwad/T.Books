@@ -1,6 +1,8 @@
+h2{
+  font-family: 'Playfair Display';
+}
 .why-choose-us p {
   font-family: "Nunito";
-  color: rgb(119, 119, 119);
   line-height: 1.2;
 }
 .why-choose-us .item {

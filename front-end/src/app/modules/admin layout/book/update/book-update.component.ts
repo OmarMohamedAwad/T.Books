@@ -55,7 +55,7 @@ export class BookUpdateComponent implements OnInit, OnChanges {
     image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
   })
 
-    
+
   //get the name of the book from the form
   getNameStatus(){
     return this.bookForm.controls.name.valid
@@ -89,9 +89,14 @@ export class BookUpdateComponent implements OnInit, OnChanges {
       this.book.description = this.bookForm.controls.description.value;
       this.book.author = this.bookForm.controls.author.value;
       this.book.category = this.bookForm.controls.category.value;
+
       this.book.image = this.bookForm.controls.image.value;
       //send the updated book to the backend
+
       this.bookService.update(this.book).subscribe((response)=>{
+       // console.log(response.body.status);
+       console.log(response);
+        this.updated();
         this.bookForm.reset();
         this.updatedBook.emit(this.book);
         this.closebutton.nativeElement.click();
@@ -105,7 +110,7 @@ export class BookUpdateComponent implements OnInit, OnChanges {
         })
       })
     } else {
-      //invalidation data for the new book  
+      //invalidation data for the new book
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -114,4 +119,12 @@ export class BookUpdateComponent implements OnInit, OnChanges {
       })
     }
   }
+  updated(){
+    Swal.fire(
+      'Good job!',
+      'Author Updated Successfully!',
+      'success'
+    )
+  }
+
 }

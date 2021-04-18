@@ -1,29 +1,42 @@
 /*popular Book Section*/
 
-.container-home{
+.container-home {
     max-width: 90%;
     margin: auto;
     padding: 0 20px !important;
 }
 
-.popular-book { 
+.popular-book {
     font-family: 'PT Sans', sans-serif;
 }
-.popular-book img{
-    height: 230px !important;
+
+.popular-book img {
+    height: 280px !important;
 }
-.popular-book a{
-    color:#88807C;
+
+.popular-book p {
+    color: #88807C;
 }
+
+.popular-book p:last-of-type {
+    color: #DE3241;
+    font-weight: bold;
+}
+
 .popular-book i {
-    color:#DE3241 ;font-size: 20px;
+    color: #DE3241;
+    font-size: 20px;
 }
+
+
 /*stay in touch section*/
-.subscribe{
+
+.subscribe {
     background-color: #DE3242;
 }
 
-.border{
+.border {
     background-color: #121212;
-    width: 100px; height: 2px;
+    width: 100px;
+    height: 2px;
 }

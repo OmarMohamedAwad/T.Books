@@ -38,7 +38,7 @@ export class BookDetComponent implements OnInit {
   userId:string = "";
   bookId:string="";
   user_img="assets/user/author/author-1.jpg";
-
+  loading =false;
   favsNum:number=100;
   userRate=-1;
   userReview: string ="";
@@ -47,7 +47,7 @@ export class BookDetComponent implements OnInit {
   constructor(private bookService: BookServiceService, private reviewsService: ReviewsService, private userService: UserService,
               private ratingService: RatingServiceService,
               private myActivatedRoute:ActivatedRoute, private router: Router) {
-    this.userId = "" /*sessionStorage.getItem("userId")! */ /*"605a0532ba76f47a7793e130"*/;
+    this.userId = sessionStorage.getItem("userId") || ""/*"605a0532ba76f47a7793e130"*/;
   }
 
   book : Book =
@@ -95,11 +95,14 @@ export class BookDetComponent implements OnInit {
       this.readBookStatus(response.body.currantReader, response.body.wantToReadeUsers, response.body.finishReadUsers);
       this.favsNum = 0
       this.avgRate=0
+
+      this.loading=true
       for(let i=0;i<this.ratings.length;i++)
         this.avgRate+=this.ratings[i].rate;
       if(this.ratesNum)
         this.avgRate/=this.ratesNum;
-        this.drawMyRating(this.ratings);
+
+        //this.drawMyRating(this.ratings);
       },
       (err)=>{
         Swal.fire({
@@ -150,12 +153,12 @@ export class BookDetComponent implements OnInit {
   }
 
   publishClicked(e:any){
-    if(this.userId){    
+    if(this.userId){
       this.text=this.reviewArea.nativeElement.value;
     if(this.text.length >= 1 && this.text.length <=300)
     {
       console.log(this.book.id)
-      this.reviewerId = sessionStorage.getItem("userId");
+      this.reviewerId = /*sessionStorage.getItem("userId");*/ this.userId
       this.reviewSubscriber = this.reviewsService.store({reviwer:this.reviewerId, book:this.book.id, body:this.text})
       .subscribe((response:any)=>
         {
@@ -182,7 +185,8 @@ export class BookDetComponent implements OnInit {
   }
 
   changeBookStatus(type: string){
-    if(this.userId){    
+    this.loading=false
+    if(this.userId){
       this.reviewerId = this.userId
       this.userSubscriber = this.userService.updateUserBookList({userId:this.reviewerId, bookId:this.book.id, type:type})
       .subscribe((response:any)=>
@@ -191,7 +195,8 @@ export class BookDetComponent implements OnInit {
           else if(type == "2") this.bookStatus = "Is currant read"
           else if(type == "3") this.bookStatus = "Finished reading"
           console.log(response)
-          // this.reloadComponent()
+          this.loading = true
+          this.reloadComponent()
 
         },
         (err)=>{
