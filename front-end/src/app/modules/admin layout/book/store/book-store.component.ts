@@ -83,21 +83,23 @@ export class BookStoreComponent implements OnInit {
       this.book.category = this.bookForm.controls.category.value;
       this.book.image = this.bookForm.controls.image.value;
       this.bookService.store(this.book).subscribe((response:any)=>{
-        console.log(response.message)
-      /*  console.log(response.status);
-        console.log(response.body.status);
-        console.log(response.body.id);
-        console.log(response.body.message);
-        console.log(response.id);
-        console.log(response.body._id);
-        console.log(response._id);
-        console.log(response.message);
-*/
+        //in case added successfully
+        if(response.id){
+          this.indexFlag = true;
+          this.added();
+          this.bookForm.reset();
+          this.addedBook.emit(this.book);
+        }//incase error like duplicate name in database
+        else{
+          this.bookForm.reset();
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Invalid data ,please try again!",
+            footer: ''
+          })
+         }
 
-        this.indexFlag = true;
-        this.added();
-        this.bookForm.reset();
-        this.addedBook.emit(this.book);
       }, error => {
         //error to add new book to database
         Swal.fire({
@@ -127,7 +129,7 @@ export class BookStoreComponent implements OnInit {
   added(){
     Swal.fire(
       'Good job!',
-      'Author Added Successfully!',
+      'Book Added Successfully!',
       'success'
     )
   }

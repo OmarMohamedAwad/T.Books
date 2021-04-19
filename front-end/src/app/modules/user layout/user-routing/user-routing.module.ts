@@ -15,7 +15,6 @@ import { UserAuthGaurdGuard } from '../../../Guards/user-auth-gaurd.guard'
 import { NotFoundComponent } from '../../not-found/not-found.component';
 
 
-
 const routes:Routes = [
   {path:"",redirectTo:"home",pathMatch:"full"},
   {path:'aboutUs',component:AboutUsComponent},

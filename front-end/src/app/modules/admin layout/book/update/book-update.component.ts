@@ -93,7 +93,7 @@ export class BookUpdateComponent implements OnInit, OnChanges {
       this.book.image = this.bookForm.controls.image.value;
       //send the updated book to the backend
 
-      this.bookService.update(this.book).subscribe((response)=>{
+      this.bookService.update(this.book).subscribe((response:any)=>{
        // console.log(response.body.status);
        console.log(response);
         this.updated();
