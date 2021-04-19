@@ -25,9 +25,9 @@
 
                 </ul>
 
-                <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5" *ngIf="userIsLoggedIn; else falseBlock ">
-                    <img src="https://www.flaticon.com/svg/vstatic/svg/3011/3011478.svg?token=exp=1618634236~hmac=7e9248dd6b3015891f86be698334ca59" class="mr user-image" width="30" height="30" alt="user image" routerLink="/profile">
-                    <a class="user-name mr" routerLinkActive="active" routerLink="/profile">{{this.userName ? this.userName : "user"}}</a>
+                <span class="collapse navbar-collapse login  d-md-none  d-sm-none ml-lg-5" *ngIf="userIsLoggedIn && userRole; else falseBlock ">
+                    <img src="https://image.flaticon.com/icons/png/128/3135/3135789.png" class="mr user-image" width="30" height="30" alt="user image" routerLink="/profile">
+                    <a class="user-name mr" routerLinkActive="active" routerLink="/profile">{{this.userName  ? this.userName : "user"}}</a>
                     <a (click)="userLogout()">
                       <i class="fas fa-sign-out-alt fa-1x text-white logout" ></i>
                     </a>

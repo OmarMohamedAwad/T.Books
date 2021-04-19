@@ -173,12 +173,14 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
     localStorage.setItem('refreshToken', refresh);
     localStorage.setItem('userName', user.userName);
     localStorage.setItem('userId', user.id);
+    sessionStorage.setItem('role','user');
   }
   setLocalStorageData(access: string, refresh: string, user: User) {
     sessionStorage.setItem('accessToken', access);
     sessionStorage.setItem('refreshToken', refresh);
     sessionStorage.setItem('userName', user.userName);
     sessionStorage.setItem('userId', user.id);
+    sessionStorage.setItem('role','user');
   }
 
   ngOnInit(): void {

@@ -26,6 +26,6 @@ export class UserAccessServiceService {
   }
 
   isLoggedIn(){
-    return !!localStorage.getItem('TOKEN');
+    return !!localStorage.getItem('TOKEN') && sessionStorage.getItem('role')=="user";
   }
 }
