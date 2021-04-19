@@ -24,33 +24,32 @@
 <div class="myBooks">
 
     <!--      <app-author-book></app-author-book>   -->
-    <div class="main authorBook" *ngFor="let authorBook of author.books; index as i">
+    <div class="main authorBook" *ngFor="let authorBook of booksArr; index as i">
 
         <div class="image">
-            <img  style="margin-top: 2%;" src='/assets/user/book/{{authorBook.bookImage}}' [alt]='authorBook.bookName'>
+            <img style="margin-top: 2%;" src='authorBook.image' [alt]='authorBook.name'>
         </div>
         <div class="info1">
-            <p style="color: black;">{{authorBook.bookName}}</p>
-            <p style>{{ratings.length}} Ratings</p>
-            <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
-            <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
-            <i class="fas fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
-            <i class="far fa-star" style="color: rgb(255, 60, 0); margin-left: 5px;"></i>
-            <i class="far fa-star" style="color: rgb(255, 60, 0);"></i>
+            <p style="color: black;">{{authorBook.name}}</p>
+            <p style>{{authorBook.numberOfRatings}} Ratings</p>
+            <ngb-rating style="color: #DE3241; font-size: xx-large;" [max]="5" [(rate)]="authorBook.avgRate" [readonly]="true">
+            </ngb-rating>
+
         </div>
         <div class="info2 w-25">
             <div style="margin-left: 120px; font-size: larger;">
-                <p style="display: inline; ">{{ratings|average}}</p>
-                <i class="fas fa-star" style="color: red; margin-left: 5px;"></i>
+                <p style="display: inline; font-size: x-large;">{{authorBook.avgRate}} </p>
+                <ngb-rating style="color: #DE3241; font-size: xx-large;" [max]="1" [rate]="1" [readonly]="true"></ngb-rating>
             </div>
             <div class="dropdown" style="margin-top: 90px; margin-left: 35px;">
-                <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{bookStatus[i]}}
-              </button>
+                <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{authorBook.status}}
+                </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" (click)="changeBookStatus('1',authorBook._id, i)">Want to read</a>
-                  <a class="dropdown-item" (click)="changeBookStatus('2',authorBook._id, i)">Is currently reading</a>
-                  <a class="dropdown-item" (click)="changeBookStatus('3',authorBook._id, i)">Finished reading</a>
+                    <a class="dropdown-item" (click)="changeBookStatus('1',authorBook._id, i)">Want to read</a>
+                    <a class="dropdown-item" (click)="changeBookStatus('2',authorBook._id, i)">Is currently reading</a>
+                    <a class="dropdown-item" (click)="changeBookStatus('3',authorBook._id, i)">Finished reading</a>
                 </div>
             </div>
         </div>
