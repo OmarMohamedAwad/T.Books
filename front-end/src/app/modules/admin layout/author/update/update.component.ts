@@ -92,9 +92,9 @@ export class UpdateComponent implements OnInit, OnChanges {
     if (this.getDOBStatus() && this.getFNameStatus() && this.getLNameStatus() && this.getImageStatus()) {
       //send updated data to backend
       this.myService.updateAuthor(this.author.id, this.author)
-        .subscribe((data) => {
-          this.updated();
-          this.goToAuthorsList();
+        .subscribe((data:any) => {
+            this.updated();
+         console.log(data)
         }, (err) => {
           Swal.fire({
             icon: 'error',
@@ -103,7 +103,8 @@ export class UpdateComponent implements OnInit, OnChanges {
             footer: ''
           });
         })
-    }else {
+    }
+    /*else {
       this.incorrectData = true;
       //invalidation data for the new book
       Swal.fire({
@@ -112,7 +113,7 @@ export class UpdateComponent implements OnInit, OnChanges {
         text: 'Invalid data !',
         footer: ''
       });
-    }
+    }*/
   }
 
   updated() {
