@@ -15,6 +15,8 @@ export class HomePopularBookComponent implements OnInit {
   popularbooks: string[] = []
   popularbooksNames: string[] = []
   popularbooksAuthors: string[] = [];
+  authorsID :string [] = [];
+  booksID :any []= [];
 
 
   constructor(private homeService: HomeService) {
@@ -28,11 +30,13 @@ export class HomePopularBookComponent implements OnInit {
       home = response.body.books;
       console.log(home)
       this.loading = true
-      for(let i = 0; i < home.length && i < 8; i++)
+      for(let i = 0; i < home.length && i < 4; i++)
       {
         this.popularbooks.push(home[i].bookImage);
         this.popularbooksNames.push(home[i].bookName);
         this.popularbooksAuthors.push(home[i].bookAuthor.autherFirstName);
+        this.authorsID.push(home[i].bookAuthor._id)
+        this.booksID.push(home[i].bookId)
       }
       console.log(this.popularbooks)
       console.log(this.popularbooksNames)

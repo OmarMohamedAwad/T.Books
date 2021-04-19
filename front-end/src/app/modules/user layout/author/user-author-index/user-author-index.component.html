@@ -1,14 +1,14 @@
 <app-user-loading *ngIf="!loading"></app-user-loading>
 <app-nav-user></app-nav-user>
 <div class="author-search">
-  <div class="input-group m-auto w-40">
-    <div class="form-outline w-90">
-      <input type="search" class="form-control" placeholder="Search" #search_box/>
-    </div>
-    <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
+    <div class="input-group m-auto w-40">
+        <div class="form-outline w-90">
+            <input type="search" class="form-control" placeholder="Search" #search_box/>
+        </div>
+        <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
       <i class="fas fa-search"></i>
     </button>
-  </div>
+    </div>
 </div>
 <!-- section author-->
 <section class="authors">
@@ -32,18 +32,20 @@
     </div>
 </section>
 
-<section class="pagination-section" *ngIf="allPagesCount > 1">
-  <div class="container">
-    <div class="row">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination w-50">
-          <li class="page-item"><a class="" (click)="prev()"><i
+<section class="pagination-section mb-4" *ngIf="allPagesCount > 1">
+    <div class="container">
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination w-50">
+                    <li class="page-item"><a class="" (click)="prev()"><i
                 class="fas fa-chevron-circle-left fa-2x"></i></a></li>
-          <li class="page-item"><a class="">{{pageNumber}}</a></li>
-          <li class="page-item"><a class="" (click)="next()"><i
+                    <li class="page-item"><a class="">{{pageNumber}}</a></li>
+                    <li class="page-item"><a class="" (click)="next()"><i
                 class="fas fa-chevron-circle-right fa-2x"></i></a></li>
-        </ul>
-      </nav>
+                </ul>
+            </nav>
+        </div>
     </div>
-   </div>
 </section>
+
+<app-home-footer></app-home-footer>

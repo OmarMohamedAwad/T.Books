@@ -36,6 +36,7 @@ export class CategoryDeleteComponent implements OnInit {
   deleteCategory(){
     this._categoryService.categoryDelete(this.deletedCategory.id).subscribe((res)=>{
       if(res.message=="Deleted Correctly"){
+        this.deleted();
         this.closebutton.nativeElement.click();
         this.refreshCategories.emit()
       }
@@ -48,6 +49,12 @@ export class CategoryDeleteComponent implements OnInit {
       })
     })
   }
-
+  deleted(){
+    Swal.fire(
+      'Good job!',
+      'Category Deleted Successfully!',
+      'success'
+    )
+  }
   @Output() refreshCategories:EventEmitter<Category> = new EventEmitter<Category>()
 }

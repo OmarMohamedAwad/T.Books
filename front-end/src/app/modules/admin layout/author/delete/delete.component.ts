@@ -40,6 +40,11 @@ export class DeleteComponent implements OnInit {
     //send request to backend to delete this author from the authors list
     this.myService.deleteAuthor(this.author.id)
       .subscribe((data:any)=>{
+        if(data.status ===200){
+          console.log(data.status)
+          this.deleted();
+          this.goToAuthorsList()
+        }
         this.deleted();
         this.goToAuthorsList()
       },(err)=>{

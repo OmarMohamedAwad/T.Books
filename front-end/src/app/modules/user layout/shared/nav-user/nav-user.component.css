@@ -1,174 +1,181 @@
 a {
-  text-decoration: none;
-  -ms-transition: all 0.1s ease-in;
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
+    text-decoration: none;
+    -ms-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+}
+
+.cursor-pointer {
+    cursor: pointer
 }
 
 button {
-  background-color: #DE3241;
-  padding: 5px;
+    background-color: #DE3241;
+    padding: 5px;
 }
 
 button:active {
-  outline: none;
-  border: none;
+    outline: none;
+    border: none;
 }
 
 .toggle {
-  height: 30px;
-  color: white;
+    height: 30px;
+    color: white;
 }
 
 ul:first-child {
-  margin-left: 32%;
+    margin-left: 32%;
 }
 
 li {
-  margin: 0 2%;
+    margin: 0 2%;
 }
 
 nav.logo {
-  display: inline-block;
+    display: inline-block;
 }
 
 nav .logo img {
-  float: left;
-  height: 45px;
-  transition: 0.5s;
+    float: left;
+    height: 45px;
+    transition: 0.5s;
 }
 
 nav .logo span {
-  font-family: 'Playfair Display';
-  font-weight: 700;
-  font-size: 30px;
+    font-family: 'Playfair Display';
+    font-weight: 700;
+    font-size: 30px;
 }
 
 nav .logo .books {
-  color: #DE3241;
+    color: #DE3241;
 }
 
 nav.navbar-default {
-  border-color: rgba(0, 0, 0, 0.05);
-  -ms-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+    border-color: rgba(0, 0, 0, 0.05);
+    -ms-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 nav.navbar-default.affix {
-  background-color: #222;
-  -ms-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+    background-color: #222;
+    -ms-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .login {
-  padding-right: 20px;
-  justify-content: flex-end;
+    padding-right: 20px;
+    justify-content: flex-end;
 }
 
 .login-anchor {
-  padding: 0 10px;
+    padding: 0 10px;
 }
 
 nav.navbar-default .navbar-brand {
-  color: #fff;
-  font-size: 20px;
-  font-family: 'Roboto', sans-serif;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
 }
 
-nav.navbar-default .navbar-brand:focus, nav.navbar-default .navbar-brand:hover {
-  color: #fff !important;
-  background-color: transparent;
+nav.navbar-default .navbar-brand:focus,
+nav.navbar-default .navbar-brand:hover {
+    color: #fff !important;
+    background-color: transparent;
 }
 
-nav.navbar-default .navbar-nav > li > a, .login, pre {
-  color: #fff;
-  /*font-family: 'Roboto', sans-serif;*/
-  font-size: 110%;
-  font-weight: bold;
+nav.navbar-default .navbar-nav>li>a,
+.login,
+pre {
+    color: #fff;
+    /*font-family: 'Roboto', sans-serif;*/
+    font-size: 110%;
+    font-weight: bold;
 }
 
-nav.navbar-default .navbar-nav > li > a:focus,
-nav.navbar-default .navbar-nav > li > a:hover,
+nav.navbar-default .navbar-nav>li>a:focus,
+nav.navbar-default .navbar-nav>li>a:hover,
 .login a:hover {
-  color: #DE3241;
-  background-color: transparent;
+    color: #DE3241;
+    background-color: transparent;
 }
 
 .login a {
-  text-decoration: none;
-  color: #fff;
+    text-decoration: none;
+    color: #fff;
 }
 
 nav.navbar-default .navbar-nav li a.active,
 nav.navbar-default .navbar-nav li a.active:focus,
 nav.navbar-default .navbar-nav li a.active:hover {
-  font-weight: 700;
-  color: #DE3241;
-  background-color: transparent;
+    font-weight: 700;
+    color: #DE3241;
+    background-color: transparent;
 }
 
-.navbar-toggler-icon, .navbar-toggler{
-  border-color: transparent;
-  background-color: transparent;
+.navbar-toggler-icon,
+.navbar-toggler {
+    border-color: transparent;
+    background-color: transparent;
 }
 
 @media (max-width: 991px) {
-  .navbar-collapse {
-    background-color: rgba(0, 0, 0, 0.8);
-    margin-top: 67px;
-    align-items: left;
-  }
-
-  li {
-    float: left;
-  }
-
-  .navbar-toggler-icon, .navbar-toggler {
-    border: transparent !important;
-  }
+    .navbar-collapse {
+        background-color: rgba(0, 0, 0, 0.8);
+        margin-top: 67px;
+        align-items: left;
+    }
+    li {
+        float: left;
+    }
+    .navbar-toggler-icon,
+    .navbar-toggler {
+        border: transparent !important;
+    }
 }
 
 .icon {
-  animation: rotation 3s infinite;
+    animation: rotation 3s infinite;
 }
 
 .active {
-  color: #DE3241;
+    color: #DE3241;
 }
 
 .mr {
-  margin-right: 15px;
+    margin-right: 15px;
 }
 
 .user-image {
-  border-radius: 50%;
-  border: 1px solid #DE3241;
-  cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid #DE3241;
+    cursor: pointer;
 }
 
-.logout{
-  cursor: pointer;
+.logout {
+    cursor: pointer;
 }
 
 @keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
 }
 
 @media screen and (max-width: 991px) {
-  nav.navbar-default {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
+    nav.navbar-default {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
 }
 
 @media screen and (min-width: 992px) {
-  nav.navbar-default {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
+    nav.navbar-default {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 }

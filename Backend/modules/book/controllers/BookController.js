@@ -9,28 +9,27 @@ const reviewModel = require('../../review/models/Review')
 const ratingModel = require('../../rating/models/Rating')
 const Author = require("../../author/models/Author")
 
-async function pagination(request, response, next){
-    try{
-        let { page=1,limit=8} = request.query;
+async function pagination(request, response, next) {
+    try {
+        let { page = 1, limit = 8 } = request.query;
         page < 0 ? page = 1 : page;
         limit < 2 ? limit = 8 : limit;
-        
+
         const booksNumber = await bookModel.estimatedDocumentCount();
         const books = await bookModel.find().populate("bookCategory").populate("bookAuthor")
-        .sort('bookName')
-        .limit(limit)
-        .skip((page-1) * limit).exec();  
-        
+            .sort('bookName')
+            .limit(limit)
+            .skip((page - 1) * limit).exec();
+
         const numberOfPages = Math.ceil(booksNumber / limit)
-        const presentedBooks = books.map((book)=>{
+        const presentedBooks = books.map((book) => {
             return BookPresenter.present(book);
         });
         response.json({
             books: presentedBooks,
             pages: numberOfPages
         });
-    }
-    catch(err){
+    } catch (err) {
         next(err);
     }
 }
@@ -43,17 +42,17 @@ async function search(request, response, next) {
     var refactoredKeyword = keyword.replace(/^\s*|\s*$/g, '');
     page < 0 ? page = 1 : page;
     let regex = new RegExp();
-    if(refactoredKeyword.length)
-        regex= new RegExp(refactoredKeyword,'i');
-    try{
-        const filterCount = await bookModel.find( {bookName: regex } ) .count(); 
-        const filtered = await bookModel.find( {bookName: regex } ).populate("bookCategory").populate("bookAuthor")
+    if (refactoredKeyword.length)
+        regex = new RegExp(refactoredKeyword, 'i');
+    try {
+        const filterCount = await bookModel.find({ bookName: regex }).count();
+        const filtered = await bookModel.find({ bookName: regex }).populate("bookCategory").populate("bookAuthor")
             .sort('bookName')
             .limit(8)
-            .skip((page-1) * 8)
+            .skip((page - 1) * 8)
             .exec();
         const numberOfPages = Math.ceil(filterCount / 8)
-        const presentedBooks = filtered.map((book)=>{
+        const presentedBooks = filtered.map((book) => {
             return BookPresenter.present(book);
         });
         console.log(presentedBooks);
@@ -61,33 +60,27 @@ async function search(request, response, next) {
             books: presentedBooks,
             pages: numberOfPages
         });
-    }
-    catch{
+    } catch {
         next(ResponseCode.SERVER_ERROR);
     }
 }
 
 
-async function index(request, response, next) 
-{
-    try
-    {
+async function index(request, response, next) {
+    try {
         const bookGetAllResults = await bookModel.find()
-            .populate("bookCategory").populate("bookAuthor").exec();        
+            .populate("bookCategory").populate("bookAuthor").exec();
 
-        response.json(bookGetAllResults.map((book)=>{
+        response.json(bookGetAllResults.map((book) => {
             return BookPresenter.present(book);
         }))
-    }
-    catch(e)
-    {
+    } catch (e) {
         next(ResponseCode.SERVER_ERROR)
-        //return next(new Error("Listing all book failed"))
-    } 
+            //return next(new Error("Listing all book failed"))
+    }
 }
 
-async function store(request, response, next) 
-{
+async function store(request, response, next) {
     const bookRequest = request.body
     const bookInstance = new bookModel({
         bookName: bookRequest.name,
@@ -97,42 +90,31 @@ async function store(request, response, next)
         bookAuthor: bookRequest.author,
     })
 
-    try
-    {
+    try {
         const bookPosted = await bookInstance.save()
-        response.json({
-            status : ResponseCode.SUCCESS,
-            books:BookPresenter.present(bookPosted)})
-    }
-    catch(e)
-    {
+        response.json(BookPresenter.present(bookPosted))
+    } catch (e) {
         next(e)
     }
 }
 
-async function show(request, response, next) 
-{
+async function show(request, response, next) {
     const { id } = request.params
-    try
-    {
+    try {
         const bookGetOneResults = await bookModel.findById(id).populate("bookCategory").populate("bookAuthor").populate("bookReviews").populate("bookRatings").exec();
         response.json(BookPresenter.present(bookGetOneResults));
-    }
-    catch(e)
-    {
+    } catch (e) {
         next(e);
     }
 }
 
-async function destroy(request, response, next) 
-{
+async function destroy(request, response, next) {
     const { id } = request.params
-    try
-    {
+    try {
         const bookDeleteResult = await bookModel.findById(id);
         bookDeleteResult.remove()
         response.json({
-            status : ResponseCode.SUCCESS,
+            status: ResponseCode.SUCCESS,
             message: ResponseMessage.DELETE_MESSAGE
         });
     }
@@ -143,40 +125,36 @@ async function destroy(request, response, next)
 
 }
 
-async function update(request, response, next) 
-{
+async function update(request, response, next) {
     const { id } = request.params
     const bookRequest = request.body
 
     const bookInstance = {
-        ...(bookRequest.name) ? {bookName: bookRequest.name} : {},
-        ...(bookRequest.description) ? {bookDescription: bookRequest.description} : {},
-        ...(bookRequest.image) ? {bookImage: bookRequest.image} : {},
+        ...(bookRequest.name) ? { bookName: bookRequest.name } : {},
+        ...(bookRequest.description) ? { bookDescription: bookRequest.description } : {},
+        ...(bookRequest.image) ? { bookImage: bookRequest.image } : {},
     }
 
-    try
-    {
+    try {
         let bookDoc = await bookModel.findById({ _id: id });
-        await bookModel.updateOne({_id: id}, bookInstance);
+        await bookModel.updateOne({ _id: id }, bookInstance);
 
         // check if category or author changed and update it
         if (bookRequest.category && bookRequest.author) {
             bookDoc.bookCategory = bookRequest.category;
-            bookDoc.bookAuthor = bookRequest.author;            
-        }else if (bookRequest.category){
+            bookDoc.bookAuthor = bookRequest.author;
+        } else if (bookRequest.category) {
             bookDoc.bookCategory = bookRequest.category;
-        }else if (bookRequest.category){
-            bookDoc.bookAuthor = bookRequest.author;            
+        } else if (bookRequest.category) {
+            bookDoc.bookAuthor = bookRequest.author;
         }
         bookDoc.save()
 
         response.json({
-            status : ResponseCode.SUCCESS,
+            status: ResponseCode.SUCCESS,
             message: ResponseMessage.UPDATE_MESSAGE
         });
-    }
-    catch(e)
-    {
+    } catch (e) {
         next(e)
     }
 }

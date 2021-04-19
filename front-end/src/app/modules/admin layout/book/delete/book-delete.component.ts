@@ -40,9 +40,13 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
   deleteBook(){
     //send the request to the backend to remove the book
     this.subscriber = this.bookService.destroy(this.book.id)
-      .subscribe((data)=>{
-        this.closebutton.nativeElement.click();
-        this.deletedBook.emit(this.book);
+      .subscribe((data:any)=>{
+        //console.log(data.status)
+        if(data.status ==200){
+          this.deleted();
+          this.deletedBook.emit(this.book);
+          this.closebutton.nativeElement.click();
+        }
       },(err)=>{
         //error message about failure of deleting
         Swal.fire({
@@ -57,5 +61,12 @@ export class BookDeleteComponent implements OnInit, OnDestroy {
   //at the end of component
   ngOnDestroy(): void {
     //this.subscriber.unsubscribe();
+  }
+  deleted(){
+    Swal.fire(
+      'Good job!',
+      'Book Deleted Successfully!',
+      'success'
+    )
   }
 }
