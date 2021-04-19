@@ -6,15 +6,31 @@ import {HttpClient} from '@angular/common/http';
 })
 export class RatingServiceService {
   constructor(private client:HttpClient) { }
+  accessToken = localStorage.getItem('TOKEN');
   readonly BASE_URL: string = "http://localhost:3000/rating";
   
+  show(id: any){
+    return this.client.get(`${this.BASE_URL}/${id}`,{observe:"response"});
+  }
+  
   store(rating_det: { rate:number, rater:string, book:string}){
-    console.log(rating_det);
-    return this.client.post(this.BASE_URL,rating_det);
+    return this.client.post(this.BASE_URL,rating_det,{
+      observe: 'response',
+      headers: {
+        "Authorization": "Bearer" + this.accessToken
+      }
+    });
   }
-  /*
-  update(userId:any,bookId:any){
-    return this.client.patch(`${this.BASE_URL}/`)
+  
+  update(rating_det: { rate:number, rater:string, book:string}){
+    console.log("updateeeeeeeee")
+    return this.client.patch(`${this.BASE_URL}/${rating_det.book}/${rating_det.rater}`,rating_det,{
+      observe: 'response',
+      headers: {
+        "Authorization": "Bearer " + this.accessToken
+      }
+    });
   }
-  */
+
+
 }

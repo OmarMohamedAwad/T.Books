@@ -2,9 +2,8 @@
 .page_content{
     width: 20%;
     height: 80vh;
-    padding: 50px 0;
     font-size: 1vw;
-    margin: 90px 0 0 10%;
+    margin: 12vh 0 0 10%;
     background: #DE3241;
     box-sizing: border-box;
     display: inline-block;
@@ -14,7 +13,7 @@
 .terms{
     width: 60%;
     height: 80vh;
-    margin: 90px 0 0 30.5%;
+    margin: 12vh 0 0 30.5%;
     background: rgba(255,255,255,0.9);
     overflow: auto;
     text-align:justify;
