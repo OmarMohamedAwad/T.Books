@@ -25,7 +25,7 @@ export class StoreComponent implements OnInit {
     image:"",
     books:[]
   };
-  
+
   //constructor
   constructor(private myService:AuthorsServiceService, private router: Router) {}
 
@@ -57,7 +57,7 @@ export class StoreComponent implements OnInit {
     return this.myForm.controls.lName.valid
   }
 
-  //get author's date of birth 
+  //get author's date of birth
   getDOBStatus(){
     return this.myForm.controls.dob.valid
   }
@@ -83,10 +83,22 @@ export class StoreComponent implements OnInit {
     if (this.getDOBStatus() && this.getFNameStatus(), this.getLNameStatus()){
       //send the data to backen
       this.myService.postAuthor(this.newAuth)
-        .subscribe((data)=>{
+        .subscribe((data:any)=>{
+         // case author added successfully
+         if(data.id){
           this.added();
-
           this.goToAuthorsList()
+         }//in case error
+         else{
+          this.myForm.reset();
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Invalid data ,please try again!",
+            footer: ''
+          })
+         }
+
         },(err)=>{
           //the data didn't add to the database in the backend
           Swal.fire({
@@ -98,7 +110,7 @@ export class StoreComponent implements OnInit {
         })
     }else {
       this.incorrectData = true;
-      //invalidation data for the new book  
+      //invalidation data for the new book
       Swal.fire({
         icon: 'error',
         title: 'Oops...',

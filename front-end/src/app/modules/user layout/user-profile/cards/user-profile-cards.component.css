@@ -1,49 +1,59 @@
-
-
-
 /**/
-.parentContainer{
-    margin-top: 1%;
-    margin-left: 10%;
-}
-.card-container{
-    margin-left: 15%;
-    margin-bottom: 3%;
-    background-color: #f5f5f5;
-    font-size: 20px;
-    padding-bottom: 1%;
-    padding-top: 1%;
-    border-radius: 25px;
-    display: inline-block;
+.parentContainer {
+  margin-top: 1%;
+  margin-left: 10%;
 }
 
-.first-star{
-    margin-left: 20%;
-    color:  #de3242;
+.card-container {
+  margin-left: 15%;
+  margin-bottom: 3%;
+  background-color: #f5f5f5;
+  font-size: 20px;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  border-radius: 25px;
+  display: inline-block;
+  height: 250px;
 }
 
-select{
-    width: 50%;
-    margin-left: 45%;
-    margin-top: 2%;
-    border-radius: 25px;
+.first-star {
+  margin-left: 20%;
+  color: #de3242;
 }
 
-.selectHeader{
-    background-color: #de3242;
+.avg-start {
+  text-align: right;
+  padding-right: 15px;
+}
+
+select {
+  width: 50%;
+  margin-left: 45%;
+  margin-top: 2%;
+  border-radius: 25px;
+}
+
+.selectHeader {
+  background-color: #de3242;
 
 }
 
-.ratingstar1:hover,.ratingstar2:hover,.ratingstar3:hover,.ratingstar4:hover,.ratingstar5:hover{
-    color:  #de3242;
-}
-.author{
-    color: #de3242;
-    margin-top: 2%;
+.ratingstar1:hover, .ratingstar2:hover, .ratingstar3:hover, .ratingstar4:hover, .ratingstar5:hover {
+  color: #de3242;
 }
 
-.ratingStars{
-    margin-top: 2%;
+.author {
+  color: #de3242;
+  margin-top: 2%;
+}
+
+.ratingStars {
+  margin-top: 2%;
+}
+
+.dropdown button {
+  float: right;
+  margin-right: 10px;
 }
 
 .dropdown-item {
@@ -51,20 +61,21 @@ select{
 }
 
 @media only screen and (max-width: 1000px) {
-    .card-container{
-        margin-left: 40%;
-        width: 50%
-    }
+  .card-container {
+    margin-left: 40%;
+    width: 50%
+  }
 }
 
 @media only screen and (max-width: 767px) {
-    .card-container{
-        margin-left: 2%;
-        width: 90%
-    }
-    .parentContainer{
-        margin-top: 5%;
-    }
+  .card-container {
+    margin-left: 2%;
+    width: 90%
+  }
+
+  .parentContainer {
+    margin-top: 5%;
+  }
 }
 
 

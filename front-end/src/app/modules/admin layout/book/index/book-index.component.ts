@@ -89,7 +89,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
       }
     )
   }
-  
+
   //get categories data from backend
   getCategories(){
     this.subscriber = this.categoryService.categoryIndex()
@@ -108,7 +108,7 @@ export class BookIndexComponent implements OnInit, OnDestroy {
     )
   }
 
-  //get search words 
+  //get search words
   captureSearchContent(){
     this.keywords = this.search_box.nativeElement.value;
     this.filterList(this.keywords);
@@ -133,17 +133,17 @@ export class BookIndexComponent implements OnInit, OnDestroy {
 
   //rerender the list after delete a book
   deleteBook(book: any){
-    this.ngOnInit();
+    this.getBooks()
   }
 
   //rerender the list after add a book
   addBook(book: any){
-    this.ngOnInit();
+    this.getBooks()
   }
 
   //rerender the list after update a book
   updateBook(book: any){
-    this.ngOnInit();
+    this.getBooks()
   }
 
   //at the end of component

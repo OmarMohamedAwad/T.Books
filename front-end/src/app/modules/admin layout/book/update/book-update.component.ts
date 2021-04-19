@@ -48,11 +48,11 @@ export class BookUpdateComponent implements OnInit, OnChanges {
 
   //get book data with validation tests
   bookForm = new FormGroup({
-    name: new FormControl("",[Validators.required,Validators.min(2),Validators.maxLength(50),Validators.pattern('[a-zA-Z0-9 ]*')]),
-    description: new FormControl("",[Validators.required,Validators.min(10),Validators.max(250),Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
-    author: new FormControl("",[Validators.required]),
-    category: new FormControl("",[Validators.required]),
-    image: new FormControl('' , [Validators.required , Validators.pattern('[a-zA-Z0-9]*')])
+    name: new FormControl("",[Validators.min(2),Validators.maxLength(50),Validators.pattern('[a-zA-Z0-9 ]*')]),
+    description: new FormControl("",[Validators.min(10),Validators.max(250),Validators.pattern('[0-9a-zA-Z,-_. ]*')]),
+    author: new FormControl("",[]),
+    category: new FormControl("",[]),
+    image: new FormControl('' , [ Validators.pattern('[a-zA-Z0-9]*')])
   })
 
 
@@ -93,7 +93,7 @@ export class BookUpdateComponent implements OnInit, OnChanges {
       this.book.image = this.bookForm.controls.image.value;
       //send the updated book to the backend
 
-      this.bookService.update(this.book).subscribe((response)=>{
+      this.bookService.update(this.book).subscribe((response:any)=>{
        // console.log(response.body.status);
        console.log(response);
         this.updated();
@@ -119,6 +119,7 @@ export class BookUpdateComponent implements OnInit, OnChanges {
       })
     }
   }
+
   updated(){
     Swal.fire(
       'Good job!',

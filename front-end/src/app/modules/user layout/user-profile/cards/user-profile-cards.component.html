@@ -9,8 +9,8 @@
                 </div>
                 <div class="col-9">
                     <div class="row">
-                        <div class="col-8">{{book}}</div>
-                        <div class="col-4">{{bookOverallRate[i]}} <i class="fas fa-star first-star"></i> </div>
+                        <div class="col-8">{{book | slice :0:25}}</div>
+                        <div class="col-4 avg-start">{{bookOverallRate[i]}} <i class="fas fa-star first-star"></i> </div>
                     </div>
                     <div class="row author">
                         <div class="col-12">{{bookIAuthor[i]}}</div>

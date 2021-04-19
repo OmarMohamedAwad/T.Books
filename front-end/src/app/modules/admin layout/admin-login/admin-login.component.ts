@@ -43,7 +43,7 @@ export class AdminLoginComponent implements OnInit {
   enterSite() {
     this.router.navigate(['/admin/dashboard']);
   }
-  
+
   //show or hide password
   togglePassword(){
     this.show = !this.show
@@ -57,12 +57,13 @@ export class AdminLoginComponent implements OnInit {
       adminPassword: this.myForm.controls.adminPassword.value
     })
     .subscribe((data) => {
-      //save tokens in session storage to use it for every next request 
+      //save tokens in session storage to use it for every next request
       this.tokens = data;
       try {
         if (this.tokens.token.accessToken != undefined) {
           sessionStorage.setItem('accessToken', this.tokens.token.accessToken);
           sessionStorage.setItem('refreshToken', this.tokens.token.refreshToken);
+          sessionStorage.setItem('role','admin');
           this.enterSite();
         }
       } catch {

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthorsServiceService} from 'src/app/services/authors-service.service';
+import {AuthorsServiceService} from '../../../../services/authors-service.service';
 import {Router} from '@angular/router';
 import {Author} from '../models/author';
 import Swal from 'sweetalert2';
@@ -89,12 +89,12 @@ export class UpdateComponent implements OnInit, OnChanges {
     this.author.birthDay = this.myForm.controls.dob.value;
     this.author.image = this.myForm.controls.image.value;
     //check on the data is valid or invalid
-    if (this.getDOBStatus() && this.getFNameStatus() && this.getLNameStatus() && this.getImageStatus()) {
+    // if (this.getDOBStatus() && this.getFNameStatus() && this.getLNameStatus() && this.getImageStatus()) {
       //send updated data to backend
       this.myService.updateAuthor(this.author.id, this.author)
-        .subscribe((data) => {
-          this.updated();
-          this.goToAuthorsList();
+        .subscribe((data:any) => {
+            this.updated();
+         console.log(data)
         }, (err) => {
           Swal.fire({
             icon: 'error',
@@ -103,16 +103,16 @@ export class UpdateComponent implements OnInit, OnChanges {
             footer: ''
           });
         })
-    }else {
-      this.incorrectData = true;
-      //invalidation data for the new book
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Invalid data !',
-        footer: ''
-      });
-    }
+    // }else {
+    //   this.incorrectData = true;
+    //   //invalidation data for the new book
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: 'Invalid data !',
+    //     footer: ''
+    //   });
+    // }
   }
 
   updated() {

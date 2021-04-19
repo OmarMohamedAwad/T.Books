@@ -20,6 +20,7 @@ export class AdminLoginService {
     return this.adminClient.post(`${this.baseURL}/adminLogout`,token)
   }
   isLoggedIn(){
-    return !!sessionStorage.getItem('accessToken');
+
+    return !!sessionStorage.getItem('accessToken')&& sessionStorage.getItem('role')=="admin";
   }
 }

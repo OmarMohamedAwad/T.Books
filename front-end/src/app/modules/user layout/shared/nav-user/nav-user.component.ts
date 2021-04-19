@@ -16,6 +16,7 @@ export class NavUserComponent implements OnInit {
   is_open: boolean;
   refreshToken:any = "";
   userName: string | null = ""
+  userRole:boolean =false
   @ViewChild('toggle_btn') toggle_btn!: ElementRef<HTMLButtonElement>;
   @ViewChild('collapseList') collapseList!: ElementRef<HTMLDivElement>;
 
@@ -30,6 +31,8 @@ export class NavUserComponent implements OnInit {
   ngOnInit(): void {
     console.log('status', this.userIsLoggedIn);
     this.userName = sessionStorage.getItem("userName") ? sessionStorage.getItem("userName") : localStorage.getItem("userName")
+    this.userRole = sessionStorage.getItem("role")=="user";
+
   }
 
   userLogout() {

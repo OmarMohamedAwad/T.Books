@@ -1,18 +1,20 @@
 <app-user-loading *ngIf="!loading"></app-user-loading>
-<section class="popular-book my-5">
+<section class="popular-book py-5">
     <div class="container-home">
-        <h2 class="pt-3 text-center ">Popular<span class="italic"> Books</span> </h2>
-        <div class="border m-auto "></div>
-        <div class="row mt-5 w-100 justify-content-around" >
-            <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let bookCol of popularbooks; let i = index;">
-                <div class="card mb-3 mt-3">
-                    <img class="card-img-top " src="{{bookCol}}" onerror="this.onerror=null; this.src='/assets/user/book/book-1.jpg.jpg'" [alt]="bookCol">
-                    <div class="card-body d-flex align-items-center justify-content-between ">
-                        <p class="card-link">{{popularbooksNames[i]}}</p>
-                        <p class="card-link">{{popularbooksAuthors[i]}}</p>
+        <h2 class="pt-3 text-center ">Popular<span> Books</span></h2>
+        <!--<div class="border m-auto "></div>-->
+        <p class="main-title text-center">Books that's highly rating</p>
+        <div class="row mt-5 w-100 justify-content-around">
+            <div class="col-md-6 col-lg-4 col-xl-3 pointer-cursor mb-3" *ngFor="let bookCol of popularbooks; let i = index;" [routerLink]="['/books',booksID[i] ]">
+                <div class="book">
+                    <img src="{{bookCol}}" onerror="this.onerror=null; this.src='/assets/user/book/book-1.jpg.jpg'" [alt]="bookCol" />
+                    <p class="img-catpation pointer-cursor px-3" [routerLink]="['/authors',authorsID[i] ]">{{popularbooksAuthors[i]}} </p>
+                    <div class="book-details-top">
+                        <h4 class="pointer-cursor text-center">{{popularbooksNames[i] | slice :0:18}}.. </h4>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </section>

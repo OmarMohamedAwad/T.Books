@@ -53,6 +53,7 @@ ratingShcema.pre('save' , async function (request , response , next) {
 */
 
 ratingShcema.pre('deleteOne',async function(next){
+    console.log("Rating");
     //review-book
     const Book = require('../../book/models/Book')
     //review-user
@@ -60,12 +61,14 @@ ratingShcema.pre('deleteOne',async function(next){
     const deletedRating = await ratingModel.findById(this._conditions._id)
     try
     {
+        console.log(deletedRating);
         await user.updateOne({_id: deletedRating.rater} , {$pull: {userRatings: this._conditions._id}})
         console.log("removed the review from user correctly")
         await Book.updateOne({_id: deletedRating.ratedBook} , {$pull: {bookRatings: this._conditions._id}})
         console.log("removed the review from book correctly")
         next()
     }catch(e){
+        console.log(e);
         next(new Error("can't remove dependencies"))
     }
 })
