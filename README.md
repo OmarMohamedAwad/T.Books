@@ -68,19 +68,28 @@ Two pages, one to show all Authors and the second one for the details for each o
 ## Books menu and Book details.
 Two pages, one to Two pages, one to show all Books and the second one for the details for each of them.
 
+<<<<<<< HEAD
+![GitHub in an image](ReadMe-photos/book-menu.jpeg)
+![GitHub in an image](ReadMe-photos/book-details.jpeg)
+=======
 ![GitHub in an image](ReadMe-photos/Book.png)
 ![GitHub in an image](ReadMe-photos/book-details.png)
+>>>>>>> ab7b31b71f793b11658f71cfbfc55db3b37b0089
 
 ## Profile Page.
 This page is available when the user login to the site to show his books (read - currently reading - want to read).
 
+![GitHub in an image](ReadMe-photos/user-profile.jpeg)
+
 ## Categories page.
 Display all categories in the site with their books.
 
+![GitHub in an image](ReadMe-photos/category.jpeg)
 
 ## About us page.
 Contain some informations about us with our vision.
 
+![GitHub in an image](ReadMe-photos/about-us.jpeg)
 
 # Structure Digrams.
 

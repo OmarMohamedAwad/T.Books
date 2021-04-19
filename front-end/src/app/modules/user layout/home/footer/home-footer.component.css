@@ -95,6 +95,10 @@ footer .contact span {
     color: #DE3241;
 }
 
+.footer-container {
+    max-width: 90%;
+}
+
 @media screen and (max-width: 700px) {
     .find,
     .contact,
