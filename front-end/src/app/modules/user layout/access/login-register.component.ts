@@ -147,6 +147,7 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
           this.userAccessToken = response.accessToken;
           this.userRefreshToken = response.refreshToken;
           this.user = response.user;
+          console.log(response);
           try {
             if (this.userAccessToken != undefined) {
               this.setSessionData(this.userAccessToken,this.userRefreshToken,this.user)

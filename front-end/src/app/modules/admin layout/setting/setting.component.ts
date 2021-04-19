@@ -18,7 +18,7 @@ export class SettingComponent implements OnInit {
   ngOnInit(): void {
     this.subscriber = this.settingService.getSettings()
     .subscribe((response:any)=>{
-      this.settings = response.body
+      this.settings = response.body;
       this.isLoad = true
       this.settings.find((section:any) => {
         if(section.sectionName == "home")
@@ -64,8 +64,8 @@ export class SettingComponent implements OnInit {
 
   submitHeaderForm(e:any)
   {
-    console.log(this.homeHeaderForm.controls.title.value)
-    console.log(this.homeHeaderForm.controls.sub_title.value)
+    //console.log(this.homeHeaderForm.controls.title.value)
+    //console.log(this.homeHeaderForm.controls.sub_title.value)
     let insertedData : any =
     {
     "title": this.homeHeaderForm.controls.title.value,

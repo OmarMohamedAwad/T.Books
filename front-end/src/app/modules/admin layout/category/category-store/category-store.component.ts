@@ -31,14 +31,26 @@ export class CategoryStoreComponent implements OnInit {
   addCategory() {
     this.isClicked = true;
     if (this.categoryForm.valid) {
-        this._categoryService.categoryStore(this.categoryForm.value).subscribe(response => {
-          //if (response.message == 'success') {
+        this._categoryService.categoryStore(this.categoryForm.value).subscribe((response:any) =>{
+          //in case added successfully
+          if(response._id){
+            this.added();
             this.isClicked = false;
             this.isSucess = true;
             this.responseMessage = 'Added Successfully.';
             this.categoryForm.reset();
             this.router.navigate(['/admin/category']);
-         // }
+          }//incase error like duplicate name in database
+          else{
+            this.categoryForm.reset();
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: "Invalid data ,please try again!",
+              footer: ''
+            })
+           }
+
         },(err)=>{
           Swal.fire({
             icon: 'error',
@@ -50,5 +62,12 @@ export class CategoryStoreComponent implements OnInit {
         console.log(this.categoryForm);
 
     }
+  }
+  added(){
+    Swal.fire(
+      'Good job!',
+      'Category Added Successfully!',
+      'success'
+    )
   }
 }

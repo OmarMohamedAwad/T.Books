@@ -29,6 +29,7 @@ reviewShcema.post('save' , async function (next) {
 })
 
 reviewShcema.pre('deleteOne',async function(next){
+    console.log("Review");
     //review-book review-user
     const Book = require('../../book/models/Book')
     //review-book review-user

@@ -11,6 +11,7 @@
 
 .book {
   position: relative;
+  outline: none;
 }
 
 .book:hover {

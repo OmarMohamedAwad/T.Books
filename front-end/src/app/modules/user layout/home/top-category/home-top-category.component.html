@@ -1,10 +1,11 @@
 <!--<app-user-loading *ngIf="!loading"></app-user-loading>-->
 <section class="top-category my-5 py-5">
-    <h2 class="text-center">The Top<span class="italic"> Category</span></h2>
-    <div class="border m-auto"></div>
-    <div class="container">
+    <h2 class="text-center">The Top<span class=""> Category</span></h2>
+    <!--<div class="border m-auto"></div>-->
+    <p class="main-title text-center">Top Categories and you can find more</p>
+    <div class="container-category">
         <div class="row mt-5 w-100">
-            <div class="col-md-4 " *ngFor="let categoryCol of topCategories; index as i">
+            <div class="col-md-4 cursor-pointer" *ngFor="let categoryCol of topCategories; index as i" routerLink="/categories">
                 <div class="card mb-3">
                     <img class="card-img-top" onerror="this.onerror=null; this.src='/assets/user/category/Health.png'" src="/assets/admin/category/{{categoryCol}}" alt="Card image cap" />
                     <div class="overlay"></div>

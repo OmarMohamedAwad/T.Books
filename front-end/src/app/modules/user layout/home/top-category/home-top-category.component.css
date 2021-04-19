@@ -2,13 +2,24 @@
     font-family: 'PT Sans', sans-serif;
 }
 
+.container-category {
+    max-width: 90%;
+    margin: auto;
+    padding: 0 20px !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 .italic {
     font-style: italic;
     font-family: 'Playfair Display';
 }
 
 h2 {
-    font-size: 48px;
+    font-size: 40px;
+    font-family: "Nunito";
 }
 
 p {
@@ -68,4 +79,11 @@ p {
 
 .bg-yellow {
     background-color: #F5BF56;
+}
+
+.main-title {
+    font-size: 13px;
+    font-family: "Nunito";
+    color: rgb(119, 119, 119);
+    margin-bottom: 0;
 }

@@ -8,6 +8,7 @@ import { RatingServiceService } from '../../../../services/rating-service.servic
 import { Router } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
 import { element } from 'protractor';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -49,6 +50,7 @@ export class BookDetComponent implements OnInit,AfterViewInit {
     private myActivatedRoute: ActivatedRoute, private router: Router) {
     this.userId = sessionStorage.getItem("userId") || ""/*"605a0532ba76f47a7793e130"*/;
   }
+
   ngAfterViewInit(): void {
     this.drawMyRating(this.ratings);
   }
@@ -74,7 +76,6 @@ export class BookDetComponent implements OnInit,AfterViewInit {
   rateSubscriber: any;
   reviewSubscriber: any;
   userSubscriber: any;
-
   ratesNum: number = 0
   avgRate: number = 0;
   ratings: any;
@@ -89,7 +90,7 @@ export class BookDetComponent implements OnInit,AfterViewInit {
     reviwer: string,
     __v: any,
     _id: string
-  }> = []
+  }> = [];
 
   ngOnInit(): void {
     this.subscriber = this.bookService.show(this.myActivatedRoute.snapshot.params.id)
@@ -147,18 +148,16 @@ export class BookDetComponent implements OnInit,AfterViewInit {
         )
       }
     }
-    else {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'You need to login first!',
         footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
-      })
+      });
     }
   }
 
   drawMyRating(ratingsArr: any) {
-    console.log(ratingsArr);
     this.stars_Arr = [this.star1, this.star2, this.star3, this.star4, this.star5];
     for (let i = 0; i < ratingsArr.length; i++) {
       if (ratingsArr[i].rater == this.userId) {
@@ -180,7 +179,6 @@ export class BookDetComponent implements OnInit,AfterViewInit {
     if (this.userId) {
       this.text = this.reviewArea.nativeElement.value;
       if (this.text.length >= 1 && this.text.length <= 300) {
-        console.log(this.book.id)
         this.reviewerId = /*sessionStorage.getItem("userId");*/ this.userId
         this.reviewSubscriber = this.reviewsService.store({ reviwer: this.reviewerId, book: this.book.id, body: this.text })
           .subscribe((response: any) => {
@@ -194,8 +192,7 @@ export class BookDetComponent implements OnInit,AfterViewInit {
               text: "Error, your review hasn't been saved !",
               footer: ''
             })
-          }
-          )
+          })
       }
     } else {
       Swal.fire({
@@ -203,52 +200,55 @@ export class BookDetComponent implements OnInit,AfterViewInit {
         title: 'Oops...',
         text: 'You need to login first!',
         footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
-      })
+      });
     }
   }
 
   changeBookStatus(type: string) {
-    this.loading = false
+    this.loading = false;
     if (this.userId) {
-      this.reviewerId = this.userId
-      this.userSubscriber = this.userService.updateUserBookList({ userId: this.reviewerId, bookId: this.book.id, type: type })
+      this.reviewerId = this.userId;
+      this.userSubscriber = this.userService.updateUserBookList({userId: this.reviewerId, bookId: this.book.id, type: type})
         .subscribe((response: any) => {
-          if (type == "1") this.bookStatus = "Want to read"
-          else if (type == "2") this.bookStatus = "Is currant read"
-          else if (type == "3") this.bookStatus = "Finished reading"
-          console.log(response)
-          this.loading = true
-          this.reloadComponent()
+            if (type == '1') {
+              this.bookStatus = 'Want to read';
+            } else if (type == '2') {
+              this.bookStatus = 'Is currant read';
+            } else if (type == '3') {
+              this.bookStatus = 'Finished reading';
+            }
+            this.loading = true;
+            this.reloadComponent();
 
-        },
+          },
           (err) => {
-            console.log(err)
+            console.log(err);
           }
-        )
+        );
     } else {
+      this.loading = true;
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'You need to login first!',
         footer: '<a routerLinkActive="active" routerLink="/login"> Go to Login</a>'
-      })
+      });
     }
   }
 
   readBookStatus(currantReader: [], wantToRead: [], finishRead: []) {
-    // this.userId = "605a0532ba76f47a7793e130"
-    const currant = currantReader.find(element => element == this.userId)
-    const want = wantToRead.find(element => element == this.userId)
-    const finish = finishRead.find(element => element == this.userId)
+    const currant = currantReader.find(element => element == this.userId);
+    const want = wantToRead.find(element => element == this.userId);
+    const finish = finishRead.find(element => element == this.userId);
 
-    if (currant) this.bookStatus = "Is currant read"
-    else if (want) this.bookStatus = "Want to read"
-    else if (finish) this.bookStatus = "Finished reading"
-    else this.bookStatus = "Add to my list"
+    if (currant) {
+      this.bookStatus = 'Is currant read';
+    } else if (want) {
+      this.bookStatus = "Want to read"
+    } else if (finish) {
+      this.bookStatus = "Finished reading"
+    } else {
+      this.bookStatus = "Add to my list"
+    }
   }
-  //   ngOnDestroy(): void {
-  // this.subscriber.unsubscribe();
-  // this.rateSubscriber.unsubscribe();
-  // this.reviewSubscriber.unsubscribe();
-  //   }
 }

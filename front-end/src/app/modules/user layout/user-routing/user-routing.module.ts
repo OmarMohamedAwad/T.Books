@@ -14,10 +14,7 @@ import { LoginRegisterComponent } from '../access/login-register.component'
 import { UserAuthGaurdGuard } from '../../../Guards/user-auth-gaurd.guard'
 import { NotFoundComponent } from '../../not-found/not-found.component';
 
-
-
 const routes:Routes = [
-
   {path:"",redirectTo:"home",pathMatch:"full"},
   {path:'aboutUs',component:AboutUsComponent},
   {path:'authors',component:UserAuthorIndexComponent},
@@ -30,7 +27,7 @@ const routes:Routes = [
   {path:'profile', canActivate:[UserAuthGaurdGuard], component:UserProfileIndexComponent},
   {path:'login', component:LoginRegisterComponent},
   {path:'users',canActivate:[UserAuthGaurdGuard],component:UserProfileIndexComponent},
-  {path:'*',component:NotFoundComponent}
+  {path:'**',component:NotFoundComponent}
 ]
 
 
