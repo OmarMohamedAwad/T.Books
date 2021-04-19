@@ -99,7 +99,6 @@ export class BookStoreComponent implements OnInit {
             footer: ''
           })
          }
-
       }, error => {
         //error to add new book to database
         Swal.fire({

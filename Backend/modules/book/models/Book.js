@@ -77,14 +77,14 @@ bookSchema.post('save', async function (next) {
 // removing book from categorie, author, rating and review 
 bookSchema.pre('remove', async function (next) {
     const users = require('../../user/models/User');
-    console.log(this);
+    const ratingModel = require('../../rating/models/Rating')
+    const reviewModel = require('../../review/models/Review')
     try {
-        removeDependencies(this, next)
         // // delete book from author collection
-        // await authorModel.updateMany({}, { $pull: { authorBooks: this._id } })
+        await authorModel.updateMany({}, { $pull: { authorBooks: this._id } })
 
         // // delete book from category collection
-        // await categoryModel.updateMany({}, { $pull: { categoryBooks: this._id } })
+        await categoryModel.updateMany({}, { $pull: { categoryBooks: this._id } })
         
         await users.updateMany({} , {$pull: {currentlyReadedBooks: this._id}})
         console.log(("removed the book from user(current read) correctly"))
@@ -95,24 +95,23 @@ bookSchema.pre('remove', async function (next) {
     }
     catch(e)
     {
-        console.log(e)
-        // next(ResponseCode.SERVER_ERROR)
+        console.log(e);
+        next(ResponseCode.SERVER_ERROR)
     }
 
 
     // delete book from rating collection and from review collection
     try {
         for (const index in this.bookReviews) {
-            //console.log(deletedAuthor.authorBooks[index])
-            await reviews.deleteOne({ _id: index._id })
+            await reviewModel.deleteOne({ _id: this.bookReviews[index] })
         }
 
         for (const index in this.bookRatings) {
-            //console.log(deletedAuthor.authorBooks[index])
-            await ratings.deleteOne({ _id: index._id })
+            await ratingModel.deleteOne({ _id: this.bookRatings[index] })
         }
     }
     catch (e) {
+        console.log(e);
         next(ResponseCode.SERVER_ERROR)
     }
 
@@ -185,11 +184,6 @@ bookSchema.pre('deleteOne', async function (next) {
             }
         }
 
-        // await reviews.deleteMany({reviewedBook: this._conditions._id})
-        // console.log(("removed the book from review correctly"))
-
-        // await ratings.deleteMany({ratedBook: this._conditions._id})
-        // console.log(("removed the book from rating correctly"))
         next()
     }
     catch (e) {

@@ -117,8 +117,9 @@ async function destroy(request, response, next) {
             status: ResponseCode.SUCCESS,
             message: ResponseMessage.DELETE_MESSAGE
         });
-    } catch (e) {
-        console.log(e);
+    }
+    catch(e)
+    {
         next(ResponseCode.SERVER_ERROR)
     }
 

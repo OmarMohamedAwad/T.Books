@@ -45,7 +45,8 @@ export class DeleteComponent implements OnInit {
           this.deleted();
           this.goToAuthorsList()
         }
-
+        this.deleted();
+        this.goToAuthorsList()
       },(err)=>{
         //erro while removing in backend
         Swal.fire({

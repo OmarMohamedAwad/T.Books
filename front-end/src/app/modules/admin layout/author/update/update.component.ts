@@ -89,7 +89,7 @@ export class UpdateComponent implements OnInit, OnChanges {
     this.author.birthDay = this.myForm.controls.dob.value;
     this.author.image = this.myForm.controls.image.value;
     //check on the data is valid or invalid
-    if (this.getDOBStatus() && this.getFNameStatus() && this.getLNameStatus() && this.getImageStatus()) {
+    // if (this.getDOBStatus() && this.getFNameStatus() && this.getLNameStatus() && this.getImageStatus()) {
       //send updated data to backend
       this.myService.updateAuthor(this.author.id, this.author)
         .subscribe((data:any) => {
@@ -103,17 +103,16 @@ export class UpdateComponent implements OnInit, OnChanges {
             footer: ''
           });
         })
-    }
-    /*else {
-      this.incorrectData = true;
-      //invalidation data for the new book
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Invalid data !',
-        footer: ''
-      });
-    }*/
+    // }else {
+    //   this.incorrectData = true;
+    //   //invalidation data for the new book
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: 'Invalid data !',
+    //     footer: ''
+    //   });
+    // }
   }
 
   updated() {

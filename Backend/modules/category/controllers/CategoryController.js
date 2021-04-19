@@ -20,23 +20,25 @@ async function paginate(req, res, next) {
 
     try{
         const { page=1,limit=8,name} = req.query;
-        console.log(page,limit,name)
+
         const category = await Category.find({categoryName: name});
         const BooksId = category[0].categoryBooks;
         let response = {};
         response.bookNumbers = BooksId.length;
         response.pagebooks = [];
-        console.log(response)
+
         for(let i = limit * (page - 1); i < limit * page; i++){
             try{
                 let x = await Book.find({_id: BooksId[i]} , {bookImage: 1})
-                response.pagebooks.push(x[0].bookImage)
+                response.pagebooks.push({
+                    id: x[0]._id,
+                    image: x[0].bookImage,
+                })
             }catch(err){
                 console.log("no Data")
             }
         }
-        console.log(response)
-        res.send(response);
+        res.json(response);
     }catch(err){
         next(err);
     }
@@ -45,7 +47,7 @@ async function paginate(req, res, next) {
 async function paginateSearch(req, res, next) {
     try{
         const { page=1,limit=8,name,bookName } = req.query;
-        console.log(page,limit,name,bookName)
+
         const category = await Category.find({categoryName: name});
         const BooksId = category[0].categoryBooks;
         let BooksIDWithName = [];
@@ -61,12 +63,10 @@ async function paginateSearch(req, res, next) {
         }
         response.bookNumbers = BooksIDWithName.length;
         response.pagebooks = [];
-        console.log(response)
         for(let i = limit * (page - 1); i < limit * page; i++){
             if(BooksIDWithName[i] != null)
             response.pagebooks.push(BooksIDWithName[i])
         }
-        console.log(response)
         res.send(response);
     }catch(err){
         next(err);
@@ -86,7 +86,6 @@ async function show(req, res, next) {
 
 async function search(req, res, next) {
     const {path} = req.params
-    console.log(path)
     try {
         const foundCategories = await Category.find({categoryName: new RegExp(path, "i")});
         res.json(foundCategories)
@@ -97,7 +96,7 @@ async function search(req, res, next) {
 
 async function store(req, res, next) {
     const categorySavingRequest = req.body
-    //console.log(categorySavingRequest);
+
     const category = new Category ({
         categoryName: categorySavingRequest.name,
         categoryImage: categorySavingRequest.image
@@ -131,11 +130,8 @@ async function update(req, res, next) {
     }
 }
 
-
 async function destroy(req, res, next) {
-    console.log(req.params.id);
     const { id } = req.params
-    console.log(id);
     try {
         await Category.deleteOne({_id: id})
         res.json({
