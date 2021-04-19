@@ -21,7 +21,6 @@ const routes:Routes = [
   {path:'admin/dashboard', canActivate:[AdminAuthGuard], component:DashboardComponent},
   {path:'admin/book', canActivate:[AdminAuthGuard],component:AdminMainBookComponent},
   {path:'admin/setting',canActivate:[AdminAuthGuard],component:SettingComponent},
-  {path:'*',component:NotFoundComponent}
 ]
 
 @NgModule({

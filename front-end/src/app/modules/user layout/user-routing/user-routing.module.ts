@@ -12,11 +12,11 @@ import { TermsComponent } from '../terms/terms.component'
 import { UserProfileIndexComponent } from '../user-profile/index/user-profile-index.component'
 import { LoginRegisterComponent } from '../access/login-register.component'
 import { UserAuthGaurdGuard } from '../../../Guards/user-auth-gaurd.guard'
+import { NotFoundComponent } from '../../not-found/not-found.component';
 
 
 
 const routes:Routes = [
-
   {path:"",redirectTo:"home",pathMatch:"full"},
   {path:'aboutUs',component:AboutUsComponent},
   {path:'authors',component:UserAuthorIndexComponent},
@@ -28,8 +28,8 @@ const routes:Routes = [
   {path:'terms', component:TermsComponent},
   {path:'profile', canActivate:[UserAuthGaurdGuard], component:UserProfileIndexComponent},
   {path:'login', component:LoginRegisterComponent},
-  {path:'users',canActivate:[UserAuthGaurdGuard],component:UserProfileIndexComponent}
-
+  {path:'users',canActivate:[UserAuthGaurdGuard],component:UserProfileIndexComponent},
+  {path:'**',component:NotFoundComponent}
 ]
 
 

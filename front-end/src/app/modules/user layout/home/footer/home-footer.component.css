@@ -40,27 +40,35 @@ footer p {
     color: #797980;
 }
 
-.mission {
+.mission,
+.Quotes {
     font-size: 18px;
     line-height: 1.7;
+}
+
+.Quotes {
+    font-size: 16px;
+    letter-spacing: 2
 }
 
 .mission i {
     font-size: 24px;
 }
 
-.social-icons i {
+.social-icons i,
+.Quotes span {
     color: #DE3241;
 }
 
 .social-icons .icon {
-    font-size: 18px;
+    font-size: 22px;
     transition: all 0.3s ease;
 }
 
 .social-icons .icon:hover {
     color: #DE3241;
     cursor: pointer;
+    font-size: 28px;
     padding-left: 8px;
 }
 
