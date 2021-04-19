@@ -38,9 +38,14 @@ export class CategoryUpdateComponent implements OnInit {
   updateCategory() {
       this.updatedCategory.name = this.categoryForm.value.name;
       this.updatedCategory.image= this.categoryForm.value.image
-      this._categoryService.categoryUpdate(this.updatedCategory.id, this.updatedCategory).subscribe((res) => {
-        this.refreshCategories.emit();
-        this.closebutton.nativeElement.click();
+      this._categoryService.categoryUpdate(this.updatedCategory.id, this.updatedCategory).subscribe((res:any) => {
+       //in case updated Successfully
+        if(res.status){
+          this.updated();
+          this.refreshCategories.emit();
+          this.closebutton.nativeElement.click();
+        }
+
       },(err)=>{
         Swal.fire({
           icon: 'error',
@@ -52,5 +57,11 @@ export class CategoryUpdateComponent implements OnInit {
   }
 
   @Output() refreshCategories:EventEmitter<Category> = new EventEmitter<Category>()
-
+  updated(){
+    Swal.fire(
+      'Good job!',
+      'Category Updated Successfully!',
+      'success'
+    )
+  }
 }
