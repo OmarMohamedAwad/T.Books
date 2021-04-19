@@ -27,7 +27,7 @@
     <div class="main authorBook" *ngFor="let authorBook of booksArr; index as i">
 
         <div class="image">
-            <img style="margin-top: 2%;" src='authorBook.image' [alt]='authorBook.name'>
+            <img style="margin-top: 2%;" src='{{authorBook.image}}' onerror="this.onerror=null; this.src='/assets/user/book/book-1.jpg'" [alt]='authorBook.name'>
         </div>
         <div class="info1">
             <p style="color: black;">{{authorBook.name}}</p>

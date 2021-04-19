@@ -88,6 +88,7 @@ export class ShowAuthorComponent implements OnInit {
       //image
       if(books[i].bookImage)
         this.bookObj.image=books[i].bookImage;
+      console.log(this.bookObj)
       this.booksArr.push(this.bookObj);
     }
   }
