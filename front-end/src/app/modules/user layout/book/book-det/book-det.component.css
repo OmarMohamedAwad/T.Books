@@ -166,6 +166,7 @@ h1 {
   display: flex !important;
   justify-content: center;
   width: 100%;
+  direction: rtl;
 }
 
 .rating>input:checked~label,
