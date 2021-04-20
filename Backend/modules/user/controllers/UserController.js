@@ -61,12 +61,12 @@ async function paginationBooks(request, response, next) {
         let res = [];
         switch (booktype) {
             case 'All':
-                arrayOfData = await getProfileData("readBooks" , userId)
-                res = await userPresenter.profilePresenter(arrayOfData , 'read' , userId)
-                arrayOfData = await getProfileData("currentlyReadedBooks" , userId)
-                res = res.concat(await userPresenter.profilePresenter(arrayOfData , 'CurrentReading' , userId))
-                arrayOfData = await getProfileData("wantToReadedBooks" , userId)
-                res = res.concat(await userPresenter.profilePresenter(arrayOfData , 'WantToRead' , userId))
+                arrayOfData = await getProfileData("readBooks", userId)
+                res = await userPresenter.profilePresenter(arrayOfData, 'read', userId)
+                arrayOfData = await getProfileData("currentlyReadedBooks", userId)
+                res = res.concat(await userPresenter.profilePresenter(arrayOfData, 'CurrentReading', userId))
+                arrayOfData = await getProfileData("wantToReadedBooks", userId)
+                res = res.concat(await userPresenter.profilePresenter(arrayOfData, 'WantToRead', userId))
                 break;
             case "Read":
                 arrayOfData = await getProfileData("readBooks", userId)
@@ -97,7 +97,7 @@ async function paginationBooks(request, response, next) {
         for (let i = (page - 1) * limit; i < page * limit && i < res.length; i++)
             responsePage.pagebooks.push(res[i])
 
-        response.send(responsePage) 
+        response.send(responsePage)
     }
     catch (err) {
     }
@@ -172,12 +172,20 @@ async function updateBookList(req, res, next) {
 
     if (type && bookId) {
         try {
-            await bookModel.updateOne({ _id: bookId }, { $pull: { currentlyReader: id,
-                wantToReadeUsers: id,
-                finishReadUsers: id} })
-            await User.updateOne({ _id: id }, { $pull: { wantToReadedBooks: bookId,
-                currentlyReadedBooks: bookId,
-                readBooks: bookId} })
+            await bookModel.updateOne({ _id: bookId }, {
+                $pull: {
+                    currentlyReader: id,
+                    wantToReadeUsers: id,
+                    finishReadUsers: id
+                }
+            })
+            await User.updateOne({ _id: id }, {
+                $pull: {
+                    wantToReadedBooks: bookId,
+                    currentlyReadedBooks: bookId,
+                    readBooks: bookId
+                }
+            })
             switch (type) {
                 case Type.WANT_TO_READ:
                     await User.updateOne({ _id: id }, { $push: { wantToReadedBooks: bookId } })
@@ -215,24 +223,24 @@ async function destroy(req, res, next) {
     }
 }
 
-async function getProfileData(typeOfArray , userId){
+async function getProfileData(typeOfArray, userId) {
     const User = require("../../user/models/User")
     var books;
-    let check = await User.find({_id: userId});
-    if(check[0][typeOfArray].length){
-        books = await User.find({_id: userId} , {typeOfArray: 1}).populate(typeOfArray).populate({ 
+    let check = await User.find({ _id: userId });
+    if (check[0][typeOfArray].length) {
+        books = await User.find({ _id: userId }, { typeOfArray: 1 }).populate(typeOfArray).populate({
             path: typeOfArray,
             populate: {
-              path: 'bookAuthor',
-              model: 'Author'
+                path: 'bookAuthor',
+                model: 'Author'
             }
-         }).populate({ 
+        }).populate({
             path: typeOfArray,
             populate: {
-              path: 'bookRatings',
-              model: 'Rating'
+                path: 'bookRatings',
+                model: 'Rating'
             }
-         })
+        })
         return books[0][typeOfArray];
     }
     else {

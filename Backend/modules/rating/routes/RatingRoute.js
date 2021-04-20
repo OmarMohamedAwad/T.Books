@@ -11,6 +11,7 @@ ratingRouter.get("/", (request, response, next)=> {
 }) 
 
 ratingRouter.get("/:id", (request, response, next)=> {
+    console.log("show")
     RatingController.show(request, response, next);   
 }) 
 
@@ -21,6 +22,7 @@ ratingRouter.post("/", (request, response, next)=> {
 
 // , checkAccessToken(Role.USER)
 ratingRouter.patch("/:bookId/:userId", (request, response, next)=> {
+    console.log("update endpoint")
     RatingController.update(request, response, next);
 })
 

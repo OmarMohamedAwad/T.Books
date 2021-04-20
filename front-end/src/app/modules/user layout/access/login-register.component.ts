@@ -192,6 +192,16 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
 
   enterWithGoogle(status:string): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    if(this.isLoggedin){
+      this.user.userName=this.socialUser.email.substr(0,this.socialUser.email.indexOf('@'));
+      console.log(this.user.userName)
+      //if(status=='login')
+    }
+    else{
+
+    }
+    //this.socialAuthService.signOut();
+    
   }
   //to logout: this.authService.signOut();
   //socialuser.photoUrl , .name, .email
