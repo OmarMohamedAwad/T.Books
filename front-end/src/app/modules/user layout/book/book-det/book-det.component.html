@@ -2,15 +2,17 @@
 <app-nav-user></app-nav-user>
 <section class="book_show">
     <div class="book_cover">
-        <img @fade src="{{book.image}}" height="280" onerror="this.onerror=null; this.src='/assets/user/book/memories.jpg'"><br>
+        <img @fade src="{{book.image}}" height="280"
+            onerror="this.onerror=null; this.src='/assets/user/book/memories.jpg'"><br>
 
         <!--        <button class="btn btn-danger w-75 mt-4">Add to favourites</button>-->
         <!-- Content here -->
         <ul class="nav nav-pills mt-2">
             <li class="nav-item dropdown m-0 w-100 btn-danger">
-                <a class="nav-link dropdown-toggle btn w-100 p-0 text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                {{bookStatus}}
-              </a>
+                <a class="nav-link dropdown-toggle btn w-100 p-0 text-white" data-toggle="dropdown" role="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{bookStatus}}
+                </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" (click)="changeBookStatus('1')">Want to read</a>
                     <a class="dropdown-item" (click)="changeBookStatus('2')">Is currently reading</a>
@@ -22,38 +24,45 @@
         <span class="font15 d-block mt-2">Rate This book</span>
         <!-- <ngb-rating style="color: rgb(250, 225, 0); font-size: x-large;" [max]="5" [readonly]="false" ></ngb-rating> -->
         <fieldset class="rating d-block text-center rating_field">
-            <input type="radio" id="star5" name="rating" value="5" #star5/><label class="full" for="star5" title="Awesome - 5 stars" (click)="setRate(5)"></label>
-            <input type="radio" id="star4" name="rating" value="4" #star4/><label class="full" for="star4" title="Excellent- 4 stars" (click)="setRate(4)"></label>
-            <input type="radio" id="star3" name="rating" value="3" #star3/><label class="full" for="star3" title="Good - 3 stars" (click)="setRate(3)"></label>
-            <input type="radio" id="star2" name="rating" value="2" #star2/><label class="full" for="star2" title="Kinda Good - 2 stars" (click)="setRate(2)"></label>
-            <input type="radio" id="star1" name="rating" value="1" #star1/><label class="full" for="star1" title="bad - 1 star" (click)="setRate(1)"></label>
+            <input type="radio" id="star5" name="rating" value="5" (click)="setRate(5)" #star5 /><label class="full"
+                for="star5" title="Awesome - 5 stars" (click)="setRate(5)"></label>
+            <input type="radio" id="star4" name="rating" value="4" (click)="setRate(4)" #star4 /><label class="full"
+                for="star4" title="Excellent- 4 stars" (click)="setRate(4)"></label>
+            <input type="radio" id="star3" name="rating" value="3" (click)="setRate(3)" #star3 /><label class="full"
+                for="star3" title="Good - 3 stars" (click)="setRate(3)"></label>
+            <input type="radio" id="star2" name="rating" value="2" (click)="setRate(2)" #star2 /><label class="full"
+                for="star2" title="Kinda Good - 2 stars" (click)="setRate(2)"></label>
+            <input type="radio" id="star1" name="rating" value="1" (click)="setRate(1)" #star1 /><label class="full"
+                for="star1" title="bad - 1 star" (click)="setRate(1)"></label>
         </fieldset>
     </div>
     <div class="container">
         <section class="details">
             <h2 class="fontPink"><span class="text-dark">Book : </span>{{book.name}}</h2>
             <div class="font20 align-self-center ">
-                <span> Written By The Author : <a class="fontPink" >
-                {{book.author.autherFirstName}} {{book.author.autherLastName}}</a></span> <br>
-                <span>In Category: <a class="fontPink" >{{book.category.categoryName}}</a></span> <br>
+                <span> Written By The Author : <a class="fontPink">
+                        {{book.author.autherFirstName}} {{book.author.autherLastName}}</a></span> <br>
+                <span>In Category: <a class="fontPink">{{book.category.categoryName}}</a></span> <br>
                 <span class="d-inline-block col-3 font17">
-                <span  >Rate: </span>
-                <ngb-rating style="color: rgb(250, 225, 0); font-size: large;" [max]="5" [(rate)]="avgRate" [readonly]="true">
-                </ngb-rating> {{avgRate}}
+                    <span>Rate: </span>
+                    <ngb-rating style="color: rgb(250, 225, 0); font-size: large;" [max]="5" [(rate)]="avgRate"
+                        [readonly]="true">
+                    </ngb-rating> {{avgRate}}
                 </span>
                 <span class="d-inline-block col-3 font17">
-                <img src="{{book.image}}"  style="width: 22px;">
-                <pre class="d-inline-block"> </pre>
-                <a class="colorBlack" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating details</a>
-            </span>
+                    <img src="{{book.image}}" style="width: 22px;">
+                    <pre class="d-inline-block"> </pre>
+                    <a class="colorBlack" data-bs-toggle="modal" data-bs-target="#ratingModal">Rating details</a>
+                </span>
                 <span class="d-inline-block col-3 font17 my-3">
-                Number of rates: {{ratesNum}}
-            </span>
+                    Number of rates: {{ratesNum}}
+                </span>
                 <span class="d-inline-block col-3 font17 mt-3">
-                Number of reviews: {{reviews.length}}
-            </span><br>
+                    Number of reviews: {{reviews.length}}
+                </span><br>
                 <span class="d-inline-block font15 my-3">
-               <p> <span class="text-danger">{{favsNum}} </span> people have added this book to there favourite books list, join them now.</p>
+                    <p> <span class="text-danger">{{favsNum}} </span> people have added this book to there favourite
+                        books list, join them now.</p>
                 </span>
             </div>
             <hr>
@@ -66,7 +75,9 @@
 
     <form action="Post">
         <img class="rev_img" [src]="user_img">
-        <textarea [value]="text" class="my_review review_body border-danger" rows="4" placeholder="Write your review about this book." required minlength="10" maxlength="300" #reviewArea></textarea>
+        <textarea [value]="text" class="my_review review_body border-danger" rows="4"
+            placeholder="Write your review about this book." required minlength="10" maxlength="300"
+            #reviewArea></textarea>
         <button type="submit" class="btn btn-danger my_review_submit" (click)="publishClicked($event)">Publish</button>
     </form>
 
