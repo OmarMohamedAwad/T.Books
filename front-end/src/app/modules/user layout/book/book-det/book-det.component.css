@@ -81,7 +81,7 @@ ngb-rating {
 .review_body {
     margin-left: 10px;
     width: 90%;
-    
+
 }
 
 ul {
@@ -163,7 +163,9 @@ h1 {
 }
 
 .rating_field {
-    margin-left: 9%;
+  display: flex !important;
+  justify-content: center;
+  width: 100%;
 }
 
 .rating>input:checked~label,
