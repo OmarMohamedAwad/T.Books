@@ -8,6 +8,7 @@ import {RatingServiceService} from '../../../../services/rating-service.service'
 import {Router} from '@angular/router';
 import {UserService} from '../../../../services/user.service';
 import {element} from 'protractor';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,7 +26,7 @@ import Swal from 'sweetalert2';
   ]
 })
 
-export class BookDetComponent implements OnInit {
+export class BookDetComponent implements OnInit, AfterViewInit {
 
   @ViewChild('star1') star1!: ElementRef<HTMLInputElement>;
   @ViewChild('star2') star2!: ElementRef<HTMLInputElement>;
@@ -50,6 +51,10 @@ export class BookDetComponent implements OnInit {
     this.userId = sessionStorage.getItem('userId') || ''/*"605a0532ba76f47a7793e130"*/;
   }
 
+  ngAfterViewInit(): void {
+    this.drawMyRating(this.ratings);
+  }
+
   book: Book =
     {
       id: '',
@@ -71,10 +76,10 @@ export class BookDetComponent implements OnInit {
   rateSubscriber: any;
   reviewSubscriber: any;
   userSubscriber: any;
-
   ratesNum: number = 0;
   avgRate: number = 0;
   ratings: any;
+  rated_before: boolean = false;
   myRating = -1;
   text: string = '';
   reviewerId: any = '';
@@ -97,7 +102,6 @@ export class BookDetComponent implements OnInit {
           this.readBookStatus(response.body.currantReader, response.body.wantToReadeUsers, response.body.finishReadUsers);
           this.favsNum = 0;
           this.avgRate = 0;
-
           this.loading = true;
           for (let i = 0; i < this.ratings.length; i++) {
             this.avgRate += this.ratings[i].rate;
@@ -105,11 +109,9 @@ export class BookDetComponent implements OnInit {
           if (this.ratesNum) {
             this.avgRate /= this.ratesNum;
           }
-
           this.drawMyRating(this.ratings);
         },
         (err) => {
-          this.loading = true;
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -121,23 +123,42 @@ export class BookDetComponent implements OnInit {
   }
 
   setRate(bookRate: any) {
+    console.log('here');
     if (this.userId) {
-      this.rateSubscriber = this.ratingService.store({
-        rate: bookRate,
-        rater: this.userId,
-        book: this.book.id
-      }).subscribe((response: any) => {
-        },
-        (err) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error, your rate hasn\'t been saved !',
-            footer: ''
-          });
-        }
-      );
-    } else {
+      if (!this.rated_before) {
+        this.rateSubscriber = this.ratingService.store({
+          rate: bookRate,
+          rater: this.userId,
+          book: this.book.id
+        }).subscribe((response: any) => {
+          },
+          (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Error, your rate hasn\'t been saved !',
+              footer: ''
+            });
+          }
+        );
+      } else {
+        this.rateSubscriber = this.ratingService.update({
+          rate: bookRate,
+          rater: this.userId,
+          book: this.book.id
+        }).subscribe((response: any) => {
+          },
+          (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Error, your rate hasn\'t been updated !',
+              footer: ''
+            });
+          }
+        );
+      }
+    }else {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -151,7 +172,9 @@ export class BookDetComponent implements OnInit {
     this.stars_Arr = [this.star1, this.star2, this.star3, this.star4, this.star5];
     for (let i = 0; i < ratingsArr.length; i++) {
       if (ratingsArr[i].rater == this.userId) {
+        this.rated_before = true;
         this.stars_Arr[ratingsArr[i].rate - 1].nativeElement.checked = true;
+        break;
       }
     }
   }
@@ -167,20 +190,20 @@ export class BookDetComponent implements OnInit {
     if (this.userId) {
       this.text = this.reviewArea.nativeElement.value;
       if (this.text.length >= 1 && this.text.length <= 300) {
-        console.log(this.book.id);
         this.reviewerId = /*sessionStorage.getItem("userId");*/ this.userId;
         this.reviewSubscriber = this.reviewsService.store({reviwer: this.reviewerId, book: this.book.id, body: this.text})
           .subscribe((response: any) => {
-              this.reloadComponent();
-            }, (err) => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Error, your review hasn\'t been saved !',
-                footer: ''
-              });
-            }
-          );
+            console.log(response);
+            // this.router.navigate([`/book/${this.myActivatedRoute.snapshot.params.id}`]);
+            this.reloadComponent();
+          }, (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Error, your review hasn\'t been saved !',
+              footer: ''
+            });
+          });
       }
     } else {
       Swal.fire({
@@ -232,12 +255,11 @@ export class BookDetComponent implements OnInit {
     if (currant) {
       this.bookStatus = 'Is currant read';
     } else if (want) {
-      this.bookStatus = "Want to read"
+      this.bookStatus = 'Want to read';
     } else if (finish) {
-      this.bookStatus = "Finished reading"
+      this.bookStatus = 'Finished reading';
     } else {
       this.bookStatus = "Add to my list"
     }
   }
-
 }
