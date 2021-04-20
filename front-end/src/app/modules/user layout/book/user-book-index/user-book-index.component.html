@@ -9,11 +9,11 @@
 <div class="book-search">
     <div class="input-group m-auto w-40">
         <div class="form-outline w-90">
-            <input type="search" class="form-control" placeholder="Search" #search_box/>
+            <input type="search" class="form-control" placeholder="Search" #search_box />
         </div>
         <button id="search-button" type="button" class="btn search-btn" (click)="captureSearchContent()">
-      <i class="fas fa-search"></i>
-    </button>
+            <i class="fas fa-search"></i>
+        </button>
     </div>
 </div>
 
@@ -26,7 +26,8 @@
                         <p class="w-75">{{book.name | slice :0:10}}.. </p>
                         <hr class="text-danger w-75 m-auto">
                     </div>
-                    <img src="{{book.image}}" onerror="this.onerror=null; this.src='/assets/user/book/book-1.jpg'" class="book-image mt-3">
+                    <img src="{{book.image}}" onerror="this.onerror=null; this.src='/assets/user/book/book-1.jpg'"
+                        class="book-image mt-3">
                     <div class="book-info">
                         <p class="mb-2 mt-4">{{book.authorName}}</p>
                         <a class="btn btn-dark" [routerLink]="book.id.toString()">View More</a>
@@ -45,12 +46,15 @@
         <div class="row">
             <nav aria-label="Page navigation example">
                 <ul class="pagination w-50">
-                    <li class="page-item" (click)="previous()"><a class=""><i class="fas fa-chevron-circle-left fa-2x"></i></a></li>
+                    <li class="page-item" (click)="previous()"><a class=""><i
+                                class="fas fa-chevron-circle-left fa-2x"></i></a></li>
 
                     <ng-container *ngFor="let page of pages; index as i">
-                        <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="">{{i+1}}</a></li>
+                        <li class="page-item" *ngIf="i<3;" (click)="navigateBetweenPages(i+1)"><a class="">{{i+1}}</a>
+                        </li>
                     </ng-container>
-                    <li class="page-item" (click)="next()"><a class=""><i class="fas fa-chevron-circle-right fa-2x"></i></a></li>
+                    <li class="page-item" (click)="next()"><a class=""><i
+                                class="fas fa-chevron-circle-right fa-2x"></i></a></li>
                 </ul>
             </nav>
         </div>
