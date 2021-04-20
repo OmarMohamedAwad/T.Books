@@ -1,6 +1,8 @@
 @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 .book_show {
-    margin: 90px 0 0 5%;
+    margin: 80px 0 0 5%;
+    display: inline-block;
+    width: 85%;
 }
 
 .desc {
@@ -14,7 +16,7 @@
 .book_cover {
     width: 15%;
     margin-top: 20px;
-    position: absolute;
+    float: left;
     text-align: center;
 }
 
@@ -67,17 +69,19 @@ ngb-rating {
 
 .my_review_submit {
     float: right;
+    margin-right: 10px;
 }
 
 .rev_img {
     border-radius: 50%;
     width: 8%;
-    position: absolute;
+    float:left;
 }
 
 .review_body {
-    margin-left: 10%;
+    margin-left: 10px;
     width: 90%;
+    
 }
 
 ul {
@@ -116,7 +120,6 @@ li p {
     cursor: pointer;
 }
 
-fieldset,
 label {
     margin: 0;
     padding: 0;
@@ -137,6 +140,8 @@ h1 {
 .rating {
     border: none;
     float: left;
+    content: "\f089";
+
 }
 
 .rating>input {
@@ -151,10 +156,6 @@ h1 {
     content: "\f005";
 }
 
-.rating {
-    content: "\f089";
-    position: absolute;
-}
 
 .rating>label {
     color: #ddd;
@@ -162,7 +163,7 @@ h1 {
 }
 
 .rating_field {
-    width: 84%;
+    margin-left: 9%;
 }
 
 .rating>input:checked~label,
