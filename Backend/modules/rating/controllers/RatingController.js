@@ -19,10 +19,11 @@ async function index(request, response,next) {
 
 async function show(req, res, next) {
 
-    const { id } = request.params
+    const { id } = req.params
     try{
-        const rating = await Rating.findById(id).populate("rater").populate("ratedBook");
-        response.json(RatingPresenter.present(rating));
+        const rating = await Rating.findById(id);
+        res.json(RatingPresenter.present(rating));
+        console.log(res);
     }catch(error){
         next(ResponseCode.SERVER_ERROR)
     }
@@ -37,7 +38,6 @@ async function store(req, res, next) {
         ratedBook: ratingSavingRequest.book
     })
     await Rating.deleteMany({ $and: [{rater: rating.rater },{ratedBook: rating.ratedBook}] });
-
     console.log("before post")
     try {
         const newRating = await rating.save()
@@ -52,14 +52,15 @@ async function store(req, res, next) {
 
 async function update(req, res, next) {
 
-    console.log(" i am update ")
+    console.log(" ff i am update ")
     const { bookId, userId } = req.params;
     const prevRating = await Rating.findOne({ $and: [{rater: userId },{ratedBook: bookId }] });
     const rating = req.body
+    console.log(prevRating)
     const newRating = {
         ...(rating.rate ? { rate: rating.rate } : {}),
     }
-    console.log(id , rating)
+    console.log(newRating);
     try{
         await Rating.findByIdAndUpdate({ _id: prevRating._id }, newRating)
         res.json({
