@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from './models/user';
 import Swal from 'sweetalert2';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { ConstantPool } from '@angular/compiler';
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
@@ -90,9 +91,8 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
     userName: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
-
-  login() {
-    this.subscriber = this.userService.login({ userName: this.loginForm.controls.userName.value, password: this.loginForm.controls.password.value })
+  loginBase(name:string,pass:string){
+    this.subscriber = this.userService.login({ userName: name, password: pass })
       .subscribe((response: any) => {
         this.userAccessToken = response.accessToken;
         this.userRefreshToken = response.refreshToken;
@@ -121,6 +121,9 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
         })
       });
   }
+  login() {
+    this.loginBase(this.loginForm.controls.userName.value,this.loginForm.controls.password.value);
+  }
 
   registerForm = new FormGroup({
     userName: new FormControl('', [Validators.required]),
@@ -133,14 +136,7 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
-
-  register() {
-    this.user.userName = this.registerForm.controls.userName.value;
-    this.user.password = this.registerForm.controls.password.value;
-    this.user.firstName = this.registerForm.controls.fName.value;
-    this.user.lastName = this.registerForm.controls.lName.value;
-    this.user.email = this.registerForm.controls.email.value;
-
+  registerBase(){
     if (!this.registerForm.invalid && this.user.password == this.registerForm.controls.confirmPassword.value) {
       this.subscriber = this.userService.register(this.user)
         .subscribe((response: any) => {
@@ -167,6 +163,14 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
         });
     }
   }
+  register() {
+    this.user.userName = this.registerForm.controls.userName.value;
+    this.user.password = this.registerForm.controls.password.value;
+    this.user.firstName = this.registerForm.controls.fName.value;
+    this.user.lastName = this.registerForm.controls.lName.value;
+    this.user.email = this.registerForm.controls.email.value;
+    this.registerBase();
+  }
 
   setSessionData(access: string, refresh: string, user: User) {
     localStorage.setItem('TOKEN', access);
@@ -185,24 +189,26 @@ export class LoginRegisterComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     document.body.className = 'app-access';
-    this.socialAuthService.authState.subscribe((user) => {
-      this.socialUser = user;
-      this.isLoggedin = (user != null);
-      console.log(this.socialUser);
-    });
   }
 
   enterWithGoogle(status:string): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    if(this.isLoggedin){
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.isLoggedin = (user != null);
       this.user.userName=this.socialUser.email.substr(0,this.socialUser.email.indexOf('@'));
-      console.log(this.user.userName)
-      //if(status=='login')
+      this.user.password=this.socialUser.id+this.user.userName;
+      this.user.email=this.socialUser.email;
+      this.user.firstName=this.socialUser.firstName;
+      this.user.lastName=this.socialUser.lastName;
+      console.log(this.socialUser);
+    });
+    if(status==='login'){
+      this.loginBase(this.user.userName,this.user.password);
     }
     else{
-
+      this.registerBase();
     }
-    //this.socialAuthService.signOut();
     
   }
   //to logout: this.authService.signOut();
