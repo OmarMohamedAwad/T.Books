@@ -18,7 +18,7 @@
 #
 
 # Deployment Link.
-[T-Book](https://omarmohamedawad.github.io/Attack-on-Titan/index.html)
+[T-Book](https://mystifying-kirch-597a8b.netlify.app)
 
 #
 
@@ -67,8 +67,6 @@ Two pages, one to show all Authors and the second one for the details for each o
 
 ## Books menu and Book details.
 Two pages, one to Two pages, one to show all Books and the second one for the details for each of them.
-
-![GitHub in an image](ReadMe-photos/book-menu.jpeg)
 
 ![GitHub in an image](ReadMe-photos/Book.png)
 ![GitHub in an image](ReadMe-photos/book-details.png)
